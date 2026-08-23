@@ -9,7 +9,7 @@
 // to paste into a chat or an issue.
 
 import { readdir, readFile } from 'node:fs/promises';
-import { extractMatches } from './extract.mjs';
+import { parseFrame } from './parse.mjs';
 
 const DIR = 'captures';
 const MAX_DEPTH = 6;
@@ -75,7 +75,7 @@ async function summarize() {
     rows.push({
       name,
       url,
-      matches: extractMatches(payload).length,
+      matches: parseFrame(payload).length,
       candidates: candidatePaths(payload).length,
       size: JSON.stringify(payload).length,
     });
@@ -84,7 +84,7 @@ async function summarize() {
   rows.sort((a, b) => b.matches - a.matches || b.candidates - a.candidates || b.size - a.size);
 
   console.log(`${rows.length} captures in ${DIR}/\n`);
-  console.log('matches  team-like  size     file              url');
+  console.log('   ops  team-like  size     file              url');
   console.log('-'.repeat(96));
   for (const r of rows.slice(0, 30)) {
     console.log(
@@ -100,7 +100,7 @@ async function summarize() {
     console.log('or in a non-JSON encoding. Inspect the largest file by hand:');
     console.log(`  node src/inspect.mjs ${rows[0].name}`);
   } else if (best.matches > 0) {
-    console.log(`Parser already works on ${best.name} (${best.matches} matches). Try: npm run watch`);
+    console.log(`Parser handles ${best.name} (${best.matches} ops). Try: npm run watch`);
   } else {
     console.log(`No matches parsed, but ${best.name} has team-like fields. Look at its shape:`);
     console.log(`  node src/inspect.mjs ${best.name}`);
