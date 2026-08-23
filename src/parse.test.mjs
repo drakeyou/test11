@@ -60,6 +60,24 @@ assert.deepEqual(parseFrame({ type: 'ka' }), []);
 assert.deepEqual(parseFrame({ type: 'data', payload: { data: { banners: [] } } }), []);
 assert.deepEqual(parseFrame(null), []);
 
+// A patch on its own names nobody, so it must not pass as a usable match.
+const orphan = new MatchStore().apply(parseFrame({
+  type: 'data',
+  payload: { data: { onUpdateSportEvent: { id: '5:abc', fixture: { score: '1:0' }, markets: [] } } },
+}));
+assert.equal(orphan.list()[0].resolved, false, 'unnamed match is flagged unresolved');
+assert.ok(matches.every((m) => m.resolved), 'every match in samples/ resolved');
+
+// Arrows compare against what was last shown, so a stale price must move them.
+const sample = matches.find((m) => m.markets.some((mk) => mk.odds.length));
+const market = sample.markets.find((mk) => mk.odds.length);
+const odd = market.odds[0];
+const stale = new Map([[`${sample.id}|${market.id}|${odd.id}`, odd.price - 0.5]]);
+const moved = renderMatches([sample], stale, { clear: false });
+assert.match(moved, /\^ /, 'a risen price renders an up arrow');
+assert.ok(!/\^ |v /.test(renderMatches([sample], new Map(), { clear: false })),
+  'an unchanged price renders no arrow');
+
 // Rendering must survive the real data, including fields the capture lacks.
 const view = renderMatches(matches, new Map(), { clear: false });
 for (const m of matches) assert.ok(view.includes(m.title), `view lists ${m.title}`);

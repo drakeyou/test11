@@ -130,9 +130,13 @@ export class MatchStore {
       const [home, away] = m.competitors ?? [];
       const map = m.live?.currentMap;
       const mapEntry = (m.live?.maps ?? []).find((x) => x.number === map);
+      // Patches arrive before the snapshot that names the teams, so a match can
+      // be known by id alone for the first few frames. Callers skip those.
+      const title = m.title ?? (home?.name && away?.name ? `${home.name} vs ${away.name}` : null);
       return {
         id: m.id,
-        title: m.title ?? (home?.name && away?.name ? `${home.name} vs ${away.name}` : m.id),
+        resolved: title !== null,
+        title: title ?? m.id,
         tournament: m.tournament ?? null,
         status: m.status ?? null,
         betStop: m.betStop === true,
