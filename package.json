@@ -1,0 +1,15 @@
+{
+  "name": "ggbet-cs-live-monitor",
+  "version": "1.0.0",
+  "description": "Live CS2 scores and odds monitor for gg.bet",
+  "type": "module",
+  "bin": { "cs-monitor": "src/monitor.mjs" },
+  "scripts": {
+    "discover": "node src/monitor.mjs --discover",
+    "watch": "node src/monitor.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.56.1"
+  },
+  "engines": { "node": ">=20" }
+}
