@@ -1,0 +1,12 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "freebets": []
+      }
+    },
+    "id": "14",
+    "type": "data"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "dbe576ca-3605-4b74-a036-0c4e3b94374c",
+              "overview": {
+                "currentMap": 1,
+                "currentRound": 10,
+                "bomb": {
+                  "isPlanted": false,
+                  "time": 0,
+                  "__typename": "CSGOBomb"
+                },
+                "timer": {
+                  "isActive": false,
+                  "time": 115000,
+                  "__typename": "Timer"
+                },
+                "teams": {
+                  "home": {
+                    "currentSide": "UNKNOWN",
+                    "score": 0,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "away": {
+                    "currentSide": "UNKNOWN",
+                    "score": 0,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "__typename": "CSGOOverviewTeams"
+                },
+                "maps": [
+                  {
+                    "number": 1,
+                    "map": "DE_ANCIENT",
+                    "home": {
+                      "score": 9,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "away": {
+                      "score": 0,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "winner": "UNKNOWN",
+                    "__typename": "CSGOOverviewMap"
+                  }
+                ],
+                "mapName": "DE_ANCIENT",
+                "bestOf": 1,
+                "gameState": "freeze_time",
+                "pause": false,
+                "matchFormat": "MR12_OT3",
+                "__typename": "CSGOOverview"
+              },
+              "checksum": "718490057997104927",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "1",
+    "type": "data"
+  }
+}

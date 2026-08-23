@@ -1,0 +1,18 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "categorizerSportList": [
+          {
+            "value": "esports_rainbow_six",
+            "name": "Rainbow Six",
+            "__typename": "CategorizerItem"
+          }
+        ]
+      }
+    },
+    "id": "19",
+    "type": "data"
+  }
+}

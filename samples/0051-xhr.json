@@ -1,0 +1,111 @@
+{
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "banners": [
+          {
+            "id": "banner:welcome-bonus-2025-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/betting-welcome-bonus",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:325104e5e5996eeeedbc0cfa9c8b0803b35059c803",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:bigthree-tournament-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/tournaments/big-three-tournament",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:2f73e65a2c166e23189d0bc907cec6283c091566b2",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:football-newcastle-liverpool-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:93f204b030cc29b0d73c04d183d40df0f1917bf787",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:esportswcplayoff-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:b213e9d1770239ab6a8700e345af366cdbae214f81",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:ti-main-event-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:2c225293f703b09a36c9bc2a511a1ed013c531444d",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:baseball-mlb-p2-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:e60b9ad2b3c6f8f4efbba2b93adcec1d2ae65ccbd9",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:bettingpromololp2-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:4b119a151836e9bad33d86b6cb124108fa9d31ac17",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:wnba-promo-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:e304ec3bd30497dea2df7538414b58a88e519603f8",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:cybersport-tournament-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/tournaments/royal-esports-tournament-august-26",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:7d424f8ff87573f4a6e04800515138c03185c912a0",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:application-banner-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/app#android",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:f64be8f7767d68acf890660d40da2801d31dca0322",
+            "__typename": "DecodedBannerImpl"
+          }
+        ]
+      }
+    }
+  ]
+}

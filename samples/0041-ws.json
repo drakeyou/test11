@@ -1,0 +1,84 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onCalculateBetUpdate": {
+          "calculatedBet": {
+            "type": "EXPRESS",
+            "totalOddsValue": "4.20",
+            "baseOddsValue": "3.82",
+            "odds": [
+              {
+                "ratio": "1.51",
+                "oddId": "3",
+                "marketId": "20",
+                "matchId": "5:4dc1d12a-ba22-4b17-9b4d-0072aeb9faf1",
+                "odd": {
+                  "id": "3",
+                  "name": "Пари Сен-Жермен",
+                  "value": "1.51",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:1644"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              },
+              {
+                "ratio": "1.34",
+                "oddId": "3",
+                "marketId": "20",
+                "matchId": "5:00ebb1ad-7010-432a-8616-9c014f01f90f",
+                "odd": {
+                  "id": "3",
+                  "name": "Барселона",
+                  "value": "1.34",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:2817"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              },
+              {
+                "ratio": "1.89",
+                "oddId": "3",
+                "marketId": "20",
+                "matchId": "5:124d9cd3-40ce-4f3a-ab02-d084ecc572c5",
+                "odd": {
+                  "id": "3",
+                  "name": "Милан",
+                  "value": "1.89",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:2692"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              }
+            ],
+            "betBuilderOdds": [],
+            "__typename": "CalculatedBet"
+          },
+          "restrictions": [
+            {
+              "type": "max_bet",
+              "maxBet": 132540.102,
+              "__typename": "MaxBetRestriction"
+            }
+          ],
+          "__typename": "CalculatedBetResult"
+        }
+      }
+    },
+    "id": "16",
+    "type": "data"
+  }
+}

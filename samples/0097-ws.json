@@ -1,0 +1,37 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onCalculateBetUpdate": {
+          "calculatedBet": {
+            "type": "",
+            "totalOddsValue": "",
+            "baseOddsValue": "",
+            "odds": [],
+            "betBuilderOdds": null,
+            "__typename": "CalculatedBet"
+          },
+          "restrictions": [
+            {
+              "type": "max_bet",
+              "maxBet": 330031.655625,
+              "__typename": "MaxBetRestriction"
+            },
+            {
+              "type": "selection_value",
+              "sportEventId": "5:124d9cd3-40ce-4f3a-ab02-d084ecc572c5",
+              "marketId": "20",
+              "oddId": "3",
+              "value": 1.89,
+              "__typename": "SelectionValueRestriction"
+            }
+          ],
+          "__typename": "CalculatedBetResult"
+        }
+      }
+    },
+    "id": "16",
+    "type": "data"
+  }
+}

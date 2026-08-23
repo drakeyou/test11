@@ -1,0 +1,480 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "bannerZones": [
+          {
+            "id": "mix-right-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "right",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-popular_sport_events-desktop-1",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "popular_sport_events",
+              "platform": "desktop",
+              "index": 1,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-favorites_sport_events-desktop-2",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "favorites_sport_events",
+              "platform": "desktop",
+              "index": 2,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-top_slider-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top_slider",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "interval",
+                "value": "15000",
+                "__typename": "Pair"
+              },
+              {
+                "name": "maxCount",
+                "value": "25",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-top_outrights_slider-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top_outrights_slider",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "interval",
+                "value": "10000",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-popular_sport_events-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "popular_sport_events",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-favorites_sport_events-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "favorites_sport_events",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-right_top_sport_events-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "right_top_sport_events",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-overview-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "overview",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "40",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-top_sport_events-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top_sport_events",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-top_promo_tournament_slider-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top_promo_tournament_slider",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "backgroundColor",
+                "value": "#000000",
+                "__typename": "Pair"
+              },
+              {
+                "name": "interval",
+                "value": "5000",
+                "__typename": "Pair"
+              },
+              {
+                "name": "maxCount",
+                "value": "21",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "sportId",
+                "value": "football",
+                "__typename": "Pair"
+              },
+              {
+                "name": "maxCount",
+                "value": "30",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-1",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 1,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "volleyball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-2",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 2,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "sportId",
+                "value": "ice_hockey",
+                "__typename": "Pair"
+              },
+              {
+                "name": "maxCount",
+                "value": "5",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-3",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 3,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "basketball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-4",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 4,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "20",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "tennis",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-5",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 5,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "handball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-6",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 6,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "mma",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-7",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 7,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "boxing",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-linked_sport-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "linked_sport",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "50",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-8",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 8,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "40",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "esports_dota_2",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-pinned_sport_event_by_sport-desktop-10",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "pinned_sport_event_by_sport",
+              "platform": "desktop",
+              "index": 10,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "50",
+                "__typename": "Pair"
+              },
+              {
+                "name": "sportId",
+                "value": "olympic_games_2024",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-top-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "1000",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          },
+          {
+            "id": "mix-bottom-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "bottom",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "maxCount",
+                "value": "25",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          }
+        ]
+      }
+    },
+    "id": "4",
+    "type": "data"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "c97d03cf-b4d8-471e-bb14-4316ac69708d",
+              "overview": {
+                "currentMap": 2,
+                "currentRound": 17,
+                "bomb": {
+                  "isPlanted": false,
+                  "time": 0,
+                  "__typename": "CSGOBomb"
+                },
+                "timer": {
+                  "isActive": false,
+                  "time": 115000,
+                  "__typename": "Timer"
+                },
+                "teams": {
+                  "home": {
+                    "currentSide": "T",
+                    "score": 1,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "away": {
+                    "currentSide": "CT",
+                    "score": 0,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "__typename": "CSGOOverviewTeams"
+                },
+                "maps": [
+                  {
+                    "number": 1,
+                    "map": "DE_MIRAGE",
+                    "home": {
+                      "score": 13,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "away": {
+                      "score": 5,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "winner": "HOME",
+                    "__typename": "CSGOOverviewMap"
+                  },
+                  {
+                    "number": 2,
+                    "map": "DE_NUKE",
+                    "home": {
+                      "score": 6,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "away": {
+                      "score": 10,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "winner": "UNKNOWN",
+                    "__typename": "CSGOOverviewMap"
+                  }
+                ],
+                "mapName": "DE_NUKE",
+                "bestOf": 3,
+                "gameState": "live_time",
+                "pause": false,
+                "matchFormat": "MR12_OT3",
+                "__typename": "CSGOOverview"
+              },
+              "checksum": "2253928110137579864",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "2",
+    "type": "data"
+  }
+}

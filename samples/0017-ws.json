@@ -1,0 +1,648 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "matches": {
+          "count": 3,
+          "sportEvents": [
+            {
+              "id": "5:dbe576ca-3605-4b74-a036-0c4e3b94374c",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "1win-vs-locura-gatos-23-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "current_map_name",
+                  "value": "de_ancient",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game_state",
+                  "value": "map",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "{\"1\":\"de_ancient\"}",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "match_format",
+                  "value": "r13_o3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "dbe576ca-3605-4b74-a036-0c4e3b94374c",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "round",
+                  "value": "9",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_away",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_home",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "state_number",
+                  "value": "1",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "1WIN vs Locura Gatos",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-23T18:33:27+00:00",
+                "sportId": "esports_counter_strike",
+                "sport": {
+                  "id": "esports_counter_strike",
+                  "name": "Counter-Strike",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "counter-strike",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:380ce339-5945-42ac-9b71-b0e33023f1d1",
+                  "name": "Intel Extreme Masters Beijing 2026: Global Open Qualifier",
+                  "logo": "cdn.gin.bet/tournaments/6a897f180c156787773185.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-22T21:00:34+00:00",
+                  "dateEnd": "2026-08-24T21:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "intel-extreme-masters-beijing-2026-global-open-qualifier",
+                  "sportId": "esports_counter_strike",
+                  "masterId": "gin:380ce339-5945-42ac-9b71-b0e33023f1d1",
+                  "countryCode": "WW-EUR",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gt:46320",
+                    "name": "1WIN",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/t4632066c83a7b502b8743415634.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "8",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:29d6698c-4cc6-4a32-a2f0-ec8e15c9ca40",
+                    "name": "Locura Gatos",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/Counter-Strike684c44e38f922648274199686df401b13ba66610466769cf48d6e66217152135986a154036c547d050578690.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "0",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "TEAMS_STATISTICS",
+                "GAMES_STATISTICS"
+              ],
+              "version": "117a5295-c500-4413-8a55-592d3a04aa1a",
+              "betBuilderFeature": {
+                "enabled": true,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "1WIN",
+                      "value": "1.00",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:46320"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Locura Gatos",
+                      "value": "14.00",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:29d6698c-4cc6-4a32-a2f0-ec8e15c9ca40"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:c97d03cf-b4d8-471e-bb14-4316ac69708d",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "just-players-vs-ex-zero-tenacity-23-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "current_map_name",
+                  "value": "de_nuke",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game_state",
+                  "value": "map",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "{\"1\":\"de_mirage\",\"2\":\"de_nuke\"}",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "match_format",
+                  "value": "r13_o3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "c97d03cf-b4d8-471e-bb14-4316ac69708d",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "round",
+                  "value": "17",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_away",
+                  "value": "ct",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_home",
+                  "value": "t",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "state_number",
+                  "value": "2",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "97000",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "1:0",
+                "title": "Just Players vs ex-Zero Tenacity",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-23T17:18:26+00:00",
+                "sportId": "esports_counter_strike",
+                "sport": {
+                  "id": "esports_counter_strike",
+                  "name": "Counter-Strike",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "counter-strike",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:f89fb919-5a86-41f8-a4a8-b703fea8a31e",
+                  "name": "CCT Europe 2026 Series 7",
+                  "logo": "cdn.gin.bet/tournaments/6a8368858d9a9556107760.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-17T21:00:05+00:00",
+                  "dateEnd": "2026-08-30T21:00:05+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "cct-europe-2026-series-7",
+                  "sportId": "esports_counter_strike",
+                  "masterId": "gin:f89fb919-5a86-41f8-a4a8-b703fea8a31e",
+                  "countryCode": "WW-EUR",
+                  "description": "",
+                  "prizePool": "25,000 USD",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:47f78906-5cb0-463d-b101-c0f52740c548",
+                    "name": "Just Players",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/43px-Just_Players_lightmode69e877056b792351994506.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "13",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "6",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:fac0e394-f9cf-42c7-9325-6879abde6941",
+                    "name": "ex-Zero Tenacity",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/Counter-Strike684c44e38f922648274199686df401b13ba666104667693a719c817ed640922800.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "5",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "10",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "TEAMS_STATISTICS",
+                "SCOREBOARD",
+                "PITCH_TRACKER",
+                "STREAM"
+              ],
+              "version": "8be58d7e-1063-4f18-9b4d-f70c01394631",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Just Players",
+                      "value": "1.56",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:47f78906-5cb0-463d-b101-c0f52740c548"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "ex-Zero Tenacity",
+                      "value": "2.29",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:fac0e394-f9cf-42c7-9325-6879abde6941"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:51eaad7d-a45a-4dc3-898c-96ae03c5cd95",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "evil-ghost-vs-whitethunder-23-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "current_map_name",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game_state",
+                  "value": "map",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "{\"1\":\"unknown\",\"2\":\"unknown\"}",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "match_format",
+                  "value": "r13_o3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "51eaad7d-a45a-4dc3-898c-96ae03c5cd95",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "round",
+                  "value": "25",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "state_number",
+                  "value": "2",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "1:0",
+                "title": "Evil Ghost vs WhiteThunder",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-23T16:55:01+00:00",
+                "sportId": "esports_counter_strike",
+                "sport": {
+                  "id": "esports_counter_strike",
+                  "name": "Counter-Strike",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "counter-strike",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:be5147a4-a2af-4962-b3b2-2c3afd404db4",
+                  "name": "Ultras League",
+                  "logo": "cdn.gin.bet/tournaments/e48886074296d9a3cf732326411.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2021-02-14T22:00:00+00:00",
+                  "dateEnd": "2026-08-24T13:35:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "ultras-league",
+                  "sportId": "esports_counter_strike",
+                  "masterId": "gin:be5147a4-a2af-4962-b3b2-2c3afd404db4",
+                  "countryCode": "WW-CIS",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:66bee592-aafb-4082-a52f-0ce1b54c5f83",
+                    "name": "Evil Ghost",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/2a4abafa5d3e411701d6ca2f29c8787062e272d6c4640399661244.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "13",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "11",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:c13374d4-62cf-4b2e-bd47-092b958c9ca9",
+                    "name": "WhiteThunder",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "4",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "13",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "H2H_STATISTICS",
+                "TEAMS_STATISTICS",
+                "GAMES_STATISTICS"
+              ],
+              "version": "18aaa0fd-8282-4626-9cf8-f250a0d90a7f",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "lsports_1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Evil Ghost",
+                      "value": "1.44",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:66bee592-aafb-4082-a52f-0ce1b54c5f83"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "WhiteThunder",
+                      "value": "2.59",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:c13374d4-62cf-4b2e-bd47-092b958c9ca9"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            }
+          ],
+          "__typename": "SportEventList"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

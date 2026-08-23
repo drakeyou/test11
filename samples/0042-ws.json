@@ -1,0 +1,66 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onCalculateBetUpdate": {
+          "calculatedBet": {
+            "type": "EXPRESS",
+            "totalOddsValue": "2.56",
+            "baseOddsValue": "2.33",
+            "odds": [
+              {
+                "ratio": "1.61",
+                "oddId": "1",
+                "marketId": "1",
+                "matchId": "5:7b56be60-8b4e-4f51-88c0-84212a25956d",
+                "odd": {
+                  "id": "1",
+                  "name": "Кори Гауфф",
+                  "value": "1.61",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:73617ffa-ff0d-442d-a906-870429e3bd2a"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              },
+              {
+                "ratio": "1.45",
+                "oddId": "1",
+                "marketId": "1",
+                "matchId": "5:3d940145-3dce-4511-abe1-1c269ac83116",
+                "odd": {
+                  "id": "1",
+                  "name": "Артур Филс",
+                  "value": "1.45",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:c4506988-ab2a-4018-a78a-111ec3881b7f"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              }
+            ],
+            "betBuilderOdds": [],
+            "__typename": "CalculatedBet"
+          },
+          "restrictions": [
+            {
+              "type": "max_bet",
+              "maxBet": 89330.825875,
+              "__typename": "MaxBetRestriction"
+            }
+          ],
+          "__typename": "CalculatedBetResult"
+        }
+      }
+    },
+    "id": "17",
+    "type": "data"
+  }
+}

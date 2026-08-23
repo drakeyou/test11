@@ -1,0 +1,12 @@
+{
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "geoIpLocation": {
+        "countryIsoCode": "se",
+        "cityName": "Stockholm",
+        "__typename": "GeoIpLocationType"
+      }
+    }
+  }
+}

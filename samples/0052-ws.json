@@ -1,0 +1,190 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:c97d03cf-b4d8-471e-bb14-4316ac69708d",
+          "slug": "just-players-vs-ex-zero-tenacity-23-08",
+          "disabled": false,
+          "version": "e6e6ba50-755c-4885-b186-a1fc8a14d799",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "H2H_STATISTICS",
+            "TEAMS_STATISTICS",
+            "SCOREBOARD",
+            "PITCH_TRACKER",
+            "STREAM"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Just Players",
+                  "value": "1.56",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:47f78906-5cb0-463d-b101-c0f52740c548"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "ex-Zero Tenacity",
+                  "value": "2.29",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:fac0e394-f9cf-42c7-9325-6879abde6941"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "current_map_name",
+              "value": "de_nuke",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game_state",
+              "value": "map",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "{\"1\":\"de_mirage\",\"2\":\"de_nuke\"}",
+              "__typename": "Pair"
+            },
+            {
+              "name": "match_format",
+              "value": "r13_o3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "c97d03cf-b4d8-471e-bb14-4316ac69708d",
+              "__typename": "Pair"
+            },
+            {
+              "name": "round",
+              "value": "17",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_away",
+              "value": "ct",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_home",
+              "value": "t",
+              "__typename": "Pair"
+            },
+            {
+              "name": "state_number",
+              "value": "2",
+              "__typename": "Pair"
+            },
+            {
+              "name": "time",
+              "value": "97000",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "1:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gin:47f78906-5cb0-463d-b101-c0f52740c548",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "13",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "1",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "6",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:fac0e394-f9cf-42c7-9325-6879abde6941",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "5",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "10",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "7",
+    "type": "data"
+  }
+}

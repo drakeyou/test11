@@ -1,0 +1,84 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onCalculateBetUpdate": {
+          "calculatedBet": {
+            "type": "EXPRESS",
+            "totalOddsValue": "2.61",
+            "baseOddsValue": "2.38",
+            "odds": [
+              {
+                "ratio": "1.17",
+                "oddId": "2",
+                "marketId": "252",
+                "matchId": "5:92725d34-d018-4f73-9c6d-b28d33aa73a1",
+                "odd": {
+                  "id": "2",
+                  "name": "Las Vegas Aces W",
+                  "value": "1.17",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:3188553f-7753-4271-ae35-1445d7bb9f60"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              },
+              {
+                "ratio": "1.59",
+                "oddId": "2",
+                "marketId": "252",
+                "matchId": "5:110eef6b-1ab6-4115-9fed-3f7a46d8036d",
+                "odd": {
+                  "id": "2",
+                  "name": "Washington Mystics W",
+                  "value": "1.59",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:736fe5ed-68c5-4908-aa68-7c186a81d132"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              },
+              {
+                "ratio": "1.28",
+                "oddId": "1",
+                "marketId": "252",
+                "matchId": "5:b7da20aa-7057-494c-ae11-39b901d15f11",
+                "odd": {
+                  "id": "1",
+                  "name": "Dallas Wings W",
+                  "value": "1.28",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:ce2f829c-7fa3-4c69-a9bc-7b13d94b731d"
+                  ],
+                  "__typename": "Odd"
+                },
+                "__typename": "SimpleBetOdd"
+              }
+            ],
+            "betBuilderOdds": [],
+            "__typename": "CalculatedBet"
+          },
+          "restrictions": [
+            {
+              "type": "max_bet",
+              "maxBet": 18085.581625,
+              "__typename": "MaxBetRestriction"
+            }
+          ],
+          "__typename": "CalculatedBetResult"
+        }
+      }
+    },
+    "id": "18",
+    "type": "data"
+  }
+}

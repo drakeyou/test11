@@ -1,0 +1,1612 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "preGeneratedBetsByFilters": {
+          "preGeneratedBets": [
+            {
+              "id": "57f42ab88dedbaa11b5ad1d57d2200a0da5a7b82",
+              "odds": [
+                {
+                  "sportEvent": {
+                    "id": "5:4dc1d12a-ba22-4b17-9b4d-0072aeb9faf1",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "stade-rennes-vs-paris-saint-germain-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "4dc1d12a-ba22-4b17-9b4d-0072aeb9faf1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period",
+                        "value": "period_1st_half",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period_number",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "105425",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "timer_running",
+                        "value": "1",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Ренн vs Пари Сен-Жермен",
+                      "status": "LIVE",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T18:45:00+00:00",
+                      "sportId": "football",
+                      "sport": {
+                        "id": "football",
+                        "name": "Футбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "soccer",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:e515938a-f5f6-4baa-ab47-5edd55302635",
+                        "name": "Франция. Лига 1",
+                        "masterId": "gin:e515938a-f5f6-4baa-ab47-5edd55302635",
+                        "countryCode": "FR",
+                        "logo": "cdn.gin.bet/tournaments/6a887b83958f2624337965.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2025-08-08T21:00:00+00:00",
+                        "dateEnd": "2026-08-31T18:45:00+00:00",
+                        "isLocalizationOverridden": false,
+                        "slug": "france-ligue-1",
+                        "sportId": "football",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "betting:1:sr:competitor:1644",
+                          "name": "Пари Сен-Жермен",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/EskJufg5-A7UDDuOO6798ac2d694d0711276002.png",
+                          "templatePosition": 2,
+                          "slug": "football_paris-saint-germain",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "betting:1:sr:competitor:1658",
+                          "name": "Ренн",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/Stade_Rennais_FCsvg6a1d6d69cd715402914489.png",
+                          "templatePosition": 1,
+                          "slug": "football_stade-rennes",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS"
+                    ],
+                    "version": "6748ad30-f047-4964-8184-9a5879aef91c",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "20",
+                    "name": "1x2",
+                    "status": "ACTIVE",
+                    "typeId": 20,
+                    "priority": 1,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "parser-genius",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "3",
+                    "name": "Пари Сен-Жермен",
+                    "value": "1.51",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "betting:1:sr:competitor:1644"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                },
+                {
+                  "sportEvent": {
+                    "id": "5:00ebb1ad-7010-432a-8616-9c014f01f90f",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "elche-cf-vs-fc-barcelona-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "00ebb1ad-7010-432a-8616-9c014f01f90f",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period",
+                        "value": "period_1st_half",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period_number",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "0",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Эльче vs Барселона",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T19:30:00+00:00",
+                      "sportId": "football",
+                      "sport": {
+                        "id": "football",
+                        "name": "Футбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "soccer",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:5ae85baa-4abd-4505-a812-f75c112708e2",
+                        "name": "Испания. Примера",
+                        "masterId": "gin:5ae85baa-4abd-4505-a812-f75c112708e2",
+                        "countryCode": "ES",
+                        "logo": "cdn.gin.bet/tournaments/8tslw3T1-baecXIX8[1]64d79cbac478c374826826.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2025-08-16T21:00:00+00:00",
+                        "dateEnd": "2026-09-01T17:30:00+00:00",
+                        "isLocalizationOverridden": false,
+                        "slug": "spain-laliga",
+                        "sportId": "football",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "betting:1:sr:competitor:2817",
+                          "name": "Барселона",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/Barcelona68cd18016d0cd886720408.png",
+                          "templatePosition": 2,
+                          "slug": "football_fc-barcelona",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "betting:1:sr:competitor:2846",
+                          "name": "Эльче",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/UcRA5fil-YmCZKGcR6798ad2aa1026307932067.png",
+                          "templatePosition": 1,
+                          "slug": "football_elche-cf",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "H2H_STATISTICS",
+                      "GAMES_STATISTICS"
+                    ],
+                    "version": "4c1c5de0-5e9c-4316-8ac5-f86daa0ff2af",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "20",
+                    "name": "1x2",
+                    "status": "ACTIVE",
+                    "typeId": 20,
+                    "priority": 1,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "3",
+                    "name": "Барселона",
+                    "value": "1.34",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "betting:1:sr:competitor:2817"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                },
+                {
+                  "sportEvent": {
+                    "id": "5:124d9cd3-40ce-4f3a-ab02-d084ecc572c5",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "torino-vs-ac-milan-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "124d9cd3-40ce-4f3a-ab02-d084ecc572c5",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period",
+                        "value": "period_1st_half",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "period_number",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "36000",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "timer_running",
+                        "value": "1",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Торино vs Милан",
+                      "status": "LIVE",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T18:45:00+00:00",
+                      "sportId": "football",
+                      "sport": {
+                        "id": "football",
+                        "name": "Футбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "soccer",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:94ba7af0-7867-43c5-983e-124ba334ccf2",
+                        "name": "Italy. Serie A",
+                        "masterId": "gin:94ba7af0-7867-43c5-983e-124ba334ccf2",
+                        "countryCode": "IT",
+                        "logo": "cdn.gin.bet/tournaments/IeQvbykd-n5unHtDn67373009532b2361811204.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2025-08-23T21:00:00+00:00",
+                        "dateEnd": "2026-09-01T18:45:00+00:00",
+                        "isLocalizationOverridden": true,
+                        "slug": "italy-serie-a",
+                        "sportId": "football",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "betting:1:sr:competitor:2692",
+                          "name": "Милан",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/htYjIjFa-fL3dmxxd6798ac751d31c746376203.png",
+                          "templatePosition": 2,
+                          "slug": "football_ac-milan",
+                          "score": [
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "betting:1:sr:competitor:64147",
+                          "name": "Торино",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/OQWGjGcM-0lwy4Ij168a71a8babe1c247314796.png",
+                          "templatePosition": 1,
+                          "slug": "football_fc-torino",
+                          "score": [
+                            {
+                              "id": "yellow_card",
+                              "type": "yellow_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "period_1st_half",
+                              "type": "period_1st_half",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "yellow_red_card",
+                              "type": "yellow_red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "red_card",
+                              "type": "red_card",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS",
+                      "GENIUS"
+                    ],
+                    "version": "e84f0b6b-132c-40c5-a3f7-22c2f8c3bfcb",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "20",
+                    "name": "1x2",
+                    "status": "ACTIVE",
+                    "typeId": 20,
+                    "priority": 1,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "3",
+                    "name": "Милан",
+                    "value": "1.89",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "betting:1:sr:competitor:2692"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                }
+              ],
+              "betBuilderOdds": null,
+              "providerId": "manual",
+              "calculatedBet": {
+                "boost": {
+                  "boost": {
+                    "id": "d8kogvac3cuc73cjhrrg",
+                    "version": "d8kor6ac3cuc73cjhs30",
+                    "__typename": "BetBoost"
+                  },
+                  "__typename": "CalculatedBetBoost"
+                },
+                "__typename": "PreGeneratedBetCalculatedBet"
+              },
+              "oddsValueComposite": {
+                "totalOddsValue": "4.20",
+                "baseOddsValue": "3.82",
+                "__typename": "PreGeneratedBetOddsValueComposite"
+              },
+              "__typename": "PreGeneratedBet"
+            },
+            {
+              "id": "f0d2b1092837cc58b48592c2bc30c31110eaa623",
+              "odds": [
+                {
+                  "sportEvent": {
+                    "id": "5:7b56be60-8b4e-4f51-88c0-84212a25956d",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "cori-gauff-vs-jessica-pegula-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "3",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "game",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "7b56be60-8b4e-4f51-88c0-84212a25956d",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "server",
+                        "value": "unknown",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "set",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "set_state",
+                        "value": "common",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Кори Гауфф vs Джессика Пегула",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T23:00:00+00:00",
+                      "sportId": "tennis",
+                      "sport": {
+                        "id": "tennis",
+                        "name": "Теннис",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "tennis",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:605905e7-8f1a-4855-9795-e5de07999412",
+                        "name": "WTA Цинциннати. Одиночный разряд",
+                        "masterId": "gin:605905e7-8f1a-4855-9795-e5de07999412",
+                        "countryCode": "US",
+                        "logo": "cdn.gin.bet/tournaments/6a8179a4781e4481211323.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2024-08-16T15:10:00+00:00",
+                        "dateEnd": "2026-08-24T23:00:00+00:00",
+                        "isLocalizationOverridden": false,
+                        "slug": "wta-cincinnati-singles",
+                        "sportId": "tennis",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "gin:73617ffa-ff0d-442d-a906-870429e3bd2a",
+                          "name": "Кори Гауфф",
+                          "type": "PERSON",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/c2e8a236bd4d765156da5579b0294e23bbfa38137b0aa1056fe945dbfd2fac0f6a01be1bb5ad8839247157.png",
+                          "templatePosition": 1,
+                          "slug": "tennis_coco-gauff",
+                          "score": [
+                            {
+                              "id": "set:0",
+                              "type": "set",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "game_points",
+                              "type": "game_points",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "gin:f1534e71-d08f-4965-9700-76287a4addce",
+                          "name": "Джессика Пегула",
+                          "type": "PERSON",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/a0a95549b94a6068c06643a1847e125ba349ae149b0ab14724b1a1088d2d6c446a01be1c27faa320876690.png",
+                          "templatePosition": 2,
+                          "slug": "tennis_jessica-pecula",
+                          "score": [
+                            {
+                              "id": "set:0",
+                              "type": "set",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "game_points",
+                              "type": "game_points",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS"
+                    ],
+                    "version": "df7fa853-01b9-49b5-aa42-63348a0561ad",
+                    "betBuilderFeature": {
+                      "enabled": false,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "1",
+                    "name": "Победитель",
+                    "status": "ACTIVE",
+                    "typeId": 1,
+                    "priority": 1,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "fonbet",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "tech_win_team",
+                        "value": "unknown",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "1",
+                    "name": "Кори Гауфф",
+                    "value": "1.61",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "gin:73617ffa-ff0d-442d-a906-870429e3bd2a"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                },
+                {
+                  "sportEvent": {
+                    "id": "5:3d940145-3dce-4511-abe1-1c269ac83116",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "arthur-fils-vs-frances-tiafoe-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "3",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "game",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "3d940145-3dce-4511-abe1-1c269ac83116",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "server",
+                        "value": "unknown",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "set",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "set_state",
+                        "value": "common",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Артур Филс vs Тиафо, Фрэнсис",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T20:30:20+00:00",
+                      "sportId": "tennis",
+                      "sport": {
+                        "id": "tennis",
+                        "name": "Теннис",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "tennis",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:0365d206-367b-459f-88ec-b788af6b5881",
+                        "name": "ATP Цинциннати. Одиночный разряд",
+                        "masterId": "gin:0365d206-367b-459f-88ec-b788af6b5881",
+                        "countryCode": "US",
+                        "logo": "cdn.gin.bet/tournaments/ATP_10005d4e964615dce450722820.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2024-08-16T15:10:00+00:00",
+                        "dateEnd": "2026-08-24T20:30:20+00:00",
+                        "isLocalizationOverridden": false,
+                        "slug": "atp-cincinnati-singles",
+                        "sportId": "tennis",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "betting:1:sr:competitor:101101",
+                          "name": "Тиафо, Фрэнсис",
+                          "type": "PERSON",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/b1cb19791a11efce97250397a4852c6fc35ad8defb277e5f7266c7cda9615f536a01bab4a81c0832629295.png",
+                          "templatePosition": 2,
+                          "slug": "tennis_frances-tiafoe",
+                          "score": [
+                            {
+                              "id": "set:0",
+                              "type": "set",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "game_points",
+                              "type": "game_points",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "gin:c4506988-ab2a-4018-a78a-111ec3881b7f",
+                          "name": "Артур Филс",
+                          "type": "PERSON",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/29cbe364eee9663242d46baf49300c8b63bdf8e0c2bc1b53c872581e29ce8d556a01bab934c06762369418.png",
+                          "templatePosition": 1,
+                          "slug": "tennis_arthur-fils",
+                          "score": [
+                            {
+                              "id": "set:0",
+                              "type": "set",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "game_points",
+                              "type": "game_points",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS"
+                    ],
+                    "version": "ded14927-329e-42ab-b178-0a2a25b9ef96",
+                    "betBuilderFeature": {
+                      "enabled": false,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "1",
+                    "name": "Победитель",
+                    "status": "ACTIVE",
+                    "typeId": 1,
+                    "priority": 1,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "fonbet",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "tech_win_team",
+                        "value": "unknown",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "1",
+                    "name": "Артур Филс",
+                    "value": "1.45",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "gin:c4506988-ab2a-4018-a78a-111ec3881b7f"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                }
+              ],
+              "betBuilderOdds": null,
+              "providerId": "manual",
+              "calculatedBet": {
+                "boost": {
+                  "boost": {
+                    "id": "d8kogvac3cuc73cjhrrg",
+                    "version": "d8kor6ac3cuc73cjhs30",
+                    "__typename": "BetBoost"
+                  },
+                  "__typename": "CalculatedBetBoost"
+                },
+                "__typename": "PreGeneratedBetCalculatedBet"
+              },
+              "oddsValueComposite": {
+                "totalOddsValue": "2.56",
+                "baseOddsValue": "2.33",
+                "__typename": "PreGeneratedBetOddsValueComposite"
+              },
+              "__typename": "PreGeneratedBet"
+            },
+            {
+              "id": "5595c38ada9c128670cf24a34210a5c82fb6d19c",
+              "odds": [
+                {
+                  "sportEvent": {
+                    "id": "5:92725d34-d018-4f73-9c6d-b28d33aa73a1",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "toronto-tempo-w-vs-las-vegas-aces-w-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "match_format",
+                        "value": "default",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "92725d34-d018-4f73-9c6d-b28d33aa73a1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "quarter",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "600000",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time_format",
+                        "value": "10_min",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Toronto Tempo W vs Las Vegas Aces W",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T23:00:00+00:00",
+                      "sportId": "basketball",
+                      "sport": {
+                        "id": "basketball",
+                        "name": "Баскетбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "basketball",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "name": "WNBA",
+                        "masterId": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "countryCode": "US",
+                        "logo": "cdn.gin.bet/tournaments/8xP4eGT1-z5rNyJn86148a76de49e4332117383662237a1c6d69710187545.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2024-04-19T09:21:08+00:00",
+                        "dateEnd": "2026-08-26T00:00:00+00:00",
+                        "isLocalizationOverridden": true,
+                        "slug": "wnba",
+                        "sportId": "basketball",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "gin:3188553f-7753-4271-ae35-1445d7bb9f60",
+                          "name": "Las Vegas Aces W",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/6mT2sfg5-6gCoMGdb692ef9c0554f9673403793.png",
+                          "templatePosition": 2,
+                          "slug": "basketball_las-vegas-aces-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "gin:befb836c-c6bf-4c82-a44a-c96951e95499",
+                          "name": "Toronto Tempo W",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/bs4BkvzB-KOUexDHq69e9e0ee17867059337482.png",
+                          "templatePosition": 1,
+                          "slug": "basketball_toronto-tempo-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS"
+                    ],
+                    "version": "fb01d32a-bd55-48ce-a71d-c60755c84fd7",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "252",
+                    "name": "Победитель (вкл. овертайм)",
+                    "status": "ACTIVE",
+                    "typeId": 252,
+                    "priority": 2,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "fonbet",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "2",
+                    "name": "Las Vegas Aces W",
+                    "value": "1.17",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "gin:3188553f-7753-4271-ae35-1445d7bb9f60"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                },
+                {
+                  "sportEvent": {
+                    "id": "5:110eef6b-1ab6-4115-9fed-3f7a46d8036d",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "portland-fire-w-vs-washington-mystics-w-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "match_format",
+                        "value": "default",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "110eef6b-1ab6-4115-9fed-3f7a46d8036d",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "quarter",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "600000",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time_format",
+                        "value": "10_min",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Portland Fire W vs Washington Mystics W",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T23:00:00+00:00",
+                      "sportId": "basketball",
+                      "sport": {
+                        "id": "basketball",
+                        "name": "Баскетбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "basketball",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "name": "WNBA",
+                        "masterId": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "countryCode": "US",
+                        "logo": "cdn.gin.bet/tournaments/8xP4eGT1-z5rNyJn86148a76de49e4332117383662237a1c6d69710187545.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2024-04-19T09:21:08+00:00",
+                        "dateEnd": "2026-08-26T00:00:00+00:00",
+                        "isLocalizationOverridden": true,
+                        "slug": "wnba",
+                        "sportId": "basketball",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "gin:736fe5ed-68c5-4908-aa68-7c186a81d132",
+                          "name": "Washington Mystics W",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/v9aM9hWg-zPKhqktm692ef9cfa9485836918518.png",
+                          "templatePosition": 2,
+                          "slug": "basketball_washington-mystics-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "gin:a6ee7b7f-0ca5-48ee-b4ca-dee52fea1c22",
+                          "name": "Portland Fire W",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/fZ4wHkg5-t4jSif6969ea2c88866c6247506112.png",
+                          "templatePosition": 1,
+                          "slug": "basketball_portland-fire-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "GAMES_STATISTICS",
+                      "H2H_STATISTICS"
+                    ],
+                    "version": "c4ea6a04-8bbf-4df7-a2cd-17ada85f389f",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "252",
+                    "name": "Победитель (вкл. овертайм)",
+                    "status": "ACTIVE",
+                    "typeId": 252,
+                    "priority": 2,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "fonbet",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "2",
+                    "name": "Washington Mystics W",
+                    "value": "1.55",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "gin:736fe5ed-68c5-4908-aa68-7c186a81d132"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                },
+                {
+                  "sportEvent": {
+                    "id": "5:b7da20aa-7057-494c-ae11-39b901d15f11",
+                    "disabled": false,
+                    "providerId": "5",
+                    "hasMatchLog": false,
+                    "slug": "dallas-wings-w-vs-seattle-storm-w-23-08",
+                    "betStop": false,
+                    "meta": [
+                      {
+                        "name": "bo",
+                        "value": "1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "match_format",
+                        "value": "default",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "original_id",
+                        "value": "b7da20aa-7057-494c-ae11-39b901d15f11",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "quarter",
+                        "value": "0",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time",
+                        "value": "600000",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "time_format",
+                        "value": "10_min",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "fixture": {
+                      "score": "0:0",
+                      "title": "Dallas Wings W vs Seattle Storm W",
+                      "status": "NOT_STARTED",
+                      "type": "MATCH",
+                      "startTime": "2026-08-23T20:00:00+00:00",
+                      "sportId": "basketball",
+                      "sport": {
+                        "id": "basketball",
+                        "name": "Баскетбол",
+                        "tags": [
+                          "CLASSIC"
+                        ],
+                        "slug": "basketball",
+                        "__typename": "Sport"
+                      },
+                      "liveCoverage": true,
+                      "tournament": {
+                        "id": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "name": "WNBA",
+                        "masterId": "gin:107143fa-41ae-4793-91fa-a79e05b82acf",
+                        "countryCode": "US",
+                        "logo": "cdn.gin.bet/tournaments/8xP4eGT1-z5rNyJn86148a76de49e4332117383662237a1c6d69710187545.png",
+                        "description": "",
+                        "showTournamentInfo": true,
+                        "prizePool": "",
+                        "dateStart": "2024-04-19T09:21:08+00:00",
+                        "dateEnd": "2026-08-26T00:00:00+00:00",
+                        "isLocalizationOverridden": true,
+                        "slug": "wnba",
+                        "sportId": "basketball",
+                        "__typename": "Tournament"
+                      },
+                      "competitors": [
+                        {
+                          "id": "gin:46e04048-7d26-41e9-aa50-78181bd65c68",
+                          "name": "Seattle Storm W",
+                          "type": "TEAM",
+                          "homeAway": "AWAY",
+                          "logo": "cdn.gin.bet/team/WAtvfmDa-tCILA0mK692ef9c58dd35059295194.png",
+                          "templatePosition": 2,
+                          "slug": "basketball_seattle-storm-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        },
+                        {
+                          "id": "gin:ce2f829c-7fa3-4c69-a9bc-7b13d94b731d",
+                          "name": "Dallas Wings W",
+                          "type": "TEAM",
+                          "homeAway": "HOME",
+                          "logo": "cdn.gin.bet/team/APCDxNCr-I93dYtqo692ef9e3a704d748591552.png",
+                          "templatePosition": 1,
+                          "slug": "basketball_dallas-wings-w",
+                          "score": [
+                            {
+                              "id": "total",
+                              "type": "total",
+                              "points": "0",
+                              "number": 0,
+                              "__typename": "CompetitorScore"
+                            },
+                            {
+                              "id": "quarter_overtime:1",
+                              "type": "quarter_overtime",
+                              "points": "0",
+                              "number": 1,
+                              "__typename": "CompetitorScore"
+                            }
+                          ],
+                          "__typename": "SportEventCompetitor"
+                        }
+                      ],
+                      "__typename": "SportEventFixture"
+                    },
+                    "availableWidgets": [
+                      "H2H_STATISTICS",
+                      "GAMES_STATISTICS"
+                    ],
+                    "version": "dfc81d78-9bdd-434a-b816-70ce8273b2e4",
+                    "betBuilderFeature": {
+                      "enabled": true,
+                      "__typename": "BetBuilderFeature"
+                    },
+                    "__typename": "SportEvent"
+                  },
+                  "market": {
+                    "id": "252",
+                    "name": "Победитель (вкл. овертайм)",
+                    "status": "ACTIVE",
+                    "typeId": 252,
+                    "priority": 2,
+                    "tags": [],
+                    "settlementRules": "",
+                    "features": [],
+                    "specifiers": [],
+                    "meta": [
+                      {
+                        "name": "provider_source",
+                        "value": "fonbet",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "Market"
+                  },
+                  "odd": {
+                    "id": "1",
+                    "name": "Dallas Wings W",
+                    "value": "1.28",
+                    "isActive": true,
+                    "status": "NOT_RESULTED",
+                    "competitorIds": [
+                      "gin:ce2f829c-7fa3-4c69-a9bc-7b13d94b731d"
+                    ],
+                    "__typename": "Odd"
+                  },
+                  "__typename": "PreGeneratedBetOdd"
+                }
+              ],
+              "betBuilderOdds": null,
+              "providerId": "manual",
+              "calculatedBet": {
+                "boost": {
+                  "boost": {
+                    "id": "d8kogvac3cuc73cjhrrg",
+                    "version": "d8kor6ac3cuc73cjhs30",
+                    "__typename": "BetBoost"
+                  },
+                  "__typename": "CalculatedBetBoost"
+                },
+                "__typename": "PreGeneratedBetCalculatedBet"
+              },
+              "oddsValueComposite": {
+                "totalOddsValue": "2.55",
+                "baseOddsValue": "2.32",
+                "__typename": "PreGeneratedBetOddsValueComposite"
+              },
+              "__typename": "PreGeneratedBet"
+            }
+          ],
+          "__typename": "PreGeneratedBetList"
+        }
+      }
+    },
+    "id": "10",
+    "type": "data"
+  }
+}

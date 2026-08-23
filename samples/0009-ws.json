@@ -1,0 +1,6 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "type": "connection_ack"
+  }
+}

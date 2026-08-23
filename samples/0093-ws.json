@@ -1,0 +1,167 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:dbe576ca-3605-4b74-a036-0c4e3b94374c",
+          "slug": "1win-vs-locura-gatos-23-08",
+          "disabled": false,
+          "version": "b30484e4-357e-4a91-aeb6-13c5262f54b8",
+          "betStop": false,
+          "availableWidgets": [
+            "TEAMS_STATISTICS",
+            "GAMES_STATISTICS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "1WIN",
+                  "value": "1.00",
+                  "isActive": false,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:46320"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Locura Gatos",
+                  "value": "14.00",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:29d6698c-4cc6-4a32-a2f0-ec8e15c9ca40"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "current_map_name",
+              "value": "de_ancient",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game_state",
+              "value": "map",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "{\"1\":\"de_ancient\"}",
+              "__typename": "Pair"
+            },
+            {
+              "name": "match_format",
+              "value": "r13_o3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "dbe576ca-3605-4b74-a036-0c4e3b94374c",
+              "__typename": "Pair"
+            },
+            {
+              "name": "round",
+              "value": "10",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_away",
+              "value": "unknown",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_home",
+              "value": "unknown",
+              "__typename": "Pair"
+            },
+            {
+              "name": "state_number",
+              "value": "1",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gt:46320",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "9",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:29d6698c-4cc6-4a32-a2f0-ec8e15c9ca40",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "0",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "6",
+    "type": "data"
+  }
+}

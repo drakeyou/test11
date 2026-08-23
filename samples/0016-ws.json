@@ -1,0 +1,172 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:51eaad7d-a45a-4dc3-898c-96ae03c5cd95",
+          "slug": "evil-ghost-vs-whitethunder-23-08",
+          "disabled": false,
+          "version": "18aaa0fd-8282-4626-9cf8-f250a0d90a7f",
+          "betStop": false,
+          "availableWidgets": [
+            "H2H_STATISTICS",
+            "TEAMS_STATISTICS",
+            "GAMES_STATISTICS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "lsports_1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Evil Ghost",
+                  "value": "1.44",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:66bee592-aafb-4082-a52f-0ce1b54c5f83"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "WhiteThunder",
+                  "value": "2.59",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:c13374d4-62cf-4b2e-bd47-092b958c9ca9"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "current_map_name",
+              "value": "unknown",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game_state",
+              "value": "map",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "{\"1\":\"unknown\",\"2\":\"unknown\"}",
+              "__typename": "Pair"
+            },
+            {
+              "name": "match_format",
+              "value": "r13_o3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "51eaad7d-a45a-4dc3-898c-96ae03c5cd95",
+              "__typename": "Pair"
+            },
+            {
+              "name": "round",
+              "value": "25",
+              "__typename": "Pair"
+            },
+            {
+              "name": "state_number",
+              "value": "2",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "1:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gin:66bee592-aafb-4082-a52f-0ce1b54c5f83",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "13",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "1",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "11",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:c13374d4-62cf-4b2e-bd47-092b958c9ca9",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "4",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "13",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "8",
+    "type": "data"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "matches": {
+          "count": 0,
+          "sportEvents": [],
+          "__typename": "SportEventList"
+        }
+      }
+    },
+    "id": "22",
+    "type": "data"
+  }
+}

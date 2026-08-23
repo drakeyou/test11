@@ -1,0 +1,11 @@
+{
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "analyticsSettings": {
+        "reportServiceUrl": "//stat.gg.bet/font.png?project=ggbet&uniqueId=73129bf0-70b6-4e2e-bd64-2a7763f20bfa&isAuth=0&action=visit&refCode=&affData=",
+        "__typename": "AnalyticsSettingsResult"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onCalculateBetUpdate": {
+          "calculatedBet": {
+            "type": "",
+            "totalOddsValue": "",
+            "baseOddsValue": "",
+            "odds": [],
+            "betBuilderOdds": null,
+            "__typename": "CalculatedBet"
+          },
+          "restrictions": [
+            {
+              "type": "market_status",
+              "sportEventId": "5:4dc1d12a-ba22-4b17-9b4d-0072aeb9faf1",
+              "marketId": "20",
+              "marketStatus": "SUSPENDED",
+              "__typename": "MarketStatusRestriction"
+            },
+            {
+              "type": "max_bet",
+              "maxBet": 132540.102,
+              "__typename": "MaxBetRestriction"
+            }
+          ],
+          "__typename": "CalculatedBetResult"
+        }
+      }
+    },
+    "id": "16",
+    "type": "data"
+  }
+}

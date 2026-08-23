@@ -1,0 +1,45 @@
+{
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "{\n    \"desktop\": [\n        \"/player/kyc\",\n        \"/player/profile-deposit\",\n        \"/player/profile-cashier-withdraw\",\n        \"/auth/register\",\n        \"/auth/signin\",\n        \"/player/aml-form\",\n        \"/player/welcome-bonus\",\n        \"/player/confirm-email\",\n        \"/player/verification-phone\",\n        \"/sports/match\",\n        \"/esports/match\",\n        \"/results\",\n        \"/casino/game\",\n        \"/summer-of-the-big-game\",\n        \"/promotions/betting/tournaments/world-cup-2026-tournament-part1\",\n        \"/promotions/betting/tournaments/world-cup-2026-tournament-part2\"\n    ],\n    \"mobile\": [\n        \"/player/kyc\",\n        \"/player/profile-deposit\",\n        \"/player/profile-cashier-withdraw\",\n        \"/auth/register\",\n        \"/auth/signin\",\n        \"/player/aml-form\",\n        \"/player/welcome-bonus\",\n        \"/player/confirm-email\",\n        \"/player/verification-phone\",\n        \"/sports/match\",\n        \"/esports/match\",\n        \"/results\",\n        \"/casino/game\",\n        \"/summer-of-the-big-game\",\n        \"/promotions/betting/tournaments/world-cup-2026-tournament-part1\",\n        \"/promotions/betting/tournaments/world-cup-2026-tournament-part2\"\n    ]\n}",
+          "__typename": "KeyValueType"
+        }
+      }
+    },
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "https://appggbet.onelink.me/i1rN?af_xp=custom&pid=popup_site&c=popup_site&is_retargeting=true&af_reengagement_window=30d&deep_link_sub1=popup_site&deep_link_value=gg.bet%3A%2F%2Fdeeplink%3Fcampaign_type%3Dregistration",
+          "__typename": "KeyValueType"
+        }
+      }
+    },
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "{\n  \"domains\": [\n    \"gg.bet\",\n    \"gg251.bet\",\n    \"gg257.bet\",\n    \"gg265.bet\",\n    \"gg255.bet\",\n    \"gg282.bet\",\n    \"gg305.bet\",\n    \"gg316.bet\",\n    \"gg321.bet\",\n    \"gg294.bet\",\n    \"gg287.bet\",\n    \"gg284.bet\",\n    \"gg327.bet\",\n    \"gg328.bet\",\n    \"gg736.bet\",\n    \"gg295.bet\",\n    \"gg266.bet\",\n    \"gg268.bet\",\n    \"gg293.bet\",\n    \"gg742.bet\",\n    \"gg334.bet\",\n    \"gg324.bet\",\n    \"gg283.bet\",\n    \"gg264.bet\",\n    \"gg245.bet\",\n    \"gg299.bet\",\n    \"gg300.bet\",\n    \"gg271.bet\",\n    \"gg312.bet\",\n    \"gg314.bet\",\n    \"gg252.bet\",\n    \"gg984.bet\",\n    \"gg512.bet\"\n  ],\n  \"geo\": \"ca, pe, my, no, cl, ve\"\n}",
+          "__typename": "KeyValueType"
+        }
+      }
+    },
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "gg.bet",
+          "__typename": "KeyValueType"
+        }
+      }
+    },
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "{\"showInterval\": 30, \"bonusTTL\": 180}",
+          "__typename": "KeyValueType"
+        }
+      }
+    }
+  ]
+}

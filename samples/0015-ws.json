@@ -1,0 +1,15 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "minBet": {
+          "minBet": "10.00000000",
+          "__typename": "MinBet"
+        }
+      }
+    },
+    "id": "1",
+    "type": "data"
+  }
+}

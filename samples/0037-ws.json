@@ -1,0 +1,84 @@
+{
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "51eaad7d-a45a-4dc3-898c-96ae03c5cd95",
+              "overview": {
+                "currentMap": 2,
+                "currentRound": 1,
+                "bomb": {
+                  "isPlanted": false,
+                  "time": 0,
+                  "__typename": "CSGOBomb"
+                },
+                "timer": {
+                  "isActive": false,
+                  "time": 115000,
+                  "__typename": "Timer"
+                },
+                "teams": {
+                  "home": {
+                    "currentSide": "UNKNOWN",
+                    "score": 1,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "away": {
+                    "currentSide": "UNKNOWN",
+                    "score": 0,
+                    "__typename": "CSGOOverviewTeam"
+                  },
+                  "__typename": "CSGOOverviewTeams"
+                },
+                "maps": [
+                  {
+                    "number": 1,
+                    "map": "UNKNOWN",
+                    "home": {
+                      "score": 13,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "away": {
+                      "score": 4,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "winner": "HOME",
+                    "__typename": "CSGOOverviewMap"
+                  },
+                  {
+                    "number": 2,
+                    "map": "UNKNOWN",
+                    "home": {
+                      "score": 11,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "away": {
+                      "score": 13,
+                      "__typename": "CSGOMapOverviewTeamInfo"
+                    },
+                    "winner": "UNKNOWN",
+                    "__typename": "CSGOOverviewMap"
+                  }
+                ],
+                "mapName": "UNKNOWN",
+                "bestOf": 3,
+                "gameState": "freeze_time",
+                "pause": false,
+                "matchFormat": "MR12_OT3",
+                "__typename": "CSGOOverview"
+              },
+              "checksum": "2070677251411754398",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "keyValuePair": {
+          "value": "uk,ge,hu,es,ro,fr,fi,no:+44 (203) 769-19-62|pt,cn,jp,ru:+44 (203) 769-19-62|pl:+48 (45) 363-05-55",
+          "__typename": "KeyValueType"
+        }
+      }
+    }
+  ]
+}

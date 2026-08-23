@@ -1,0 +1,6 @@
+{
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "type": "ka"
+  }
+}

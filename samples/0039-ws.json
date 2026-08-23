@@ -1,0 +1,68 @@
+{
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": [
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:welcome-bonus-2025-login-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:welcome-bonus-2025-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:bigthree-tournament-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:football-newcastle-liverpool-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:esportswcplayoff-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:ti-main-event-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:baseball-mlb-p2-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:bettingpromololp2-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:wnba-promo-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:cybersport-tournament-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:application-banner-t"
+          }
+        ]
+      }
+    },
+    "id": "11",
+    "type": "data"
+  }
+}
