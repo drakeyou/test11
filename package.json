@@ -10,7 +10,7 @@
     "discover": "node src/monitor.mjs --discover",
     "watch": "node src/monitor.mjs",
     "inspect": "node src/inspect.mjs",
-    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs"
+    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs && node src/appender.test.mjs"
   },
   "dependencies": {
     "playwright": "^1.56.1"

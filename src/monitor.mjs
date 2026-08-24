@@ -13,7 +13,8 @@
 
 import { chromium } from 'playwright';
 import { existsSync } from 'node:fs';
-import { appendFile, mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { appender } from './appender.mjs';
 import { MatchStore, parseFrame } from './parse.mjs';
 import { renderMatches } from './render.mjs';
 import { liveUrl, resolveSports } from './sports.mjs';
@@ -44,7 +45,7 @@ gg.bet live monitor
 
 const ODDS_HEADER =
   'ts,sport,match_id,title,score,segment,segment_score,market,selection,price,is_active\n';
-const LOG_HEADER = 'ts,sport,match_id,title,kind,target,from,to\n';
+const LOG_HEADER = 'seq,ts,sport,match_id,title,kind,target,from,to\n';
 
 function parseArgs(argv) {
   const opts = { ...DEFAULTS, discover: false, headful: false, proxy: null, help: false, once: false };
@@ -90,7 +91,7 @@ const oddKey = (match, market, odd) => `${match.id}|${market.id}|${odd.id}`;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /** Run one browser session until it fails; throws a description of what ended it. */
-async function session(opts, targets, store, recorded, shown) {
+async function session(opts, targets, store, recorded, shown, counter) {
   const browser = await chromium.launch({ headless: !opts.headful, proxy: proxyOption(opts.proxy) });
   const context = await browser.newContext({ locale: 'ru-RU', viewport: { width: 1440, height: 900 } });
 
@@ -99,6 +100,8 @@ async function session(opts, targets, store, recorded, shown) {
   browser.on('disconnected', () => end('browser disconnected'));
 
   let captureCount = 0;
+  const writeLog = appender(opts.log);
+  const writeOdds = appender(opts.out);
 
   async function capture(sport, source, url, body) {
     const payload = decode(body);
@@ -118,8 +121,9 @@ async function session(opts, targets, store, recorded, shown) {
     const stamp = new Date().toISOString();
     const changes = store.apply(ops, sportId);
     if (changes.length) {
-      await appendFile(opts.log, changes
-        .map((c) => csvRow([stamp, c.sport, c.matchId, c.title, c.kind, c.target, c.from, c.to]))
+      // A sequence number survives two frames landing in the same millisecond.
+      writeLog(changes
+        .map((c) => csvRow([++counter.value, stamp, c.sport, c.matchId, c.title, c.kind, c.target, c.from, c.to]))
         .join('\n') + '\n');
     }
 
@@ -138,7 +142,7 @@ async function session(opts, targets, store, recorded, shown) {
         }
       }
     }
-    if (rows.length) await appendFile(opts.out, rows.join('\n') + '\n');
+    if (rows.length) writeOdds(rows.join('\n') + '\n');
   }
 
   for (const target of targets) {
@@ -224,10 +228,11 @@ async function main() {
   const store = new MatchStore();
   const recorded = new Map();
   const shown = new Map();
+  const counter = { value: 0 };
 
   for (let attempt = 1; ; attempt++) {
     try {
-      await session(opts, targets, store, recorded, shown);
+      await session(opts, targets, store, recorded, shown, counter);
       return; // discover mode finished normally
     } catch (err) {
       if (opts.discover || opts.once) throw err;
