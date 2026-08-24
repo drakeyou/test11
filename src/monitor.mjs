@@ -43,7 +43,7 @@ gg.bet live monitor
 `;
 
 const ODDS_HEADER =
-  'ts,sport,match_id,title,map_score,current_map,round_score,market,selection,price,is_active\n';
+  'ts,sport,match_id,title,score,segment,segment_score,market,selection,price,is_active\n';
 const LOG_HEADER = 'ts,sport,match_id,title,kind,target,from,to\n';
 
 function parseArgs(argv) {
@@ -133,7 +133,7 @@ async function session(opts, targets, store, recorded, shown) {
           const key = oddKey(m, market, odd);
           if (recorded.get(key) === odd.price) continue;
           recorded.set(key, odd.price);
-          rows.push(csvRow([stamp, m.sport, m.id, m.title, m.mapScore, m.currentMap, m.roundScore,
+          rows.push(csvRow([stamp, m.sport, m.id, m.title, m.score, m.segmentNo, m.segmentScore,
             market.name, odd.name, odd.price, odd.isActive]));
         }
       }

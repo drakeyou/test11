@@ -48,11 +48,13 @@ for (const m of withOdds) {
 }
 
 // The databet stream must have merged onto the same match objects.
-const live = matches.filter((m) => m.currentMap !== null);
+const live = matches.filter((m) => m.segmentNo !== null);
 assert.equal(live.length, 3, 'overview merged into every match by stripped id');
 for (const m of live) {
-  assert.ok(m.mapName, `map name present for ${m.title}`);
-  assert.match(m.roundScore ?? '', /^\d+:\d+$/, 'round score formatted');
+  assert.equal(m.overviewType, 'CSGOOverview');
+  assert.equal(m.segmentKind, 'map');
+  assert.match(m.segmentScore ?? '', /^\d+:\d+$/, 'round score formatted');
+  assert.ok(Number.isInteger(m.round), 'CS carries a round number');
 }
 
 // Noise must decode to nothing.
@@ -87,8 +89,8 @@ assert.equal(renderMatches([], new Map(), { clear: false }).includes('waiting'),
 
 console.log(`parsed ${opCount} operations from ${names.length} captures`);
 for (const m of matches) {
-  console.log(`  ${m.title.padEnd(34)} maps ${m.mapScore ?? '-'}  ` +
-    `map${m.currentMap} ${m.mapName ?? '-'} ${m.roundScore ?? '-'} r${m.round ?? '-'}  ` +
+  console.log(`  ${m.title.padEnd(34)} maps ${m.score ?? '-'}  ` +
+    `map${m.segmentNo} ${m.segmentName ?? '-'} ${m.segmentScore ?? '-'} r${m.round ?? '-'}  ` +
     `odds:${m.markets.reduce((n, mk) => n + mk.odds.length, 0)}`);
 }
 console.log('all parser tests passed');

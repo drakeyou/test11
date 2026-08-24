@@ -6,11 +6,12 @@
 
 /** Scalar fields worth a log line, paired with the name used in the log. */
 const FIELDS = [
-  ['mapScore', 'score'],
-  ['currentMap', 'map'],
-  ['mapName', 'map_name'],
+  ['score', 'score'],
+  ['segmentNo', 'segment'],
+  ['segmentName', 'segment_name'],
+  ['segmentScore', 'segment_score'],
   ['round', 'round'],
-  ['gameState', 'state'],
+  ['state', 'state'],
   ['betStop', 'bet_stop'],
 ];
 

@@ -63,7 +63,7 @@ node src/monitor.mjs --sport all
 каждое изменение коэффициента:
 
 ```csv
-ts,sport,match_id,title,map_score,current_map,round_score,market,selection,price,is_active
+ts,sport,match_id,title,score,segment,segment_score,market,selection,price,is_active
 ```
 
 `changes.csv` отвечает на другой вопрос — «что происходило» — и складывает все
@@ -81,8 +81,9 @@ ts,sport,match_id,title,kind,target,from,to
 |---|---|
 | `match_start` | матч появился и стало известно, кто играет |
 | `score` | изменился счёт по картам/сетам |
-| `map`, `map_name` | сменилась карта |
-| `round` | сменился раунд |
+| `segment`, `segment_name` | сменилась карта или сет |
+| `segment_score` | счёт внутри карты/сета: раунды, геймы, киллы |
+| `round` | сменился раунд (только CS2) |
 | `state` | сменилось состояние (`freeze_time`, `live_time`, …) |
 | `bet_stop` | приём ставок остановлен или возобновлён |
 | `price` | сдвинулся коэффициент |
@@ -164,6 +165,7 @@ ts,match_id,title,map_score,current_map,round_score,market,selection,price,is_ac
 | Файл | Что делает |
 |---|---|
 | `src/parse.mjs` | разбор кадров и `MatchStore` — слияние снапшота, патчей и счёта |
+| `src/overview.mjs` | состояние матча databet → общие поля, по типу на вид спорта |
 | `src/changes.mjs` | сравнение двух состояний матча → записи журнала |
 | `src/sports.mjs` | реестр видов спорта и их `sportId` |
 | `src/render.mjs` | отрисовка таблицы (без браузера, поэтому тестируема) |
@@ -171,7 +173,9 @@ ts,match_id,title,map_score,current_map,round_score,market,selection,price,is_ac
 | `src/inspect.mjs` | разбор захваченных payload'ов: рейтинг и скелет |
 | `src/parse.test.mjs` | тесты парсера на реальных записях из `samples/` |
 | `src/changes.test.mjs` | тесты журнала изменений |
-| `samples/` | 99 записанных кадров живой сессии — фикстуры для тестов |
+| `src/overview.test.mjs` | тесты состояния по всем четырём видам спорта |
+| `samples/` | 99 кадров живой сессии по CS2 — фикстуры для тестов |
+| `samples2/` | 383 кадра по LoL, Dota 2 и теннису |
 
 ## Разбор нового поля
 
@@ -181,22 +185,37 @@ ts,match_id,title,map_score,current_map,round_score,market,selection,price,is_ac
 4. добавить поле в `eventOf()` или `MatchStore#list()` в `src/parse.mjs`
 5. `npm test` — убедиться, что старые записи всё ещё разбираются
 
-## Что пока не проверено на живых данных
+## Состояние матча по видам спорта
 
-Записи в `samples/` сняты только с Counter-Strike. Детальное состояние матча
-(карта, раунд, бомба) приходит от `score-board.databet.cloud` в типе
-`CSGOOverview`; у LoL, Dota, Valorant и тенниса структура наверняка другая —
-свои поля вместо карт и раундов.
+Счёт, турнир, команды и коэффициенты приходят из общего `fixture` и одинаковы
+везде. А детальное состояние даёт databet, и у каждого вида спорта свой тип:
 
-Счёт, турнир, названия команд, рынки и коэффициенты берутся из общего для всех
-видов спорта `fixture`, поэтому работать должны сразу. А вот строка состояния
-для остальных видов спорта, скорее всего, окажется пустой, пока не снят захват
-и не разобраны их типы овервью:
+| Тип | Спорт | Что в строке состояния |
+|---|---|---|
+| `CSGOOverview` | CS2 | карта, её название, счёт раундов, номер раунда, `BOMB`, формат |
+| `LOLOverview` | LoL | карта, счёт по киллам, разница в золоте |
+| `Dota2Overview` | Dota 2 | то же плюс сторона (radiant/dire) |
+| `TennisOverview` | Теннис | сет, счёт по геймам, очко (`40:AD`), кто подаёт, тай-брейк |
 
-```bash
-rm -rf captures && node src/monitor.mjs --sport lol,dota,tennis --discover
-npm run inspect
+Все четыре разобраны в `src/overview.mjs` и сведены к общим полям — `segmentKind`
+(карта или сет), `segmentNo`, `segmentScore`, `round`, `state`, `extra`. Поэтому
+хранилище, отрисовка и журнал изменений про виды спорта ничего не знают.
+
+Как это выглядит:
+
 ```
+Just Players vs ex-Zero Tenacity   1:0
+  map 2/3 · de_nuke · 6:11 · round 17 · after_end_time · MR12_OT3
+
+Klim Sani4 vs Team Lynx   0:0
+  map 1/3 · 9:8 · live · gold +5902 · home dire
+
+Matthew Donald vs Хассан, Беньямин   0:1
+  set 2 · 0:1 · 40:AD · serve home
+```
+
+Вид спорта, которого мы ещё не видели, не ломает разбор: `summarizeOverview()`
+падает на общий разбор и достаёт из него столько, сколько получится.
 
 ## Оговорка
 

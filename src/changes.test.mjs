@@ -9,8 +9,8 @@ import { resolveSports, sportName } from './sports.mjs';
 
 const view = (over = {}) => ({
   id: 'm1', resolved: true, title: 'A vs B', sport: 'esports_counter_strike',
-  mapScore: '0:0', currentMap: 1, mapName: 'DE_NUKE', round: 3,
-  gameState: 'live_time', betStop: false,
+  score: '0:0', segmentKind: 'map', segmentNo: 1, segmentName: 'DE_NUKE',
+  segmentScore: '5:3', round: 3, state: 'live_time', betStop: false, extra: [],
   markets: [{ id: '1', name: 'Победитель', odds: [
     { id: '1', name: 'A', price: 1.8, isActive: true },
     { id: '2', name: 'B', price: 2.0, isActive: true },
@@ -23,16 +23,18 @@ const kinds = (before, after) => diffMatch(before, after).map((c) => c.kind);
 assert.deepEqual(kinds(null, view()), ['match_start'], 'a new match starts once');
 assert.deepEqual(kinds({ resolved: false }, view()), ['match_start'], 'naming a match starts it');
 assert.deepEqual(kinds(view(), view()), [], 'an identical frame is silent');
-assert.deepEqual(kinds(view(), view({ mapScore: '1:0' })), ['score']);
+assert.deepEqual(kinds(view(), view({ score: '1:0' })), ['score']);
 assert.deepEqual(kinds(view(), view({ round: 4 })), ['round']);
 assert.deepEqual(kinds(view(), view({ betStop: true })), ['bet_stop']);
-assert.deepEqual(kinds(view(), view({ currentMap: 2, mapName: 'DE_DUST2' })), ['map', 'map_name']);
+assert.deepEqual(kinds(view(), view({ segmentNo: 2, segmentName: 'DE_DUST2' })),
+  ['segment', 'segment_name']);
+assert.deepEqual(kinds(view(), view({ segmentScore: '6:3' })), ['segment_score']);
 
 // An unresolved match must never reach the log, however much it changes.
 assert.deepEqual(diffMatch(view(), { ...view(), resolved: false }), []);
 
 // A missing field must not be logged as a change to null.
-assert.deepEqual(kinds(view(), view({ mapName: null, round: null })), []);
+assert.deepEqual(kinds(view(), view({ segmentName: null, round: null })), []);
 
 const moved = diffMatch(view(), view({
   markets: [{ id: '1', name: 'Победитель', odds: [

@@ -7,18 +7,17 @@ const CLEAR = '\x1b[2J\x1b[H';
 
 function matchLines(m, previous) {
   const lines = [];
-  const mapName = m.mapName && m.mapName !== 'UNKNOWN' ? m.mapName.toLowerCase() : null;
   const state = [
-    m.currentMap ? `map ${m.currentMap}` : null,
-    mapName,
-    m.roundScore,
+    m.segmentNo ? `${m.segmentKind} ${m.segmentNo}${m.bestOf ? `/${m.bestOf}` : ''}` : null,
+    m.segmentName?.toLowerCase() ?? null,
+    m.segmentScore,
     m.round ? `round ${m.round}` : null,
-    m.gameState,
-    m.bombPlanted ? 'BOMB' : null,
+    m.state,
+    ...(m.extra ?? []),
   ].filter(Boolean).join(' · ');
 
   lines.push('');
-  lines.push(`${m.title}${m.mapScore ? `   ${m.mapScore}` : ''}${m.betStop ? '   [BET STOP]' : ''}`);
+  lines.push(`${m.title}${m.score ? `   ${m.score}` : ''}${m.betStop ? '   [BET STOP]' : ''}`);
   if (m.tournament) lines.push(`  ${m.tournament}`);
   if (state) lines.push(`  ${state}`);
 

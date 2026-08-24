@@ -11,6 +11,7 @@
 // only meaningful when merged onto the snapshot. MatchStore does that merge.
 
 import { diffMatch } from './changes.mjs';
+import { summarizeOverview } from './overview.mjs';
 
 /** Event ids are provider-prefixed on gg.bet ("5:<uuid>") and bare on databet. */
 export function normalizeId(id) {
@@ -154,31 +155,30 @@ export class MatchStore {
   #viewOf(id) {
     const m = this.#matches.get(id);
     if (!m) return null;
-    return ((m) => {
-      const [home, away] = m.competitors ?? [];
-      const map = m.live?.currentMap;
-      const mapEntry = (m.live?.maps ?? []).find((x) => x.number === map);
-      // Patches arrive before the snapshot that names the teams, so a match can
-      // be known by id alone for the first few frames. Callers skip those.
-      const title = m.title ?? (home?.name && away?.name ? `${home.name} vs ${away.name}` : null);
-      return {
-        id: m.id,
-        resolved: title !== null,
-        title: title ?? m.id,
-        tournament: m.tournament ?? null,
-        status: m.status ?? null,
-        betStop: m.betStop === true,
-        mapScore: m.mapScore ?? null,
-        currentMap: map ?? null,
-        mapName: m.live?.mapName ?? null,
-        round: m.live?.currentRound ?? null,
-        gameState: m.live?.gameState ?? null,
-        bestOf: m.live?.bestOf ?? null,
-        roundScore: mapEntry ? `${mapEntry.home.score}:${mapEntry.away.score}` : null,
-        bombPlanted: m.live?.bomb?.isPlanted ?? null,
-        sport: m.sport ?? null,
-        markets: m.markets ?? [],
-      };
-    })(m);
+    const [home, away] = m.competitors ?? [];
+    // Patches arrive before the snapshot that names the teams, so a match can be
+    // known by id alone for the first few frames. Callers skip those.
+    const title = m.title ?? (home?.name && away?.name ? `${home.name} vs ${away.name}` : null);
+    const live = summarizeOverview(m.live);
+    return {
+      id: m.id,
+      resolved: title !== null,
+      title: title ?? m.id,
+      tournament: m.tournament ?? null,
+      status: m.status ?? null,
+      betStop: m.betStop === true,
+      sport: m.sport ?? null,
+      score: m.mapScore ?? null,
+      overviewType: live?.type ?? null,
+      segmentKind: live?.segmentKind ?? null,
+      segmentNo: live?.segmentNo ?? null,
+      segmentName: live?.segmentName ?? null,
+      segmentScore: live?.segmentScore ?? null,
+      round: live?.round ?? null,
+      state: live?.state ?? null,
+      bestOf: live?.bestOf ?? null,
+      extra: live?.extra ?? [],
+      markets: m.markets ?? [],
+    };
   }
 }
