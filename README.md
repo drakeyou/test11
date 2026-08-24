@@ -1,6 +1,7 @@
-# gg.bet CS2 live monitor
+# gg.bet live monitor
 
-Монитор лайв-счёта и коэффициентов по Counter-Strike на gg.bet.
+Монитор лайв-счёта и коэффициентов на gg.bet: CS2, League of Legends, Dota 2,
+Valorant, теннис и настольный теннис.
 
 ## Как устроен сайт
 
@@ -34,6 +35,60 @@ HTTP-запросы к `gg.bet/graphql` — только конфиги, лок�
 **Связка потоков.** Id матча у gg.bet выглядит как `5:dbe576ca-…`, у databet —
 `dbe576ca-…`, без префикса провайдера. Отсюда `normalizeId()`.
 
+## Виды спорта
+
+Каждый вид спорта — отдельная страница со своими подписками, поэтому монитор
+открывает по вкладке на каждый и сливает всё в одно хранилище.
+
+| Ключ | sportId | Название |
+|---|---|---|
+| `cs` | `esports_counter_strike` | Counter-Strike |
+| `lol` | `esports_league_of_legends` | League of Legends |
+| `dota` | `esports_dota_2` | Dota 2 |
+| `valorant` | `esports_valorant` | Valorant |
+| `tennis` | `tennis` | Теннис |
+| `table_tennis` | `table_tennis` | Настольный теннис |
+
+Идентификаторы взяты не наугад, а из ответа `categorizerSportList` в
+`samples/0021-ws.json`. Любой другой `sportId` тоже можно передать напрямую.
+
+```bash
+node src/monitor.mjs --sport cs,lol,dota,valorant,tennis
+node src/monitor.mjs --sport all
+```
+
+## Два файла на выходе
+
+`odds-history.csv` отвечает на вопрос «какая была цена в момент T» — строка на
+каждое изменение коэффициента:
+
+```csv
+ts,sport,match_id,title,map_score,current_map,round_score,market,selection,price,is_active
+```
+
+`changes.csv` отвечает на другой вопрос — «что происходило» — и складывает все
+события матча в один упорядоченный поток:
+
+```csv
+ts,sport,match_id,title,kind,target,from,to
+"2026-08-23T19:09:11Z","esports_counter_strike","c5715a56…","Fokus vs BakS","score","","0:0","1:0"
+"2026-08-23T19:09:26Z","esports_counter_strike","c5715a56…","Fokus vs BakS","price","Победитель / Fokus","1.82","1.81"
+```
+
+Виды событий:
+
+| `kind` | Когда пишется |
+|---|---|
+| `match_start` | матч появился и стало известно, кто играет |
+| `score` | изменился счёт по картам/сетам |
+| `map`, `map_name` | сменилась карта |
+| `round` | сменился раунд |
+| `state` | сменилось состояние (`freeze_time`, `live_time`, …) |
+| `bet_stop` | приём ставок остановлен или возобновлён |
+| `price` | сдвинулся коэффициент |
+| `odd_suspended`, `odd_resumed` | исход сняли с продажи или вернули |
+| `market_open`, `market_closed` | рынок появился или пропал |
+
 ## Требования
 
 - Node.js 20+
@@ -51,8 +106,8 @@ npx playwright install chromium
 ## Использование
 
 ```bash
-npm test          # прогон парсера по реальным записям из samples/ — без сети
-npm run watch     # живая таблица + история в odds-history.csv
+npm test          # парсер и журнал изменений на записях из samples/ — без сети
+npm run watch     # живая таблица, odds-history.csv и changes.csv
 npm run discover  # снять свежие сырые ответы в captures/
 npm run inspect   # разобрать, что нападало в captures/
 ```
@@ -109,10 +164,13 @@ ts,match_id,title,map_score,current_map,round_score,market,selection,price,is_ac
 | Файл | Что делает |
 |---|---|
 | `src/parse.mjs` | разбор кадров и `MatchStore` — слияние снапшота, патчей и счёта |
+| `src/changes.mjs` | сравнение двух состояний матча → записи журнала |
+| `src/sports.mjs` | реестр видов спорта и их `sportId` |
 | `src/render.mjs` | отрисовка таблицы (без браузера, поэтому тестируема) |
 | `src/monitor.mjs` | Playwright, перехват вебсокетов, CSV |
 | `src/inspect.mjs` | разбор захваченных payload'ов: рейтинг и скелет |
-| `src/parse.test.mjs` | тесты на реальных записях из `samples/` |
+| `src/parse.test.mjs` | тесты парсера на реальных записях из `samples/` |
+| `src/changes.test.mjs` | тесты журнала изменений |
 | `samples/` | 99 записанных кадров живой сессии — фикстуры для тестов |
 
 ## Разбор нового поля
@@ -122,6 +180,23 @@ ts,match_id,title,map_score,current_map,round_score,market,selection,price,is_ac
 3. `node src/inspect.mjs <файл>` — посмотреть скелет структуры
 4. добавить поле в `eventOf()` или `MatchStore#list()` в `src/parse.mjs`
 5. `npm test` — убедиться, что старые записи всё ещё разбираются
+
+## Что пока не проверено на живых данных
+
+Записи в `samples/` сняты только с Counter-Strike. Детальное состояние матча
+(карта, раунд, бомба) приходит от `score-board.databet.cloud` в типе
+`CSGOOverview`; у LoL, Dota, Valorant и тенниса структура наверняка другая —
+свои поля вместо карт и раундов.
+
+Счёт, турнир, названия команд, рынки и коэффициенты берутся из общего для всех
+видов спорта `fixture`, поэтому работать должны сразу. А вот строка состояния
+для остальных видов спорта, скорее всего, окажется пустой, пока не снят захват
+и не разобраны их типы овервью:
+
+```bash
+rm -rf captures && node src/monitor.mjs --sport lol,dota,tennis --discover
+npm run inspect
+```
 
 ## Оговорка
 

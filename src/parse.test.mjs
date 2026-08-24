@@ -61,7 +61,8 @@ assert.deepEqual(parseFrame({ type: 'data', payload: { data: { banners: [] } } }
 assert.deepEqual(parseFrame(null), []);
 
 // A patch on its own names nobody, so it must not pass as a usable match.
-const orphan = new MatchStore().apply(parseFrame({
+const orphan = new MatchStore();
+orphan.apply(parseFrame({
   type: 'data',
   payload: { data: { onUpdateSportEvent: { id: '5:abc', fixture: { score: '1:0' }, markets: [] } } },
 }));

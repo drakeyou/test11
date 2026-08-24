@@ -10,6 +10,8 @@
 // (`onUpdateSportEvent`) that carry competitor ids but no names, so updates are
 // only meaningful when merged onto the snapshot. MatchStore does that merge.
 
+import { diffMatch } from './changes.mjs';
+
 /** Event ids are provider-prefixed on gg.bet ("5:<uuid>") and bare on databet. */
 export function normalizeId(id) {
   return typeof id === 'string' ? id.replace(/^[^:]+:/, '') : id;
@@ -63,6 +65,7 @@ function eventOf(raw) {
   if (fixture.status) out.status = fixture.status;
   if (fixture.startTime) out.startTime = fixture.startTime;
   if (fixture.tournament?.name) out.tournament = fixture.tournament.name;
+  if (fixture.sportId) out.sport = fixture.sportId;
   if (fixture.competitors) out.competitors = fixture.competitors.map(competitorOf);
   if (raw.markets) out.markets = raw.markets.map(marketOf);
 
@@ -105,19 +108,38 @@ function mergeCompetitors(prev = [], next) {
 export class MatchStore {
   #matches = new Map();
 
-  apply(ops) {
+  /**
+   * Merge frames and report what they changed.
+   * @param {Array<object>} ops  output of parseFrame
+   * @param {string} [sport]     sportId of the tab the frames came from, used
+   *                             when a patch arrives before any snapshot names it
+   * @returns {Array<object>} change records, each tagged with its match
+   */
+  apply(ops, sport) {
+    const touched = new Set(ops.map((op) => (op.kind === 'event' ? op.event.id : op.id)));
+    const before = new Map([...touched].map((id) => [id, this.#viewOf(id)]));
+
     for (const op of ops) {
       if (op.kind === 'event') {
         const prev = this.#matches.get(op.event.id);
-        const merged = prev ? { ...prev, ...op.event } : op.event;
+        const merged = { ...(prev ?? {}), ...op.event };
         merged.competitors = mergeCompetitors(prev?.competitors, op.event.competitors);
+        if (!merged.sport && sport) merged.sport = sport;
         this.#matches.set(op.event.id, merged);
       } else if (op.kind === 'overview') {
-        const prev = this.#matches.get(op.id) ?? { id: op.id };
+        const prev = this.#matches.get(op.id) ?? { id: op.id, sport };
         this.#matches.set(op.id, { ...prev, live: op.overview });
       }
     }
-    return this;
+
+    const changes = [];
+    for (const id of touched) {
+      const after = this.#viewOf(id);
+      for (const change of diffMatch(before.get(id), after)) {
+        changes.push({ ...change, matchId: id, title: after.title, sport: after.sport });
+      }
+    }
+    return changes;
   }
 
   get size() {
@@ -126,7 +148,13 @@ export class MatchStore {
 
   /** Flatten to the fields a display or a CSV row needs. */
   list() {
-    return [...this.#matches.values()].map((m) => {
+    return [...this.#matches.keys()].map((id) => this.#viewOf(id));
+  }
+
+  #viewOf(id) {
+    const m = this.#matches.get(id);
+    if (!m) return null;
+    return ((m) => {
       const [home, away] = m.competitors ?? [];
       const map = m.live?.currentMap;
       const mapEntry = (m.live?.maps ?? []).find((x) => x.number === map);
@@ -148,8 +176,9 @@ export class MatchStore {
         bestOf: m.live?.bestOf ?? null,
         roundScore: mapEntry ? `${mapEntry.home.score}:${mapEntry.away.score}` : null,
         bombPlanted: m.live?.bomb?.isPlanted ?? null,
+        sport: m.sport ?? null,
         markets: m.markets ?? [],
       };
-    });
+    })(m);
   }
 }
