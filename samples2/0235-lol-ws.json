@@ -1,0 +1,8 @@
+{
+  "sport": "lol",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "id": "15",
+    "type": "complete"
+  }
+}

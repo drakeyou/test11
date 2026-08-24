@@ -1,0 +1,8 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "id": "2",
+    "type": "complete"
+  }
+}

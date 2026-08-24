@@ -1,0 +1,11 @@
+{
+  "sport": "dota",
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "widgetByName": null
+      }
+    }
+  ]
+}

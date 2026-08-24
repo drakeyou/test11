@@ -1,0 +1,16 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "preGeneratedBetsByFilters": {
+          "preGeneratedBets": [],
+          "__typename": "PreGeneratedBetList"
+        }
+      }
+    },
+    "id": "7",
+    "type": "data"
+  }
+}

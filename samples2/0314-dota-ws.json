@@ -1,0 +1,254 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:44feb73c-0c98-4745-ba41-a686b12d89aa",
+          "slug": "klim-sani4-vs-team-lynx-24-08",
+          "disabled": false,
+          "version": "4a33f80d-f2a7-4799-a7a4-3cb05c6968c8",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "TEAMS_STATISTICS",
+            "STREAM",
+            "SCOREBOARD",
+            "PITCH_TRACKER"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "SUSPENDED",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Klim Sani4",
+                  "value": "1.08",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:97545"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Team Lynx",
+                  "value": "6.84",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "17h-1_5",
+              "name": "Фора по картам",
+              "status": "SUSPENDED",
+              "typeId": 17,
+              "priority": 3,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "-1.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Klim Sani4 (-1.5)",
+                  "value": "1.90",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:97545"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Team Lynx (+1.5)",
+                  "value": "1.84",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "14t2_5",
+              "name": "Тотал карт",
+              "status": "SUSPENDED",
+              "typeId": 14,
+              "priority": 5,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "2.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 2.5",
+                  "value": "4.03",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 2.5",
+                  "value": "1.22",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "44feb73c-0c98-4745-ba41-a686b12d89aa",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_away",
+              "value": "radiant",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_home",
+              "value": "dire",
+              "__typename": "Pair"
+            },
+            {
+              "name": "time",
+              "value": "1260000",
+              "__typename": "Pair"
+            },
+            {
+              "name": "timer_running",
+              "value": "1",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gt:97545",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "9",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "8",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "6",
+    "type": "data"
+  }
+}

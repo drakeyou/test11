@@ -1,0 +1,356 @@
+{
+  "sport": "lol",
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "localeMenu": {
+          "id": "menu:footer-betting-esports",
+          "locale": "ru",
+          "items": [
+            {
+              "url": "dota2",
+              "anchor": "Dota 2",
+              "status": "enabled",
+              "imageId": "media:743055a22fe74f9a87983fda3992417f9d94060cc1",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "starcraft2",
+              "anchor": "StarCraft 2",
+              "status": "enabled",
+              "imageId": "media:7985c169e16dc9e847e9153ce010ce8fb52d0dbc5c",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "counter-strike",
+              "anchor": "Counter-Strike",
+              "status": "enabled",
+              "imageId": "media:65d3b206c4fb20fdc67ba340bee095735023fe3690",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "league-of-legends",
+              "anchor": "League of Legends",
+              "status": "enabled",
+              "imageId": "media:d7c1fe1d6214bf2afa60e4e40d9cb489575f6196fd",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "smite",
+              "anchor": "Smite",
+              "status": "enabled",
+              "imageId": "media:88c19e5ba13651a2160e823e06d596a0f01dbcbe0d",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "battlegrounds",
+              "anchor": "PUBG",
+              "status": "enabled",
+              "imageId": "media:50f6bcdd1baaa340c0e6a246d32c24b84a2c847751",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "call-of-duty",
+              "anchor": "Call of Duty",
+              "status": "enabled",
+              "imageId": "media:1c52991224dd024ea3b6d08e3d54134dc436544277",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "hearthstone",
+              "anchor": "Hearthstone",
+              "status": "enabled",
+              "imageId": "media:0209721bc0cacfc494dc213e2512d9c3077c2d2ee1",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "halo",
+              "anchor": "Halo",
+              "status": "enabled",
+              "imageId": "media:f476a79f50c316f75853bec159ccc019eb4eaf3072",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "nba-2k18",
+              "anchor": "NBA 2K",
+              "status": "enabled",
+              "imageId": "media:ed96c5bcf939dede5fe4bb86df80a6dca59cd84267",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "overwatch",
+              "anchor": "Overwatch",
+              "status": "enabled",
+              "imageId": "media:7c1f85e48a9e4ad6ecd0882ac5accd5329dd08e0b0",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "heroes-of-the-storm",
+              "anchor": "Heroes of the Storm",
+              "status": "enabled",
+              "imageId": "media:e1d496a65c45bb85df0e35c0509cbf8d4f6eac4510",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "vainglory",
+              "anchor": "Vainglory",
+              "status": "enabled",
+              "imageId": "media:eeb237a183a9b48dea476d804da563939a3d448e37",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "world-of-tanks",
+              "anchor": "World of Tanks",
+              "status": "enabled",
+              "imageId": "media:6ad20524c4bf2770cff9d2d4db49a2079c293d392b",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "fortnite",
+              "anchor": "Fortnite",
+              "status": "enabled",
+              "imageId": "media:5e20dd394461be8ca4c46dbd61c5c789c931485866",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "valorant",
+              "anchor": "Valorant",
+              "status": "enabled",
+              "imageId": "media:cfc21a7d1d174af6830e165d17a1b19487196727d9",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "fifa",
+              "anchor": "FIFA",
+              "status": "enabled",
+              "imageId": "media:f28468d659bab87d453c1286478975998447316a71",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "rocket-league",
+              "anchor": "Rocket League",
+              "status": "enabled",
+              "imageId": "media:9cc18168138e57cf9825b98174bef0b35538a62fcb",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "mobile-legends",
+              "anchor": "Mobile Legends",
+              "status": "enabled",
+              "imageId": "media:397d7843a58c40e2ba75c0e08fef6e0cca8218d0f7",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "rainbow-six",
+              "anchor": "Rainbow Six",
+              "status": "enabled",
+              "imageId": "media:87f31deb8bab750405ff9211bb5d245c48b3453cd0",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            }
+          ],
+          "__typename": "LocalizedMenuImpl"
+        }
+      }
+    },
+    {
+      "data": {
+        "localeMenu": {
+          "id": "menu:footer-betting-sports",
+          "locale": "ru",
+          "items": [
+            {
+              "url": "football",
+              "anchor": "Футбол",
+              "status": "enabled",
+              "imageId": "media:406c9aeaf227d5798855ce1b21ed04ffd73d19e2a9",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "volleyball",
+              "anchor": "Волейбол",
+              "status": "enabled",
+              "imageId": "media:df71c743bf7e50c5eb35ec953028c2098e4f714b29",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "basketball",
+              "anchor": "Баскетбол",
+              "status": "enabled",
+              "imageId": "media:844644b9bd8d8c661521232830ee52aaf2d4ec99bf",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "tennis",
+              "anchor": "Теннис",
+              "status": "enabled",
+              "imageId": "media:f79a90aadc14682c10dde5d2c90eb9fc0e51e8bb68",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "baseball",
+              "anchor": "Бейсбол",
+              "status": "enabled",
+              "imageId": "media:32f2334082d04d74dd95509d82a0182a76318a73e2",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "boxing",
+              "anchor": "Бокс",
+              "status": "enabled",
+              "imageId": "media:2e829fbee7db1ea0726f8ab5d57745f456df781e8d",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "futsal",
+              "anchor": "Футзал",
+              "status": "enabled",
+              "imageId": "media:01801343f1456c7093d54e09acf62126431de59594",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "mma",
+              "anchor": "MMA",
+              "status": "enabled",
+              "imageId": "media:915205728be4c73642810b837b730f6247faf0c9fb",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "handball",
+              "anchor": "Гандбол",
+              "status": "enabled",
+              "imageId": "media:4a5551ce441893b69982c22607bbc36da162152cb2",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "snooker",
+              "anchor": "Снукер",
+              "status": "enabled",
+              "imageId": "media:6c0d2767689a6a37263e4b0d667ddc8c30441c26b3",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "motorsport",
+              "anchor": "Моторспорт",
+              "status": "enabled",
+              "imageId": "media:e5538931ad9dd3e85601a77eae216480c17fc6f4e8",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "american-football",
+              "anchor": "Американский Футбол",
+              "status": "enabled",
+              "imageId": "media:cb4b816881efc4fbcdad81eadaff8e9e20840aae5a",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "hockey",
+              "anchor": "Хоккей",
+              "status": "enabled",
+              "imageId": "media:3f4f8dbdc667da8e25c2d3a1d929f2bc1c298c8551",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "beach-volleyball",
+              "anchor": "Пляжный Волейбол",
+              "status": "enabled",
+              "imageId": "media:939304b6c2b84cee6a8f3d56b4306c25e28b668fcb",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "beach-soccer",
+              "anchor": "Пляжный Футбол",
+              "status": "enabled",
+              "imageId": "media:bb2830caeb0061c73a54247302f932179895f8dcc2",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "cricket",
+              "anchor": "Крикет",
+              "status": "enabled",
+              "imageId": "media:f7ef05ac3362d147f0ddb37babdb7b3eb6816ea484",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "table-tennis",
+              "anchor": "Настольный теннис",
+              "status": "enabled",
+              "imageId": "media:f7db701ad705cc0454607523b13bd241cc30e03870",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "badminton",
+              "anchor": "Бадминтон",
+              "status": "enabled",
+              "imageId": "media:1ece84ac58a62eb38c6a6153ccc7e6e3f80b5c5814",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "darts",
+              "anchor": "Дартс",
+              "status": "enabled",
+              "imageId": "media:11a605e7161f6e6d046bf9106df5c7c825ca8ed3da",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "netball",
+              "anchor": "Нетбол",
+              "status": "enabled",
+              "imageId": "media:d79e179f04920aa6d6c25f981457f6da54b4705038",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            },
+            {
+              "url": "chess",
+              "anchor": "Шахматы",
+              "status": "enabled",
+              "imageId": "media:f1c34e8eb08d853513b2237244967f15ac0a20cf87",
+              "expanded": false,
+              "__typename": "LocalizedMenuItemImpl"
+            }
+          ],
+          "__typename": "LocalizedMenuImpl"
+        }
+      }
+    }
+  ]
+}

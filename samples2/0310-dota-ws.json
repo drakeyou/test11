@@ -1,0 +1,266 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:e08659a9-2de6-49cc-87e5-ebb5b503107c",
+          "slug": "immortal-squad-vs-dark-tamplars-24-08",
+          "disabled": false,
+          "version": "a9b8e437-9041-43d6-a965-08385c2aca91",
+          "betStop": false,
+          "availableWidgets": [
+            "TEAMS_STATISTICS",
+            "GAMES_STATISTICS",
+            "H2H_STATISTICS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Immortal Squad",
+                  "value": "5.29",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Dark Tamplars",
+                  "value": "1.14",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "17h1_5",
+              "name": "Фора по картам",
+              "status": "ACTIVE",
+              "typeId": 17,
+              "priority": 3,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "1.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Immortal Squad (+1.5)",
+                  "value": "1.94",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Dark Tamplars (-1.5)",
+                  "value": "1.80",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "14t2_5",
+              "name": "Тотал карт",
+              "status": "ACTIVE",
+              "typeId": 14,
+              "priority": 5,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "2.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 2.5",
+                  "value": "3.10",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 2.5",
+                  "value": "1.34",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "2",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "e08659a9-2de6-49cc-87e5-ebb5b503107c",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_away",
+              "value": "unknown",
+              "__typename": "Pair"
+            },
+            {
+              "name": "side_home",
+              "value": "unknown",
+              "__typename": "Pair"
+            },
+            {
+              "name": "time",
+              "value": "149000",
+              "__typename": "Pair"
+            },
+            {
+              "name": "timer_running",
+              "value": "1",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:1",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "45",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "1",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "63",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "1",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "1",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "7",
+    "type": "data"
+  }
+}

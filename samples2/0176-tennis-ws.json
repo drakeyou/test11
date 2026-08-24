@@ -1,0 +1,87 @@
+{
+  "sport": "tennis",
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "686b284b-f108-4ce0-ac8a-46c042878c26",
+              "overview": {
+                "currentSet": 1,
+                "server": "HOME",
+                "teams": {
+                  "home": {
+                    "set": {
+                      "score": 0,
+                      "__typename": "TennisOverviewTeamSet"
+                    },
+                    "game": {
+                      "score": 3,
+                      "__typename": "TennisOverviewGame"
+                    },
+                    "gamePoint": {
+                      "gamePoint": "POINT40",
+                      "__typename": "TennisOverviewGamePoint"
+                    },
+                    "tieBreak": {
+                      "score": 0,
+                      "__typename": "TennisOverviewTieBreak"
+                    },
+                    "__typename": "TennisOverviewTeam"
+                  },
+                  "away": {
+                    "set": {
+                      "score": 0,
+                      "__typename": "TennisOverviewTeamSet"
+                    },
+                    "game": {
+                      "score": 5,
+                      "__typename": "TennisOverviewGame"
+                    },
+                    "gamePoint": {
+                      "gamePoint": "POINT_ABOVE",
+                      "__typename": "TennisOverviewGamePoint"
+                    },
+                    "tieBreak": {
+                      "score": 0,
+                      "__typename": "TennisOverviewTieBreak"
+                    },
+                    "__typename": "TennisOverviewTeam"
+                  },
+                  "__typename": "TennisOverviewTeams"
+                },
+                "sets": [
+                  {
+                    "number": 1,
+                    "winner": "UNKNOWN",
+                    "state": "COMMON",
+                    "gameScore": {
+                      "home": 3,
+                      "away": 5,
+                      "__typename": "TennisOverviewSetGameScore"
+                    },
+                    "tieBreakScore": {
+                      "home": 0,
+                      "away": 0,
+                      "__typename": "TennisOverviewSetTieBreakScore"
+                    },
+                    "__typename": "TennisOverviewSet"
+                  }
+                ],
+                "pause": false,
+                "__typename": "TennisOverview"
+              },
+              "checksum": "9889283192128507154",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "sport": "dota",
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "e08659a9-2de6-49cc-87e5-ebb5b503107c",
+              "overview": {
+                "currentMap": 2,
+                "timer": {
+                  "isActive": true,
+                  "time": 123000,
+                  "__typename": "Timer"
+                },
+                "currentGoldLead": 0,
+                "teams": {
+                  "home": {
+                    "score": 0,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "away": {
+                    "score": 1,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "__typename": "Dota2OverviewTeams"
+                },
+                "bestOf": 3,
+                "maps": [
+                  {
+                    "number": 1,
+                    "teams": {
+                      "home": {
+                        "side": "UNKNOWN",
+                        "kills": 45,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "away": {
+                        "side": "UNKNOWN",
+                        "kills": 63,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "__typename": "Dota2MapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "Dota2OverviewMap"
+                  },
+                  {
+                    "number": 2,
+                    "teams": {
+                      "home": {
+                        "side": "UNKNOWN",
+                        "kills": 0,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "away": {
+                        "side": "UNKNOWN",
+                        "kills": 1,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "__typename": "Dota2MapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "Dota2OverviewMap"
+                  }
+                ],
+                "__typename": "Dota2Overview"
+              },
+              "checksum": "11909437939274304513",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "2",
+    "type": "data"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "betStakeSuggest": [
+          {
+            "amount": "250",
+            "__typename": "StakeSuggest"
+          },
+          {
+            "amount": "500",
+            "__typename": "StakeSuggest"
+          },
+          {
+            "amount": "2500",
+            "__typename": "StakeSuggest"
+          }
+        ]
+      }
+    },
+    "id": "11",
+    "type": "data"
+  }
+}

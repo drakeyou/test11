@@ -1,0 +1,13 @@
+{
+  "sport": "lol",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": []
+      }
+    },
+    "id": "11",
+    "type": "data"
+  }
+}

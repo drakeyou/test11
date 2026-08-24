@@ -1,0 +1,11 @@
+{
+  "sport": "tennis",
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "widgetByName": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "sport": "dota",
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "9edc1d53-9695-46ae-952f-c30e7b5d9c29",
+              "overview": {
+                "currentMap": 1,
+                "timer": {
+                  "isActive": false,
+                  "time": 0,
+                  "__typename": "Timer"
+                },
+                "currentGoldLead": 0,
+                "teams": {
+                  "home": {
+                    "score": 0,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "away": {
+                    "score": 0,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "__typename": "Dota2OverviewTeams"
+                },
+                "bestOf": 3,
+                "maps": [
+                  {
+                    "number": 1,
+                    "teams": {
+                      "home": {
+                        "side": "UNKNOWN",
+                        "kills": 9,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "away": {
+                        "side": "UNKNOWN",
+                        "kills": 11,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "__typename": "Dota2MapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "Dota2OverviewMap"
+                  }
+                ],
+                "__typename": "Dota2Overview"
+              },
+              "checksum": "8769292905684043065",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "sport": "tennis",
+  "url": "https://gg.bet/graphql",
+  "payload": [
+    {
+      "data": {
+        "banners": [
+          {
+            "id": "banner:welcome-bonus-2025-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/betting-welcome-bonus",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:325104e5e5996eeeedbc0cfa9c8b0803b35059c803",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:bigthree-tournament-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/tournaments/big-three-tournament",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:2f73e65a2c166e23189d0bc907cec6283c091566b2",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:monterey-mexico-promo-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:613c3e60f3749e884e72d7fa3ad0f40c81405f2cb1",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:bettingpromobasketballwnbap10-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:6ad35f6bcecf936b18f896294342d1ec4706cb22b5",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:football-newcastle-liverpool-august-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:93f204b030cc29b0d73c04d183d40df0f1917bf787",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:efg-swiss-tennis-july-26-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/promotions/betting/bonuses",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:550cd04bcb20eb4f23f3b367ec113f7a2186f4fc61",
+            "__typename": "DecodedBannerImpl"
+          },
+          {
+            "id": "banner:application-banner-t",
+            "title": "",
+            "subtitle": "",
+            "imageHref": "/app#android",
+            "buttonText": "",
+            "buttonHref": "",
+            "imageSrc": "/file/media:f64be8f7767d68acf890660d40da2801d31dca0322",
+            "__typename": "DecodedBannerImpl"
+          }
+        ]
+      }
+    }
+  ]
+}

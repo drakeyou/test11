@@ -1,0 +1,64 @@
+{
+  "sport": "dota",
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "44feb73c-0c98-4745-ba41-a686b12d89aa",
+              "overview": {
+                "currentMap": 1,
+                "timer": {
+                  "isActive": true,
+                  "time": 1240000,
+                  "__typename": "Timer"
+                },
+                "currentGoldLead": 4241,
+                "teams": {
+                  "home": {
+                    "score": 0,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "away": {
+                    "score": 0,
+                    "__typename": "Dota2OverviewTeam"
+                  },
+                  "__typename": "Dota2OverviewTeams"
+                },
+                "bestOf": 3,
+                "maps": [
+                  {
+                    "number": 1,
+                    "teams": {
+                      "home": {
+                        "side": "DIRE",
+                        "kills": 9,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "away": {
+                        "side": "RADIANT",
+                        "kills": 8,
+                        "__typename": "Dota2MapOverviewTeam"
+                      },
+                      "__typename": "Dota2MapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "Dota2OverviewMap"
+                  }
+                ],
+                "__typename": "Dota2Overview"
+              },
+              "checksum": "7330594627418738397",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "1",
+    "type": "data"
+  }
+}

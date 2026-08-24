@@ -1,0 +1,1168 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "matches": {
+          "count": 4,
+          "sportEvents": [
+            {
+              "id": "5:44feb73c-0c98-4745-ba41-a686b12d89aa",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "klim-sani4-vs-team-lynx-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "44feb73c-0c98-4745-ba41-a686b12d89aa",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_away",
+                  "value": "radiant",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_home",
+                  "value": "dire",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "1213000",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "timer_running",
+                  "value": "1",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Klim Sani4 vs Team Lynx",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:05:00+00:00",
+                "sportId": "esports_dota_2",
+                "sport": {
+                  "id": "esports_dota_2",
+                  "name": "Dota 2",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "dota-2",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:3cdf0484-ec07-43da-8099-15f511f49692",
+                  "name": "EPL Masters II: Play-In",
+                  "logo": "cdn.gin.bet/tournaments/6a8ab638d66c9132244892.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-23T21:00:14+00:00",
+                  "dateEnd": "2026-08-29T21:00:14+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "epl-masters-ii-play-in",
+                  "sportId": "esports_dota_2",
+                  "masterId": "gin:3cdf0484-ec07-43da-8099-15f511f49692",
+                  "countryCode": "WW-EUR",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gt:97545",
+                    "name": "Klim Sani4",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/t9754565965e7ec6d58103722317.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "9",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6",
+                    "name": "Team Lynx",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/37px-Team_Lynx_darkmode6854cd8f07c32536190027.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "8",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "TEAMS_STATISTICS",
+                "STREAM",
+                "SCOREBOARD",
+                "PITCH_TRACKER"
+              ],
+              "version": "38ea6791-b8bb-4dcd-8449-cec63f37d6d1",
+              "betBuilderFeature": {
+                "enabled": true,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "SUSPENDED",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Klim Sani4",
+                      "value": "1.09",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:97545"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Team Lynx",
+                      "value": "6.70",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "17h-1_5",
+                  "name": "Фора по картам",
+                  "status": "SUSPENDED",
+                  "typeId": 17,
+                  "priority": 3,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-1.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Klim Sani4 (-1.5)",
+                      "value": "1.93",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:97545"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Team Lynx (+1.5)",
+                      "value": "1.82",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:986dcc5c-5c07-470c-8715-10b25ccb2ae6"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "14t2_5",
+                  "name": "Тотал карт",
+                  "status": "SUSPENDED",
+                  "typeId": 14,
+                  "priority": 5,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 2.5",
+                      "value": "4.03",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 2.5",
+                      "value": "1.22",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:e08659a9-2de6-49cc-87e5-ebb5b503107c",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "immortal-squad-vs-dark-tamplars-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "2",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "e08659a9-2de6-49cc-87e5-ebb5b503107c",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_away",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_home",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "105000",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "timer_running",
+                  "value": "1",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:1",
+                "title": "Immortal Squad vs Dark Tamplars",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:18:31+00:00",
+                "sportId": "esports_dota_2",
+                "sport": {
+                  "id": "esports_dota_2",
+                  "name": "Dota 2",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "dota-2",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:feebbda0-ef83-46d5-81f8-f914b47475f1",
+                  "name": "Mad Dogs League",
+                  "logo": "",
+                  "showTournamentInfo": true,
+                  "dateStart": "2022-09-06T11:16:43+00:00",
+                  "dateEnd": "2026-08-24T12:20:01+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "mad-dogs-league",
+                  "sportId": "esports_dota_2",
+                  "masterId": "gin:feebbda0-ef83-46d5-81f8-f914b47475f1",
+                  "countryCode": "",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6",
+                    "name": "Immortal Squad",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/image-removebg-preview66645d0712a08867664284.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "45",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "0",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8",
+                    "name": "Dark Tamplars",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/image-removebg-preview%20%281%2966645d0b4ccd4052361949.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "63",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "0",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "TEAMS_STATISTICS",
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS"
+              ],
+              "version": "dfbb8166-db68-4662-9d74-16aba0f38947",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Immortal Squad",
+                      "value": "5.29",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Dark Tamplars",
+                      "value": "1.14",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "17h1_5",
+                  "name": "Фора по картам",
+                  "status": "ACTIVE",
+                  "typeId": 17,
+                  "priority": 3,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "1.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Immortal Squad (+1.5)",
+                      "value": "1.94",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0283145b-c63c-4ab3-810f-ce478d9ef1a6"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Dark Tamplars (-1.5)",
+                      "value": "1.80",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:d152b9ee-1332-4e22-b422-d1d79528f7e8"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "14t2_5",
+                  "name": "Тотал карт",
+                  "status": "ACTIVE",
+                  "typeId": 14,
+                  "priority": 5,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 2.5",
+                      "value": "3.10",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 2.5",
+                      "value": "1.34",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:9edc1d53-9695-46ae-952f-c30e7b5d9c29",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "lv-united-vs-the-last-titan-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "9edc1d53-9695-46ae-952f-c30e7b5d9c29",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "0",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "LV United vs The Last Titan",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:10:00+00:00",
+                "sportId": "esports_dota_2",
+                "sport": {
+                  "id": "esports_dota_2",
+                  "name": "Dota 2",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "dota-2",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:a5d5cb5c-af68-4a0b-9b49-bf17b4d1a4f9",
+                  "name": "Destiny League",
+                  "logo": "",
+                  "showTournamentInfo": true,
+                  "dateStart": "2021-06-16T21:00:00+00:00",
+                  "dateEnd": "2026-08-25T04:05:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "destiny-league",
+                  "sportId": "esports_dota_2",
+                  "masterId": "gin:a5d5cb5c-af68-4a0b-9b49-bf17b4d1a4f9",
+                  "countryCode": "",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd",
+                    "name": "The Last Titan",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/50px-Dota_2_default_allmode69fed7c59932e8980368296a0aa5cebfa21909080166.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "11",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233",
+                    "name": "LV United",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "9",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "TEAMS_STATISTICS"
+              ],
+              "version": "ae679ad9-839b-4997-99b2-c16ab4d1dcd9",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "SUSPENDED",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "LV United",
+                      "value": "1.92",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "The Last Titan",
+                      "value": "1.82",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "17h1_5",
+                  "name": "Фора по картам",
+                  "status": "SUSPENDED",
+                  "typeId": 17,
+                  "priority": 3,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "1.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "LV United (+1.5)",
+                      "value": "1.59",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "The Last Titan (-1.5)",
+                      "value": "2.26",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "14t2_5",
+                  "name": "Тотал карт",
+                  "status": "SUSPENDED",
+                  "typeId": 14,
+                  "priority": 5,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 2.5",
+                      "value": "1.63",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 2.5",
+                      "value": "2.20",
+                      "isActive": false,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:687d2fd8-525b-472c-a6c3-e22cf5061ac4",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "nethercore-vs-jujutsu-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "2",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "687d2fd8-525b-472c-a6c3-e22cf5061ac4",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_away",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "side_home",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "0",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:1",
+                "title": "Nethercore vs Jujutsu",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:23:41+00:00",
+                "sportId": "esports_dota_2",
+                "sport": {
+                  "id": "esports_dota_2",
+                  "name": "Dota 2",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "dota-2",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:3c4bb034-6c39-4f47-a898-aa875d0b7f56",
+                  "name": "Ultras Dota Pro",
+                  "logo": "cdn.gin.bet/tournaments/no_logo_dota5f74266cbac1f12443917460e3e1c37e9f4331015731.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2020-12-31T22:00:45+00:00",
+                  "dateEnd": "2026-08-24T12:30:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "ultras-dota-pro",
+                  "sportId": "esports_dota_2",
+                  "masterId": "gin:3c4bb034-6c39-4f47-a898-aa875d0b7f56",
+                  "countryCode": "WW-EUR",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:0027e153-f555-4532-b580-8e8c17147b05",
+                    "name": "Jujutsu",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "32",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "11",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:97733fdf-0321-416d-83af-8aa480f284e0",
+                    "name": "Nethercore",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/image-removebg-preview672105f012a73488610651.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "25",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "9",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "TEAMS_STATISTICS"
+              ],
+              "version": "3adf37be-d00f-4d95-a3aa-c348aecc1d5b",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Nethercore",
+                      "value": "4.39",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:97733fdf-0321-416d-83af-8aa480f284e0"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Jujutsu",
+                      "value": "1.19",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0027e153-f555-4532-b580-8e8c17147b05"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "17h1_5",
+                  "name": "Фора по картам",
+                  "status": "ACTIVE",
+                  "typeId": 17,
+                  "priority": 3,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "1.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Nethercore (+1.5)",
+                      "value": "1.54",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:97733fdf-0321-416d-83af-8aa480f284e0"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Jujutsu (-1.5)",
+                      "value": "2.37",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0027e153-f555-4532-b580-8e8c17147b05"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "14t2_5",
+                  "name": "Тотал карт",
+                  "status": "ACTIVE",
+                  "typeId": 14,
+                  "priority": 5,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "1xbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 2.5",
+                      "value": "1.40",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 2.5",
+                      "value": "2.80",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            }
+          ],
+          "__typename": "SportEventList"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

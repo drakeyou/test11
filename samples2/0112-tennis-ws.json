@@ -1,0 +1,3637 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "matches": {
+          "count": 28,
+          "sportEvents": [
+            {
+              "id": "5:a7b73a8d-cee0-483b-a8f1-380645867ad6",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "matthew-donald-vs-benjamin-hassan-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "a7b73a8d-cee0-483b-a8f1-380645867ad6",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:1",
+                "title": "Matthew Donald vs Хассан, Беньямин",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:00:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "name": "Challenger. Augsburg. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/68bd1597b5109715342991.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2024-04-30T21:00:50+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-augsburg-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "countryCode": "DE",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "betting:1:sr:competitor:108767",
+                    "name": "Хассан, Беньямин",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/5c2ddae2dadf3af59568255aa98ef7afddf1d5b29ce72c47a2d67217d8f43f0a6a01bbac26bf7701135290.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "6",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "1",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:ae13f68b-b867-4573-91be-a3039075b4cc",
+                    "name": "Matthew Donald",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/230c3c112fc4313bbc6cbb7b07024b88918744e14fc71a13c39420c38b52753a6a01bc24c427f341487873.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "0",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "1fafd33a-d344-4c79-b52d-651fd5de1162",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Matthew Donald",
+                      "value": "6.09",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:ae13f68b-b867-4573-91be-a3039075b4cc"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Хассан, Беньямин",
+                      "value": "1.10",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:108767"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h4_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "4.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Matthew Donald (+4.5)",
+                      "value": "1.79",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:ae13f68b-b867-4573-91be-a3039075b4cc"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Хассан, Беньямин (-4.5)",
+                      "value": "1.96",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:108767"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t19_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "19.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 19.5",
+                      "value": "2.21",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 19.5",
+                      "value": "1.62",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:63061260-279b-4bd4-b182-165ad0b3f6a7",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "federico-iannaccone-vs-oleksii-krutykh-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "4",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "63061260-279b-4bd4-b182-165ad0b3f6a7",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "away",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Федерико Яннакконе vs Алексей Крутых",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:15:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "name": "Challenger. Augsburg. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/68bd1597b5109715342991.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2024-04-30T21:00:50+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-augsburg-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "countryCode": "DE",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6",
+                    "name": "Алексей Крутых",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/d1b909a911917c9f0078fbe15b923d228fa5850b40130affcda8647687c524206a01bc318f510080590505.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "2",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268",
+                    "name": "Федерико Яннакконе",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/11zon_cropped%20%2825%2967fd49537413b112812823.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "2",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "91fbe22e-a01a-4bd2-83ea-bf0d4a451596",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Федерико Яннакконе",
+                      "value": "6.89",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Алексей Крутых",
+                      "value": "1.08",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h4_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "4.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Федерико Яннакконе (+4.5)",
+                      "value": "2.06",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Алексей Крутых (-4.5)",
+                      "value": "1.71",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t21_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "21.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 21.5",
+                      "value": "2.17",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 21.5",
+                      "value": "1.64",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:686b284b-f108-4ce0-ac8a-46c042878c26",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "radu-albot-vs-leonardo-rossi-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "7",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "686b284b-f108-4ce0-ac8a-46c042878c26",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Раду Албот vs Леонардо Росси",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:05:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "name": "Challenger. Roehampton. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a81769dbde52986618440.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-16T04:37:14+00:00",
+                  "dateEnd": "2027-08-16T04:37:14+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-roehampton-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "countryCode": "GB",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "betting:1:sr:competitor:44547",
+                    "name": "Раду Албот",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/9f1ae351e73ba742c20af80e981d344399efcb13fbf16ee4f1431e6c06e412776a01bbea66ec0002040312.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "3",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73",
+                    "name": "Леонардо Росси",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/6fbed786a93db77d46fcdc957db3ddf19544ef8369975fc293e15d04a30b2b616a01bc4f5ada1044778031.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "A",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "H2H_STATISTICS",
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "688692b2-a750-416b-a69d-3e8c60af01c1",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Раду Албот",
+                      "value": "2.03",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:44547"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Леонардо Росси",
+                      "value": "1.73",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h0_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "0.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Раду Албот (+0.5)",
+                      "value": "2.00",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:44547"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Леонардо Росси (-0.5)",
+                      "value": "1.76",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t22_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "22.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 22.5",
+                      "value": "1.94",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 22.5",
+                      "value": "1.80",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:6abd83ec-7b53-48a1-a809-87e3b46631a6",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "mika-brunold-vs-liam-gavrielides-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "5",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "6abd83ec-7b53-48a1-a809-87e3b46631a6",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Мика Брунольд vs Liam Gavrielides",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:22:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "name": "Challenger. Augsburg. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/68bd1597b5109715342991.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2024-04-30T21:00:50+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-augsburg-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                  "countryCode": "DE",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:8c957b57-6851-4c70-b44f-082f38da66f3",
+                    "name": "Liam Gavrielides",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/47b42ed52912e5df6ef69f78d549d8bce3d4e8d0655e2fe139e414e2d2426b596a01bd31ba8bf302329480.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:92bf5718-6916-4a4a-99df-a364d0fc2968",
+                    "name": "Мика Брунольд",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/35a337f0f4f79b13c414118d683180dc849fbc34632e0694a1a6fe5dcfc1f8f26a01bbca3a8c4462123397.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "30",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "8ecd7759-2f8e-406d-8eb3-590045fe04c4",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Мика Брунольд",
+                      "value": "1.07",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:92bf5718-6916-4a4a-99df-a364d0fc2968"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Liam Gavrielides",
+                      "value": "7.45",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8c957b57-6851-4c70-b44f-082f38da66f3"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-6_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-6.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Мика Брунольд (-6.5)",
+                      "value": "1.88",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:92bf5718-6916-4a4a-99df-a364d0fc2968"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Liam Gavrielides (+6.5)",
+                      "value": "1.86",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8c957b57-6851-4c70-b44f-082f38da66f3"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t17_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "17.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 17.5",
+                      "value": "1.64",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 17.5",
+                      "value": "2.18",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:8a61df01-60a2-4cea-83fd-4006c2d08666",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "alena-kovackova-vs-laura-boehner-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "6",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "8a61df01-60a2-4cea-83fd-4006c2d08666",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "away",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Alena Kovackova vs Laura Boehner",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:11:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:69a2b433-f249-47d6-b092-139b79594f19",
+                  "name": "TF Олдензал. Нидерланды. Женщины. Одиночный разряд",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2019-07-01T00:00:00+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": false,
+                  "slug": "itf-oldenzaal-netherlands-women-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:69a2b433-f249-47d6-b092-139b79594f19",
+                  "countryCode": "NL",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:2fe73e40-de17-46cf-a20a-c24ac4adef68",
+                    "name": "Alena Kovackova",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/9931cef9a047b52fc7cf4bd0eea5e7d76dcf3d8e09c2a1cfa567e95dff6740d26a01bf10e1e77010257479.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:8999d9f3-a486-490d-b1e7-014fe4a97b0e",
+                    "name": "Laura Boehner",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/20a8ba5611a5894379632076f1cd9cc75505eb31566f41d697158c3fcff57f866a01bff570c37181417864.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "2",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "a0936d73-7783-4ff5-affc-0638ef0b1404",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "227s2",
+                  "name": "2-й Сет Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 227,
+                  "priority": 2,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "setnr",
+                      "value": "2",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Alena Kovackova",
+                      "value": "1.05",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:2fe73e40-de17-46cf-a20a-c24ac4adef68"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Laura Boehner",
+                      "value": "8.43",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8999d9f3-a486-490d-b1e7-014fe4a97b0e"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-8_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-8.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Alena Kovackova (-8.5)",
+                      "value": "2.00",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:2fe73e40-de17-46cf-a20a-c24ac4adef68"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Laura Boehner (+8.5)",
+                      "value": "1.76",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8999d9f3-a486-490d-b1e7-014fe4a97b0e"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t15_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "15.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 15.5",
+                      "value": "1.90",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 15.5",
+                      "value": "1.84",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:a6647921-8a8f-4d49-b833-39382853dc77",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "inaki-montes-de-la-torre-vs-oskari-paldanius-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "8",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "a6647921-8a8f-4d49-b833-39382853dc77",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "away",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Inaki Montes-De La Torre vs Oskari Paldanius",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:05:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "name": "Challenger. Roehampton. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a81769dbde52986618440.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-16T04:37:14+00:00",
+                  "dateEnd": "2027-08-16T04:37:14+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-roehampton-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "countryCode": "GB",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:3552a6ec-16dd-438e-9767-5d1af994b025",
+                    "name": "Inaki Montes-De La Torre",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/6ecda601d7cce80b86fac394bd6bf9f8bd6e10e51aa1d1b6fc5dc9f5f062382b6a01bbd56c69c644915325.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "30",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:6336417b-81b8-4f4b-9a41-a0767ff06176",
+                    "name": "Oskari Paldanius",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/7b5d4173f2b7835de4ca87c5a06869d6ce337fcf40b0e9c4b277f4140e00c4386a01bccef41ea364225143.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "7a4298fa-b600-451a-bbff-a87844fefbb9",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Inaki Montes-De La Torre",
+                      "value": "1.32",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:3552a6ec-16dd-438e-9767-5d1af994b025"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Oskari Paldanius",
+                      "value": "3.22",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:6336417b-81b8-4f4b-9a41-a0767ff06176"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h1_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "1.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Inaki Montes-De La Torre (+1.5)",
+                      "value": "1.82",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:3552a6ec-16dd-438e-9767-5d1af994b025"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Oskari Paldanius (-1.5)",
+                      "value": "1.92",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:6336417b-81b8-4f4b-9a41-a0767ff06176"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t22_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "22.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 22.5",
+                      "value": "1.59",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 22.5",
+                      "value": "2.26",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:910c3704-13eb-445d-89d8-a78a3c7c3e6f",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "gaeul-jang-vs-sophie-triquart-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "10",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "910c3704-13eb-445d-89d8-a78a3c7c3e6f",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Gaeul Jang vs Sophie Triquart",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:49:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:15d2388e-b958-44eb-b09a-5fd92399d823",
+                  "name": "WT Trieste. Italy. Women Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2025-07-28T00:00:00+00:00",
+                  "dateEnd": "2026-08-31T00:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "itf-trieste-italy-women-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:15d2388e-b958-44eb-b09a-5fd92399d823",
+                  "countryCode": "IT",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:51824c09-b7fa-4f61-a2a3-79083871f3d1",
+                    "name": "Sophie Triquart",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/%D0%91%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F68ecc9706a21b014276128.jpg",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "5",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:553be231-fc8d-4deb-baf4-49bfc291776e",
+                    "name": "Gaeul Jang",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/f7bf78bed371ca6c43bcb7dc8e0995e04b910f13240026e178d29a357cf27b826a01bf6781233694099680.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "5",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "b69485ff-c727-4880-b7dd-7ec4fc0b6d8b",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Gaeul Jang",
+                      "value": "1.28",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:553be231-fc8d-4deb-baf4-49bfc291776e"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Sophie Triquart",
+                      "value": "3.48",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:51824c09-b7fa-4f61-a2a3-79083871f3d1"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-2_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Gaeul Jang (-2.5)",
+                      "value": "1.81",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:553be231-fc8d-4deb-baf4-49bfc291776e"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Sophie Triquart (+2.5)",
+                      "value": "1.94",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:51824c09-b7fa-4f61-a2a3-79083871f3d1"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t21_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "21.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 21.5",
+                      "value": "1.55",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 21.5",
+                      "value": "2.35",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:429ab937-4aaa-4695-8044-f1f4f1128c09",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "oliver-bonding-vs-millen-hurrion-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "8",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "429ab937-4aaa-4695-8044-f1f4f1128c09",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "away",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Oliver Bonding vs Millen Hurrion",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:10:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "name": "Challenger. Roehampton. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a81769dbde52986618440.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-16T04:37:14+00:00",
+                  "dateEnd": "2027-08-16T04:37:14+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "challenger-roehampton-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                  "countryCode": "GB",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:00e5cfeb-175f-4ecf-80b6-0038a918837e",
+                    "name": "Millen Hurrion",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/f6549ee4d579e5a7075925167d6c375bf4c337a91e3ff5aac2a48c47bf129db56a01bc4c1f143975792828.png",
+                    "score": [
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "3",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:3feeb753-965b-42f3-9f18-7971ecb9379c",
+                    "name": "Oliver Bonding",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/3f09d88a9240e862e4cf1fc8e7a48b83014d92197711320901e369cf07efa6396a01bcc5419de538534156.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "5",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "0dd33dba-aa74-46b7-bb15-e426da006586",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "fonbet",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Oliver Bonding",
+                      "value": "1.35",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:3feeb753-965b-42f3-9f18-7971ecb9379c"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Millen Hurrion",
+                      "value": "3.04",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:00e5cfeb-175f-4ecf-80b6-0038a918837e"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-3_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-3.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Oliver Bonding (-3.5)",
+                      "value": "1.81",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:3feeb753-965b-42f3-9f18-7971ecb9379c"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Millen Hurrion (+3.5)",
+                      "value": "1.94",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:00e5cfeb-175f-4ecf-80b6-0038a918837e"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t24_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "24.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 24.5",
+                      "value": "1.36",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 24.5",
+                      "value": "2.97",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:34e0c422-6e4a-41f5-9c3e-194b3d1abf59",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "tahlia-kokkinis-vs-ana-petkovic-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "6",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "34e0c422-6e4a-41f5-9c3e-194b3d1abf59",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "1:0",
+                "title": "Tahlia Kokkinis vs Ana Petkovic",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:16:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:68a2d6b1-b335-4bbd-b189-118898367e63",
+                  "name": "WT Kursumlijska Banja. Serbia. Women Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2024-08-07T21:00:40+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "itf-kursumlijska-banja-serbia-women-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:68a2d6b1-b335-4bbd-b189-118898367e63",
+                  "countryCode": "RS",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:35a88ff0-cd2b-4e93-a478-0fed3500ff62",
+                    "name": "Ana Petkovic",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/Ana6892e4aa4c08b5565756726a197be2ce8d9518640477.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "3",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "30",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "1",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:8dd52a91-8bfa-4b54-93c0-c5ed58a5a774",
+                    "name": "Tahlia Kokkinis",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/e5bb6a89bec1e703bd52008a92e938ab1cfa58474f947ba2443ef81fc1cdedce6a01beeb6c926189783634.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "6",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "30",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "5",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "f97749fe-b21d-41bf-a817-392e14b9c091",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "352g7s2",
+                  "name": "2-й Сет - Победитель гейма",
+                  "status": "ACTIVE",
+                  "typeId": 352,
+                  "priority": 5,
+                  "tags": [
+                    "gamenr"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "gamenr",
+                      "value": "7",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "setnr",
+                      "value": "2",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Tahlia Kokkinis 7",
+                      "value": "1.49",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8dd52a91-8bfa-4b54-93c0-c5ed58a5a774"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Ana Petkovic 7",
+                      "value": "2.51",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:35a88ff0-cd2b-4e93-a478-0fed3500ff62"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-7_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-7.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Tahlia Kokkinis (-7.5)",
+                      "value": "1.33",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:8dd52a91-8bfa-4b54-93c0-c5ed58a5a774"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Ana Petkovic (+7.5)",
+                      "value": "3.16",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:35a88ff0-cd2b-4e93-a478-0fed3500ff62"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t16_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "16.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 16.5",
+                      "value": "2.56",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 16.5",
+                      "value": "1.47",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:4ffcbfa8-cb2c-410e-b91a-d88b57881461",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "marc-vives-martinez-vs-andrea-baudel-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "5",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "4ffcbfa8-cb2c-410e-b91a-d88b57881461",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Marc Vives Martinez vs Andrea Baudel",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T10:08:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:39ef5e78-ace4-478b-a4d4-2f265175ef55",
+                  "name": "WT Cap d'Agde. France. Men Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2025-08-24T08:46:37+00:00",
+                  "dateEnd": "2026-08-24T13:30:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "itf-cap-dagde-france-men-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:39ef5e78-ace4-478b-a4d4-2f265175ef55",
+                  "countryCode": "FR",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:0834c3cb-50d6-4da7-b90f-1f0c37075709",
+                    "name": "Andrea Baudel",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "5",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:58126892-3a8e-4f3f-9873-2009c8c20242",
+                    "name": "Marc Vives Martinez",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "3e098fce-db42-45df-b84e-5cae5b9e90f6",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "227s2",
+                  "name": "2-й Сет Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 227,
+                  "priority": 2,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "setnr",
+                      "value": "2",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Marc Vives Martinez",
+                      "value": "9.54",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:58126892-3a8e-4f3f-9873-2009c8c20242"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Andrea Baudel",
+                      "value": "1.04",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0834c3cb-50d6-4da7-b90f-1f0c37075709"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h9_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "9.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Marc Vives Martinez (+9.5)",
+                      "value": "1.67",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:58126892-3a8e-4f3f-9873-2009c8c20242"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Andrea Baudel (-9.5)",
+                      "value": "2.13",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:0834c3cb-50d6-4da7-b90f-1f0c37075709"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t14_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "14.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 14.5",
+                      "value": "1.72",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 14.5",
+                      "value": "2.05",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:eee2860a-a497-45e1-8e85-0b59c2aba01f",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "gina-marie-dittmann-vs-irina-fetecau-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "eee2860a-a497-45e1-8e85-0b59c2aba01f",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "home",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "1:0",
+                "title": "Gina Marie Dittmann vs Ирина Фетекау",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:36:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:9bbb8430-f54b-48f3-a1ca-bc1801aaf192",
+                  "name": "WT Bytom. Poland. Women Singles",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2019-07-22T15:27:34+00:00",
+                  "dateEnd": "2026-08-25T07:30:00+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "itf-bytom-poland-women-singles-1",
+                  "sportId": "tennis",
+                  "masterId": "gin:9bbb8430-f54b-48f3-a1ca-bc1801aaf192",
+                  "countryCode": "PL",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "betting:1:sr:competitor:93661",
+                    "name": "Ирина Фетекау",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/eac0fdac8a5035262045b65e97df42609129303f973a46d846733dc67086f1ac6a01bfd20e737789207820.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "0",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:b34efab6-171a-4c1c-b170-9b1b85953141",
+                    "name": "Gina Marie Dittmann",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/8f5be67c670b3becd5d818995ce8553df0676975b9d0f57ce64edfc6ea01e9b36a01beec41bf0513764481.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "6",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "15",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:1",
+                        "type": "set",
+                        "points": "1",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "0740a6b3-e2cc-4275-b424-6d419964cae2",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Gina Marie Dittmann",
+                      "value": "1.23",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:b34efab6-171a-4c1c-b170-9b1b85953141"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Ирина Фетекау",
+                      "value": "3.87",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:93661"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h-4_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-4.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Gina Marie Dittmann (-4.5)",
+                      "value": "1.88",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:b34efab6-171a-4c1c-b170-9b1b85953141"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Ирина Фетекау (+4.5)",
+                      "value": "1.86",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "betting:1:sr:competitor:93661"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t19_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "19.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 19.5",
+                      "value": "1.62",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 19.5",
+                      "value": "2.21",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            },
+            {
+              "id": "5:8b9a245c-9e0e-4356-9681-0ad64d204869",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "sevil-yuldasheva-vs-maria-toma-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "3",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "game",
+                  "value": "8",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "8b9a245c-9e0e-4356-9681-0ad64d204869",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "server",
+                  "value": "away",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set",
+                  "value": "0",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "set_state",
+                  "value": "common",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "0:0",
+                "title": "Sevil Yuldasheva vs Тома, Мария",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:47:00+00:00",
+                "sportId": "tennis",
+                "sport": {
+                  "id": "tennis",
+                  "name": "Теннис",
+                  "tags": [
+                    "CLASSIC"
+                  ],
+                  "slug": "tennis",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:69a2b433-f249-47d6-b092-139b79594f19",
+                  "name": "TF Олдензал. Нидерланды. Женщины. Одиночный разряд",
+                  "logo": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2019-07-01T00:00:00+00:00",
+                  "dateEnd": "2026-08-25T08:00:00+00:00",
+                  "isLocalizationOverridden": false,
+                  "slug": "itf-oldenzaal-netherlands-women-singles",
+                  "sportId": "tennis",
+                  "masterId": "gin:69a2b433-f249-47d6-b092-139b79594f19",
+                  "countryCode": "NL",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gin:24ea6298-f4b4-4501-8da5-d755131492a9",
+                    "name": "Тома, Мария",
+                    "type": "PERSON",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/f09a37480e244ce048fd326cafd9221aa81ce902fd81fffd64d6721e8ac633186a01bf6aecb6c887426049.png",
+                    "score": [
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "30",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gin:a6daa288-6d10-4570-95b4-be3216a6e1d0",
+                    "name": "Sevil Yuldasheva",
+                    "type": "PERSON",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/5e15ef0492a3a57ce5a6a67ae1721095bece60076ad4cbe5b973f99b7b4f297c6a01bff8c6c82146818607.png",
+                    "score": [
+                      {
+                        "id": "game_points",
+                        "type": "game_points",
+                        "points": "40",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "set:0",
+                        "type": "set",
+                        "points": "4",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "GENIUS"
+              ],
+              "version": "30ac71b8-397c-4de2-bf1c-dc1dbaeb0b2b",
+              "betBuilderFeature": {
+                "enabled": false,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    },
+                    {
+                      "name": "tech_win_team",
+                      "value": "unknown",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Sevil Yuldasheva",
+                      "value": "1.69",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:a6daa288-6d10-4570-95b4-be3216a6e1d0"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Тома, Мария",
+                      "value": "2.08",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:24ea6298-f4b4-4501-8da5-d755131492a9"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "223h0_5",
+                  "name": "Фора по Геймам",
+                  "status": "ACTIVE",
+                  "typeId": 223,
+                  "priority": 4,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "0.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Sevil Yuldasheva (+0.5)",
+                      "value": "1.91",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:a6daa288-6d10-4570-95b4-be3216a6e1d0"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Тома, Мария (-0.5)",
+                      "value": "1.83",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gin:24ea6298-f4b4-4501-8da5-d755131492a9"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "226t23_5",
+                  "name": "Тотал геймов",
+                  "status": "ACTIVE",
+                  "typeId": 226,
+                  "priority": 3,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "23.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "parser-genius",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 23.5",
+                      "value": "1.76",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 23.5",
+                      "value": "1.99",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            }
+          ],
+          "__typename": "SportEventList"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

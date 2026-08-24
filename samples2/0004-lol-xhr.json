@@ -1,0 +1,12 @@
+{
+  "sport": "lol",
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "analyticsSettings": {
+        "reportServiceUrl": "//stat.gg.bet/font.png?project=ggbet&uniqueId=8669c529-77e1-4bb6-9441-8776434558dd&isAuth=0&action=visit&refCode=&affData=",
+        "__typename": "AnalyticsSettingsResult"
+      }
+    }
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "sport": "lol",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "matches": {
+          "count": 1,
+          "sportEvents": [
+            {
+              "id": "5:c7dc5303-57f4-4466-abd8-414658bc2442",
+              "disabled": false,
+              "providerId": "5",
+              "hasMatchLog": false,
+              "slug": "bnk-fearx-youth-vs-hanwha-life-esports-challengers-24-08",
+              "betStop": false,
+              "meta": [
+                {
+                  "name": "bo",
+                  "value": "5",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "map",
+                  "value": "2",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "maps_teams_kills",
+                  "value": "{\"total\":{\"home\":25,\"away\":15},\"1\":{\"home\":20,\"away\":12},\"2\":{\"home\":5,\"away\":3}}",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "original_id",
+                  "value": "c7dc5303-57f4-4466-abd8-414658bc2442",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "time",
+                  "value": "981000",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "timer_running",
+                  "value": "1",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "total_kills_away",
+                  "value": "15",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "total_kills_home",
+                  "value": "25",
+                  "__typename": "Pair"
+                }
+              ],
+              "fixture": {
+                "score": "1:0",
+                "title": "BNK FearX Youth vs Hanwha Life Esports Challengers",
+                "status": "LIVE",
+                "type": "MATCH",
+                "startTime": "2026-08-24T09:15:40+00:00",
+                "sportId": "esports_league_of_legends",
+                "sport": {
+                  "id": "esports_league_of_legends",
+                  "name": "League of Legends",
+                  "tags": [
+                    "ESPORT",
+                    "CYBER"
+                  ],
+                  "slug": "league-of-legends",
+                  "__typename": "Sport"
+                },
+                "liveCoverage": true,
+                "tournament": {
+                  "id": "gin:482f6eb9-6623-4209-a023-e2db02a6def5",
+                  "name": "LCK CL 2026 Season Play-In",
+                  "logo": "cdn.gin.bet/tournaments/6a8709095aeb7052263003.png",
+                  "showTournamentInfo": true,
+                  "dateStart": "2026-08-23T21:00:42+00:00",
+                  "dateEnd": "2026-08-25T21:00:42+00:00",
+                  "isLocalizationOverridden": true,
+                  "slug": "lck-cl-2026-season-play-in",
+                  "sportId": "esports_league_of_legends",
+                  "masterId": "gin:482f6eb9-6623-4209-a023-e2db02a6def5",
+                  "countryCode": "KR",
+                  "description": "",
+                  "prizePool": "",
+                  "__typename": "Tournament"
+                },
+                "competitors": [
+                  {
+                    "id": "gt:99873",
+                    "name": "BNK FearX Youth",
+                    "type": "TEAM",
+                    "homeAway": "HOME",
+                    "logo": "cdn.gin.bet/team/t998736661657f09efe743780669.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "20",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "1",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "5",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  },
+                  {
+                    "id": "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8",
+                    "name": "Hanwha Life Esports Challengers",
+                    "type": "TEAM",
+                    "homeAway": "AWAY",
+                    "logo": "cdn.gin.bet/team/Screenshot%20%281%296910752676076849918164691075338243f069078323.png",
+                    "score": [
+                      {
+                        "id": "map:1",
+                        "type": "map",
+                        "points": "12",
+                        "number": 1,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "total",
+                        "type": "total",
+                        "points": "0",
+                        "number": 0,
+                        "__typename": "CompetitorScore"
+                      },
+                      {
+                        "id": "map:2",
+                        "type": "map",
+                        "points": "3",
+                        "number": 2,
+                        "__typename": "CompetitorScore"
+                      }
+                    ],
+                    "__typename": "SportEventCompetitor"
+                  }
+                ],
+                "__typename": "SportEventFixture"
+              },
+              "availableWidgets": [
+                "GAMES_STATISTICS",
+                "H2H_STATISTICS",
+                "TEAMS_STATISTICS",
+                "STREAM"
+              ],
+              "version": "babd9722-ca13-4a44-b985-ce3e4384fa33",
+              "betBuilderFeature": {
+                "enabled": true,
+                "__typename": "BetBuilderFeature"
+              },
+              "markets": [
+                {
+                  "id": "1",
+                  "name": "Победитель",
+                  "status": "ACTIVE",
+                  "typeId": 1,
+                  "priority": 1,
+                  "tags": [],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "BNK FearX Youth",
+                      "value": "1.10",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:99873"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Hanwha Life Esports Challengers",
+                      "value": "6.23",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "17h-2_5",
+                  "name": "Фора по картам",
+                  "status": "ACTIVE",
+                  "typeId": 17,
+                  "priority": 3,
+                  "tags": [
+                    "hcp"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "hcp",
+                      "value": "-2.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "BNK FearX Youth (-2.5)",
+                      "value": "1.86",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:99873"
+                      ],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Hanwha Life Esports Challengers (+2.5)",
+                      "value": "1.88",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [
+                        "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8"
+                      ],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                },
+                {
+                  "id": "14t3_5",
+                  "name": "Тотал карт",
+                  "status": "ACTIVE",
+                  "typeId": 14,
+                  "priority": 5,
+                  "tags": [
+                    "total"
+                  ],
+                  "features": [],
+                  "settlementRules": "",
+                  "specifiers": [
+                    {
+                      "name": "total",
+                      "value": "3.5",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "meta": [
+                    {
+                      "name": "provider_source",
+                      "value": "databet",
+                      "__typename": "Pair"
+                    }
+                  ],
+                  "odds": [
+                    {
+                      "id": "1",
+                      "name": "Больше 3.5",
+                      "value": "3.39",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    },
+                    {
+                      "id": "2",
+                      "name": "Меньше 3.5",
+                      "value": "1.29",
+                      "isActive": true,
+                      "status": "NOT_RESULTED",
+                      "competitorIds": [],
+                      "__typename": "Odd"
+                    }
+                  ],
+                  "__typename": "Market"
+                }
+              ],
+              "__typename": "SportEvent"
+            }
+          ],
+          "__typename": "SportEventList"
+        }
+      }
+    },
+    "id": "3",
+    "type": "data"
+  }
+}

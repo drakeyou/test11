@@ -1,0 +1,266 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:63061260-279b-4bd4-b182-165ad0b3f6a7",
+          "slug": "federico-iannaccone-vs-oleksii-krutykh-24-08",
+          "disabled": false,
+          "version": "91fbe22e-a01a-4bd2-83ea-bf0d4a451596",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "H2H_STATISTICS",
+            "GENIUS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "tech_win_team",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Федерико Яннакконе",
+                  "value": "6.89",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Алексей Крутых",
+                  "value": "1.08",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "223h3_5",
+              "name": "Фора по Геймам",
+              "status": "ACTIVE",
+              "typeId": 223,
+              "priority": 4,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "3.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Федерико Яннакконе (+3.5)",
+                  "value": "1.99",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Алексей Крутых (-3.5)",
+                  "value": "1.77",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "226t22_5",
+              "name": "Тотал геймов",
+              "status": "ACTIVE",
+              "typeId": 226,
+              "priority": 3,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "22.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 22.5",
+                  "value": "2.34",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 22.5",
+                  "value": "1.56",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game",
+              "value": "4",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "63061260-279b-4bd4-b182-165ad0b3f6a7",
+              "__typename": "Pair"
+            },
+            {
+              "name": "server",
+              "value": "away",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set",
+              "value": "0",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set_state",
+              "value": "common",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gin:38c65377-0973-4b7b-a24e-ce19bf7312e6",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "2",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "15",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:60ce85c6-f45c-4a05-aa09-d7bea7ef2268",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "2",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "9",
+    "type": "data"
+  }
+}

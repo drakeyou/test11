@@ -1,0 +1,12 @@
+{
+  "sport": "lol",
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "dynamicRouteByPath": {
+        "entity": null,
+        "__typename": "dynamicRouteResult"
+      }
+    }
+  }
+}

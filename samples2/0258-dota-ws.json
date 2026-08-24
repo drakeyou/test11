@@ -1,0 +1,161 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "featuredZoneConfigs": [
+          {
+            "priority": 1,
+            "sportEventCount": 0,
+            "tournament": {
+              "id": "gin:c27f66db-86c3-4a30-bf6a-80c5e1f4972a",
+              "name": "Esports World Cup 2026",
+              "masterId": "gin:c27f66db-86c3-4a30-bf6a-80c5e1f4972a",
+              "countryCode": "FR",
+              "logo": "cdn.gin.bet/tournaments/6a6e8f19c754f101272293.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "2,000,000 USD",
+              "dateStart": "2026-08-11T21:00:05+00:00",
+              "dateEnd": "2026-08-23T21:00:05+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "esports-world-cup-2026-8",
+              "sportId": "esports_counter_strike",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 2,
+            "sportEventCount": 0,
+            "tournament": {
+              "id": "gin:7c45e631-ca65-4c22-b73c-285e12debb3a",
+              "name": "The International 2026",
+              "masterId": "gin:7c45e631-ca65-4c22-b73c-285e12debb3a",
+              "countryCode": "CN",
+              "logo": "cdn.gin.bet/tournaments/6a26847b715c6409760835.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "2,782,575 USD",
+              "dateStart": "2026-08-12T21:00:41+00:00",
+              "dateEnd": "2026-08-23T21:00:41+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "the-international-2026",
+              "sportId": "esports_dota_2",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 3,
+            "sportEventCount": 16,
+            "tournament": {
+              "id": "gin:5ae85baa-4abd-4505-a812-f75c112708e2",
+              "name": "Испания. Примера",
+              "masterId": "gin:5ae85baa-4abd-4505-a812-f75c112708e2",
+              "countryCode": "ES",
+              "logo": "cdn.gin.bet/tournaments/8tslw3T1-baecXIX8[1]64d79cbac478c374826826.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "",
+              "dateStart": "2025-08-16T21:00:00+00:00",
+              "dateEnd": "2026-09-01T17:30:00+00:00",
+              "isLocalizationOverridden": false,
+              "slug": "spain-laliga",
+              "sportId": "football",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 4,
+            "sportEventCount": 7,
+            "tournament": {
+              "id": "gin:9c0a94ec-0fba-4bc7-9c7e-c83c71ea4000",
+              "name": "UEFA Champions League",
+              "masterId": "gin:9c0a94ec-0fba-4bc7-9c7e-c83c71ea4000",
+              "countryCode": "WW-EUR",
+              "logo": "cdn.gin.bet/tournaments/6a85c64b970e7915371869.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "",
+              "dateStart": "2025-09-22T21:00:00+00:00",
+              "dateEnd": "2026-08-27T19:00:00+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "uefa-champions-league",
+              "sportId": "football",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 5,
+            "sportEventCount": 12,
+            "tournament": {
+              "id": "gin:1e9d0889-18dd-4f69-a98b-cbfd678213ae",
+              "name": "UEFA Europa League",
+              "masterId": "gin:1e9d0889-18dd-4f69-a98b-cbfd678213ae",
+              "countryCode": "WW-EUR",
+              "logo": "cdn.gin.bet/tournaments/6a85c653809b9482249200.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "",
+              "dateStart": "2025-09-23T21:00:00+00:00",
+              "dateEnd": "2026-08-28T16:00:00+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "uefa-europa-league",
+              "sportId": "football",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 6,
+            "sportEventCount": 24,
+            "tournament": {
+              "id": "betting:7:8696b538-2151-4b89-aa8f-f5d1fd1881bc",
+              "name": "UEFA Europa Conference League",
+              "masterId": "betting:7:8696b538-2151-4b89-aa8f-f5d1fd1881bc",
+              "countryCode": "WW-EUR",
+              "logo": "cdn.gin.bet/tournaments/6a85c65b4c849575439257.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "",
+              "dateStart": "2024-07-10T18:00:00+00:00",
+              "dateEnd": "2026-08-28T16:45:00+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "uefa-europa-conference-league",
+              "sportId": "football",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          },
+          {
+            "priority": 7,
+            "sportEventCount": 10,
+            "tournament": {
+              "id": "gin:cb8a9337-f0dc-4fac-91c9-05c4f717dd52",
+              "name": "MLB",
+              "masterId": "gin:cb8a9337-f0dc-4fac-91c9-05c4f717dd52",
+              "countryCode": "US",
+              "logo": "cdn.gin.bet/tournaments/QPJ3alWI-pS3BMXxt[1]67e1878cd9aca606218422[1]67e3c69bf110e754210452[1]67ea2cab41e8562841256467f38cc7c416f167533801.png",
+              "description": "",
+              "showTournamentInfo": true,
+              "prizePool": "",
+              "dateStart": "2024-02-26T13:17:53+00:00",
+              "dateEnd": "2026-08-25T22:40:00+00:00",
+              "isLocalizationOverridden": true,
+              "slug": "mlb",
+              "sportId": "baseball",
+              "__typename": "Tournament"
+            },
+            "__typename": "FeaturedZoneTournamentProvider"
+          }
+        ]
+      }
+    },
+    "id": "20",
+    "type": "data"
+  }
+}

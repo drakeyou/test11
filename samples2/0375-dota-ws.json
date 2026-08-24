@@ -1,0 +1,13 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": []
+      }
+    },
+    "id": "23",
+    "type": "data"
+  }
+}

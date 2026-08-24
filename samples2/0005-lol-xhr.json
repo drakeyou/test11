@@ -1,0 +1,932 @@
+{
+  "sport": "lol",
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "bettingSettings": {
+        "sports": [
+          {
+            "id": "bowling",
+            "type": "classic_sports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_the_finals",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_2_xko",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "pickleball",
+            "type": "classic_sports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_geo_guessr",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_deadlock",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "olympic_games_2024",
+            "type": "classic_sports",
+            "iconId": "media:153abb9c79c5396d25bfed2070043c64185eac9e17",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "Breaking",
+            "type": "classic_sports",
+            "iconId": "media:b152ced586ad8ba012ab6006bb2d79a9044a9dee04",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "sumo",
+            "type": "classic_sports",
+            "iconId": "media:267be19cc11e8988b7cbd45749c7c22fc155a07312",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "padel_tennis",
+            "type": "classic_sports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_clash_of_clans",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_cricket",
+            "type": "esports",
+            "iconId": "media:f7ef05ac3362d147f0ddb37babdb7b3eb6816ea484",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_osu",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "sepak_takraw",
+            "type": "classic_sports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "netball",
+            "type": "classic_sports",
+            "iconId": "media:d79e179f04920aa6d6c25f981457f6da54b4705038",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_ufc",
+            "type": "esports",
+            "iconId": "",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_streetball",
+            "type": "esports",
+            "iconId": "media:1884284e91c4dc2658c4da0c267f5cbc8ffcded6b6",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_rennsport_r_1",
+            "type": "esports",
+            "iconId": "media:072ec0ef099049ec6e19cb2c193ac9e0142a617a5b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "indoor_soccer",
+            "type": "classic_sports",
+            "iconId": "media:eca0e864334686840e7381748471f54a390ba00d88",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_teamfight_tactics",
+            "type": "esports",
+            "iconId": "media:a52283d7da69fe28b512b220ac835525c033de6b5b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "squash",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "floorball",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "world_lottery",
+            "type": "classic_sports",
+            "iconId": "media:5b1e03165042d75495868ac4fa8f86f5d96a86c17b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_pokemon",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "lacrosse",
+            "type": "classic_sports",
+            "iconId": "media:38cf74bfd07ec7b7c9486e78b7a060bb34987e95ea",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "bowls",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_volta_football",
+            "type": "esports",
+            "iconId": "media:754cdfa207e927ea3e3a9995fcca826136db7aef38",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "kabaddi",
+            "type": "classic_sports",
+            "iconId": "media:50b2d29d38e6d0141a664d853d1c6c75eb484e9af4",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_drone_racing",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "horse_racing",
+            "type": "classic_sports",
+            "iconId": "media:6aa97f3d4e5593d0612248e7897d77c973e2686f57",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "short_track_speed_skating",
+            "type": "classic_sports",
+            "iconId": "media:1bd5efca6b4e40c822ee82c4cf5c85e1bf045cd74a",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "speed_skating",
+            "type": "classic_sports",
+            "iconId": "media:eee7c43a030396692cd0cda274f35f030ad9ed11e5",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "skeleton",
+            "type": "classic_sports",
+            "iconId": "media:30e402e54ab939167e579389a8768dbce15d14aba9",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "snowboard",
+            "type": "classic_sports",
+            "iconId": "media:8506dce3cd6381bebb53b8231967ecb83005113c09",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "nordic_combined",
+            "type": "classic_sports",
+            "iconId": "media:effbc11d01d64a5f703a5f806c7c6a090bd19e84b5",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "luge",
+            "type": "classic_sports",
+            "iconId": "media:01b73ecb6c6b123374482e42ab27601a401d97932d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "figure_skating",
+            "type": "classic_sports",
+            "iconId": "media:1f4ac3f529e99ddae8c11f2cc5b6084242247e6d81",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "freestyle_skiing",
+            "type": "classic_sports",
+            "iconId": "media:a25fbe32f6e6f013f020f560a3c5e106e49681fff2",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "bobsleigh",
+            "type": "classic_sports",
+            "iconId": "media:e3119eae612db7b98cd134633da159ba1de06f7ee5",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "cricket",
+            "type": "classic_sports",
+            "iconId": "media:f7ef05ac3362d147f0ddb37babdb7b3eb6816ea484",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_mobile_legends_bang_bang",
+            "type": "esports",
+            "iconId": "media:397d7843a58c40e2ba75c0e08fef6e0cca8218d0f7",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_clash_royale",
+            "type": "esports",
+            "iconId": "media:02474057c7c46f4a30748e6e2d9f3cb7b60a25c0d9",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_age_of_empires",
+            "type": "esports",
+            "iconId": "media:88c2c8aa8e4b57d9d224c8b46e2c20e31ec6de292e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_brawl_stars",
+            "type": "esports",
+            "iconId": "media:3c9caf4bae51ec1b9d14a0378381ebfb03bbad089e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_free_fire",
+            "type": "esports",
+            "iconId": "media:deefa684995b32364a2629ad226c4928d0e79de741",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_quake",
+            "type": "esports",
+            "iconId": "media:32bdd82da52017cf275b2888704233b549b302f6c1",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_world_of_warcraft",
+            "type": "esports",
+            "iconId": "media:aff03bb95b57674c1e76436642ac16838ac8932d7f",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_call_of_duty_mobile",
+            "type": "esports",
+            "iconId": "media:1c52991224dd024ea3b6d08e3d54134dc436544277",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "nascar",
+            "type": "classic_sports",
+            "iconId": "media:bf75c4d592cccbc8c1f2192619eb82efbb2e0a5c2d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "football",
+            "type": "classic_sports",
+            "iconId": "media:406c9aeaf227d5798855ce1b21ed04ffd73d19e2a9",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "basketball",
+            "type": "classic_sports",
+            "iconId": "media:844644b9bd8d8c661521232830ee52aaf2d4ec99bf",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "tennis",
+            "type": "classic_sports",
+            "iconId": "media:f79a90aadc14682c10dde5d2c90eb9fc0e51e8bb68",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "ice_hockey",
+            "type": "classic_sports",
+            "iconId": "media:3f4f8dbdc667da8e25c2d3a1d929f2bc1c298c8551",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "volleyball",
+            "type": "classic_sports",
+            "iconId": "media:df71c743bf7e50c5eb35ec953028c2098e4f714b29",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "baseball",
+            "type": "classic_sports",
+            "iconId": "media:32f2334082d04d74dd95509d82a0182a76318a73e2",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "beach_volleyball",
+            "type": "classic_sports",
+            "iconId": "media:939304b6c2b84cee6a8f3d56b4306c25e28b668fcb",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "boxing",
+            "type": "classic_sports",
+            "iconId": "media:2e829fbee7db1ea0726f8ab5d57745f456df781e8d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "futsal",
+            "type": "classic_sports",
+            "iconId": "media:01801343f1456c7093d54e09acf62126431de59594",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "handball",
+            "type": "classic_sports",
+            "iconId": "media:4a5551ce441893b69982c22607bbc36da162152cb2",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "mma",
+            "type": "classic_sports",
+            "iconId": "media:915205728be4c73642810b837b730f6247faf0c9fb",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "snooker",
+            "type": "classic_sports",
+            "iconId": "media:6c0d2767689a6a37263e4b0d667ddc8c30441c26b3",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "motorsport",
+            "type": "classic_sports",
+            "iconId": "media:e5538931ad9dd3e85601a77eae216480c17fc6f4e8",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "american_football",
+            "type": "classic_sports",
+            "iconId": "media:cb4b816881efc4fbcdad81eadaff8e9e20840aae5a",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "beach_soccer",
+            "type": "classic_sports",
+            "iconId": "media:bb2830caeb0061c73a54247302f932179895f8dcc2",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_call_of_duty",
+            "type": "esports",
+            "iconId": "media:d586f31b0f583a3fb53c795123153b8521f9c2926e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_counter_strike",
+            "type": "esports",
+            "iconId": "media:65d3b206c4fb20fdc67ba340bee095735023fe3690",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_dota_2",
+            "type": "esports",
+            "iconId": "media:743055a22fe74f9a87983fda3992417f9d94060cc1",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_hearthstone",
+            "type": "esports",
+            "iconId": "media:0209721bc0cacfc494dc213e2512d9c3077c2d2ee1",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_heroes_of_the_storm",
+            "type": "esports",
+            "iconId": "media:e1d496a65c45bb85df0e35c0509cbf8d4f6eac4510",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_league_of_legends",
+            "type": "esports",
+            "iconId": "media:d7c1fe1d6214bf2afa60e4e40d9cb489575f6196fd",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_overwatch",
+            "type": "esports",
+            "iconId": "media:7c1f85e48a9e4ad6ecd0882ac5accd5329dd08e0b0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_starcraft",
+            "type": "esports",
+            "iconId": "media:7985c169e16dc9e847e9153ce010ce8fb52d0dbc5c",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_world_of_tanks",
+            "type": "esports",
+            "iconId": "media:6ad20524c4bf2770cff9d2d4db49a2079c293d392b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_street_fighter_5",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_vainglory",
+            "type": "esports",
+            "iconId": "media:eeb237a183a9b48dea476d804da563939a3d448e37",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_warcraft_3",
+            "type": "esports",
+            "iconId": "media:3f953ed65772da5685d586da141fb6da25fc0ddd8f",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_rainbow_six",
+            "type": "esports",
+            "iconId": "media:87f31deb8bab750405ff9211bb5d245c48b3453cd0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_rocket_league",
+            "type": "esports",
+            "iconId": "media:9cc18168138e57cf9825b98174bef0b35538a62fcb",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_smite",
+            "type": "esports",
+            "iconId": "media:88c19e5ba13651a2160e823e06d596a0f01dbcbe0d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_soccer_mythical",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_halo",
+            "type": "esports",
+            "iconId": "media:f476a79f50c316f75853bec159ccc019eb4eaf3072",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_crossfire",
+            "type": "esports",
+            "iconId": "media:0602d579e0c18a09ceba8e1dff1b7351f5cdd26046",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_battlegrounds",
+            "type": "esports",
+            "iconId": "media:50f6bcdd1baaa340c0e6a246d32c24b84a2c847751",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_fifa",
+            "type": "esports",
+            "iconId": "media:f28468d659bab87d453c1286478975998447316a71",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_starcraft_1",
+            "type": "esports",
+            "iconId": "media:28776015c8f254e2265e5d9c5fda0111126e5bc9ff",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_king_of_glory",
+            "type": "esports",
+            "iconId": "media:6d2756587ef5af0f877895881e6062145f4184ace3",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_nba_2k18",
+            "type": "esports",
+            "iconId": "media:ed96c5bcf939dede5fe4bb86df80a6dca59cd84267",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "australian_rules",
+            "type": "classic_sports",
+            "iconId": "media:10a76b4258cf6f06d45d45b702ee5eb1aa0515d015",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "chess",
+            "type": "classic_sports",
+            "iconId": "media:f1c34e8eb08d853513b2237244967f15ac0a20cf87",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "darts",
+            "type": "classic_sports",
+            "iconId": "media:11a605e7161f6e6d046bf9106df5c7c825ca8ed3da",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "rugby_league",
+            "type": "classic_sports",
+            "iconId": "media:d247d5e1bbc6fbafe3ebe80c74da5735de88878e9a",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "rugby",
+            "type": "classic_sports",
+            "iconId": "media:1d18fc807c6a28315f88215dfc2fe9936904e99701",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "specials",
+            "type": "classic_sports",
+            "iconId": "media:5b1e03165042d75495868ac4fa8f86f5d96a86c17b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "table_tennis",
+            "type": "classic_sports",
+            "iconId": "media:f7db701ad705cc0454607523b13bd241cc30e03870",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "water_polo",
+            "type": "classic_sports",
+            "iconId": "media:36ae913ad9d09450ec46e0bbfe9513bda703464b06",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_fortnite",
+            "type": "esports",
+            "iconId": "media:5e20dd394461be8ca4c46dbd61c5c789c931485866",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_basketball",
+            "type": "esports",
+            "iconId": "media:4e10cf6412240ad0f13bbb4417fe8d0da3bcfde440",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_valorant",
+            "type": "esports",
+            "iconId": "media:cfc21a7d1d174af6830e165d17a1b19487196727d9",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_call_of_duty_warzone",
+            "type": "esports",
+            "iconId": "media:d586f31b0f583a3fb53c795123153b8521f9c2926e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "cycling",
+            "type": "classic_sports",
+            "iconId": "media:cd25995aa106ee7b15d144901d9270dc76e620b8c7",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "badminton",
+            "type": "classic_sports",
+            "iconId": "media:1ece84ac58a62eb38c6a6153ccc7e6e3f80b5c5814",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "formula_1",
+            "type": "classic_sports",
+            "iconId": "media:e0c1b4761fd057a12c67c93891bee59d4e7151e03c",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "biathlon",
+            "type": "classic_sports",
+            "iconId": "media:f556f968abce083499cc5f7a3ea344ca4c4ae7a099",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "bandy",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "cross_country",
+            "type": "classic_sports",
+            "iconId": "media:5547e2c8d437efa78e34ca95c562f83cc4111a127f",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "ski_jumping",
+            "type": "classic_sports",
+            "iconId": "media:5b790e66805dd6bbf3a6bcee8c8c9a076acc3b8446",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "alpine_skiing",
+            "type": "classic_sports",
+            "iconId": "media:8ae288e72ecbc249fa4209f2ab4e64947b9a1ac5ab",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "curling",
+            "type": "classic_sports",
+            "iconId": "media:f976bf52a6818b471109b5cf250cb1e6525f4c0909",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_apex_legends",
+            "type": "esports",
+            "iconId": "media:adb537eaab9aa7c45fe9d750bc68f5b01239424b32",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_artifact",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_dota_auto_chess",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_dota_underlords",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_formula_1",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_ice_hockey",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_mortal_kombat",
+            "type": "esports",
+            "iconId": "media:403bb436971d57f25b214596a555ab6f6ca71a2897",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_racing",
+            "type": "esports",
+            "iconId": "media:8464707761faf5b68c535522df4701f9df5b99e92f",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_specials",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_tennis",
+            "type": "esports",
+            "iconId": "media:d7d0edb9ad00ef6693597e9306179e40b5875edab6",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_boxing",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_volleyball",
+            "type": "esports",
+            "iconId": "media:1bf626e3c7136fd319d6ca99d5bb99513f9983c4a0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "esports_league_of_legends_wild_rift",
+            "type": "esports",
+            "iconId": "media:eadb798fcabf4842c487c06ca1d3ef1d91eda94838",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "basketball_3x3",
+            "type": "classic_sports",
+            "iconId": "media:cd9f3fe807a96fd40a5e69fceae8c3231cf92f1f53",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "hockey",
+            "type": "classic_sports",
+            "iconId": "media:3f4f8dbdc667da8e25c2d3a1d929f2bc1c298c8551",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "olympics",
+            "type": "classic_sports",
+            "iconId": "media:703d2b615b944345784a492635dbbb853f9d7d200e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "wrestling",
+            "type": "classic_sports",
+            "iconId": "media:bf3a3130bcc3dfb90466f63b97ca28f679073024a4",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "rowing",
+            "type": "classic_sports",
+            "iconId": "media:bbf29fae8bf84203cc3b3e67b4e7cbc6b84dc69ab0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "canoe_slalom",
+            "type": "classic_sports",
+            "iconId": "media:3cb580d70613f143bc165d1bba56e0337d048183fb",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "canoe_sprint",
+            "type": "classic_sports",
+            "iconId": "media:6ef634f62986403ff1ed54eb8df285f969c3d6b46d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "judo",
+            "type": "classic_sports",
+            "iconId": "media:2f7ce5d606d3718a23d430812b8004d84e9ab622a9",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "karate",
+            "type": "classic_sports",
+            "iconId": "media:5a3810ac175992feb10e03e930ca592a021c558b04",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "equestrian",
+            "type": "classic_sports",
+            "iconId": "media:668c13d2855a061c8b3c8b1e3caeed6eb68a6e7aba",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "sailing",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "swimming",
+            "type": "classic_sports",
+            "iconId": "media:f38cd63706c1a6d30482b768df3c6ed9d5b1d1e9d0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "diving",
+            "type": "classic_sports",
+            "iconId": "media:d262a234a9e2e39a0136c8d6852f3dc229598f2589",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "trampolining",
+            "type": "classic_sports",
+            "iconId": "media:c2b21a755b124552db33b9b7695ff5b9ae0993a692",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "surfing",
+            "type": "classic_sports",
+            "iconId": "media:4db02675be6075afd496f4e82044087859dcd0c019",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "synchronized_swimming",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "skateboarding",
+            "type": "classic_sports",
+            "iconId": "media:2ba4bd90f946d296b8d911350b4ae4820f04eb4bf6",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "modern_pentathlon",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "softball",
+            "type": "classic_sports",
+            "iconId": "media:3192c4e8a183f23b80843872919985c8c8b49450c3",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "artistic_gymnastics",
+            "type": "classic_sports",
+            "iconId": "media:73b3713f7d701bcbe50b6cdef0c85edc1d509ce19e",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "sport_climbing",
+            "type": "classic_sports",
+            "iconId": "media:11ee4483551f883aea1574bb8acf97a4a58bffde8a",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "shooting",
+            "type": "classic_sports",
+            "iconId": "media:8f8bba182e373ad4428885c5346ebce9fd1b4028b7",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "archery",
+            "type": "classic_sports",
+            "iconId": "media:2bd56d355bd180423d5b112f04f9f5864bf65ad4c7",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "triathlon",
+            "type": "classic_sports",
+            "iconId": "media:97446c27c7ff34ca75086b48e453e1f3db2ed7ce32",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "taekwondo",
+            "type": "classic_sports",
+            "iconId": "media:fa9e4660b7d077efa23dd1335ac0097ce2f6e6977b",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "weightlifting",
+            "type": "classic_sports",
+            "iconId": "media:eea6a80732a16555dc545588d4aceaa97534d983f8",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "fencing",
+            "type": "classic_sports",
+            "iconId": "media:02c151905fb03ce95e8696313034169fbd98d4ba25",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "rhythmic_gymnastics",
+            "type": "classic_sports",
+            "iconId": "media:5fbabac9364b78ce4e689e752437a6aa8e08cab829",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "rugby_sevens",
+            "type": "classic_sports",
+            "iconId": "media:8a1dfbda98c35ee39ffbb4d0ad23aa73dd3a692eb0",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "athletics",
+            "type": "classic_sports",
+            "iconId": "media:388ead11f290b8e4c2e58b7f6dad0872b06e0c4b57",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "golf",
+            "type": "classic_sports",
+            "iconId": "media:53def09c9e4b1b24ece0aa2227e619949e23c9153d",
+            "__typename": "BettingSportImpl"
+          },
+          {
+            "id": "canoeing",
+            "type": "classic_sports",
+            "iconId": "media:3cb580d70613f143bc165d1bba56e0337d048183fb",
+            "__typename": "BettingSportImpl"
+          }
+        ],
+        "scoreboardEndpoint": "//score-board.databet.cloud",
+        "__typename": "BettingSettingsImpl"
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "sport": "lol",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": [
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "football",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_fifa",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "basketball",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_basketball",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "ice_hockey",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_ice_hockey",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "tennis",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_tennis",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "cricket",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_cricket",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "boxing",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_boxing",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "table_tennis",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "beach_volleyball",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "esports_counter_strike",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_rainbow_six",
+              "__typename": "Sport"
+            }
+          },
+          {
+            "__typename": "BannerBettingLinkedSport",
+            "type": "betting_linked_sport",
+            "sport": {
+              "id": "esports_valorant",
+              "__typename": "Sport"
+            },
+            "linkedSport": {
+              "id": "esports_rainbow_six",
+              "__typename": "Sport"
+            }
+          }
+        ]
+      }
+    },
+    "id": "13",
+    "type": "data"
+  }
+}

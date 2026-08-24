@@ -1,0 +1,272 @@
+{
+  "sport": "lol",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:c7dc5303-57f4-4466-abd8-414658bc2442",
+          "slug": "bnk-fearx-youth-vs-hanwha-life-esports-challengers-24-08",
+          "disabled": false,
+          "version": "e7bc9225-2f00-49f2-952d-9525223130fd",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "H2H_STATISTICS",
+            "TEAMS_STATISTICS",
+            "STREAM"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "SUSPENDED",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "BNK FearX Youth",
+                  "value": "1.10",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:99873"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Hanwha Life Esports Challengers",
+                  "value": "6.36",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "17h-2_5",
+              "name": "Фора по картам",
+              "status": "SUSPENDED",
+              "typeId": 17,
+              "priority": 3,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "-2.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "BNK FearX Youth (-2.5)",
+                  "value": "1.83",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:99873"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Hanwha Life Esports Challengers (+2.5)",
+                  "value": "1.91",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "14t3_5",
+              "name": "Тотал карт",
+              "status": "SUSPENDED",
+              "typeId": 14,
+              "priority": 5,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "3.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 3.5",
+                  "value": "3.46",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 3.5",
+                  "value": "1.28",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "5",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "2",
+              "__typename": "Pair"
+            },
+            {
+              "name": "maps_teams_kills",
+              "value": "{\"total\":{\"home\":26,\"away\":16},\"1\":{\"home\":20,\"away\":12},\"2\":{\"home\":6,\"away\":4}}",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "c7dc5303-57f4-4466-abd8-414658bc2442",
+              "__typename": "Pair"
+            },
+            {
+              "name": "time",
+              "value": "1041000",
+              "__typename": "Pair"
+            },
+            {
+              "name": "timer_running",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "total_kills_away",
+              "value": "16",
+              "__typename": "Pair"
+            },
+            {
+              "name": "total_kills_home",
+              "value": "26",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "1:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gt:99873",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "20",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "1",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "6",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gt:6a50ba72-15a4-4771-8ac6-6f91251a70a8",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "12",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "map:2",
+                    "type": "map",
+                    "points": "4",
+                    "number": 2,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "6",
+    "type": "data"
+  }
+}

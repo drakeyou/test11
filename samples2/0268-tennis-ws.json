@@ -1,0 +1,2747 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "categorizerSportList": [
+          {
+            "value": "football",
+            "name": "Футбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "12",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "886",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "896",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "soccer",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_counter_strike",
+            "name": "Counter-Strike",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "8",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "78",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "87",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "9",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "counter-strike",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "tennis",
+            "name": "Теннис",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "8",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "314",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "342",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "28",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "tennis",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "table_tennis",
+            "name": "Настольный Теннис",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "275",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "284",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "9",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "table-tennis",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_dota_2",
+            "name": "Dota 2",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "3",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "7",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "dota-2",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "basketball",
+            "name": "Баскетбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "41",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "46",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "basketball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "american_football",
+            "name": "Американский футбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "9",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "172",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "172",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "american-football",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "australian_rules",
+            "name": "Австралийский футбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "aussie-rules",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "baseball",
+            "name": "Бейсбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "baseball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "basketball_3x3",
+            "name": "Баскетбол 3х3",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "9",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "basketball-3x3",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_basketball",
+            "name": "Кибербаскетбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "27",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "33",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "6",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "basketball-esports",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "boxing",
+            "name": "Бокс",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "44",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "44",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "boxing",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "chess",
+            "name": "Шахматы",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "3",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "3",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "chess",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "cricket",
+            "name": "Крикет",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "14",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "cricket",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "cycling",
+            "name": "Велоспорт",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "17",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "17",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "cycling",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "darts",
+            "name": "Дартс",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "7",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "8",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "darts",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "hockey",
+            "name": "Хоккей на траве",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "6",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "field-hockey",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_fifa",
+            "name": "Киберфутбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "114",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "119",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "5",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "football-esports",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "formula_1",
+            "name": "Формула 1",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "formula-1",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_fortnite",
+            "name": "Fortnite",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "6",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "6",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "fortnite",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "futsal",
+            "name": "Футзал",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "futsal",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "handball",
+            "name": "Гандбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "3",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "31",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "31",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "handball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "ice_hockey",
+            "name": "Хоккей",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "46",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "47",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "ice-hockey",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_king_of_glory",
+            "name": "King of Glory",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "8",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "9",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "king-of-glory",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "lacrosse",
+            "name": "Лякросс",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "lacrosse",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_league_of_legends",
+            "name": "League of Legends",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "26",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "27",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "league-of-legends",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "mma",
+            "name": "ММА",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "23",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "23",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "mma",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_mobile_legends_bang_bang",
+            "name": "Mobile Legends: Bang Bang",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "22",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "22",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "mobile-legends-bang-bang",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "rugby",
+            "name": "Регби-союз",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "rugby-union",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "snooker",
+            "name": "Снукер",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "4",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "snooker",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "specials",
+            "name": "Специальные",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "specials",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_valorant",
+            "name": "Valorant",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "11",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "11",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "valorant",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "volleyball",
+            "name": "Волейбол",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "1",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "10",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "12",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "volleyball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "esports_ice_hockey",
+            "name": "Киберхоккей",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "ice-hockey-esports",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "rugby_league",
+            "name": "Регби Лига",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "13",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "rugby-league",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          },
+          {
+            "value": "pickleball",
+            "name": "Pickleball",
+            "meta": [
+              {
+                "name": "outright_type_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "prematch_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "match_type_events_count",
+                "value": "2",
+                "__typename": "Pair"
+              },
+              {
+                "name": "live_events_count",
+                "value": "0",
+                "__typename": "Pair"
+              },
+              {
+                "name": "slug",
+                "value": "pickleball",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          }
+        ],
+        "categorizerChildren": [
+          {
+            "value": "tennis",
+            "count": 342,
+            "name": "Теннис",
+            "field": "sport_id",
+            "weight": 0,
+            "meta": [
+              {
+                "name": "slug",
+                "value": "tennis",
+                "__typename": "Pair"
+              }
+            ],
+            "children": [
+              {
+                "value": "gin:9b6e1f7b-3d77-4120-b567-620b9382d5f9",
+                "name": "US Open. Мужчины. Одиночный разряд",
+                "count": 63,
+                "field": "tournament.master_id",
+                "weight": 76,
+                "meta": [
+                  {
+                    "name": "slug",
+                    "value": "us-open-men-singles",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_top",
+                    "value": "true",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/logo5d5f0b8c87860901852684.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/logo5d5f0b8c87860901852684.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_fixed",
+                    "value": "true",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "gin:e96adb09-4b9c-47a6-9099-4ff9c436e904",
+                "name": "US Open. Женщины. Одиночный разряд",
+                "count": 64,
+                "field": "tournament.master_id",
+                "weight": 75,
+                "meta": [
+                  {
+                    "name": "slug",
+                    "value": "us-open-women-singles",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_top",
+                    "value": "true",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/logo5d5f0b8c878609018526845f48a8204685d203787713.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/logo5d5f0b8c878609018526845f48a8204685d203787713.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_fixed",
+                    "value": "true",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "betting:1:sr:tournament:2715",
+                "name": "WTA. Монтеррей. Одиночный разряд",
+                "count": 10,
+                "field": "tournament.master_id",
+                "weight": 33,
+                "meta": [
+                  {
+                    "name": "slug",
+                    "value": "wta-monterrey-singles",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_top",
+                    "value": "true",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/6a8179ef6c027159931732.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/6a8179ef6c027159931732.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "is_fixed",
+                    "value": "true",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "d1f25750-b258-4294-b8d0-73472290b658",
+                "name": "Grand Slam",
+                "count": 131,
+                "field": "tournament.organization_id",
+                "weight": 7,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:e96adb09-4b9c-47a6-9099-4ff9c436e904",
+                    "name": "US Open. Женщины. Одиночный разряд",
+                    "count": 64,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "us-open-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "true",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/logo5d5f0b8c878609018526845f48a8204685d203787713.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/logo5d5f0b8c878609018526845f48a8204685d203787713.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "Grand Slam",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:9b6e1f7b-3d77-4120-b567-620b9382d5f9",
+                    "name": "US Open. Мужчины. Одиночный разряд",
+                    "count": 63,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "us-open-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "true",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/logo5d5f0b8c87860901852684.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/logo5d5f0b8c87860901852684.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "Grand Slam",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:0be0cef5-6d24-463c-836e-d04a938c7828",
+                    "name": "US Open. Микст",
+                    "count": 4,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "us-open-mixed-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/logo5d661b7b997bb583822359.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/logo5d661b7b997bb583822359.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "Grand Slam",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/grand-slams624ad5d95d7f0787548242.jpeg",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "a9204d5f-0f5a-4c17-87c2-543db2eeac5d",
+                "name": "ATP",
+                "count": 24,
+                "field": "tournament.organization_id",
+                "weight": 5,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/ATP_Tour624829b1e7784892235606.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/ATP_Tour624829b1e7784892235606.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:899e35b2-88ce-414d-813b-cc5ea0774206",
+                    "name": "ATP Winston-Salem. Singles",
+                    "count": 16,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "atp-winston-salem-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "true",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a8178f3e0931141185934.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a8178f3e0931141185934.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP_Tour624829b1e7784892235606.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP_Tour624829b1e7784892235606.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:41d82192-6578-4bca-88ad-ba65d24a14a3",
+                    "name": "ATP Winston-Salem. Doubles",
+                    "count": 8,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "atp-winston-salem-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a8178f816f48880467310.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a8178f816f48880467310.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP_Tour624829b1e7784892235606.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP_Tour624829b1e7784892235606.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "9797b96c-f9db-4b6a-b701-70726dbd8c82",
+                "name": "WTA",
+                "count": 37,
+                "field": "tournament.organization_id",
+                "weight": 4,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:d8c49a70-ecd1-4ddd-a1f8-6bec31539c85",
+                    "name": "WTA Philadelphia. Singles",
+                    "count": 12,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "wta-philadelphia-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a817b24cf3c8055261759.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a817b24cf3c8055261759.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "WTA",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "betting:1:sr:tournament:2715",
+                    "name": "WTA. Монтеррей. Одиночный разряд",
+                    "count": 10,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "wta-monterrey-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "true",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a8179ef6c027159931732.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a8179ef6c027159931732.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "MX",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "WTA",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:7f30ed58-4fc4-4828-a24b-8943415a818a",
+                    "name": "WTA Philadelphia. Doubles",
+                    "count": 8,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "wta-philadelphia-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a817ba6e0299468851472.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a817ba6e0299468851472.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "US",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "WTA",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "betting:1:sr:tournament:2717",
+                    "name": "WTA. Монтеррей. Парный разряд",
+                    "count": 7,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "wta-monterrey-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a8179f3be9ba261030498.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a8179f3be9ba261030498.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "MX",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "WTA",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/WTA_Tour+62482afb2eb9a141098431.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "a85bbfaa-cc0c-46bd-ac50-656927e30a78",
+                "name": "ATP. Challenger Series",
+                "count": 69,
+                "field": "tournament.organization_id",
+                "weight": 3,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:20ac6ae4-e93e-4ac8-b1bd-9a36f7ecf944",
+                    "name": "Challenger. Kingston. Men Singles",
+                    "count": 17,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-kingston-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a815eed055cb489262556.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a815eed055cb489262556.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "JM",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:74774d49-6f87-45fc-94aa-e632b6a0ae4d",
+                    "name": "Challenger. Roehampton. Men Singles",
+                    "count": 16,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-roehampton-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a81769dbde52986618440.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a81769dbde52986618440.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "GB",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:bc463e6e-e1c2-4c53-b05b-5cd9511a4fbd",
+                    "name": "Challenger. Augsburg. Men Singles",
+                    "count": 13,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-augsburg-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/68bd1597b5109715342991.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/68bd1597b5109715342991.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "DE",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:183cdb0d-8fff-4b1b-a182-e71128d0ea98",
+                    "name": "Challenger. Roehampton. Men Doubles",
+                    "count": 8,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-roehampton-men-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a8176a23dad1070871518.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a8176a23dad1070871518.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "GB",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:73907e09-b78d-4551-a251-976f065c0397",
+                    "name": "Challenger. Kingston. Men Doubles",
+                    "count": 8,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-kingston-men-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a81746fae5aa192122996.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a81746fae5aa192122996.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "JM",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:2af7e3ef-9668-4baf-99f4-75aef89f5b8c",
+                    "name": "Challenger. Augsburg. Men Doubles",
+                    "count": 7,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "challenger-augsburg-men-doubles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/68bd159258eab692260667.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/68bd159258eab692260667.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "DE",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "ATP. Challenger Series",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/ATP Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/ATP%20Challenger62482cb97fcf0760818525.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "dbc17b04-ac4b-4952-9355-657df5b8e6b5",
+                "name": "World Tennis. Men",
+                "count": 16,
+                "field": "tournament.organization_id",
+                "weight": 2,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/6a3e9fd4e2c96061485678.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/6a3e9fd4e2c96061485678.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:f3c426d5-ce87-49c9-96f2-68c13d8ef760",
+                    "name": "WT Овьедо. Испания. Мужчины. Одиночный разряд",
+                    "count": 8,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-oviedo-spain-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "ES",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Men",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:5c665882-df47-4de2-9cbb-e68d576ce7b0",
+                    "name": "WT Lausanne. Switzerland. Men Singles",
+                    "count": 4,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-lausanne-switzerland-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "CH",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Men",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:39ef5e78-ace4-478b-a4d4-2f265175ef55",
+                    "name": "WT Cap d'Agde. France. Men Singles",
+                    "count": 2,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-cap-dagde-france-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "FR",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Men",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:4ce6e6a7-5168-4b76-8f54-03283c8dcfc3",
+                    "name": "WT Taipei. Chinese Taipei. Men Singles",
+                    "count": 2,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-taipei-chinese-taipei-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "TW",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Men",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fd4e2c96061485678.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "59f181eb-4aaf-4b2e-9141-1a5e0ca717cd",
+                "name": "World Tennis. Women",
+                "count": 43,
+                "field": "tournament.organization_id",
+                "weight": 1,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:9bbb8430-f54b-48f3-a1ca-bc1801aaf192",
+                    "name": "WT Bytom. Poland. Women Singles",
+                    "count": 12,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-bytom-poland-women-singles-1",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "PL",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Women",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:69a2b433-f249-47d6-b092-139b79594f19",
+                    "name": "TF Олдензал. Нидерланды. Женщины. Одиночный разряд",
+                    "count": 11,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-oldenzaal-netherlands-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "NL",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Women",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:15d2388e-b958-44eb-b09a-5fd92399d823",
+                    "name": "WT Trieste. Italy. Women Singles",
+                    "count": 10,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-trieste-italy-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "IT",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Women",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:b7668690-806b-4547-a2e3-d97f5061d386",
+                    "name": "WT Вербье. Швейцария. Женщины. Одиночный разряд",
+                    "count": 6,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-verbier-switzerland-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "CH",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Women",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:68a2d6b1-b335-4bbd-b189-118898367e63",
+                    "name": "WT Kursumlijska Banja. Serbia. Women Singles",
+                    "count": 4,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "itf-kursumlijska-banja-serbia-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/6a44d165b386f549295238.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "RS",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "World Tennis. Women",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/6a3e9fdc22ab1246322182.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              },
+              {
+                "value": "068f662b-7299-47ca-b392-dbc1ab816b61",
+                "name": "Exhibition matches",
+                "count": 22,
+                "field": "tournament.organization_id",
+                "weight": 0,
+                "meta": [
+                  {
+                    "name": "logo",
+                    "value": "cdn.gin.bet/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                    "__typename": "Pair"
+                  },
+                  {
+                    "name": "logoPath",
+                    "value": "cdn/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                    "__typename": "Pair"
+                  }
+                ],
+                "children": [
+                  {
+                    "value": "gin:ad0cb4e8-3fa4-4e1d-a1af-583dd04de6a1",
+                    "name": "UTR Pro Tennis Series. Men Singles",
+                    "count": 15,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "utr-pro-tennis-series-men-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/Tennis-UTR-Pro-Woman5f2aad079c42a00429339264429aa6e849e593489153682683566002b938533865.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/Tennis-UTR-Pro-Woman5f2aad079c42a00429339264429aa6e849e593489153682683566002b938533865.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "WW",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "Exhibition matches",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  },
+                  {
+                    "value": "gin:f95182ca-6812-4fe2-bb85-088bff6d8240",
+                    "name": "UTR Pro Tennis Series. Women Singles",
+                    "count": 7,
+                    "field": "tournament.master_id",
+                    "weight": 0,
+                    "meta": [
+                      {
+                        "name": "slug",
+                        "value": "utr-pro-tennis-series-women-singles",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "is_top",
+                        "value": "false",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logo",
+                        "value": "cdn.gin.bet/tournaments/Tennis-UTR-Pro-Woman5f2aad079c42a00429339264429aa6e849e593489153.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "logoPath",
+                        "value": "cdn/tournaments/Tennis-UTR-Pro-Woman5f2aad079c42a00429339264429aa6e849e593489153.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "country_code",
+                        "value": "WW",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_localized",
+                        "value": "Exhibition matches",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo",
+                        "value": "cdn.gin.bet/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                        "__typename": "Pair"
+                      },
+                      {
+                        "name": "organization_logo_path",
+                        "value": "cdn/tournaments/3--blog-post-image-20201221161001624abab966240910903021.png",
+                        "__typename": "Pair"
+                      }
+                    ],
+                    "__typename": "CategorizerItem"
+                  }
+                ],
+                "__typename": "CategorizerItem"
+              }
+            ],
+            "__typename": "CategorizerItem"
+          }
+        ]
+      }
+    },
+    "id": "17",
+    "type": "data"
+  }
+}

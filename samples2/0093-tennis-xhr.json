@@ -1,0 +1,218 @@
+{
+  "sport": "tennis",
+  "url": "https://gg.bet/graphql",
+  "payload": {
+    "data": {
+      "localeSwitcher": {
+        "titles": [
+          {
+            "locale": "en",
+            "isoLocale": "en_US",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "ru",
+            "isoLocale": "ru_RU",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "cn",
+            "isoLocale": "zh_CN",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "pl",
+            "isoLocale": "pl_PL",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "ja",
+            "isoLocale": "ja_JP",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "uk-ua",
+            "isoLocale": "uk_UA",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es",
+            "isoLocale": "es_ES",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "en-ca",
+            "isoLocale": "en_CA",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-ca",
+            "isoLocale": "fr_CA",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "nb-no",
+            "isoLocale": "nb_NO",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fi-fi",
+            "isoLocale": "fi_FI",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "ro",
+            "isoLocale": "ro_RO",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "hu",
+            "isoLocale": "hu_HU",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "th",
+            "isoLocale": "th_TH",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "hi",
+            "isoLocale": "hi_IN",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "vi",
+            "isoLocale": "vi_VN",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "tl-ph",
+            "isoLocale": "tl_PH",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "pt-br",
+            "isoLocale": "pt_BR",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "de-at",
+            "isoLocale": "de_AT",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-pe",
+            "isoLocale": "es_PE",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-cl",
+            "isoLocale": "es_CL",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-mx",
+            "isoLocale": "es_MX",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-ar",
+            "isoLocale": "es_AR",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "de-lu",
+            "isoLocale": "de_LU",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "de-li",
+            "isoLocale": "de_LI",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-lu",
+            "isoLocale": "fr_LU",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-ml",
+            "isoLocale": "fr_ML",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-ma",
+            "isoLocale": "fr_MA",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-cm",
+            "isoLocale": "fr_CM",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-sn",
+            "isoLocale": "fr_SN",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "fr-tn",
+            "isoLocale": "fr_TN",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-ve",
+            "isoLocale": "es_VE",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-co",
+            "isoLocale": "es_CO",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-py",
+            "isoLocale": "es_PY",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-pa",
+            "isoLocale": "es_PA",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-cr",
+            "isoLocale": "es_CR",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-bo",
+            "isoLocale": "es_BO",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-gt",
+            "isoLocale": "es_GT",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-ad",
+            "isoLocale": "ca_AD",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-uy",
+            "isoLocale": "es_UY",
+            "__typename": "LocaleSwitcherTitleType"
+          },
+          {
+            "locale": "es-ec",
+            "isoLocale": "es_EC",
+            "__typename": "LocaleSwitcherTitleType"
+          }
+        ],
+        "__typename": "LocaleSwitcherType"
+      }
+    }
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:9edc1d53-9695-46ae-952f-c30e7b5d9c29",
+          "slug": "lv-united-vs-the-last-titan-24-08",
+          "disabled": false,
+          "version": "cca5dc18-e5e7-42d0-a67e-85cd2c6c8e0e",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "H2H_STATISTICS",
+            "TEAMS_STATISTICS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "LV United",
+                  "value": "1.90",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "The Last Titan",
+                  "value": "1.84",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "17h1_5",
+              "name": "Фора по картам",
+              "status": "ACTIVE",
+              "typeId": 17,
+              "priority": 3,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "1.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "LV United (+1.5)",
+                  "value": "1.56",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "The Last Titan (-1.5)",
+                  "value": "2.34",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "14t2_5",
+              "name": "Тотал карт",
+              "status": "ACTIVE",
+              "typeId": 14,
+              "priority": 5,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "2.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "1xbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 2.5",
+                  "value": "1.63",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 2.5",
+                  "value": "2.20",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "map",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "9edc1d53-9695-46ae-952f-c30e7b5d9c29",
+              "__typename": "Pair"
+            },
+            {
+              "name": "time",
+              "value": "0",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "gin:5941bb69-0a34-4040-9c2d-15dcfe2080fd",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "11",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:6eb29a45-4b7c-4fe9-a8cb-033ee1b61233",
+                "score": [
+                  {
+                    "id": "map:1",
+                    "type": "map",
+                    "points": "9",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "8",
+    "type": "data"
+  }
+}

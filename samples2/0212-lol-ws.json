@@ -1,0 +1,78 @@
+{
+  "sport": "lol",
+  "url": "wss://score-board.databet.cloud/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEventOverviews": {
+          "replace": [
+            {
+              "id": "c7dc5303-57f4-4466-abd8-414658bc2442",
+              "overview": {
+                "currentMap": 2,
+                "currentGoldLead": 0,
+                "timer": {
+                  "isActive": true,
+                  "time": 1006000,
+                  "__typename": "Timer"
+                },
+                "teams": {
+                  "home": {
+                    "score": 1,
+                    "__typename": "LOLOverviewTeam"
+                  },
+                  "away": {
+                    "score": 0,
+                    "__typename": "LOLOverviewTeam"
+                  },
+                  "__typename": "LOLOverviewTeams"
+                },
+                "maps": [
+                  {
+                    "number": 1,
+                    "teams": {
+                      "home": {
+                        "kills": 20,
+                        "__typename": "LOLMapOverviewTeam"
+                      },
+                      "away": {
+                        "kills": 12,
+                        "__typename": "LOLMapOverviewTeam"
+                      },
+                      "__typename": "LOLMapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "LOLOverviewMap"
+                  },
+                  {
+                    "number": 2,
+                    "teams": {
+                      "home": {
+                        "kills": 5,
+                        "__typename": "LOLMapOverviewTeam"
+                      },
+                      "away": {
+                        "kills": 3,
+                        "__typename": "LOLMapOverviewTeam"
+                      },
+                      "__typename": "LOLMapOverviewTeams"
+                    },
+                    "goldLead": 0,
+                    "__typename": "LOLOverviewMap"
+                  }
+                ],
+                "bestOf": 5,
+                "__typename": "LOLOverview"
+              },
+              "checksum": "5761677595727058477",
+              "__typename": "SportEventOverview"
+            }
+          ],
+          "__typename": "UpdateSportEventOverviewsResponse"
+        }
+      }
+    },
+    "id": "1",
+    "type": "data"
+  }
+}

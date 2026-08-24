@@ -1,0 +1,37 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "bannerZones": [
+          {
+            "id": "mix-top_slider-desktop-0",
+            "attributes": {
+              "pageType": "mix",
+              "pageLocation": "top_slider",
+              "platform": "desktop",
+              "index": 0,
+              "__typename": "BannerZoneAttributes"
+            },
+            "settings": [
+              {
+                "name": "interval",
+                "value": "15000",
+                "__typename": "Pair"
+              },
+              {
+                "name": "maxCount",
+                "value": "25",
+                "__typename": "Pair"
+              }
+            ],
+            "__typename": "BannerZone"
+          }
+        ]
+      }
+    },
+    "id": "5",
+    "type": "data"
+  }
+}

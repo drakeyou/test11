@@ -1,0 +1,8 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "id": "5",
+    "type": "complete"
+  }
+}

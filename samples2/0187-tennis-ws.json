@@ -1,0 +1,266 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:686b284b-f108-4ce0-ac8a-46c042878c26",
+          "slug": "radu-albot-vs-leonardo-rossi-24-08",
+          "disabled": false,
+          "version": "62cb66f2-c01c-4b78-88c7-9193899a473f",
+          "betStop": false,
+          "availableWidgets": [
+            "H2H_STATISTICS",
+            "GAMES_STATISTICS",
+            "GENIUS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "tech_win_team",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Раду Албот",
+                  "value": "2.03",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:44547"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Леонардо Росси",
+                  "value": "1.73",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "223h0_5",
+              "name": "Фора по Геймам",
+              "status": "ACTIVE",
+              "typeId": 223,
+              "priority": 4,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "0.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Раду Албот (+0.5)",
+                  "value": "2.00",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:44547"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Леонардо Росси (-0.5)",
+                  "value": "1.76",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "226t22_5",
+              "name": "Тотал геймов",
+              "status": "ACTIVE",
+              "typeId": 226,
+              "priority": 3,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "22.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 22.5",
+                  "value": "1.96",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 22.5",
+                  "value": "1.78",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game",
+              "value": "8",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "686b284b-f108-4ce0-ac8a-46c042878c26",
+              "__typename": "Pair"
+            },
+            {
+              "name": "server",
+              "value": "away",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set",
+              "value": "0",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set_state",
+              "value": "common",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:0",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "betting:1:sr:competitor:44547",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "3",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:d603c898-7d41-46a0-9b9b-c0d612ce9f73",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "5",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "10",
+    "type": "data"
+  }
+}

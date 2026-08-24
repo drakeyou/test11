@@ -1,0 +1,13 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": []
+      }
+    },
+    "id": "16",
+    "type": "data"
+  }
+}

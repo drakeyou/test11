@@ -1,0 +1,54 @@
+{
+  "sport": "dota",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "banners": [
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:welcome-bonus-2025-login-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:welcome-bonus-2025-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:bigthree-tournament-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:monterey-mexico-promo-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:bettingpromobasketballwnbap10-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:football-newcastle-liverpool-august-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:efg-swiss-tennis-july-26-t"
+          },
+          {
+            "__typename": "BannerCMS",
+            "type": "cms_banner",
+            "id": "banner:application-banner-t"
+          }
+        ]
+      }
+    },
+    "id": "12",
+    "type": "data"
+  }
+}

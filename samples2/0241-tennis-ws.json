@@ -1,0 +1,279 @@
+{
+  "sport": "tennis",
+  "url": "wss://gg-b-gql.gg.bet/graphql",
+  "payload": {
+    "payload": {
+      "data": {
+        "onUpdateSportEvent": {
+          "id": "5:a7b73a8d-cee0-483b-a8f1-380645867ad6",
+          "slug": "matthew-donald-vs-benjamin-hassan-24-08",
+          "disabled": false,
+          "version": "2e577b79-5407-408a-8abd-b46672e66cf7",
+          "betStop": false,
+          "availableWidgets": [
+            "GAMES_STATISTICS",
+            "GENIUS"
+          ],
+          "markets": [
+            {
+              "id": "1",
+              "name": "Победитель",
+              "status": "ACTIVE",
+              "typeId": 1,
+              "priority": 1,
+              "tags": [],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                },
+                {
+                  "name": "tech_win_team",
+                  "value": "unknown",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Matthew Donald",
+                  "value": "6.06",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:ae13f68b-b867-4573-91be-a3039075b4cc"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Хассан, Беньямин",
+                  "value": "1.10",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:108767"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "223h4_5",
+              "name": "Фора по Геймам",
+              "status": "ACTIVE",
+              "typeId": 223,
+              "priority": 4,
+              "tags": [
+                "hcp"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "hcp",
+                  "value": "4.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "fonbet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Matthew Donald (+4.5)",
+                  "value": "1.81",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "gin:ae13f68b-b867-4573-91be-a3039075b4cc"
+                  ],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Хассан, Беньямин (-4.5)",
+                  "value": "1.93",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [
+                    "betting:1:sr:competitor:108767"
+                  ],
+                  "__typename": "Odd"
+                }
+              ]
+            },
+            {
+              "id": "226t19_5",
+              "name": "Тотал геймов",
+              "status": "ACTIVE",
+              "typeId": 226,
+              "priority": 3,
+              "tags": [
+                "total"
+              ],
+              "settlementRules": "",
+              "features": [],
+              "specifiers": [
+                {
+                  "name": "total",
+                  "value": "19.5",
+                  "__typename": "Pair"
+                }
+              ],
+              "meta": [
+                {
+                  "name": "provider_source",
+                  "value": "databet",
+                  "__typename": "Pair"
+                }
+              ],
+              "__typename": "Market",
+              "odds": [
+                {
+                  "id": "1",
+                  "name": "Больше 19.5",
+                  "value": "2.24",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                },
+                {
+                  "id": "2",
+                  "name": "Меньше 19.5",
+                  "value": "1.61",
+                  "isActive": true,
+                  "status": "NOT_RESULTED",
+                  "competitorIds": [],
+                  "__typename": "Odd"
+                }
+              ]
+            }
+          ],
+          "meta": [
+            {
+              "name": "bo",
+              "value": "3",
+              "__typename": "Pair"
+            },
+            {
+              "name": "game",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "original_id",
+              "value": "a7b73a8d-cee0-483b-a8f1-380645867ad6",
+              "__typename": "Pair"
+            },
+            {
+              "name": "server",
+              "value": "home",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set",
+              "value": "1",
+              "__typename": "Pair"
+            },
+            {
+              "name": "set_state",
+              "value": "common",
+              "__typename": "Pair"
+            }
+          ],
+          "fixture": {
+            "score": "0:1",
+            "status": "LIVE",
+            "competitors": [
+              {
+                "id": "betting:1:sr:competitor:108767",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "6",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "1",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "40",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "set:1",
+                    "type": "set",
+                    "points": "1",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              },
+              {
+                "id": "gin:ae13f68b-b867-4573-91be-a3039075b4cc",
+                "score": [
+                  {
+                    "id": "set:0",
+                    "type": "set",
+                    "points": "4",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "total",
+                    "type": "total",
+                    "points": "0",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "game_points",
+                    "type": "game_points",
+                    "points": "40",
+                    "number": 0,
+                    "__typename": "CompetitorScore"
+                  },
+                  {
+                    "id": "set:1",
+                    "type": "set",
+                    "points": "0",
+                    "number": 1,
+                    "__typename": "CompetitorScore"
+                  }
+                ],
+                "__typename": "SportEventCompetitor"
+              }
+            ],
+            "__typename": "SportEventFixture"
+          },
+          "__typename": "SportEvent"
+        }
+      }
+    },
+    "id": "8",
+    "type": "data"
+  }
+}
