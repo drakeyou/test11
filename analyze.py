@@ -269,9 +269,11 @@ def main():
 
     cover = coverage(paths)
     print("== coverage ==")
-    print(f"  market-hours watched : {cover['market_hours']}")
-    print(f"  complete / partial   : {cover['complete']} / {cover['partial']}")
-    print(f"  disconnects          : {cover['gaps']} totalling {cover['gap_seconds']:.0f}s")
+    # Counted from heartbeats only: a heartbeat is written on a timer whether or
+    # not the book moved, so it is the one signal that proves we were watching.
+    print(f"  market-hours by heartbeat : {cover['market_hours']}")
+    print(f"  complete / partial        : {cover['complete']} / {cover['partial']}")
+    print(f"  disconnects               : {cover['gaps']} totalling {cover['gap_seconds']:.0f}s")
 
     sweep_rows, depth, by_kind = sweeps(paths)
     print("\n== sweeps ==")
@@ -283,7 +285,8 @@ def main():
 
     watched, swept, resting, kinds = fill_rate(paths, args.sweep_level)
     print(f"\n== fill rate (book SWEPT to <= {args.sweep_level:.2f}) ==")
-    print(f"  market-hours watched : {watched}")
+    # Denominator here is every hour with any book row, heartbeat or not.
+    print(f"  market-hours observed : {watched}")
     print(f"  market-hours swept   : {swept}")
     print(f"  fill rate            : {swept / watched:.4f}" if watched else "  fill rate: n/a")
     for key, count in kinds.most_common(8):
