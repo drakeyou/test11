@@ -71,6 +71,10 @@ export class MarketRegistry {
     return this.#byCondition.size;
   }
 
+  tracked() {
+    return [...this.#byCondition.values()];
+  }
+
   /** Every asset id under subscription, two per market. */
   assetIds() {
     return [...this.#byCondition.values()].flatMap((r) => r.tokens);

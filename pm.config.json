@@ -41,7 +41,8 @@
     "oddsHistory": "odds-history.csv",
     "changes": "changes.csv",
     "mapping": "mapping.csv",
-    "matchWindowHours": 6
+    "matchWindowHours": 6,
+    "pollSeconds": 5
   },
   "storage": {
     "dir": "data"

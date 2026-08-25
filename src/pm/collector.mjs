@@ -16,6 +16,10 @@ import { fetchActiveMarkets, MarketRegistry } from './gamma.mjs';
 import { BookState, SweepDetector } from './book.mjs';
 import { BookFeed } from './ws.mjs';
 import { Store } from './store.mjs';
+import { GgbetTail } from './ggbet-tail.mjs';
+import { MappingTable } from './mapping.mjs';
+import { buildLinks, joinedRow } from './link.mjs';
+import { fetchActivity } from './wallets.mjs';
 
 const config = loadConfig();
 const once = process.argv.includes('--once');
@@ -24,7 +28,11 @@ const store = new Store(config.storage.dir);
 const registry = new MarketRegistry();
 const detector = new SweepDetector(config.sweep);
 const books = new Map();
-const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0 };
+const tail = new GgbetTail(config.ggbet.oddsHistory);
+const mapping = new MappingTable(config.ggbet.mapping);
+let links = new Map();
+let ggbetByKey = new Map();
+const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0 };
 
 const now = () => new Date().toISOString();
 
@@ -38,6 +46,28 @@ function record(book, before, trigger) {
   }
   store.add('book', book.metrics(ts, trigger));
   counts.rows++;
+
+  const link = links.get(book.assetId);
+  const ggbet = link && ggbetByKey.get(link.ggbetKey);
+  if (ggbet) {
+    store.add('joined', joinedRow(ts, link, book, ggbet));
+    counts.joined++;
+  }
+}
+
+/** Refresh the gg.bet side and the token-to-quote links it feeds. */
+function relink() {
+  tail.poll();
+  const ggbetMarkets = tail.markets();
+  ggbetByKey = new Map(ggbetMarkets.map((m) => [`${m.matchId}|${m.market}`, m]));
+  links = buildLinks({
+    markets: registry.tracked(),
+    ggbetMarkets,
+    mapping,
+    windowHours: config.ggbet.matchWindowHours,
+  });
+  mapping.save();
+  return links.size;
 }
 
 const feed = new BookFeed({
@@ -75,6 +105,19 @@ function heartbeat() {
   for (const book of books.values()) record(book, null, 'heartbeat');
 }
 
+/** Target-wallet fills, the only labelled examples available. */
+async function pollWallets() {
+  for (const address of config.wallets.addresses ?? []) {
+    try {
+      const rows = await fetchActivity(address, { limit: 100 });
+      for (const row of rows) store.add('wallets', row);
+      counts.fills += rows.length;
+    } catch (err) {
+      console.error(`[wallets] ${address.slice(0, 10)}: ${err.message}`);
+    }
+  }
+}
+
 async function discover() {
   const raw = await fetchActiveMarkets(config.gamma);
   const { added, removed, tracked } = registry.update(raw, config.disciplines);
@@ -93,9 +136,15 @@ async function discover() {
 }
 
 const tracked = await discover();
+relink();
+await pollWallets();
 if (once) {
   const segment = tracked.filter((r) => r.level === 'segment').length;
   console.log(`tracking ${tracked.length} markets (${segment} in-match), database ${store.path}`);
+  console.log(`gg.bet: ${tail.rowsRead} rows, ${tail.size} markets, ${links.size} tokens linked` +
+    ` (${mapping.size} mappings, ${mapping.verifiedCount} verified)`);
+  store.flush();
+  console.log(`wallets: ${counts.fills} activity rows (${store.count('wallets')} stored)`);
   store.close();
   process.exit(0);
 }
@@ -104,9 +153,11 @@ const timers = [
   setInterval(() => discover().catch((err) => console.error(`[discovery] ${err.message}`)),
     config.gamma.intervalSeconds * 1000),
   setInterval(heartbeat, config.book.heartbeatSeconds * 1000),
+  setInterval(relink, (config.ggbet.pollSeconds ?? 5) * 1000),
+  setInterval(() => pollWallets(), (config.wallets.intervalSeconds ?? 25) * 1000),
   setInterval(() => {
-    console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.sweeps} sweeps` +
-      ` | ${counts.gaps} gaps | ${counts.messages} msgs | ${store.path}`);
+    console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.joined} joined` +
+      ` | ${counts.sweeps} sweeps | ${counts.gaps} gaps | ${links.size} linked | ${store.path}`);
   }, 60000),
 ];
 
@@ -114,7 +165,9 @@ function shutdown() {
   for (const timer of timers) clearInterval(timer);
   feed.stop();
   store.flush();
-  console.error(`\n[status] wrote ${counts.rows} book rows, ${counts.sweeps} sweeps, ${counts.gaps} gaps`);
+  mapping.save();
+  console.error(`\n[status] wrote ${counts.rows} book rows, ${counts.joined} joined,` +
+    ` ${counts.sweeps} sweeps, ${counts.gaps} gaps`);
   store.close();
   process.exit(0);
 }

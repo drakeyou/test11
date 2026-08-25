@@ -43,6 +43,7 @@ export const DEFAULTS = {
     changes: 'changes.csv',
     mapping: 'mapping.csv',
     matchWindowHours: 6,
+    pollSeconds: 5,
   },
   storage: { dir: 'data' },
 };
