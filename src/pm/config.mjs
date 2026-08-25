@@ -25,12 +25,14 @@ export const DEFAULTS = {
   },
   gamma: { intervalSeconds: 45, pageSize: 100, maxPages: 12 },
   book: { heartbeatSeconds: 5, reconnectMinMs: 1000, reconnectMaxMs: 60000 },
-  // A tick is 0.001, so "three ticks" would fire on 0.300 -> 0.297, which is
-  // noise rather than a book collapse. Both rules below are logged separately
-  // and the thresholds are meant to be retuned once there is data.
+  // The tick is per-market, not a constant: of the esports markets sampled, 58
+  // run at 0.01 and 7 at 0.001. So the bid-drop rule is expressed in ticks of
+  // the market itself, with an absolute floor so the 0.001 books do not fire on
+  // noise. Both rules are logged separately and meant to be retuned on data.
   sweep: {
     levelsCrossed: 3,
-    bidDrop: 0.03,
+    bidDropTicks: 3,
+    bidDropMin: 0.02,
     depthWindowSeconds: 10,
     depthDropRatio: 0.5,
     depthAbovePrice: 0.05,

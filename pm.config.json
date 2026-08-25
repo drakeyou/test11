@@ -24,7 +24,8 @@
   },
   "sweep": {
     "levelsCrossed": 3,
-    "bidDrop": 0.03,
+    "bidDropTicks": 3,
+    "bidDropMin": 0.02,
     "depthWindowSeconds": 10,
     "depthDropRatio": 0.5,
     "depthAbovePrice": 0.05
