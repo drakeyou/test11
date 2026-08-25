@@ -1,3 +1,7 @@
 node_modules/
 captures/
 *.csv
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

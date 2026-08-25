@@ -1,0 +1,48 @@
+{
+  "disciplines": {
+    "cs2": "esports_counter_strike",
+    "csgo": "esports_counter_strike",
+    "dota2": "esports_dota_2",
+    "dota": "esports_dota_2",
+    "lol": "esports_league_of_legends",
+    "val": "esports_valorant",
+    "valorant": "esports_valorant",
+    "r6": "esports_rainbow_six",
+    "atp": "tennis",
+    "wta": "tennis",
+    "tennis": "tennis"
+  },
+  "gamma": {
+    "intervalSeconds": 45,
+    "pageSize": 100,
+    "maxPages": 12
+  },
+  "book": {
+    "heartbeatSeconds": 5,
+    "reconnectMinMs": 1000,
+    "reconnectMaxMs": 60000
+  },
+  "sweep": {
+    "levelsCrossed": 3,
+    "bidDrop": 0.03,
+    "depthWindowSeconds": 10,
+    "depthDropRatio": 0.5,
+    "depthAbovePrice": 0.05
+  },
+  "wallets": {
+    "intervalSeconds": 25,
+    "addresses": [
+      "0xd403596d8690210994e7f4bae6b9dac1b7e4a817",
+      "0x8840126a43353f6cdcd77e90bf2327474a4ef51a"
+    ]
+  },
+  "ggbet": {
+    "oddsHistory": "odds-history.csv",
+    "changes": "changes.csv",
+    "mapping": "mapping.csv",
+    "matchWindowHours": 6
+  },
+  "storage": {
+    "dir": "data"
+  }
+}

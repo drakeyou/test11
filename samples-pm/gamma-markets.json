@@ -1,0 +1,2319 @@
+[
+ {
+  "id": "3874991",
+  "conditionId": "0x5c72184b37993c49746896fe50b13d7d76be95344daf3bc977a7b4d9b45fb0c1",
+  "question": "Map 3 Rounds Handicap: BORRACHEIROS (-12.5) vs Damajuana (+12.5)",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-handicap-chama-12pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:48:22Z",
+  "clobTokenIds": "[\"38015530827650560195341054224854436323202789204988962284609603773658307652270\", \"7675919173297001402678983486091562806127794696873900656912556306651769590125\"]",
+  "outcomes": "[\"BORRACHEIROS\", \"Damajuana\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874975",
+  "conditionId": "0xee9567158709e03d3a1651216ff647adba849b34918b0fecfd4d327b09fca0d0",
+  "question": "Map 2 Rounds Handicap: Marsborne (-6.5) vs Elusive (+6.5)",
+  "slug": "cs2-mars-elu1-2026-08-25-game2-round-handicap-mars-6pt5",
+  "endDate": "2026-08-26T07:00:00Z",
+  "startDate": "2026-08-25T15:46:50Z",
+  "clobTokenIds": "[\"114937778215755929842274321212421155409117262972484888180257587463223941619586\", \"22529454470337482009394388210261557151365857967870111900576233780455868292611\"]",
+  "outcomes": "[\"Marsborne\", \"Elusive\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 2,
+  "events": [
+   {
+    "slug": "cs2-mars-elu1-2026-08-25",
+    "title": "Counter-Strike: Marsborne vs Elusive (BO3) - ESL Challenger League North America Cup #1 Playoffs",
+    "ticker": "cs2-mars-elu1-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874976",
+  "conditionId": "0xc457ba6bdfea8d5a1f9fa1286ebc74af0e8e86abe80188fe65454efb9d46d61f",
+  "question": "Map 3 Rounds Handicap: Marsborne (-6.5) vs Elusive (+6.5)",
+  "slug": "cs2-mars-elu1-2026-08-25-game3-round-handicap-mars-6pt5",
+  "endDate": "2026-08-26T07:00:00Z",
+  "startDate": "2026-08-25T15:46:50Z",
+  "clobTokenIds": "[\"93360816156129711467750402899814122485276770170312834833368566151965429516234\", \"47482912869962278199532420880231907052602005617507409928329746883576748966547\"]",
+  "outcomes": "[\"Marsborne\", \"Elusive\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 2,
+  "events": [
+   {
+    "slug": "cs2-mars-elu1-2026-08-25",
+    "title": "Counter-Strike: Marsborne vs Elusive (BO3) - ESL Challenger League North America Cup #1 Playoffs",
+    "ticker": "cs2-mars-elu1-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874974",
+  "conditionId": "0xda9d2d517ec9296ee4eb9356ac6fc17218565e540d373570e52051dcdb8f5ab2",
+  "question": "Map 1 Rounds Handicap: Marsborne (-6.5) vs Elusive (+6.5)",
+  "slug": "cs2-mars-elu1-2026-08-25-game1-round-handicap-mars-6pt5",
+  "endDate": "2026-08-26T07:00:00Z",
+  "startDate": "2026-08-25T15:46:50Z",
+  "clobTokenIds": "[\"98759085311922437816522086160940529524142530036979900282984947711592863498295\", \"38307435512457445757869558236718642804572637599813411227627537559312756252935\"]",
+  "outcomes": "[\"Marsborne\", \"Elusive\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 2,
+  "events": [
+   {
+    "slug": "cs2-mars-elu1-2026-08-25",
+    "title": "Counter-Strike: Marsborne vs Elusive (BO3) - ESL Challenger League North America Cup #1 Playoffs",
+    "ticker": "cs2-mars-elu1-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874970",
+  "conditionId": "0x9acacea8ea1edc3ad1c47780b86287dc2dfecf4cad560bb26f649fd23e394c2b",
+  "question": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy - Map 1 Winner",
+  "slug": "cs2-sangal-psna-2026-08-26-game1",
+  "endDate": "2026-08-26T12:00:00Z",
+  "startDate": "2026-08-25T15:45:25Z",
+  "clobTokenIds": "[\"22640821541668905286485109978683682671973658149904265421323950434935393841897\", \"63449598327576132525667888115313402448089679696093100802517770344835898086466\"]",
+  "outcomes": "[\"ex-Sangal ALTERS\", \"Passion Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 68.78,
+  "events": [
+   {
+    "slug": "cs2-sangal-psna-2026-08-26",
+    "title": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy (BO3) - United21 Group C",
+    "ticker": "cs2-sangal-psna-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874971",
+  "conditionId": "0x30c727cf075829ca15d9f10cb76e17adeb7236596d1c364a93e694f825ad7be3",
+  "question": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy - Map 2 Winner",
+  "slug": "cs2-sangal-psna-2026-08-26-game2",
+  "endDate": "2026-08-26T12:00:00Z",
+  "startDate": "2026-08-25T15:45:25Z",
+  "clobTokenIds": "[\"92998353320782896385717492673928923148531297500660937269493291458017997143513\", \"44955626023529101525472729669118613738897715769391386867708591435242444677461\"]",
+  "outcomes": "[\"ex-Sangal ALTERS\", \"Passion Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 68.78,
+  "events": [
+   {
+    "slug": "cs2-sangal-psna-2026-08-26",
+    "title": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy (BO3) - United21 Group C",
+    "ticker": "cs2-sangal-psna-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874973",
+  "conditionId": "0xedd168da59f97f1af0accf28f02ebc554b0a280d100c95296a188accaad5bf61",
+  "question": "Games Total: O/U 2.5",
+  "slug": "cs2-sangal-psna-2026-08-26-total-games-2pt5",
+  "endDate": "2026-08-26T14:00:00Z",
+  "startDate": "2026-08-25T15:45:25Z",
+  "clobTokenIds": "[\"114457197017994681306518295333751940304172978216200334120604858240103659088130\", \"106918843079214734911109942239244823504223327048612267031575011013684432210276\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 2,
+  "events": [
+   {
+    "slug": "cs2-sangal-psna-2026-08-26",
+    "title": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy (BO3) - United21 Group C",
+    "ticker": "cs2-sangal-psna-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874972",
+  "conditionId": "0x0d8526ee58caf0367566fb7f17869b6fadae55e46e4972975ec51ed0c5db29d9",
+  "question": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy (BO3) - United21 Group C",
+  "slug": "cs2-sangal-psna-2026-08-26",
+  "endDate": "2026-08-26T14:00:00Z",
+  "startDate": "2026-08-25T15:45:24Z",
+  "clobTokenIds": "[\"37051207391235875455925614653448681476666056368597626811097248024960716244219\", \"4893724414233725584327160840920554388345188138899002811182050470543653650803\"]",
+  "outcomes": "[\"ex-Sangal ALTERS\", \"Passion Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 88.78,
+  "events": [
+   {
+    "slug": "cs2-sangal-psna-2026-08-26",
+    "title": "Counter-Strike: ex-Sangal ALTERS vs Passion Academy (BO3) - United21 Group C",
+    "ticker": "cs2-sangal-psna-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874747",
+  "conditionId": "0x703e53c7d7a204d957ac0639521b2dd340803acdcce395f1686481915a59d81f",
+  "question": "Map 2 Total Rounds: Over/Under 18.5",
+  "slug": "cs2-g2a-rustec-2026-08-25-game2-round-total-18pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:38:03Z",
+  "clobTokenIds": "[\"97472071800105532814449469821844688649352120326552261226355648271154602297605\", \"81582203207272909523555666870693828165622409885456227401554829258221989399718\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.8,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-g2a-rustec-2026-08-25",
+    "title": "Counter-Strike: G2 Ares vs ex-RUSTEC (BO3) - CCT Europe Series #7 Group Stage",
+    "ticker": "cs2-g2a-rustec-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874748",
+  "conditionId": "0x346b659be02b0b5a7e569b86e52595b2fe3dc04b2572d250a652dd931c0b7cff",
+  "question": "Map 2 Rounds Handicap: ex-RUSTEC (-9.5) vs G2 Ares (+9.5)",
+  "slug": "cs2-g2a-rustec-2026-08-25-game2-round-handicap-rustec-9pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:38:02Z",
+  "clobTokenIds": "[\"31678708872358834189919599317555733680682289072193543676923891006794759665724\", \"52117347839959607170008088422803957142189835560808301742612400533457855610075\"]",
+  "outcomes": "[\"ex-RUSTEC\", \"G2 Ares\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-g2a-rustec-2026-08-25",
+    "title": "Counter-Strike: G2 Ares vs ex-RUSTEC (BO3) - CCT Europe Series #7 Group Stage",
+    "ticker": "cs2-g2a-rustec-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874730",
+  "conditionId": "0xe3896bc5329686cdc068500de9d5ef858908c5ee7e65bde23f3ea328d657144c",
+  "question": "Map 2 Total Rounds: Over/Under 27.5",
+  "slug": "cs2-color-btf-2026-08-25-game2-round-total-27pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:37:19Z",
+  "clobTokenIds": "[\"90538571733120346421377856941820310971927725530473025219883218541095355847546\", \"101021400360376803762840810439000739234298707340042334267707544169167657918435\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.9,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 7.07,
+  "events": [
+   {
+    "slug": "cs2-color-btf-2026-08-25",
+    "title": "Counter-Strike: Color vs Butterfly (BO3) - NODWIN Clutch Series Group Stage",
+    "ticker": "cs2-color-btf-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874729",
+  "conditionId": "0x71ec7f54651f7a2f338c9ed76fb251b5826f744c964ec115b3b53734fe4e8a9f",
+  "question": "Counter-Strike: Honvéd vs banda chuya (BO1) - ESEA Advanced Europe Regular Season",
+  "slug": "cs2-hon1-bandac-2026-08-25",
+  "endDate": "2026-08-26T01:30:00Z",
+  "startDate": "2026-08-25T15:35:18Z",
+  "clobTokenIds": "[\"39267412952138864706394521765240666831407850834991026825884660872750877506285\", \"50586031446140609543834179497317883452990793770497201303531789180141345751446\"]",
+  "outcomes": "[\"Honvéd\", \"banda chuya\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 80.26,
+  "events": [
+   {
+    "slug": "cs2-hon1-bandac-2026-08-25",
+    "title": "Counter-Strike: Honvéd vs banda chuya (BO1) - ESEA Advanced Europe Regular Season",
+    "ticker": "cs2-hon1-bandac-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874502",
+  "conditionId": "0xf0712baa1e53ad6292b8db8ca933f3e435e7936552e90e0a82550572a579b6b2",
+  "question": "Map 3 Rounds Handicap: BORRACHEIROS (-3.5) vs Damajuana (+3.5)",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-handicap-chama-3pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:28:24Z",
+  "clobTokenIds": "[\"11718603201995190171465648026598365688772125494844780145288072764237525836270\", \"86627577138554028210495461463443648722157107697866805550906845479550740185309\"]",
+  "outcomes": "[\"BORRACHEIROS\", \"Damajuana\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.8,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874501",
+  "conditionId": "0xc5d0c2fe58f7dedc1e43d939378c87ecc2935048ad32fffbfb8b148239016f0f",
+  "question": "Map 2 Rounds Handicap: ex-RUSTEC (-3.5) vs G2 Ares (+3.5)",
+  "slug": "cs2-g2a-rustec-2026-08-25-game2-round-handicap-rustec-3pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:28:04Z",
+  "clobTokenIds": "[\"97839505883188921766956322786749001729343504970989917663461153531967342246357\", \"15745565793369819126244340814471550110095498073155270317065813128561459107862\"]",
+  "outcomes": "[\"ex-RUSTEC\", \"G2 Ares\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestBid": 0.8,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 244.22,
+  "events": [
+   {
+    "slug": "cs2-g2a-rustec-2026-08-25",
+    "title": "Counter-Strike: G2 Ares vs ex-RUSTEC (BO3) - CCT Europe Series #7 Group Stage",
+    "ticker": "cs2-g2a-rustec-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874500",
+  "conditionId": "0x7f9570c94464c6a3bb608599ec429128e7aa6c9444351c7ab81ce37b496cc104",
+  "question": "Map 1 Total Rounds: Over/Under 24.5",
+  "slug": "cs2-ruby1-33-2026-08-25-game1-round-total-24pt5",
+  "endDate": "2026-08-25T21:10:00Z",
+  "startDate": "2026-08-25T15:27:56Z",
+  "clobTokenIds": "[\"113561763673358691496873663516464467510782797597969599511708448448120897104706\", \"56773327245543734352871599597527420318269683675728850771210972106989412553249\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "cs2-ruby1-33-2026-08-25",
+    "title": "Counter-Strike: ex-RUBY vs BET-M 33 (BO3) - Moscow Cyber Games European Qualifier Group Stage",
+    "ticker": "cs2-ruby1-33-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874499",
+  "conditionId": "0x0b7bd21815249a99950febaf336e68ef4495a3074122d736c42f14910bdce2ae",
+  "question": "Map 1 Rounds Handicap: ex-RUBY (-6.5) vs BET-M 33 (+6.5)",
+  "slug": "cs2-ruby1-33-2026-08-25-game1-round-handicap-ruby1-6pt5",
+  "endDate": "2026-08-25T21:10:00Z",
+  "startDate": "2026-08-25T15:27:56Z",
+  "clobTokenIds": "[\"46238246620267591585230594118999135983570154943734258903313066594964327844451\", \"37170032557090155616218238798586593340216023244205969585850754692209819512652\"]",
+  "outcomes": "[\"ex-RUBY\", \"BET-M 33\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "cs2-ruby1-33-2026-08-25",
+    "title": "Counter-Strike: ex-RUBY vs BET-M 33 (BO3) - Moscow Cyber Games European Qualifier Group Stage",
+    "ticker": "cs2-ruby1-33-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874445",
+  "conditionId": "0x69c71698e99c94fea4e3dd7f644fd26f5475a52c8c29564ada74580e65b6e6a7",
+  "question": "Map 1 Total Rounds: Over/Under 24.5",
+  "slug": "cs2-rgg-wave-2026-08-25-game1-round-total-24pt5",
+  "endDate": "2026-08-25T21:20:00Z",
+  "startDate": "2026-08-25T15:26:09Z",
+  "clobTokenIds": "[\"4419461205611112353339740090786180918508831359503895350237059985219661019198\", \"87943587892707020569736460280920610167386318122333585578393741957547700993251\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "cs2-rgg-wave-2026-08-25",
+    "title": "Counter-Strike: RoundsGG vs Wave Esports (BO1) - ESEA Advanced Europe Regular Season",
+    "ticker": "cs2-rgg-wave-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874447",
+  "conditionId": "0xeae8595d188142d78c2570b1b98a90d643c25b323988ec31f9c63ee85b5eadc8",
+  "question": "Map 1 Rounds Handicap: Wave Esports (-3.5) vs ROUNDS (+3.5)",
+  "slug": "cs2-rgg-wave-2026-08-25-game1-round-handicap-wave-3pt5",
+  "endDate": "2026-08-25T21:20:00Z",
+  "startDate": "2026-08-25T15:26:09Z",
+  "clobTokenIds": "[\"12307420396055695107785744306219480856681592152775957774436899990341675313754\", \"54266614160128838166761466139102677604766958108814915126303622153991497805506\"]",
+  "outcomes": "[\"Wave Esports\", \"ROUNDS\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "cs2-rgg-wave-2026-08-25",
+    "title": "Counter-Strike: RoundsGG vs Wave Esports (BO1) - ESEA Advanced Europe Regular Season",
+    "ticker": "cs2-rgg-wave-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874267",
+  "conditionId": "0xc2ae9df626a0afc1523645baf248403e6423a9aa75a5baa76bdb82c316359fbe",
+  "question": "Map 3 Total Rounds: Over/Under 24.5",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-total-24pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:18:25Z",
+  "clobTokenIds": "[\"51858578620369578970031955325766903530580405260237244874069628886669791574005\", \"88484383149836108061842531293925592417574294315250128628208859561371463814861\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874214",
+  "conditionId": "0x1e11e59f63a622d7e79875349ac5d4d8554a107af36af39b35d22a8078ddff11",
+  "question": "Map 2 Rounds Handicap: Color (-9.5) vs Butterfly (+9.5)",
+  "slug": "cs2-color-btf-2026-08-25-game2-round-handicap-color-9pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:17:21Z",
+  "clobTokenIds": "[\"6334263806047246320431754806533876398366608762547624800590555208857802367728\", \"62330381449203732970128091839565559187401650420816426392147828686469026559014\"]",
+  "outcomes": "[\"Color\", \"Butterfly\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 244.22,
+  "events": [
+   {
+    "slug": "cs2-color-btf-2026-08-25",
+    "title": "Counter-Strike: Color vs Butterfly (BO3) - NODWIN Clutch Series Group Stage",
+    "ticker": "cs2-color-btf-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874195",
+  "conditionId": "0x20dafcfdd89f53e9eca8c1026a57351ae16a3101d1c91db99a8a40fd3a5d203d",
+  "question": "Map 3 Rounds Handicap: BORRACHEIROS (-9.5) vs Damajuana (+9.5)",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-handicap-chama-9pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:08:19Z",
+  "clobTokenIds": "[\"102043716893948175423422498153515485322847552529618469598707557456008264185317\", \"57465424973895145040761570506674096288841281824543852307053874724988702222165\"]",
+  "outcomes": "[\"BORRACHEIROS\", \"Damajuana\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.8,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874196",
+  "conditionId": "0xcde55aa6cfb98078fa9ecd44a0c6fbbe591acbd807d050b455258147444ad1ea",
+  "question": "Map 3 Total Rounds: Over/Under 18.5",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-total-18pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:08:19Z",
+  "clobTokenIds": "[\"53040905748797923318468549237367572614970379382803383248563886576803062432502\", \"107505959367809663849130745663876386156214416571890745099180888476674447768316\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874197",
+  "conditionId": "0xc829fa53cfa931283589dcf826da829e1d05a9c7fe4f1e7101c8a457e4835a64",
+  "question": "Map 3 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-chama-damaju-2026-08-25-game3-round-total-21pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T15:08:18Z",
+  "clobTokenIds": "[\"13674438446504886779027754618707485723963801614252760382146328117650395983939\", \"100977311910379514905459816888523112040154985568969065325777481989716948793887\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 100.92,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874194",
+  "conditionId": "0x2f5e214915f71c6c552f72bcbb9cd0a47c5dde3b751943a95a464a7a3e53782f",
+  "question": "Map 2 Rounds Handicap: ex-RUSTEC (-6.5) vs G2 Ares (+6.5)",
+  "slug": "cs2-g2a-rustec-2026-08-25-game2-round-handicap-rustec-6pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:07:57Z",
+  "clobTokenIds": "[\"114084223633441225054843314562085302824519925076703832011451612003542887833394\", \"109816610892225201567884931084151933182404577924605458157783835490665264537313\"]",
+  "outcomes": "[\"ex-RUSTEC\", \"G2 Ares\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 245.2199,
+  "events": [
+   {
+    "slug": "cs2-g2a-rustec-2026-08-25",
+    "title": "Counter-Strike: G2 Ares vs ex-RUSTEC (BO3) - CCT Europe Series #7 Group Stage",
+    "ticker": "cs2-g2a-rustec-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874193",
+  "conditionId": "0xc908c0bdd293d8d5724ade51861174956d253d7b60a05eba0915a259aea097a8",
+  "question": "Map 2 Total Rounds: Over/Under 24.5",
+  "slug": "cs2-g2a-rustec-2026-08-25-game2-round-total-24pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:07:57Z",
+  "clobTokenIds": "[\"48149700120448595998967528659117894015618485336099220270492740102583023047418\", \"103184415430595335528228883580652180476907803364537962693833516131396812811094\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 244.22,
+  "events": [
+   {
+    "slug": "cs2-g2a-rustec-2026-08-25",
+    "title": "Counter-Strike: G2 Ares vs ex-RUSTEC (BO3) - CCT Europe Series #7 Group Stage",
+    "ticker": "cs2-g2a-rustec-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874176",
+  "conditionId": "0x90ee5e98c3ce0658d46672da61ea2c8931046baf5483ee7496c5d032e7133cef",
+  "question": "Map 2 Rounds Handicap: Color (-3.5) vs Butterfly (+3.5)",
+  "slug": "cs2-color-btf-2026-08-25-game2-round-handicap-color-3pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T15:07:09Z",
+  "clobTokenIds": "[\"15780033336465812436831213361345591880627909529136591336665399349866823246962\", \"35979489481235681363142302673626217774449770634732685745846297359753891177883\"]",
+  "outcomes": "[\"Color\", \"Butterfly\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 244.22,
+  "events": [
+   {
+    "slug": "cs2-color-btf-2026-08-25",
+    "title": "Counter-Strike: Color vs Butterfly (BO3) - NODWIN Clutch Series Group Stage",
+    "ticker": "cs2-color-btf-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874141",
+  "conditionId": "0x4b5ca8fccb686d8b56896c90b14bffe95fd1279792c306709c37bb97608f36bf",
+  "question": "Map 2 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-ce5-rfe-2026-08-26-game2-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:48Z",
+  "clobTokenIds": "[\"21776576040281698518137522187592200893256327636740134976342673581442517836333\", \"11864995464970338032585218487269661981230356023518177615324446013028234975327\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 18.3183,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874142",
+  "conditionId": "0xa6143bad97670fd06c5d14752c3d757aac4f8288d84b1bb4e95e99eb26e4cf68",
+  "question": "Map 3 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-ce5-rfe-2026-08-26-game3-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:48Z",
+  "clobTokenIds": "[\"45668577816009912232512502654447589616101307081802764486142988321315236517148\", \"10587350788215872217701163179474051938858546884397164584053982227042108132650\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 18.5396,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874140",
+  "conditionId": "0x58ddb1330cbf08362bf1903995a8b446c3fc541abe1ef72e6a23d6b6c98dda41",
+  "question": "Map 1 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-ce5-rfe-2026-08-26-game1-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:48Z",
+  "clobTokenIds": "[\"32318737177193233028732377776752221655955976249346168131564030563404841671587\", \"108724641676247164070535123306255213241336925860992697542559278870259944384386\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 18.5396,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874135",
+  "conditionId": "0xa3980ec228bc25118bc8583a643cac1bd62191428d91526624771dd4642ff2df",
+  "question": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports - Map 1 Winner",
+  "slug": "cs2-ce5-rfe-2026-08-26-game1",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:48Z",
+  "clobTokenIds": "[\"2616316634006223272352535105293051822842093250756098684710804306273334202630\", \"27103622358751138963288358283549827305044986857751021165255834929978951043669\"]",
+  "outcomes": "[\"Chaos Enforcers\", \"Royal Foxes Esports\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 70.7996,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874137",
+  "conditionId": "0x91ae9bb89235206caa70bd639c4f5e17b7b42dd873fb6a00cc9ad8ffbba99179",
+  "question": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+  "slug": "cs2-ce5-rfe-2026-08-26",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:47Z",
+  "clobTokenIds": "[\"60115390245701132075939525886549200369017070574264083968037949466041703055310\", \"87031519773823618326704405562271404242190485872799471988239706543054006236052\"]",
+  "outcomes": "[\"Chaos Enforcers\", \"Royal Foxes Esports\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.08,
+  "bestAsk": 0.93,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 93.0497,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874136",
+  "conditionId": "0xebc5d78128117d5a1a85e1236f6b491eaf7fa916b30be6b24a730e18a813b0d4",
+  "question": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports - Map 2 Winner",
+  "slug": "cs2-ce5-rfe-2026-08-26-game2",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:47Z",
+  "clobTokenIds": "[\"451181490955335220277531024899165383916498528633886820541739848212902996665\", \"114756398462270190186018160704423605090354928098818845179736427605243059250498\"]",
+  "outcomes": "[\"Chaos Enforcers\", \"Royal Foxes Esports\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 70.7996,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874138",
+  "conditionId": "0x92d530b897ab476dae8c9cfd63df13d17da239758f63ad66a7ca503fb9e8f1e3",
+  "question": "Games Total: O/U 2.5",
+  "slug": "cs2-ce5-rfe-2026-08-26-total-games-2pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:47Z",
+  "clobTokenIds": "[\"21332512311486538952817094756241535843507615180429123793964275202589215325093\", \"75849568493164664298914575488906403677717405153664125899688455433871311099613\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 4.02,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874139",
+  "conditionId": "0xa8cf936854e070edcbba0d8c09485561e5ee6f410da19446b4d7f4475b5f445d",
+  "question": "Map Handicap: CE (-1.5) vs Royal Foxes Esports (+1.5)",
+  "slug": "cs2-ce5-rfe-2026-08-26-map-handicap-away-1pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:47Z",
+  "clobTokenIds": "[\"36690592455597238576145710639074281087776962956849930340630071090555684387926\", \"62866698288413914016847510833903446498976325361892697869606573345633508864913\"]",
+  "outcomes": "[\"Chaos Enforcers\", \"Royal Foxes Esports\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 12.5396,
+  "events": [
+   {
+    "slug": "cs2-ce5-rfe-2026-08-26",
+    "title": "Counter-Strike: Chaos Enforcers vs Royal Foxes Esports (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-ce5-rfe-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874132",
+  "conditionId": "0x14d3b38ca23328f407987d58536f367b5b35273a8ce650f0ea87ffb9912404d7",
+  "question": "Map 1 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-got1-phx-2026-08-26-game1-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:42Z",
+  "clobTokenIds": "[\"59621107977805878267387934230051064132151754721598466064273902132638924068778\", \"39760650628299563450328627675496512456762963684140058098747545744421184680654\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874127",
+  "conditionId": "0x525f19b905d96ee8959f837b079d94a109b9ce36f56ca175840c0dd8fd9012da",
+  "question": "Counter-Strike: gothboiclique vs Team Phoenix - Map 1 Winner",
+  "slug": "cs2-got1-phx-2026-08-26-game1",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:42Z",
+  "clobTokenIds": "[\"111978076612772423499480541361871070143820055083126185190817060781120055529907\", \"47655643858489413285888755038450684615956769158419799126145784101321342535244\"]",
+  "outcomes": "[\"gothboiclique\", \"Team Phoenix\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 71.2792,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874131",
+  "conditionId": "0xa27aa73b76ea355df2cd394a55841720f2e023ddd80dffbba0ee30b58397a20d",
+  "question": "Map Handicap: GBC (-1.5) vs Team Phoenix (+1.5)",
+  "slug": "cs2-got1-phx-2026-08-26-map-handicap-away-1pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:41Z",
+  "clobTokenIds": "[\"10752790358235528412446084450832394441377874975608554607649219547514099252849\", \"64556581858419904575889253925962292448334284016026376393792530413995004795901\"]",
+  "outcomes": "[\"gothboiclique\", \"Team Phoenix\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 13.0192,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874130",
+  "conditionId": "0xf227e5d1b8c9eb2d06c93f786336237238fcde12f27ebd4044fe81757492e4aa",
+  "question": "Games Total: O/U 2.5",
+  "slug": "cs2-got1-phx-2026-08-26-total-games-2pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:41Z",
+  "clobTokenIds": "[\"67280859528571754463353995621148932704842812814347822106301686462194314214843\", \"41590162364559358662491690412235893751898632959363555892287245011084656005163\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 4.4999,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874128",
+  "conditionId": "0xa669b5d70b4e66318bd9a7115d38073445b207d009b20dda5428dd77c2b91a04",
+  "question": "Counter-Strike: gothboiclique vs Team Phoenix - Map 2 Winner",
+  "slug": "cs2-got1-phx-2026-08-26-game2",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:41Z",
+  "clobTokenIds": "[\"86287633725658834040050442459579777824203320985155343918993309352532599736579\", \"68230864470381061796643072087002505014529601502171902582290957705399631440886\"]",
+  "outcomes": "[\"gothboiclique\", \"Team Phoenix\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 71.2792,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874133",
+  "conditionId": "0xe665c5961780da1b5bbd8f9ee5b053ad2adb0f11189977a8fc7ae7082bb17572",
+  "question": "Map 2 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-got1-phx-2026-08-26-game2-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:40Z",
+  "clobTokenIds": "[\"50723400980213799597329919900946671909468874132622996446834170541945773808881\", \"25141523842162145998042285244120064038863548997457101644117362276083986475286\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874134",
+  "conditionId": "0x963228941e1da6a0a523371fcaaf718fbe51e057d7e874bad93ef675a28c5f72",
+  "question": "Map 3 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-got1-phx-2026-08-26-game3-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:40Z",
+  "clobTokenIds": "[\"104351488332399769241362814025990576805122985907748704858614224841638731716785\", \"113054564578104935923866630108252501470043952428658017685333219708133927780892\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874129",
+  "conditionId": "0x56a141a4832d7f2f8c442e8ced89589a91e34bf36c316a42aba0d118d4ae993a",
+  "question": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+  "slug": "cs2-got1-phx-2026-08-26",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:40Z",
+  "clobTokenIds": "[\"114462822320032476864014926152914327980150886970409985835297334631946788250424\", \"83252966364060586643875818235948607417957756334482376573869962463894069639905\"]",
+  "outcomes": "[\"gothboiclique\", \"Team Phoenix\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 91.2792,
+  "events": [
+   {
+    "slug": "cs2-got1-phx-2026-08-26",
+    "title": "Counter-Strike: gothboiclique vs Team Phoenix (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-got1-phx-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874121",
+  "conditionId": "0xd135071b15bd0949695080925c79cc0ce400b586d4b7f1f37ee032bf51dbad97",
+  "question": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+  "slug": "cs2-mis-efa-2026-08-26",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:35Z",
+  "clobTokenIds": "[\"29222510435419692826090672842513814326848357670754666647505296762912754898802\", \"30187992830243069691177383310033685850146152944373487521137505362562210577198\"]",
+  "outcomes": "[\"Misa Esports\", \"Eternal Fire Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 91.2792,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874119",
+  "conditionId": "0x4b5eb2b8cbf5fd2e2b627b538f9b2083af091e50a815bf5f22488f39ac1138a5",
+  "question": "Counter-Strike: Misa Esports vs Eternal Fire Academy - Map 1 Winner",
+  "slug": "cs2-mis-efa-2026-08-26-game1",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:35Z",
+  "clobTokenIds": "[\"75340140092820402074971536816503855748676063582547663275427652279200497719217\", \"38291517894171357366968578749938782824800004258583401354965975482715867601143\"]",
+  "outcomes": "[\"Misa Esports\", \"Eternal Fire Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 69.0667,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874122",
+  "conditionId": "0x42200a4800a816acb122519136a6030170f730bddf5772e8d414accee5f365ff",
+  "question": "Games Total: O/U 2.5",
+  "slug": "cs2-mis-efa-2026-08-26-total-games-2pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:34Z",
+  "clobTokenIds": "[\"47911884066739822968063418438382405295059268731862370260582525294973003554655\", \"89522310784755336627133958597617387123243384400906263873952794675920292929415\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 4.5,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874123",
+  "conditionId": "0x930cab1ba09853d4c4e459390e657d5465619a1f3af598c249aea9664cf9c9ff",
+  "question": "Map Handicap: MISA (-1.5) vs Eternal Fire Academy (+1.5)",
+  "slug": "cs2-mis-efa-2026-08-26-map-handicap-away-1pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:34Z",
+  "clobTokenIds": "[\"38162435852393139955296064674150330325283527224314794979949186729759107479602\", \"77483429278129743499813815189683304236407650379652366632901970875925755046531\"]",
+  "outcomes": "[\"Misa Esports\", \"Eternal Fire Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 13.0192,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874124",
+  "conditionId": "0x9f96681f7e96f07645e39c8e9632386a69702bb03c82fa6f3ca24485903577c5",
+  "question": "Map 1 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-mis-efa-2026-08-26-game1-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:33Z",
+  "clobTokenIds": "[\"28324659849970306549519221132672037124505185075248406567956361342116006070691\", \"87818115486447539697854183528007756023496847604254155791381820411799969653549\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874125",
+  "conditionId": "0xfb09d9ae68999b83e7de41a71d7ad2ea15801ef2ba4e8993111b15981f989f99",
+  "question": "Map 2 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-mis-efa-2026-08-26-game2-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:33Z",
+  "clobTokenIds": "[\"101123466777208218093742487790167925531427243604241886832183102962429482324839\", \"109228386165954780523357636205908841127234302896121024670465352594973337240780\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 17.9976,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874120",
+  "conditionId": "0x121205d2c00d84311842136265fce59809bb06d264e8ee2baac298d2eb5108ec",
+  "question": "Counter-Strike: Misa Esports vs Eternal Fire Academy - Map 2 Winner",
+  "slug": "cs2-mis-efa-2026-08-26-game2",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:33Z",
+  "clobTokenIds": "[\"59818320373314697998977487210050107411514802614945837883387344555602469203583\", \"109617563092750901985320365211931529576116791816714244035483363444707706782242\"]",
+  "outcomes": "[\"Misa Esports\", \"Eternal Fire Academy\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 71.2795,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874126",
+  "conditionId": "0xee79545f93070aa5913234ccd469fdd83b2037b76b74e3c0edf9dc5bebd7b175",
+  "question": "Map 3 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-mis-efa-2026-08-26-game3-round-total-21pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:33Z",
+  "clobTokenIds": "[\"114237790693600555915068215533721630339209925541456038507670684613515437075218\", \"43629724730560491668084353311541848749629410811750108841088383915988900738779\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 18.1843,
+  "events": [
+   {
+    "slug": "cs2-mis-efa-2026-08-26",
+    "title": "Counter-Strike: Misa Esports vs Eternal Fire Academy (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-mis-efa-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874114",
+  "conditionId": "0x5efec3da517b323300ece49402caf38ab62bc5a86160ea44d90e160999c9d002",
+  "question": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue - Map 1 Winner",
+  "slug": "cs2-wraith-bbb1-2026-08-26-game1",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:29Z",
+  "clobTokenIds": "[\"95462061959803400531387161095732131712552792991267422795909083576050096816509\", \"55693200779108671513336094207127547415392887425561650889851633428846915474757\"]",
+  "outcomes": "[\"WRAITH PCIFIC\", \"Bad Beavers Blue\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 70.7996,
+  "events": [
+   {
+    "slug": "cs2-wraith-bbb1-2026-08-26",
+    "title": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-wraith-bbb1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874117",
+  "conditionId": "0xed8210629e2fef79de3298cedbb35f14206c95bbd08a7f38acd24b728a26ea80",
+  "question": "Games Total: O/U 2.5",
+  "slug": "cs2-wraith-bbb1-2026-08-26-total-games-2pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:29Z",
+  "clobTokenIds": "[\"108331219537137381795768283777731205786706253393564549336537162467922155435206\", \"51405452114016824057174262328748916540588330648482178078393933524162326229258\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 4.0199,
+  "events": [
+   {
+    "slug": "cs2-wraith-bbb1-2026-08-26",
+    "title": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-wraith-bbb1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874116",
+  "conditionId": "0xbf7f6a12081c3c1dd86a3fb5f741a61fa1c8b851cdaf1fd35d63a82ac0aaf6b2",
+  "question": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+  "slug": "cs2-wraith-bbb1-2026-08-26",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:28Z",
+  "clobTokenIds": "[\"95042634936591334472785381121082069778799027869400626370982325002262093100685\", \"48575669443344308571134234592626250363698842697568225273028787104935362754\"]",
+  "outcomes": "[\"WRAITH PCIFIC\", \"Bad Beavers Blue\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 90.7996,
+  "events": [
+   {
+    "slug": "cs2-wraith-bbb1-2026-08-26",
+    "title": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-wraith-bbb1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874115",
+  "conditionId": "0x751168f88a3e329caf1444270c90e664662b2b029319fe103bd5ebdefab4e853",
+  "question": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue - Map 2 Winner",
+  "slug": "cs2-wraith-bbb1-2026-08-26-game2",
+  "endDate": "2026-08-26T19:00:00Z",
+  "startDate": "2026-08-25T15:05:28Z",
+  "clobTokenIds": "[\"23659139429406408136295700324213899707942127007311720101762812089019887398175\", \"79345506849950888056474589466116074348055024133605055497042688003445727413648\"]",
+  "outcomes": "[\"WRAITH PCIFIC\", \"Bad Beavers Blue\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 70.7996,
+  "events": [
+   {
+    "slug": "cs2-wraith-bbb1-2026-08-26",
+    "title": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-wraith-bbb1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874118",
+  "conditionId": "0xe7720bc11970a0ea897751515cb73c7d3efa5d92b69c2cc075e9db6e68dc162e",
+  "question": "Map Handicap: PCIFIC (-1.5) vs Bad Beavers Blue (+1.5)",
+  "slug": "cs2-wraith-bbb1-2026-08-26-map-handicap-away-1pt5",
+  "endDate": "2026-08-26T21:00:00Z",
+  "startDate": "2026-08-25T15:05:28Z",
+  "clobTokenIds": "[\"57539281696135134564143597440922126038604378624469322633705602218189782927924\", \"48288898084168673553708544628365165262125407811257591502882758829646398169296\"]",
+  "outcomes": "[\"WRAITH PCIFIC\", \"Bad Beavers Blue\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 12.5397,
+  "events": [
+   {
+    "slug": "cs2-wraith-bbb1-2026-08-26",
+    "title": "Counter-Strike: WRAITH PCIFIC vs Bad Beavers Blue (BO3) - Monsters Reloaded Playoffs",
+    "ticker": "cs2-wraith-bbb1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874058",
+  "conditionId": "0x738adedfebfe62c3ba92d9c418060792f4e0e72e804d293978b0f460de3bde97",
+  "question": "Map 1 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-rstr-mandl-2026-08-26-game1-round-total-21pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:22Z",
+  "clobTokenIds": "[\"42466358038645121766369635330209939684307948580726018986894261544734667024996\", \"94923036735240757773960005028813221625487017526394547243369651443781285554702\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-rstr-mandl-2026-08-26",
+    "title": "Counter-Strike: Rooster vs MARKandLARRY (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-rstr-mandl-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874060",
+  "conditionId": "0x228978bf0563da1e047a4ec6a6b2eb412b211c160610215d8358c71c19d487c5",
+  "question": "Map 3 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-rstr-mandl-2026-08-26-game3-round-total-21pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:22Z",
+  "clobTokenIds": "[\"2969639201334518128496885933567578491949412149751664906450317623058370022383\", \"86911803860991716943295457520197255089124826352460358884553747425984853542614\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-rstr-mandl-2026-08-26",
+    "title": "Counter-Strike: Rooster vs MARKandLARRY (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-rstr-mandl-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874059",
+  "conditionId": "0x85f170fc1e60e374370c84371f184aa7f3ec2ca19ed795f32d7c8f5787287849",
+  "question": "Map 2 Total Rounds: Over/Under 21.5",
+  "slug": "cs2-rstr-mandl-2026-08-26-game2-round-total-21pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:21Z",
+  "clobTokenIds": "[\"26789191014764861910460936339856233280533765038818479740645802374837403903755\", \"9734841871968606504601011214397366705832738635534491618242791699244642177048\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 19.0192,
+  "events": [
+   {
+    "slug": "cs2-rstr-mandl-2026-08-26",
+    "title": "Counter-Strike: Rooster vs MARKandLARRY (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-rstr-mandl-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874053",
+  "conditionId": "0xabee75dcf316f006f3ab9a857391e62e0de1462747ba394ee0dd21b32cef0923",
+  "question": "Map 3 Rounds Handicap: Ground Zero (-6.5) vs Orgless (+6.5)",
+  "slug": "cs2-orgles-gz1-2026-08-26-game3-round-handicap-gz1-6pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:19Z",
+  "clobTokenIds": "[\"70658922163065003997245830667427909468272799765276654101779272755280571569186\", \"10361459345768117119029639397045065160852577556679035211866049460225156077524\"]",
+  "outcomes": "[\"Ground Zero\", \"Orgless\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 12.1004,
+  "events": [
+   {
+    "slug": "cs2-orgles-gz1-2026-08-26",
+    "title": "Counter-Strike: Orgless vs Ground Zero (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-orgles-gz1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874052",
+  "conditionId": "0x64b9797a867d688e2d61e4856096758074a16cfb95b0d0f27d3b6d37ee0de9cc",
+  "question": "Map 2 Rounds Handicap: Ground Zero (-6.5) vs Orgless (+6.5)",
+  "slug": "cs2-orgles-gz1-2026-08-26-game2-round-handicap-gz1-6pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:18Z",
+  "clobTokenIds": "[\"5243737372836535341294792359034767320974636827375682932784870571807109197147\", \"114847775482435155748632578534224713218738662640752782595297457494668686133563\"]",
+  "outcomes": "[\"Ground Zero\", \"Orgless\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 12.2409,
+  "events": [
+   {
+    "slug": "cs2-orgles-gz1-2026-08-26",
+    "title": "Counter-Strike: Orgless vs Ground Zero (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-orgles-gz1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874054",
+  "conditionId": "0x90d2bfe1230f6ebe9d49916655c83edaa4f3ae8c58d74e9b78a52158368bd296",
+  "question": "Map 1 Rounds Handicap: Ground Zero (-6.5) vs Orgless (+6.5)",
+  "slug": "cs2-orgles-gz1-2026-08-26-game1-round-handicap-gz1-6pt5",
+  "endDate": "2026-08-26T15:00:00Z",
+  "startDate": "2026-08-25T14:54:18Z",
+  "clobTokenIds": "[\"74646280145971935998868637454347830039395650593931797669652820793548316646115\", \"67129632181556014281044986774522244752931312216504702642227601384706863662910\"]",
+  "outcomes": "[\"Ground Zero\", \"Orgless\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.03,
+  "bestAsk": 0.97,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 12.5396,
+  "events": [
+   {
+    "slug": "cs2-orgles-gz1-2026-08-26",
+    "title": "Counter-Strike: Orgless vs Ground Zero (BO3) - ESL Challenger League Oceania Cup #1 Playoffs",
+    "ticker": "cs2-orgles-gz1-2026-08-26"
+   }
+  ]
+ },
+ {
+  "id": "3874009",
+  "conditionId": "0xa4d580d97dee7056233fbd71b82311f7e85ce1b766668017fa9c8cff29fd2d0c",
+  "question": "Map 2 Rounds Handicap: BORRACHEIROS (-9.5) vs Damajuana (+9.5)",
+  "slug": "cs2-chama-damaju-2026-08-25-game2-round-handicap-chama-9pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T14:48:12Z",
+  "clobTokenIds": "[\"7871847236396510936633772386671389688350132781106970621140876582944633141616\", \"58541922484036007646828599224495955127588562908420044596058621355375042437354\"]",
+  "outcomes": "[\"BORRACHEIROS\", \"Damajuana\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.1,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 7.07,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874008",
+  "conditionId": "0x6076a2a48a29cfb99f208576fd15bd9e87e70d1d0c9c52d0d07c939b4be6ad91",
+  "question": "Map 2 Total Rounds: Over/Under 15.5",
+  "slug": "cs2-chama-damaju-2026-08-25-game2-round-total-15pt5",
+  "endDate": "2026-08-25T19:00:00Z",
+  "startDate": "2026-08-25T14:48:12Z",
+  "clobTokenIds": "[\"26365729747465361294643074210274529352441443070048138820232874993868820913794\", \"50981255488417331936517180861312311356357835147650893425249166101955815339431\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 0.9,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 7.07,
+  "events": [
+   {
+    "slug": "cs2-chama-damaju-2026-08-25",
+    "title": "Counter-Strike: BORRACHEIROS vs Damajuana (BO3) - CCT South America Series 5 Group Stage",
+    "ticker": "cs2-chama-damaju-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3873997",
+  "conditionId": "0xbb4015742bac10244d45441b42aac44f2cfb3527d3b64cf7583e78dd35fd27b1",
+  "question": "Map 2 Rounds Handicap: Color (-6.5) vs Butterfly (+6.5)",
+  "slug": "cs2-color-btf-2026-08-25-game2-round-handicap-color-6pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T14:47:03Z",
+  "clobTokenIds": "[\"109268890522615305345368851475370468785690121863070494002833802886805000473774\", \"54659175736412359254671004296718438175281380658713937320791680892867781608028\"]",
+  "outcomes": "[\"Color\", \"Butterfly\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.199,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 296.71,
+  "volumeNum": 5,
+  "events": [
+   {
+    "slug": "cs2-color-btf-2026-08-25",
+    "title": "Counter-Strike: Color vs Butterfly (BO3) - NODWIN Clutch Series Group Stage",
+    "ticker": "cs2-color-btf-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3873998",
+  "conditionId": "0xf48cda2260e70c2b86fe2cc3a365cb33b30425b2cb6170f75ed44f266f3597d4",
+  "question": "Map 2 Total Rounds: Over/Under 24.5",
+  "slug": "cs2-color-btf-2026-08-25-game2-round-total-24pt5",
+  "endDate": "2026-08-25T20:00:00Z",
+  "startDate": "2026-08-25T14:47:02Z",
+  "clobTokenIds": "[\"32412136799987656985375222722026981107954769183175498574898449045258851154124\", \"57365468083579104276081176663747332901721832169021251759836011181104090973501\"]",
+  "outcomes": "[\"Over\", \"Under\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.001,
+  "orderMinSize": 5,
+  "bestAsk": 0.2,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 244.22,
+  "events": [
+   {
+    "slug": "cs2-color-btf-2026-08-25",
+    "title": "Counter-Strike: Color vs Butterfly (BO3) - NODWIN Clutch Series Group Stage",
+    "ticker": "cs2-color-btf-2026-08-25"
+   }
+  ]
+ },
+ {
+  "id": "3874979",
+  "conditionId": "0xa57b1f45e9dc22140534f30f5c732804e78d0936be605e9009e7a981b5f0ce3a",
+  "question": "Dogecoin Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "doge-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:49:08.148667Z",
+  "clobTokenIds": "[\"43271481084695028751891419113338485282945789504052823982240522133107121393705\", \"72395922443781176332182437785108078784266396762731017767437578699635174286113\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.49,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 1611.942,
+  "events": [
+   {
+    "slug": "doge-updown-5m-1787758800",
+    "title": "Dogecoin Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "doge-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874980",
+  "conditionId": "0x002f8e4305d4f8c97bdeec3d5a37f9ae082d4ed16a21403a0b69f3475fafd1eb",
+  "question": "ZCash Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "zec-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:59.997793Z",
+  "clobTokenIds": "[\"30607682446290465764973189502773301284212789814677312613705751184223509412266\", \"23354497442118327546249429317892478201795332299684512012890420820842076507219\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestAsk": 1,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "events": [
+   {
+    "slug": "zec-updown-5m-1787758800",
+    "title": "ZCash Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "zec-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874982",
+  "conditionId": "0xab65fe03864bc0c01a685106f9aa43cb8cde4413d19f789b3f71879fbc98ab50",
+  "question": "XRP Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "xrp-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:58.972541Z",
+  "clobTokenIds": "[\"55442515177240714799986232864852531272614795131486442247741931128122592299131\", \"56373674704067702590589343990600949779833280858947047632840819181418210286541\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.5,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 2380.307,
+  "events": [
+   {
+    "slug": "xrp-updown-5m-1787758800",
+    "title": "XRP Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "xrp-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874984",
+  "conditionId": "0x24b7e8aa11bcd8cf9c26c033d1e40301952c6ff64fb216127586b9524cc4db5b",
+  "question": "BNB Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "bnb-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:39.350665Z",
+  "clobTokenIds": "[\"58769290307191114339019061076195394860799276744182235751179863990967305056648\", \"41732118861776674526819356410088574659911594963718399769376422793938843702244\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.5,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 1360.64,
+  "events": [
+   {
+    "slug": "bnb-updown-5m-1787758800",
+    "title": "BNB Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "bnb-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874977",
+  "conditionId": "0x8a378c7388222746c0bcceb75d6b9f42cb7fe44c0b47c54efe00d1580bcc1858",
+  "question": "Bitcoin Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "btc-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:38.337496Z",
+  "clobTokenIds": "[\"21418693926145734546778251230699991819417498796669812208642759848886245518483\", \"110241215179785192133650560295304358417208485718032701803747051220431243237982\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.5,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 13749.037,
+  "events": [
+   {
+    "slug": "btc-updown-5m-1787758800",
+    "title": "Bitcoin Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "btc-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874983",
+  "conditionId": "0xdd1ab4dbeaca840e37c66ffd4f3b7871d56c02da795d821cc859244fed19bfb7",
+  "question": "Hyperliquid Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "hype-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:36.166278Z",
+  "clobTokenIds": "[\"31889130324803101085288583558185163957237548143800543708216559745054678107715\", \"112145998993578025878696499255111086543326460428802359924828051155513772798751\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.49,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 725.3,
+  "events": [
+   {
+    "slug": "hype-updown-5m-1787758800",
+    "title": "Hyperliquid Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "hype-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874981",
+  "conditionId": "0xbd8f81b29aa8b8c3fd3d182c271cbb0974c2cbfe4e0b5efe2fdf71570d0add13",
+  "question": "Solana Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "sol-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:32.010453Z",
+  "clobTokenIds": "[\"69151711826151408455343600383314029593438503413208025859033363425235954284607\", \"9246651169443025959702203108851038855998562884758405354609380588782985555284\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.5,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 3299.836,
+  "events": [
+   {
+    "slug": "sol-updown-5m-1787758800",
+    "title": "Solana Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "sol-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874978",
+  "conditionId": "0xccdbd6d6107796619d02eb3ab2237671584d5ceee402395978ec4b0ceab2cf2d",
+  "question": "Ethereum Up or Down - August 26, 11:40AM-11:45AM ET",
+  "slug": "eth-updown-5m-1787758800",
+  "endDate": "2026-08-26T15:45:00Z",
+  "startDate": "2026-08-25T15:48:30.049862Z",
+  "clobTokenIds": "[\"38250177663302653572654358755003205715971354586557644667702360104208908158589\", \"54158669184325997224007237869755604062309657714010088164879652881524434451751\"]",
+  "outcomes": "[\"Up\", \"Down\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.5,
+  "bestAsk": 0.51,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 10611.2038,
+  "events": [
+   {
+    "slug": "eth-updown-5m-1787758800",
+    "title": "Ethereum Up or Down - August 26, 11:40AM-11:45AM ET",
+    "ticker": "eth-updown-5m-1787758800"
+   }
+  ]
+ },
+ {
+  "id": "3874989",
+  "conditionId": "0x28f7dbcf662dee2830b848ef2555f8e24d3ffbc1ec8c9f469b0f2af67f1b93db",
+  "question": "Vaasan Sport vs. Jokerit Helsinki",
+  "slug": "liiga-vaa-jok-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:20Z",
+  "clobTokenIds": "[\"30169664299780814772464777395497948896288033661367050844492462001639456584180\", \"24975353977503806063590005237276410625812239851966531074968040427624069920957\"]",
+  "outcomes": "[\"Vaasan Sport\", \"Jokerit Helsinki\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-vaa-jok-2026-09-01",
+    "title": "Vaasan Sport vs. Jokerit Helsinki",
+    "ticker": "liiga-vaa-jok-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874990",
+  "conditionId": "0x9bd0a195e3cff18d8777fe9a6b3495cdcf0c75ad7bdae4bf2262d4abbe730eab",
+  "question": "TPS Turku vs. KooKoo",
+  "slug": "liiga-tps-koo-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:20Z",
+  "clobTokenIds": "[\"33597561252305610308027962318234911953952204656612059514642289804609636496350\", \"27625191105165424729801812781128546696678962779405031792238883893148243601361\"]",
+  "outcomes": "[\"TPS Turku\", \"KooKoo\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-tps-koo-2026-09-01",
+    "title": "TPS Turku vs. KooKoo",
+    "ticker": "liiga-tps-koo-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874987",
+  "conditionId": "0x238e21c6e05b727dee2d9918ba5404322db32f9a975b6b205d7449d30a0877fe",
+  "question": "Lukko Rauma vs. Ilves Tampere",
+  "slug": "liiga-luk-ilv-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:18Z",
+  "clobTokenIds": "[\"85788752273315733249349408353512398384688561936059315412392354632323590356929\", \"81932500267229790857869548791611668448928634648499054928180773833113741066661\"]",
+  "outcomes": "[\"Lukko Rauma\", \"Ilves Tampere\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-luk-ilv-2026-09-01",
+    "title": "Lukko Rauma vs. Ilves Tampere",
+    "ticker": "liiga-luk-ilv-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874988",
+  "conditionId": "0x0a137658498da89ba984ee75a33fb616a50b13a7e301afec97ac15ea97f0882d",
+  "question": "SaiPa Lappeenranta vs. Tappara Tampere",
+  "slug": "liiga-sai-tap-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:18Z",
+  "clobTokenIds": "[\"76236104167896594707183682614647565285368867043656214636603147450918949724063\", \"60080682255818459267324871399675943271093171892674091758156242476948410449928\"]",
+  "outcomes": "[\"SaiPa Lappeenranta\", \"Tappara Tampere\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-sai-tap-2026-09-01",
+    "title": "SaiPa Lappeenranta vs. Tappara Tampere",
+    "ticker": "liiga-sai-tap-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874986",
+  "conditionId": "0xdfe5659dbd12e52d646f5ba227f0ca8b1b4e27765a42032c978c30d5906e252b",
+  "question": "Karpat Oulu vs. Assat Pori",
+  "slug": "liiga-kou-asp-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:18Z",
+  "clobTokenIds": "[\"58399385607153260123528020693846482055719992320688823497105856706060995654271\", \"88169552146642318756949823510605689439169778312958052203181342635651932604174\"]",
+  "outcomes": "[\"Karpat Oulu\", \"Assat Pori\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-kou-asp-2026-09-01",
+    "title": "Karpat Oulu vs. Assat Pori",
+    "ticker": "liiga-kou-asp-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874985",
+  "conditionId": "0x542fb67cc59042ed828397f5f4f903ddaed0aea578a1b67ffe701f9e6e78fca0",
+  "question": "Jukurit Mikkeli vs. HPK Hameenlinna",
+  "slug": "liiga-juk-hpk-2026-09-01",
+  "endDate": "2026-09-08T15:30:00Z",
+  "startDate": "2026-08-25T15:48:16Z",
+  "clobTokenIds": "[\"5848017182193899027744861703372221435427737972633317357979114425664425229229\", \"97514123991278704800701312854645509960279571123185698078369337593453609408880\"]",
+  "outcomes": "[\"Jukurit Mikkeli\", \"HPK Hameenlinna\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.02,
+  "bestAsk": 0.98,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 14.78,
+  "events": [
+   {
+    "slug": "liiga-juk-hpk-2026-09-01",
+    "title": "Jukurit Mikkeli vs. HPK Hameenlinna",
+    "ticker": "liiga-juk-hpk-2026-09-01"
+   }
+  ]
+ },
+ {
+  "id": "3874963",
+  "conditionId": "0xa79eb05345ad7d8adf371b68ff69fdbb775844d7ea229c72473ae4c6e925d80c",
+  "question": "Will Thea Frodin advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-thea-frodin-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:16Z",
+  "clobTokenIds": "[\"71582971827846854135720721517756381504080656620891789321580006262198142911210\", \"47016596353868177112231028632348672078180698694990957042808048960379430848805\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874961",
+  "conditionId": "0xe51a8e74bcd1bb413f5aed6caab7d6e8b2a45c0298df26f3590b23e0965823a0",
+  "question": "Will Maria Sakkari advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-maria-sakkari-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:15Z",
+  "clobTokenIds": "[\"75618200948703078998734016689545319925709399633220528094625912823983969716661\", \"63795915303241586589113007385054579022218476929887927735744480506444653593702\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874962",
+  "conditionId": "0x9daff3b21b7517af234cd572271d7331cfc26c27aa2c6e9c42931ef6b221190f",
+  "question": "Will Reese Brantmeier advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-reese-brantmeier-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:15Z",
+  "clobTokenIds": "[\"45044155008419598918922967395160318940320437423682901038225074462729383894199\", \"24268615967626327408858638555026499955209631635532989259454109608834511006279\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874956",
+  "conditionId": "0x6f74171f1ff042d010b95b59f20845214f0bfbf04223c4238065135c070ffe36",
+  "question": "Will Barbora Krejcikova advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-barbora-krejcikova-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:15Z",
+  "clobTokenIds": "[\"112703739124617643267796030290419287188528471822581996688967292640491562082947\", \"33633738914195372565313392310810326812774173837505322571248709001458117926446\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874958",
+  "conditionId": "0xc8fa9f3f4bb8a8fc3a124f93c6af0afae01d5795eb239cf5b57b9eab84c4e893",
+  "question": "Will Ann Li advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-ann-li-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:15Z",
+  "clobTokenIds": "[\"5035610527704788682823481735385696064211751646743103221313195123927503224405\", \"19519497421205715014855938170144885407768549412579310468532047609965631087907\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874960",
+  "conditionId": "0x243f6709e62cc019fdcb0cc1dd65dfb0545d2965a8a75e0d485d620271b5d43d",
+  "question": "Will Leylah Fernandez advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-leylah-fernandez-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:15Z",
+  "clobTokenIds": "[\"102858349658740758785583616216626136474271432746652407247568534180494416043971\", \"53994496522968445886224108111963962464975691266598802434474644236632020485872\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874967",
+  "conditionId": "0x7fde0e020dfc4b4d17959dfe4610ebc7fca165909ca24797f0b7d888132987ea",
+  "question": "Will Taylah Preston advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-taylah-preston-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:14Z",
+  "clobTokenIds": "[\"94232378851222168251582396532103141075247686813753017077707683487615063760662\", \"8264278044448849826690963375788976535994894238870513134687370769228357164343\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874965",
+  "conditionId": "0x724fd8ca90e2c701a689e0770a29f79c93ba72c00376d9f3ef2c784a0c17394b",
+  "question": "Will Sofia Kenin advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-sofia-kenin-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:14Z",
+  "clobTokenIds": "[\"70335800199154571001948998764464699721867270110670381106818149115683670779060\", \"82859516478933334385531221429578525425944946384943685259359110220754895002044\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874957",
+  "conditionId": "0x3b59bf801e9288ca32350a0aca1de606dc54e3bd346289b7d9906b6c74b44be1",
+  "question": "Will Sara Bejlek advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-sara-bejlek-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:14Z",
+  "clobTokenIds": "[\"92762481566566883536873038826614837152772586927863361363078373895917253077137\", \"81859270089082702581146964035403923529396656845035215490902744637718098849915\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874959",
+  "conditionId": "0xb816e04b8f0d0b6af7fb923b460fc00fa55f493a4c07d49ceb82d5c157e40c75",
+  "question": "Will Jelena Ostapenko advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-jelena-ostapenko-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:14Z",
+  "clobTokenIds": "[\"7569920653801896676773468617595470501217164289551992928724385392711008217014\", \"82690627238590308843231592182647522355133972024230363704544918769593318852719\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ },
+ {
+  "id": "3874968",
+  "conditionId": "0x48e994d058eb78b561879b969a51f10df779b78269b86716fa34ba72c17296d7",
+  "question": "Will Sloane Stephens advance to the Final in Women's Singles at the 2026 US Open?",
+  "slug": "will-sloane-stephens-advance-to-the-final-in-womens-singles-at-the-2026-us-open",
+  "endDate": "2026-09-11T23:59:00Z",
+  "startDate": "2026-08-25T15:45:13Z",
+  "clobTokenIds": "[\"112130242381075026731970224517683654470302616957197923662875089265103473679470\", \"41504680410101276227564196807744259317257262051750935700129380612995824203464\"]",
+  "outcomes": "[\"Yes\", \"No\"]",
+  "active": true,
+  "closed": false,
+  "orderPriceMinTickSize": 0.01,
+  "orderMinSize": 5,
+  "bestBid": 0.01,
+  "bestAsk": 0.99,
+  "enableOrderBook": true,
+  "acceptingOrders": true,
+  "liquidityNum": 37.8,
+  "events": [
+   {
+    "slug": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000",
+    "title": "US Open 2026: To Reach the Final (Women's Singles)",
+    "ticker": "us-open-2026-to-reach-the-final-womens-singles-20260824175605000"
+   }
+  ]
+ }
+]

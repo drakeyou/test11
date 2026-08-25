@@ -10,7 +10,8 @@
     "discover": "node src/monitor.mjs --discover",
     "watch": "node src/monitor.mjs",
     "inspect": "node src/inspect.mjs",
-    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs && node src/appender.test.mjs"
+    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs && node src/appender.test.mjs && node src/pm/classify.test.mjs && node src/pm/gamma.test.mjs && node src/pm/store.test.mjs",
+    "pm:markets": "node src/pm/markets.mjs"
   },
   "dependencies": {
     "playwright": "^1.56.1"
