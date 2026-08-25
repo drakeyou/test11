@@ -20,11 +20,20 @@ import { GgbetTail } from './ggbet-tail.mjs';
 import { MappingTable } from './mapping.mjs';
 import { buildLinks, joinedRow } from './link.mjs';
 import { fetchActivity } from './wallets.mjs';
+import { fetchTrades } from './trades.mjs';
 
 const config = loadConfig();
 const once = process.argv.includes('--once');
 
-const store = new Store(config.storage.dir);
+// A new day opens an empty database, so whatever we are already tracking has
+// to be written into it before the next discovery round, or the book rows in
+// between join against nothing.
+const store = new Store(config.storage.dir, {
+  onRotate: (day) => {
+    for (const record of registry.tracked()) store.upsertMarket(record);
+    console.error(`[store] rolled over to ${day}, re-registered ${registry.size} markets`);
+  },
+});
 const registry = new MarketRegistry();
 const detector = new SweepDetector(config.sweep);
 const books = new Map();
@@ -32,7 +41,9 @@ const tail = new GgbetTail(config.ggbet.oddsHistory);
 const mapping = new MappingTable(config.ggbet.mapping);
 let links = new Map();
 let ggbetByKey = new Map();
-const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0 };
+const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0 };
+/** condition id -> when its trade log was last pulled, to keep polling bounded. */
+const tradesPolledAt = new Map();
 
 const now = () => new Date().toISOString();
 
@@ -107,13 +118,39 @@ function heartbeat() {
 
 /** Target-wallet fills, the only labelled examples available. */
 async function pollWallets() {
+  const markets = new Set();
   for (const address of config.wallets.addresses ?? []) {
     try {
       const rows = await fetchActivity(address, { limit: 100 });
-      for (const row of rows) store.add('wallets', row);
+      for (const row of rows) {
+        store.add('wallets', row);
+        if (row[6]) markets.add(row[6]);
+      }
       counts.fills += rows.length;
     } catch (err) {
       console.error(`[wallets] ${address.slice(0, 10)}: ${err.message}`);
+    }
+  }
+  await pollTrades(markets);
+}
+
+/**
+ * Pull the trade log, with roles, for markets the target wallets touched.
+ * Scoped to those markets rather than everything tracked: the role costs two
+ * requests per market, and it is only interesting where there is a fill to
+ * label.
+ */
+async function pollTrades(conditionIds) {
+  const every = (config.trades?.intervalSeconds ?? 120) * 1000;
+  for (const conditionId of conditionIds) {
+    if (Date.now() - (tradesPolledAt.get(conditionId) ?? 0) < every) continue;
+    tradesPolledAt.set(conditionId, Date.now());
+    try {
+      const rows = await fetchTrades(conditionId);
+      for (const row of rows) store.add('trades', row);
+      counts.trades += rows.length;
+    } catch (err) {
+      console.error(`[trades] ${conditionId.slice(0, 12)}: ${err.message}`);
     }
   }
 }
@@ -145,6 +182,8 @@ if (once) {
     ` (${mapping.size} mappings, ${mapping.verifiedCount} verified)`);
   store.flush();
   console.log(`wallets: ${counts.fills} activity rows (${store.count('wallets')} stored)`);
+  const roles = store.roleCounts();
+  console.log(`trades: ${store.count('trades')} stored (${roles.maker ?? 0} maker, ${roles.taker ?? 0} taker)`);
   store.close();
   process.exit(0);
 }
@@ -157,7 +196,8 @@ const timers = [
   setInterval(() => pollWallets(), (config.wallets.intervalSeconds ?? 25) * 1000),
   setInterval(() => {
     console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.joined} joined` +
-      ` | ${counts.sweeps} sweeps | ${counts.gaps} gaps | ${links.size} linked | ${store.path}`);
+      ` | ${counts.sweeps} sweeps | ${counts.gaps} gaps | ${links.size} linked` +
+      ` | ${counts.trades} trades | ${store.path}`);
   }, 60000),
 ];
 

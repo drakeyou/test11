@@ -11,6 +11,7 @@ dependencies and neither does this.
 
 import argparse
 import glob
+import json
 import os
 import sqlite3
 import statistics
@@ -200,11 +201,65 @@ def capacity(paths, sweep_rows):
     return sizes
 
 
+def target_wallets(path="pm.config.json"):
+    """Addresses under study, from the collector's own config."""
+    try:
+        with open(path) as handle:
+            return [a.lower() for a in json.load(handle).get("wallets", {}).get("addresses", [])]
+    except (OSError, ValueError):
+        return []
+
+
+def ground_truth(paths, wallets):
+    """What the target wallets actually did, and what the book looked like just
+    before each passive fill.
+
+    A trade record carries no role, so the collector recovers it as the
+    difference between the taker-only and full trade logs. This is the only
+    labelled data in the project: everything else is inference.
+    """
+    if not wallets:
+        return None
+    placeholders = ",".join("?" * len(wallets))
+    fills = query(paths, f"""
+        SELECT t.*, m.sport, m.level AS market_level, m.kind
+        FROM trades t LEFT JOIN markets m ON m.condition_id = t.condition_id
+        WHERE lower(t.wallet) IN ({placeholders})
+        ORDER BY t.ts
+    """, wallets)
+
+    by_role = Counter(row["role"] for row in fills)
+    entries = [row["price"] for row in fills if row["role"] == "maker" and row["side"] == "BUY"]
+    # Historical fills mostly sit on markets that have since closed, which the
+    # collector never saw and so cannot classify. Say that rather than "?".
+    kinds = Counter(
+        f"{row['sport']} {row['market_level']}/{row['kind']}" if row["sport"]
+        else "(market closed before collection started)"
+        for row in fills if row["role"] == "maker")
+
+    # The book one snapshot before a passive buy: what the queue looked like at
+    # the moment of the fill.
+    context = []
+    for row in fills:
+        if row["role"] != "maker" or row["side"] != "BUY":
+            continue
+        before = query(paths, """
+            SELECT best_bid, size_at_001, size_at_002 FROM book
+            WHERE asset_id = ? AND ts <= ? ORDER BY ts DESC LIMIT 1
+        """, (row["asset_id"], row["ts"]))
+        if before:
+            context.append((row["price"], before[0]["best_bid"], before[0]["size_at_002"]))
+
+    return {"fills": fills, "by_role": by_role, "entries": entries,
+            "kinds": kinds, "context": context}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", default="data", help="directory of daily databases")
     parser.add_argument("--since", help="earliest day, YYYY-MM-DD")
     parser.add_argument("--sweep-level", type=float, default=0.02)
+    parser.add_argument("--config", default="pm.config.json", help="for the target wallet list")
     args = parser.parse_args()
 
     paths = databases(args.db, args.since)
@@ -254,6 +309,27 @@ def main():
         print(f"  mean {statistics.mean(sizes):>11.1f}")
     else:
         print("  no sweeps with a prior snapshot yet")
+
+    truth = ground_truth(paths, target_wallets(args.config))
+    if truth and truth["fills"]:
+        print(f"\n== ground truth: target wallet fills (n={len(truth['fills'])}) ==")
+        print(f"  by role              : {dict(truth['by_role'])}")
+        if truth["entries"]:
+            print(f"  passive buys         : {len(truth['entries'])}")
+            print(f"  entry price          : min {min(truth['entries']):.3f}"
+                  f" median {statistics.median(truth['entries']):.3f}"
+                  f" max {max(truth['entries']):.3f}")
+            under = sum(1 for p in truth["entries"] if p <= 0.02)
+            print(f"  bought at <= 0.02    : {under}/{len(truth['entries'])}")
+        for key, count in truth["kinds"].most_common(6):
+            print(f"      {count:5}  {key}")
+        if truth["context"]:
+            queued = [size for _, _, size in truth["context"] if size is not None]
+            print(f"  book seen before fill: {len(truth['context'])} of them")
+            if queued:
+                print(f"  size already at 2c   : median {statistics.median(queued):.1f}")
+        else:
+            print("  no fill yet lines up with a book snapshot we recorded")
 
     if rows:
         rules = exit_rules(rows)

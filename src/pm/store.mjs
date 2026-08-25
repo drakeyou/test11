@@ -43,6 +43,11 @@ CREATE TABLE IF NOT EXISTS wallets (
   asset_id TEXT, condition_id TEXT, price REAL, size REAL, tx_hash TEXT,
   UNIQUE (address, activity_id)
 );
+CREATE TABLE IF NOT EXISTS trades (
+  ts TEXT, condition_id TEXT, asset_id TEXT, wallet TEXT, side TEXT,
+  price REAL, size REAL, role TEXT, tx_hash TEXT,
+  UNIQUE (tx_hash, wallet, asset_id, side, size, price)
+);
 CREATE TABLE IF NOT EXISTS gaps (
   started_at TEXT, ended_at TEXT, duration_ms INTEGER, reason TEXT,
   assets_resubscribed INTEGER
@@ -50,6 +55,7 @@ CREATE TABLE IF NOT EXISTS gaps (
 CREATE INDEX IF NOT EXISTS book_asset_ts ON book (asset_id, ts);
 CREATE INDEX IF NOT EXISTS sweeps_asset_ts ON sweeps (asset_id, ts);
 CREATE INDEX IF NOT EXISTS joined_cond_ts ON joined (condition_id, ts);
+CREATE INDEX IF NOT EXISTS trades_asset_ts ON trades (asset_id, ts);
 `;
 
 const INSERTS = {
@@ -57,6 +63,7 @@ const INSERTS = {
   sweeps: `INSERT INTO sweeps VALUES (?,?,?,?,?,?,?,?,?,?)`,
   joined: `INSERT INTO joined VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
   wallets: `INSERT OR IGNORE INTO wallets VALUES (?,?,?,?,?,?,?,?,?,?)`,
+  trades: `INSERT OR IGNORE INTO trades VALUES (?,?,?,?,?,?,?,?,?)`,
   gaps: `INSERT INTO gaps VALUES (?,?,?,?,?)`,
 };
 
@@ -73,19 +80,25 @@ export class Store {
   #db = null;
   #statements = null;
   #market = null;
-  #buffers = { book: [], sweeps: [], joined: [], wallets: [], gaps: [] };
+  #buffers = { book: [], sweeps: [], joined: [], wallets: [], trades: [], gaps: [] };
   #flushAt;
   #maxBuffered;
 
   /**
    * @param {string} dir  directory for the daily database files
-   * @param {{flushMs?: number, maxBuffered?: number}} [options]
+   * @param {object} [options]
+   * @param {number} [options.flushMs]
+   * @param {number} [options.maxBuffered]
+   * @param {() => Date} [options.now]  injectable clock, so rotation is testable
+   * @param {(day: string) => void} [options.onRotate]  called after a new day opens
    */
-  constructor(dir, { flushMs = 1000, maxBuffered = 2000 } = {}) {
+  constructor(dir, { flushMs = 1000, maxBuffered = 2000, now = () => new Date(), onRotate = null } = {}) {
     this.#dir = dir;
     this.#maxBuffered = maxBuffered;
+    this.now = now;
+    this.onRotate = onRotate;
     mkdirSync(dir, { recursive: true });
-    this.#open(utcDay());
+    this.#open(utcDay(now()));
     this.#flushAt = setInterval(() => this.flush(), flushMs);
     this.#flushAt.unref?.();
   }
@@ -102,13 +115,20 @@ export class Store {
     this.#day = day;
   }
 
-  /** Roll over at UTC midnight so no file grows without bound. */
+  /**
+   * Roll over at UTC midnight so no file grows without bound.
+   *
+   * The new file starts with an empty `markets` table, so anything written
+   * before the next discovery round would have no discipline to join against.
+   * onRotate is where the caller re-registers what it is tracking.
+   */
   #rotateIfNeeded() {
-    const today = utcDay();
+    const today = utcDay(this.now());
     if (today === this.#day) return;
-    this.flush();
+    this.#drain();
     this.#db.close();
     this.#open(today);
+    this.onRotate?.(today);
   }
 
   get path() {
@@ -137,6 +157,10 @@ export class Store {
   /** Write everything buffered in one transaction per table. */
   flush() {
     this.#rotateIfNeeded();
+    this.#drain();
+  }
+
+  #drain() {
     for (const [table, rows] of Object.entries(this.#buffers)) {
       if (!rows.length) continue;
       const statement = this.#statements[table];
@@ -150,6 +174,12 @@ export class Store {
       }
       rows.length = 0;
     }
+  }
+
+  /** Maker/taker split of what has been stored, for the status line. */
+  roleCounts() {
+    const rows = this.#db.prepare('SELECT role, count(*) AS c FROM trades GROUP BY role').all();
+    return Object.fromEntries(rows.map((r) => [r.role, r.c]));
   }
 
   count(table) {

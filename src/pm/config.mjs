@@ -38,6 +38,9 @@ export const DEFAULTS = {
     depthAbovePrice: 0.05,
   },
   wallets: { intervalSeconds: 25, addresses: [] },
+  // Role costs two requests per market, so it is pulled only where a target
+  // wallet actually traded, and no more often than this.
+  trades: { intervalSeconds: 120 },
   ggbet: {
     oddsHistory: 'odds-history.csv',
     changes: 'changes.csv',

@@ -10,9 +10,10 @@
     "discover": "node src/monitor.mjs --discover",
     "watch": "node src/monitor.mjs",
     "inspect": "node src/inspect.mjs",
-    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs && node src/appender.test.mjs && node src/pm/classify.test.mjs && node src/pm/gamma.test.mjs && node src/pm/store.test.mjs && node src/pm/book.test.mjs && node src/pm/ws.test.mjs && node src/pm/match.test.mjs && node src/pm/ggbet-tail.test.mjs && node src/pm/mapping.test.mjs && node src/pm/link.test.mjs && node src/pm/wallets.test.mjs",
+    "test": "node src/parse.test.mjs && node src/changes.test.mjs && node src/overview.test.mjs && node src/appender.test.mjs && node src/pm/classify.test.mjs && node src/pm/gamma.test.mjs && node src/pm/store.test.mjs && node src/pm/book.test.mjs && node src/pm/ws.test.mjs && node src/pm/match.test.mjs && node src/pm/ggbet-tail.test.mjs && node src/pm/mapping.test.mjs && node src/pm/link.test.mjs && node src/pm/wallets.test.mjs && node src/pm/trades.test.mjs",
     "pm:markets": "node src/pm/markets.mjs",
-    "pm": "node src/pm/collector.mjs"
+    "pm": "node src/pm/collector.mjs",
+    "analyze": "python3 analyze.py"
   },
   "dependencies": {
     "playwright": "^1.56.1"

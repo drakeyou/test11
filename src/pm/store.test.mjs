@@ -52,6 +52,28 @@ try {
   store.flush();
   assert.equal(store.count('wallets'), 1, 'the same activity id is ignored on re-poll');
 
+  // Midnight rollover: the day's file is closed and a fresh one opened, and the
+  // caller is told so it can re-register what it tracks into the empty tables.
+  const rotations = [];
+  let clock = new Date('2026-08-25T23:59:50Z');
+  // Its own directory: the store above already opened today's file here.
+  const rollDir = join(dir, 'rollover');
+  const rolling = new Store(rollDir, { flushMs: 1_000_000, now: () => clock, onRotate: (d) => rotations.push(d) });
+  rolling.add('book', ['t', 'a1', 'c1', 'heartbeat', 0.02, 0.9, 0.46, 1, 2, 3, 4, 5, 6, 7, 0.88]);
+  rolling.flush();
+  assert.equal(rolling.count('book'), 1);
+  const firstDay = rolling.path;
+
+  clock = new Date('2026-08-26T00:00:10Z');
+  rolling.flush();
+  assert.notEqual(rolling.path, firstDay, 'a new day opens a new file');
+  assert.equal(rolling.count('book'), 0, 'the new file starts empty');
+  assert.deepEqual(rotations, ['2026-08-26'], 'the caller is told to re-register');
+  assert.ok(existsSync(firstDay), 'yesterday is left intact');
+  rolling.close();
+  assert.equal(new DatabaseSync(firstDay).prepare('SELECT count(*) c FROM book').get().c, 1,
+    'rows written before midnight stay in that day');
+
   store.close();
 
   // What was written survives the process: reopen and read it back.
