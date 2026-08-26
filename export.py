@@ -24,6 +24,19 @@ from analyze import databases, query, target_wallets
 
 CONTEXT_MINUTES = (1, 5, 15)
 
+# A detector that logs liberally is right — a collapse that stopped short of a
+# cent is still the denominator — but "the book emptied for a moment" is not an
+# event. Significance is applied here rather than at collection so the raw log
+# stays intact and the filter can be re-tuned without recollecting.
+SIGNIFICANT_SWEEPS = """
+    SELECT s.*, m.sport, m.level AS market_level, m.kind, m.question
+    FROM sweeps s LEFT JOIN markets m ON m.condition_id = s.condition_id
+    WHERE s.bid_after IS NOT NULL AND s.bid_before IS NOT NULL
+      AND s.bid_before >= ? AND s.size_consumed >= ?
+      AND s.bid_after < s.bid_before
+    ORDER BY s.ts
+"""
+
 
 def write_csv(path, header, rows):
     with open(path, "w", newline="", encoding="utf-8") as handle:
@@ -54,8 +67,9 @@ def sweep_context(paths, sweeps):
             """, (sweep["asset_id"], sweep["ts"], sweep["ts"], f"+{minutes} minutes"))
             highs.append(best[0]["high"] if best else None)
 
-        before = prior[0] if prior else {}
-        quote = fair[0] if fair else {}
+        # sqlite3.Row indexes like a tuple and a mapping but has no .get
+        before = dict(prior[0]) if prior else {}
+        quote = dict(fair[0]) if fair else {}
         rows.append([
             sweep["ts"], sweep["asset_id"], sweep["condition_id"], sweep["rule"],
             sweep["bid_before"], sweep["bid_after"], sweep["size_consumed"],
@@ -76,6 +90,12 @@ def main():
     parser.add_argument("--db", default="data")
     parser.add_argument("--out", default="export")
     parser.add_argument("--since")
+    parser.add_argument("--min-bid-before", type=float, default=0.05,
+                        help="ignore collapses that started below this price")
+    parser.add_argument("--min-consumed", type=float, default=100.0,
+                        help="ignore collapses that ate less size than this")
+    parser.add_argument("--max-sweeps", type=int, default=5000,
+                        help="cap on how many sweeps get the expensive context")
     args = parser.parse_args()
 
     paths = databases(args.db, args.since)
@@ -95,11 +115,13 @@ def main():
         handle.write(report.stdout or "")
 
     print("reading sweeps...", flush=True)
-    sweeps = query(paths, """
-        SELECT s.*, m.sport, m.level AS market_level, m.kind, m.question
-        FROM sweeps s LEFT JOIN markets m ON m.condition_id = s.condition_id
-        ORDER BY s.ts
-    """)
+    sweeps = query(paths, SIGNIFICANT_SWEEPS, (args.min_bid_before, args.min_consumed))
+    raw = query(paths, "SELECT count(*) AS c FROM sweeps")
+    raw_count = sum(r["c"] for r in raw)
+    print(f"  {raw_count} sweeps logged, {len(sweeps)} pass the significance filter", flush=True)
+    if len(sweeps) > args.max_sweeps:
+        print(f"  capping at {args.max_sweeps} most recent for the priced extract", flush=True)
+        sweeps = sweeps[-args.max_sweeps:]
     print(f"pricing {len(sweeps)} sweeps...", flush=True)
     sizes["sweeps.csv"] = write_csv(
         os.path.join(args.out, "sweeps.csv"),

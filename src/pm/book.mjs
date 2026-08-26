@@ -119,6 +119,7 @@ export class BookState {
  */
 export class SweepDetector {
   #history = new Map();
+  #lastFired = new Map();
 
   constructor(config) {
     this.config = config;
@@ -132,31 +133,50 @@ export class SweepDetector {
    */
   observe(book, before, ts) {
     const { levelsCrossed, bidDropTicks = 3, bidDropMin = 0.02,
-      depthWindowSeconds, depthDropRatio, depthAbovePrice } = this.config;
+      depthWindowSeconds, depthDropRatio, depthAbovePrice,
+      minBidBefore = 0.05, minSizeConsumed = 100, minDepth = 100,
+      cooldownSeconds = 30 } = this.config;
 
     const after = book.bestBid;
     const depthAfter = book.bidDepthAbove(depthAbovePrice);
-    const rules = [];
+    const at = Date.parse(ts);
 
-    if (before.bestBid !== null && after !== null && after < before.bestBid) {
-      const threshold = Math.max(bidDropTicks * book.tickSize, bidDropMin);
-      if (before.bestBid - after >= threshold - 1e-9) rules.push('bid_drop');
-    }
-
-    // Levels that stood above the new best bid and are gone or thinner.
-    const eaten = before.levels.filter(([price]) => after === null || price > after);
-    if (eaten.length >= levelsCrossed) rules.push('levels');
-
+    // Depth history is kept whatever happens, so a suppressed update still
+    // informs the window that follows it.
     const window = this.#history.get(book.assetId) ?? [];
-    const cutoff = Date.parse(ts) - depthWindowSeconds * 1000;
+    const cutoff = at - depthWindowSeconds * 1000;
     while (window.length && window[0].at < cutoff) window.shift();
     const peak = window.reduce((max, point) => Math.max(max, point.depth), before.depth);
-    if (peak > 0 && depthAfter < peak * (1 - depthDropRatio)) rules.push('depth_collapse');
-    window.push({ at: Date.parse(ts), depth: depthAfter });
+    window.push({ at, depth: depthAfter });
     this.#history.set(book.assetId, window);
 
+    // One collapse arrives as a burst of updates. Without this, the same event
+    // is logged on every one of them and the log stops being a list of events.
+    const fired = this.#lastFired.get(book.assetId);
+    if (fired !== undefined && at - fired < cooldownSeconds * 1000) return null;
+
+    // A book that was already at a cent has nothing to collapse: the move under
+    // study starts from a real price.
+    if (before.bestBid === null || before.bestBid < minBidBefore) return null;
+
+    // Levels that stood above the new best bid and are gone or thinner. An
+    // emptied book counts them all, so size decides whether that was a sweep or
+    // the maker briefly pulling its quotes.
+    const eaten = before.levels.filter(([price]) => after === null || price > after);
+    const consumed = eaten.reduce((sum, size) => sum + size[1], 0);
+
+    const rules = [];
+    if (after !== null && after < before.bestBid) {
+      const threshold = Math.max(bidDropTicks * book.tickSize, bidDropMin);
+      if (before.bestBid - after >= threshold - 1e-9 && consumed >= minSizeConsumed) {
+        rules.push('bid_drop');
+      }
+    }
+    if (eaten.length >= levelsCrossed && consumed >= minSizeConsumed) rules.push('levels');
+    if (peak >= minDepth && depthAfter < peak * (1 - depthDropRatio)) rules.push('depth_collapse');
+
     if (!rules.length) return null;
-    const consumed = eaten.reduce((sum, [, size]) => sum + size, 0);
+    this.#lastFired.set(book.assetId, at);
     return [ts, book.assetId, book.conditionId, rules.join('+'),
       before.bestBid, after, consumed, eaten.length, before.depth, depthAfter];
   }
@@ -172,5 +192,6 @@ export class SweepDetector {
 
   forget(assetId) {
     this.#history.delete(assetId);
+    this.#lastFired.delete(assetId);
   }
 }

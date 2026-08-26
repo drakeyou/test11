@@ -121,12 +121,21 @@ def coverage(paths):
     }
 
 
-def sweeps(paths, levels=(0.05, 0.03, 0.02)):
-    """How deep the book actually got eaten, by discipline and market type."""
+def sweeps(paths, levels=(0.05, 0.03, 0.02), min_bid_before=0.05, min_consumed=100.0):
+    """How deep the book actually got eaten, by discipline and market type.
+
+    The detector logs liberally on purpose — a collapse that stopped short of a
+    cent still belongs in the denominator — but a book blinking empty as the
+    maker repositions is not an event. Significance is applied here so the raw
+    log stays intact and the threshold can be retuned without recollecting.
+    """
     rows = query(paths, """
         SELECT s.*, m.sport, m.level AS market_level, m.kind
         FROM sweeps s LEFT JOIN markets m ON m.condition_id = s.condition_id
-    """)
+        WHERE s.bid_after IS NOT NULL AND s.bid_before IS NOT NULL
+          AND s.bid_before >= ? AND s.size_consumed >= ?
+          AND s.bid_after < s.bid_before
+    """, (min_bid_before, min_consumed))
     depth = Counter()
     by_kind = defaultdict(Counter)
     for row in rows:
@@ -308,6 +317,10 @@ def main():
     parser.add_argument("--since", help="earliest day, YYYY-MM-DD")
     parser.add_argument("--sweep-level", type=float, default=0.02)
     parser.add_argument("--config", default="pm.config.json", help="for the target wallet list")
+    parser.add_argument("--min-bid-before", type=float, default=0.05,
+                        help="ignore collapses that started below this price")
+    parser.add_argument("--min-consumed", type=float, default=100.0,
+                        help="ignore collapses that ate less size than this")
     parser.add_argument("--no-index", action="store_true",
                         help="skip building helper indexes (read-only media)")
     args = parser.parse_args()
@@ -330,9 +343,16 @@ def main():
     print(f"  disconnects               : {cover['gaps']} totalling {cover['gap_seconds']:.0f}s")
 
     progress("reading sweeps")
-    sweep_rows, depth, by_kind = sweeps(paths)
+    sweep_rows, depth, by_kind = sweeps(paths, min_bid_before=args.min_bid_before,
+                                        min_consumed=args.min_consumed)
+    raw = sum(r["c"] for r in query(paths, "SELECT count(*) AS c FROM sweeps"))
+    rules = query(paths, "SELECT rule, count(*) AS c FROM sweeps GROUP BY rule ORDER BY c DESC")
     print("\n== sweeps ==")
-    print(f"  detected             : {len(sweep_rows)}")
+    print(f"  logged by detector   : {raw}")
+    for row in rules[:6]:
+        print(f"      {row['c']:8}  {row['rule']}")
+    print(f"  significant          : {len(sweep_rows)}"
+          f"  (started >= {args.min_bid_before}, ate >= {args.min_consumed})")
     for level in (0.05, 0.03, 0.02):
         print(f"  reaching <= {level:.2f}     : {depth[level]}")
         for key, count in by_kind[level].most_common(5):

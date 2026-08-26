@@ -117,6 +117,59 @@ const thinned = collapse(depth, bookWith([[0.3, 1000], [0.2, 1000], [0.06, 1000]
 assert.ok(thinned, 'losing most of the depth above 5c is a sweep');
 assert.match(thinned[3], /depth_collapse/);
 
+// --- what a first day of real collection actually logged --------------------
+// 617k "sweeps" over one day, from three causes. Each is pinned here.
+
+// 1. Thin books blink empty as the maker repositions. Every level counts as
+//    eaten, but there was nothing there to eat.
+const blink = new SweepDetector(sweepConfig);
+assert.equal(collapse(blink, bookWith([[0.30, 5], [0.20, 3], [0.10, 2]]),
+  (s) => {
+    for (const price of ['0.30', '0.20', '0.10']) {
+      s.applyPriceChange({ price, size: '0', side: 'BUY' }, '1');
+    }
+  }), null, 'an empty book with no size behind it is not a collapse');
+
+// 2. A book already at a cent has nothing left to collapse.
+const alreadyLow = new SweepDetector(sweepConfig);
+assert.equal(collapse(alreadyLow, bookWith([[0.03, 5000], [0.02, 5000], [0.01, 5000]]),
+  (s) => {
+    s.applyPriceChange({ price: '0.03', size: '0', side: 'BUY' }, '1');
+    s.applyPriceChange({ price: '0.02', size: '0', side: 'BUY' }, '1');
+  }), null, 'a move from three cents to one is not the event under study');
+
+// 3. One collapse arrives as a burst of updates, and was logged on each.
+const burst = new SweepDetector(sweepConfig);
+const first = collapse(burst, bookWith([[0.30, 500], [0.25, 500], [0.20, 500], [0.01, 900]]),
+  (s) => {
+    for (const price of ['0.30', '0.25', '0.20']) {
+      s.applyPriceChange({ price, size: '0', side: 'BUY' }, '1');
+    }
+  }, '2026-08-25T12:00:00.000Z');
+assert.ok(first, 'the collapse itself is logged');
+
+const echo = bookWith([[0.10, 400], [0.05, 400], [0.01, 900]]);
+assert.equal(collapse(burst, echo, (s) => {
+  s.applyPriceChange({ price: '0.10', size: '0', side: 'BUY' }, '1');
+  s.applyPriceChange({ price: '0.05', size: '0', side: 'BUY' }, '1');
+}, '2026-08-25T12:00:05.000Z'), null, 'the same event seconds later is not a second event');
+
+// Once the cooldown has passed, a genuine second collapse is logged again.
+const later = bookWith([[0.30, 500], [0.25, 500], [0.20, 500], [0.01, 900]]);
+assert.ok(collapse(burst, later, (s) => {
+  for (const price of ['0.30', '0.25', '0.20']) {
+    s.applyPriceChange({ price, size: '0', side: 'BUY' }, '1');
+  }
+}, '2026-08-25T12:01:00.000Z'), 'a later collapse is a separate event');
+
+// Depth collapse needs depth worth collapsing.
+const trivial = new SweepDetector(sweepConfig);
+assert.equal(collapse(trivial, bookWith([[0.30, 6], [0.20, 5], [0.06, 4]]),
+  (s) => {
+    s.applyPriceChange({ price: '0.20', size: '0', side: 'BUY' }, '1');
+    s.applyPriceChange({ price: '0.06', size: '0', side: 'BUY' }, '1');
+  }), null, 'losing half of nothing is not a depth collapse');
+
 // --- replay of the recorded frames -----------------------------------------
 const frames = JSON.parse(readFileSync('samples-pm/ws-frames.json', 'utf8'));
 assert.ok(frames.length > 100, 'fixture has frames to replay');

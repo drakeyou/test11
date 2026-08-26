@@ -36,6 +36,13 @@ export const DEFAULTS = {
     depthWindowSeconds: 10,
     depthDropRatio: 0.5,
     depthAbovePrice: 0.05,
+    // Guards learned from a first day of real collection, which logged 617k
+    // "sweeps": thin books blink empty as the maker repositions, and one real
+    // collapse arrives as a burst of updates.
+    minBidBefore: 0.05,
+    minSizeConsumed: 100,
+    minDepth: 100,
+    cooldownSeconds: 30,
   },
   wallets: { intervalSeconds: 25, addresses: [] },
   // Role costs two requests per market, so it is pulled only where a target
