@@ -8,3 +8,5 @@ data/
 !samples-pm/*.csv
 export/
 export.zip
+__pycache__/
+*.pyc

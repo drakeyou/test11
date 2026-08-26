@@ -85,17 +85,22 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     sizes = {}
 
+    # analyze.py builds the helper indexes and prints its own progress to
+    # stderr, which is left connected so a long first run does not look hung.
+    print("running analyze.py (this builds indexes on a first run)...", flush=True)
     report = subprocess.run(
         [sys.executable, "analyze.py", "--db", args.db] + (["--since", args.since] if args.since else []),
-        capture_output=True, text=True)
+        stdout=subprocess.PIPE, text=True)
     with open(os.path.join(args.out, "report.txt"), "w", encoding="utf-8") as handle:
-        handle.write(report.stdout or report.stderr)
+        handle.write(report.stdout or "")
 
+    print("reading sweeps...", flush=True)
     sweeps = query(paths, """
         SELECT s.*, m.sport, m.level AS market_level, m.kind, m.question
         FROM sweeps s LEFT JOIN markets m ON m.condition_id = s.condition_id
         ORDER BY s.ts
     """)
+    print(f"pricing {len(sweeps)} sweeps...", flush=True)
     sizes["sweeps.csv"] = write_csv(
         os.path.join(args.out, "sweeps.csv"),
         ["ts", "asset_id", "condition_id", "rule", "bid_before", "bid_after",
@@ -106,6 +111,7 @@ def main():
          "high_1m", "high_5m", "high_15m", "sport", "market_level", "kind", "question"],
         sweep_context(paths, sweeps))
 
+    print("reading markets, fills, coverage...", flush=True)
     markets = query(paths, """
         SELECT condition_id, asset_id_a, asset_id_b, question, event_slug, sport,
                level, kind, segment_kind, segment_no, line, team_a, team_b,

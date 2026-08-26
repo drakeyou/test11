@@ -56,6 +56,11 @@ CREATE INDEX IF NOT EXISTS book_asset_ts ON book (asset_id, ts);
 CREATE INDEX IF NOT EXISTS sweeps_asset_ts ON sweeps (asset_id, ts);
 CREATE INDEX IF NOT EXISTS joined_cond_ts ON joined (condition_id, ts);
 CREATE INDEX IF NOT EXISTS trades_asset_ts ON trades (asset_id, ts);
+-- Coverage counts heartbeats and the fill rate filters on the best bid. Without
+-- these both queries scan every row and sort it in a temp b-tree, which on a
+-- day's collection is minutes per question.
+CREATE INDEX IF NOT EXISTS book_trigger_asset_ts ON book (trigger, asset_id, ts);
+CREATE INDEX IF NOT EXISTS book_bid_asset_ts ON book (best_bid, asset_id, ts);
 `;
 
 const INSERTS = {

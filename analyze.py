@@ -15,6 +15,7 @@ import json
 import os
 import sqlite3
 import statistics
+import sys
 from collections import Counter, defaultdict
 
 HEARTBEAT_SECONDS = 5
@@ -28,18 +29,65 @@ def databases(directory, since):
     return found
 
 
+def progress(text):
+    """Stage markers go to stderr so the report on stdout stays pipeable."""
+    print(f"  {text}...", file=sys.stderr, flush=True)
+
+
+_CONNECTIONS = {}
+
+
+def connect(path, writable=False):
+    """Reuse connections. The per-sweep queries run five times per sweep, and
+    opening a database for each of them costs more than the queries do."""
+    key = (path, writable)
+    if key not in _CONNECTIONS:
+        uri = f"file:{path}" if writable else f"file:{path}?mode=ro"
+        connection = sqlite3.connect(uri, uri=True)
+        connection.row_factory = sqlite3.Row
+        _CONNECTIONS[key] = connection
+    return _CONNECTIONS[key]
+
+
 def query(paths, sql, params=()):
     rows = []
     for path in paths:
-        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
-        connection.row_factory = sqlite3.Row
         try:
-            rows.extend(connection.execute(sql, params).fetchall())
+            rows.extend(connect(path).execute(sql, params).fetchall())
         except sqlite3.OperationalError as error:
             print(f"  ! {os.path.basename(path)}: {error}")
-        finally:
-            connection.close()
     return rows
+
+
+def ensure_indexes(paths, quiet=False):
+    """Add the indexes the questions below need, if collection predates them.
+
+    Coverage filters on `trigger` and the fill rate on `best_bid`; without an
+    index on either, both scan every row in the day and sort it in a temporary
+    b-tree. On a full day that is minutes per question instead of seconds.
+    Building them is a one-off cost and safe while the collector is running,
+    since the store is in WAL mode.
+    """
+    wanted = {
+        "book_trigger_asset_ts": "CREATE INDEX book_trigger_asset_ts ON book (trigger, asset_id, ts)",
+        "book_bid_asset_ts": "CREATE INDEX book_bid_asset_ts ON book (best_bid, asset_id, ts)",
+    }
+    for path in paths:
+        connection = connect(path, writable=True)
+        have = {row["name"] for row in connection.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'index'")}
+        missing = [sql for name, sql in wanted.items() if name not in have]
+        if not missing:
+            continue
+        if not quiet:
+            print(f"  building {len(missing)} index(es) on {os.path.basename(path)}"
+                  f" — one-off, may take a few minutes", flush=True)
+        for sql in missing:
+            try:
+                connection.execute(sql)
+            except sqlite3.OperationalError as error:
+                print(f"  ! could not index {os.path.basename(path)}: {error}")
+        connection.commit()
 
 
 def percentiles(values, points=(10, 25, 50, 75, 90, 99)):
@@ -260,13 +308,19 @@ def main():
     parser.add_argument("--since", help="earliest day, YYYY-MM-DD")
     parser.add_argument("--sweep-level", type=float, default=0.02)
     parser.add_argument("--config", default="pm.config.json", help="for the target wallet list")
+    parser.add_argument("--no-index", action="store_true",
+                        help="skip building helper indexes (read-only media)")
     args = parser.parse_args()
 
     paths = databases(args.db, args.since)
     if not paths:
         raise SystemExit(f"no databases in {args.db}")
-    print(f"reading {len(paths)} database(s): {', '.join(os.path.basename(p) for p in paths)}\n")
+    print(f"reading {len(paths)} database(s): {', '.join(os.path.basename(p) for p in paths)}", flush=True)
+    if not args.no_index:
+        ensure_indexes(paths)
+    print(flush=True)
 
+    progress("measuring coverage")
     cover = coverage(paths)
     print("== coverage ==")
     # Counted from heartbeats only: a heartbeat is written on a timer whether or
@@ -275,6 +329,7 @@ def main():
     print(f"  complete / partial        : {cover['complete']} / {cover['partial']}")
     print(f"  disconnects               : {cover['gaps']} totalling {cover['gap_seconds']:.0f}s")
 
+    progress("reading sweeps")
     sweep_rows, depth, by_kind = sweeps(paths)
     print("\n== sweeps ==")
     print(f"  detected             : {len(sweep_rows)}")
@@ -283,6 +338,7 @@ def main():
         for key, count in by_kind[level].most_common(5):
             print(f"      {count:5}  {key}")
 
+    progress("computing fill rate")
     watched, swept, resting, kinds = fill_rate(paths, args.sweep_level)
     print(f"\n== fill rate (book SWEPT to <= {args.sweep_level:.2f}) ==")
     # Denominator here is every hour with any book row, heartbeat or not.
@@ -294,6 +350,7 @@ def main():
     print(f"  for contrast, hours merely resting at <= {args.sweep_level:.2f}: {resting}")
     print("  (resting is not an opportunity: the queue was already there)")
 
+    progress(f"pricing {len(sweep_rows)} sweeps")
     rows, cells = payoff_matrix(paths, sweep_rows)
     print(f"\n== payoff: fair before x dislocation -> max bid within 5 min ({len(rows)} sweeps priced) ==")
     if cells:
@@ -304,6 +361,7 @@ def main():
     else:
         print("  no sweep had a gg.bet fair value to compare against")
 
+    progress("measuring capacity")
     sizes = capacity(paths, sweep_rows)
     print(f"\n== capacity: size resting at 2c before a sweep (n={len(sizes)}) ==")
     if sizes:
