@@ -10,3 +10,5 @@ export/
 export.zip
 __pycache__/
 *.pyc
+pm-resolutions.csv
+pm-position-gaps.csv

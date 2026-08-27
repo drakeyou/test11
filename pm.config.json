@@ -10,7 +10,9 @@
     "r6": "esports_rainbow_six",
     "atp": "tennis",
     "wta": "tennis",
-    "tennis": "tennis"
+    "tennis": "tennis",
+    "itf": "tennis",
+    "codmw": "esports_call_of_duty"
   },
   "gamma": {
     "intervalSeconds": 45,
@@ -53,5 +55,22 @@
   },
   "trades": {
     "intervalSeconds": 120
+  },
+  "labels": {
+    "mlb": "baseball",
+    "nba": "basketball",
+    "nfl": "american_football",
+    "nhl": "ice_hockey",
+    "epl": "football",
+    "ucl": "football",
+    "pol": "politics",
+    "us": "politics",
+    "fin1": "finance",
+    "bitcoin": "crypto",
+    "eth": "crypto",
+    "ethereum": "crypto",
+    "xrp": "crypto",
+    "sol": "crypto",
+    "doge": "crypto"
   }
 }

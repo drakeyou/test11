@@ -21,7 +21,30 @@ export const DEFAULTS = {
     r6: 'esports_rainbow_six',
     atp: 'tennis',
     wta: 'tennis',
+    itf: 'tennis',
     tennis: 'tennis',
+    codmw: 'esports_call_of_duty',
+  },
+  // Sports the wallets trade but the book logger does not subscribe to. Used
+  // only to name a market after the fact: `disciplines` decides what gets
+  // watched, `labels` decides what can be labelled, and conflating them would
+  // silently widen the subscription universe.
+  labels: {
+    mlb: 'baseball',
+    nba: 'basketball',
+    nfl: 'american_football',
+    nhl: 'ice_hockey',
+    epl: 'football',
+    ucl: 'football',
+    pol: 'politics',
+    us: 'politics',
+    fin1: 'finance',
+    bitcoin: 'crypto',
+    eth: 'crypto',
+    ethereum: 'crypto',
+    xrp: 'crypto',
+    sol: 'crypto',
+    doge: 'crypto',
   },
   gamma: { intervalSeconds: 45, pageSize: 100, maxPages: 12 },
   book: { heartbeatSeconds: 5, reconnectMinMs: 1000, reconnectMaxMs: 60000 },
