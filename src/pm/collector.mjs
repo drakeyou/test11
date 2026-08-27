@@ -21,6 +21,7 @@ import { MappingTable } from './mapping.mjs';
 import { buildLinks, joinedRow } from './link.mjs';
 import { fetchActivity } from './wallets.mjs';
 import { fetchTrades } from './trades.mjs';
+import { UniverseJournal, universeRow } from './universe.mjs';
 
 const config = loadConfig();
 const once = process.argv.includes('--once');
@@ -35,13 +36,15 @@ const store = new Store(config.storage.dir, {
   },
 });
 const registry = new MarketRegistry();
+const universe = new UniverseJournal();
 const detector = new SweepDetector(config.sweep);
 const books = new Map();
 const tail = new GgbetTail(config.ggbet.oddsHistory);
 const mapping = new MappingTable(config.ggbet.mapping);
 let links = new Map();
 let ggbetByKey = new Map();
-const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0 };
+const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0,
+  truncated: 0, takerFills: 0 };
 /** condition id -> when its trade log was last pulled, to keep polling bounded. */
 const tradesPolledAt = new Map();
 
@@ -121,12 +124,16 @@ async function pollWallets() {
   const markets = new Set();
   for (const address of config.wallets.addresses ?? []) {
     try {
-      const rows = await fetchActivity(address, { limit: 100 });
+      const { rows, ceiling, types } = await fetchActivity(address);
       for (const row of rows) {
         store.add('wallets', row);
         if (row[6]) markets.add(row[6]);
       }
       counts.fills += rows.length;
+      if (ceiling) {
+        console.error(`[wallets] ${address.slice(0, 10)}: hit the pagination ceiling,` +
+          ` history is partial (${JSON.stringify(types)})`);
+      }
     } catch (err) {
       console.error(`[wallets] ${address.slice(0, 10)}: ${err.message}`);
     }
@@ -136,19 +143,41 @@ async function pollWallets() {
 
 /**
  * Pull the trade log, with roles, for markets the target wallets touched.
- * Scoped to those markets rather than everything tracked: the role costs two
- * requests per market, and it is only interesting where there is a fill to
- * label.
+ *
+ * Only the wallets' own fills are stored. The log carries every participant's
+ * trades, and a busy market holds tens of thousands of them: a first pass over
+ * a fully paginated activity history wrote 214k rows and 180 MB before this was
+ * scoped. All that volume exists to establish the role of a handful of fills,
+ * so the market-wide figures are kept as one summary row per scan and the rest
+ * is dropped.
+ *
+ * Markets per cycle are capped, so one round stays bounded however long the
+ * wallet has been trading.
  */
 async function pollTrades(conditionIds) {
   const every = (config.trades?.intervalSeconds ?? 120) * 1000;
+  const perCycle = config.trades?.marketsPerCycle ?? 25;
+  const targets = new Set((config.wallets.addresses ?? []).map((a) => a.toLowerCase()));
+
+  let scanned = 0;
   for (const conditionId of conditionIds) {
+    if (scanned >= perCycle) break;
     if (Date.now() - (tradesPolledAt.get(conditionId) ?? 0) < every) continue;
     tradesPolledAt.set(conditionId, Date.now());
+    scanned++;
     try {
-      const rows = await fetchTrades(conditionId);
-      for (const row of rows) store.add('trades', row);
-      counts.trades += rows.length;
+      const { rows, truncated, takerShare, pages } = await fetchTrades(conditionId);
+      const mine = rows.filter((row) => targets.has(row[3]));
+      for (const row of mine) store.add('trades', row);
+      counts.trades += mine.length;
+      counts.takerFills += mine.filter((row) => row[7] === 'taker').length;
+      // Worth keeping even though the market's own trades are not.
+      store.add('trade_scans', [new Date().toISOString(), conditionId, rows.length,
+        mine.length, takerShare, pages, truncated ? 1 : 0]);
+      if (truncated) {
+        counts.truncated++;
+        console.error(`[trades] ${conditionId.slice(0, 12)}: log truncated, counts from it are short`);
+      }
     } catch (err) {
       console.error(`[trades] ${conditionId.slice(0, 12)}: ${err.message}`);
     }
@@ -157,9 +186,13 @@ async function pollTrades(conditionIds) {
 
 async function discover() {
   const raw = await fetchActiveMarkets(config.gamma);
-  const { added, removed, tracked } = registry.update(raw, config.disciplines);
+  const { added, removed, tracked, all } = registry.update(raw, config.disciplines);
   for (const record of tracked) store.upsertMarket(record);
+  // Journal everything considered, subscribed or not.
+  for (const row of universe.observe(all)) store.add('universe', universeRow(row));
   for (const record of removed) {
+    const released = universe.release(record.conditionId);
+    if (released) store.add('universe', universeRow(released));
     for (const assetId of record.tokens) {
       books.delete(assetId);
       detector.forget(assetId);
@@ -184,6 +217,10 @@ if (once) {
   console.log(`wallets: ${counts.fills} activity rows (${store.count('wallets')} stored)`);
   const roles = store.roleCounts();
   console.log(`trades: ${store.count('trades')} stored (${roles.maker ?? 0} maker, ${roles.taker ?? 0} taker)`);
+  console.log(`universe: ${universe.size} markets seen, ${universe.subscribedCount} subscribed`);
+  for (const [reason, count] of universe.skipCounts().slice(0, 6)) {
+    console.log(`    ${String(count).padStart(5)}  ${reason}`);
+  }
   store.close();
   process.exit(0);
 }
@@ -197,7 +234,8 @@ const timers = [
   setInterval(() => {
     console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.joined} joined` +
       ` | ${counts.sweeps} sweeps | ${counts.gaps} gaps | ${links.size} linked` +
-      ` | ${counts.trades} trades | ${store.path}`);
+      ` | ${counts.trades} trades | ${universe.subscribedCount}/${universe.size} universe` +
+      `${counts.truncated ? ` | ${counts.truncated} truncated` : ''} | ${store.path}`);
   }, 60000),
 ];
 

@@ -48,6 +48,15 @@ CREATE TABLE IF NOT EXISTS trades (
   price REAL, size REAL, role TEXT, tx_hash TEXT,
   UNIQUE (tx_hash, wallet, asset_id, side, size, price)
 );
+CREATE TABLE IF NOT EXISTS trade_scans (
+  ts TEXT, condition_id TEXT, total_trades INTEGER, wallet_trades INTEGER,
+  taker_share REAL, pages INTEGER, truncated INTEGER
+);
+CREATE TABLE IF NOT EXISTS universe (
+  ts TEXT, condition_id TEXT PRIMARY KEY, discovered_via TEXT, subscribed INTEGER,
+  unsubscribed_at TEXT, reason_skipped TEXT, question TEXT, sport TEXT,
+  level TEXT, kind TEXT
+);
 CREATE TABLE IF NOT EXISTS gaps (
   started_at TEXT, ended_at TEXT, duration_ms INTEGER, reason TEXT,
   assets_resubscribed INTEGER
@@ -69,6 +78,9 @@ const INSERTS = {
   joined: `INSERT INTO joined VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
   wallets: `INSERT OR IGNORE INTO wallets VALUES (?,?,?,?,?,?,?,?,?,?)`,
   trades: `INSERT OR IGNORE INTO trades VALUES (?,?,?,?,?,?,?,?,?)`,
+  trade_scans: `INSERT INTO trade_scans VALUES (?,?,?,?,?,?,?)`,
+  universe: `INSERT INTO universe VALUES (?,?,?,?,?,?,?,?,?,?)
+    ON CONFLICT(condition_id) DO UPDATE SET unsubscribed_at = excluded.unsubscribed_at`,
   gaps: `INSERT INTO gaps VALUES (?,?,?,?,?)`,
 };
 
@@ -85,7 +97,8 @@ export class Store {
   #db = null;
   #statements = null;
   #market = null;
-  #buffers = { book: [], sweeps: [], joined: [], wallets: [], trades: [], gaps: [] };
+  #buffers = { book: [], sweeps: [], joined: [], wallets: [], trades: [],
+    trade_scans: [], universe: [], gaps: [] };
   #flushAt;
   #maxBuffered;
 

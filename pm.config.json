@@ -54,7 +54,8 @@
     "dir": "data"
   },
   "trades": {
-    "intervalSeconds": 120
+    "intervalSeconds": 120,
+    "marketsPerCycle": 25
   },
   "labels": {
     "mlb": "baseball",

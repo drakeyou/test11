@@ -106,7 +106,21 @@ export function classifyMarket(market, disciplines = {}) {
   };
 }
 
+/**
+ * Why a market was not subscribed to, or null if it was.
+ *
+ * The reason is the point: without it there is no telling "the bot never went
+ * here" from "the logger never looked", and that difference is the denominator
+ * the whole study rests on.
+ */
+export function skipReason(record) {
+  if (!record.sport) return `unmapped discipline: ${record.prefix ?? 'no event slug'}`;
+  if (!record.enableOrderBook) return 'order book disabled';
+  if (record.tokens.length !== 2) return `expected 2 tokens, got ${record.tokens.length}`;
+  return null;
+}
+
 /** Markets worth subscribing to: a known discipline and a live order book. */
 export function isTracked(record) {
-  return Boolean(record.sport) && record.enableOrderBook && record.tokens.length === 2;
+  return skipReason(record) === null;
 }

@@ -49,12 +49,14 @@ export class MarketRegistry {
   /**
    * @param {object[]} raw  Gamma market objects
    * @param {Record<string,string>} disciplines
-   * @returns {{added: object[], removed: object[], tracked: object[]}}
+   * @returns {{added: object[], removed: object[], tracked: object[], all: object[]}}
    */
   update(raw, disciplines) {
     const next = new Map();
+    const all = [];
     for (const market of raw) {
       const record = classifyMarket(market, disciplines);
+      all.push(record);
       if (!record.sport && record.prefix) {
         this.unknownPrefixes.set(record.prefix, (this.unknownPrefixes.get(record.prefix) ?? 0) + 1);
       }
@@ -64,7 +66,9 @@ export class MarketRegistry {
     const added = [...next.values()].filter((r) => !this.#byCondition.has(r.conditionId));
     const removed = [...this.#byCondition.values()].filter((r) => !next.has(r.conditionId));
     this.#byCondition = next;
-    return { added, removed, tracked: [...next.values()] };
+    // `all` carries the markets that were passed over as well, which is what
+    // the universe journal needs to tell "not traded" from "not watched".
+    return { added, removed, tracked: [...next.values()], all };
   }
 
   get size() {

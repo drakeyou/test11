@@ -164,6 +164,16 @@ def main():
         ["asset_id", "hour", "heartbeats", "lowest_bid", "highest_bid"],
         [list(r) for r in coverage])
 
+    universe = query(paths, """
+        SELECT ts, condition_id, discovered_via, subscribed, unsubscribed_at,
+               reason_skipped, question, sport, level, kind
+        FROM universe ORDER BY ts
+    """)
+    sizes["universe.csv"] = write_csv(os.path.join(args.out, "universe.csv"),
+        ["ts", "condition_id", "discovered_via", "subscribed", "unsubscribed_at",
+         "reason_skipped", "question", "sport", "level", "kind"],
+        [list(r) for r in universe])
+
     gaps = query(paths, "SELECT started_at, ended_at, duration_ms, reason, assets_resubscribed FROM gaps ORDER BY started_at")
     sizes["gaps.csv"] = write_csv(os.path.join(args.out, "gaps.csv"),
         ["started_at", "ended_at", "duration_ms", "reason", "assets_resubscribed"],
@@ -211,6 +221,7 @@ extract keeps what analysis needs and drops the bulk.
 | `target-fills.csv` | fills by the wallets under study, tagged maker or taker |
 | `coverage.csv` | heartbeats per asset per hour ({coverage_hours} rows) |
 | `gaps.csv` | websocket disconnects ({gaps} rows) |
+| `universe.csv` | every market considered, and why it was or was not subscribed |
 | `mapping.csv` | Polymarket market to gg.bet market correspondence |
 | `pm.config.json` | thresholds the collection ran with |
 
@@ -249,6 +260,10 @@ Rule counts in this extract: {rules}
   not a fixed number of cents.
 - Coverage is counted from heartbeats. Hours with fewer than expected are
   incomplete, and dividing by them overstates any rate.
+- `universe.csv` is what separates "the bot never traded here" from "the logger
+  never looked here". It only runs forward: markets seen before the journal
+  existed are not in it, so a sample drawn from before that point still
+  describes a slice of unknown origin.
 """
 
 
