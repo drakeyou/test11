@@ -47,13 +47,22 @@ function groupBySport(matches) {
 /**
  * @param {Array<object>} matches  output of MatchStore#list()
  * @param {Map<string, number>} previous  last shown price per odd key, for arrows
- * @param {{clear?: boolean, now?: Date}} [options]
+ * @param {{clear?: boolean, now?: Date, coverage?: Array}} [options]
  */
 export function renderMatches(matches, previous = new Map(), options = {}) {
-  const { clear = true, now = new Date() } = options;
+  const { clear = true, now = new Date(), coverage = [] } = options;
   const lines = [];
   if (clear) lines.push(CLEAR);
   lines.push(`gg.bet · live · ${now.toLocaleTimeString()}`);
+
+  // The site delivers its live list a page at a time. A shortfall here means
+  // matches exist that were never subscribed to, and it must never be silent.
+  const short = coverage.filter((c) => c.have < c.expected);
+  if (short.length) {
+    lines.push('missing: ' + short
+      .map((c) => `${sportName(c.sport)} ${c.have}/${c.expected}`).join(', ') +
+      '  — list not fully loaded');
+  }
   lines.push('='.repeat(74));
 
   if (!matches.length) {

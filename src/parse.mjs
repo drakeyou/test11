@@ -84,6 +84,13 @@ export function parseFrame(payload) {
   if (!data || typeof data !== 'object') return [];
 
   const ops = [];
+  // The snapshot says how many live matches the site has, and delivers only the
+  // first page of them. Ignoring `count` hid that: 28 live tennis matches
+  // arrived as 12 events, and nothing said so.
+  if (typeof data.matches?.count === 'number') {
+    ops.push({ kind: 'expected', count: data.matches.count,
+      delivered: (data.matches.sportEvents ?? []).length });
+  }
   for (const event of data.matches?.sportEvents ?? []) {
     ops.push({ kind: 'event', event: eventOf(event) });
   }
@@ -108,6 +115,8 @@ function mergeCompetitors(prev = [], next) {
 /** Accumulates frames into a live view of every match. */
 export class MatchStore {
   #matches = new Map();
+  /** sportId -> how many live matches the site says it has. */
+  #expected = new Map();
 
   /**
    * Merge frames and report what they changed.
@@ -117,10 +126,19 @@ export class MatchStore {
    * @returns {Array<object>} change records, each tagged with its match
    */
   apply(ops, sport) {
-    const touched = new Set(ops.map((op) => (op.kind === 'event' ? op.event.id : op.id)));
+    for (const op of ops) {
+      if (op.kind !== 'expected') continue;
+      // Highest seen wins: a later page reports the same total.
+      const known = this.#expected.get(sport ?? 'unknown') ?? 0;
+      this.#expected.set(sport ?? 'unknown', Math.max(known, op.count));
+    }
+    const touched = new Set(ops
+      .filter((op) => op.kind !== 'expected')
+      .map((op) => (op.kind === 'event' ? op.event.id : op.id)));
     const before = new Map([...touched].map((id) => [id, this.#viewOf(id)]));
 
     for (const op of ops) {
+      if (op.kind === 'expected') continue;
       if (op.kind === 'event') {
         const prev = this.#matches.get(op.event.id);
         const merged = { ...(prev ?? {}), ...op.event };
@@ -145,6 +163,24 @@ export class MatchStore {
 
   get size() {
     return this.#matches.size;
+  }
+
+  /**
+   * What the site says is live, against what we actually hold.
+   * A shortfall means the list was never scrolled far enough to subscribe to
+   * the rest, and every rate computed from these matches has a short
+   * denominator.
+   * @returns {Array<{sport: string, expected: number, have: number}>}
+   */
+  coverage() {
+    const have = new Map();
+    for (const match of this.#matches.values()) {
+      const key = match.sport ?? 'unknown';
+      have.set(key, (have.get(key) ?? 0) + 1);
+    }
+    return [...this.#expected].map(([sport, expected]) => ({
+      sport, expected, have: have.get(sport) ?? 0,
+    }));
   }
 
   /** Flatten to the fields a display or a CSV row needs. */

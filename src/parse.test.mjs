@@ -62,6 +62,46 @@ assert.deepEqual(parseFrame({ type: 'ka' }), []);
 assert.deepEqual(parseFrame({ type: 'data', payload: { data: { banners: [] } } }), []);
 assert.deepEqual(parseFrame(null), []);
 
+// The site reports how many live matches it has and delivers the first page of
+// them. Ignoring that made the shortfall invisible: 28 live tennis matches
+// arrived as 12 events and nothing said so.
+const partial = new MatchStore();
+partial.apply(parseFrame({
+  type: 'data',
+  payload: { data: { matches: { count: 28, sportEvents: [
+    { id: '5:a', fixture: { title: 'A vs B', score: '0:0', sportId: 'tennis',
+      competitors: [{ id: 'c1', name: 'A' }, { id: 'c2', name: 'B' }] }, markets: [] },
+  ] } } },
+}), 'tennis');
+const [tennisCoverage] = partial.coverage();
+assert.equal(tennisCoverage.expected, 28, 'the reported total is kept');
+assert.equal(tennisCoverage.have, 1, 'against what actually arrived');
+assert.ok(tennisCoverage.have < tennisCoverage.expected, 'a shortfall is visible');
+
+// A later page reports the same total; it must not be double counted or lost.
+partial.apply(parseFrame({
+  type: 'data',
+  payload: { data: { matches: { count: 28, sportEvents: [
+    { id: '5:b', fixture: { title: 'C vs D', score: '0:0', sportId: 'tennis',
+      competitors: [{ id: 'c3', name: 'C' }, { id: 'c4', name: 'D' }] }, markets: [] },
+  ] } } },
+}), 'tennis');
+assert.deepEqual(partial.coverage(), [{ sport: 'tennis', expected: 28, have: 2 }]);
+
+// A count with no shortfall reports as complete.
+const whole = new MatchStore();
+whole.apply(parseFrame({
+  type: 'data',
+  payload: { data: { matches: { count: 1, sportEvents: [
+    { id: '5:x', fixture: { title: 'E vs F', score: '0:0', sportId: 'esports_dota_2',
+      competitors: [{ id: 'c5', name: 'E' }, { id: 'c6', name: 'F' }] }, markets: [] },
+  ] } } },
+}), 'esports_dota_2');
+assert.deepEqual(whole.coverage(), [{ sport: 'esports_dota_2', expected: 1, have: 1 }]);
+
+// An expected marker must not be mistaken for a match.
+assert.equal(whole.size, 1);
+
 // A patch on its own names nobody, so it must not pass as a usable match.
 const orphan = new MatchStore();
 orphan.apply(parseFrame({
@@ -80,6 +120,15 @@ const moved = renderMatches([sample], stale, { clear: false });
 assert.match(moved, /\^ /, 'a risen price renders an up arrow');
 assert.ok(!/\^ |v /.test(renderMatches([sample], new Map(), { clear: false })),
   'an unchanged price renders no arrow');
+
+// The shortfall has to reach the screen, or it goes back to being silent.
+const shortView = renderMatches(matches, new Map(), { clear: false,
+  coverage: [{ sport: 'tennis', expected: 28, have: 12 }] });
+assert.match(shortView, /missing: .*12\/28/, 'an incomplete list is announced');
+assert.match(shortView, /not fully loaded/);
+const wholeView = renderMatches(matches, new Map(), { clear: false,
+  coverage: [{ sport: 'tennis', expected: 12, have: 12 }] });
+assert.ok(!wholeView.includes('missing:'), 'a complete list says nothing');
 
 // Rendering must survive the real data, including fields the capture lacks.
 const view = renderMatches(matches, new Map(), { clear: false });

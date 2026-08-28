@@ -22,6 +22,9 @@ import { liveUrl, resolveSports } from './sports.mjs';
 const DEFAULTS = {
   sport: 'cs',
   interval: 5,
+  scrollAttempts: 12,
+  scrollPause: 1500,
+  rescanSeconds: 120,
   out: 'odds-history.csv',
   log: 'changes.csv',
   captures: 'captures',
@@ -36,6 +39,8 @@ gg.bet live monitor
   --discover          capture raw API payloads to ./captures, then exit
   --url <url>         open this exact page instead of the per-sport live pages
   --interval <sec>    redraw interval in watch mode (default: 5)
+  --scroll-attempts <n>  how hard to scroll for the rest of the list (default: 12)
+  --rescan <sec>      how often to re-scroll for new matches (default: 120)
   --out <file>        odds history CSV (default: odds-history.csv)
   --log <file>        change log CSV (default: changes.csv)
   --proxy <server>    e.g. http://user:pass@host:port
@@ -58,6 +63,8 @@ function parseArgs(argv) {
     else if (arg === '--sport') opts.sport = next();
     else if (arg === '--url') opts.url = next();
     else if (arg === '--interval') opts.interval = Number(next());
+    else if (arg === '--scroll-attempts') opts.scrollAttempts = Number(next());
+    else if (arg === '--rescan') opts.rescanSeconds = Number(next());
     else if (arg === '--out') opts.out = next();
     else if (arg === '--log') opts.log = next();
     else if (arg === '--proxy') opts.proxy = next();
@@ -89,6 +96,39 @@ const csvCell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 const csvRow = (cells) => cells.map(csvCell).join(',');
 const oddKey = (match, market, odd) => `${match.id}|${market.id}|${odd.id}`;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Scroll the live list until every match the site claims is subscribed.
+ *
+ * The snapshot reports a total and delivers the first page of it; the rest load
+ * on scroll. Without this the collector silently watches only the head of the
+ * list — 28 live tennis matches arrived as 12, and a headline match further
+ * down was never subscribed at all.
+ */
+async function loadWholeList(page, target, store, attempts = 12, pauseMs = 1500) {
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const covered = store.coverage().find((c) => c.sport === target.id);
+    if (covered && covered.have >= covered.expected) {
+      if (attempt) console.error(`[${target.name}] list complete: ${covered.have}/${covered.expected}`);
+      return;
+    }
+    const before = store.size;
+    try {
+      await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight));
+    } catch {
+      return; // page went away; the session loop handles that
+    }
+    await delay(pauseMs);
+    // Two quiet rounds after the first means the list has stopped growing.
+    if (store.size === before && attempt >= 2) {
+      const now = store.coverage().find((c) => c.sport === target.id);
+      if (now && now.have < now.expected) {
+        console.error(`[${target.name}] list stalled at ${now.have}/${now.expected}`);
+      }
+      return;
+    }
+  }
+}
 
 /** Run one browser session until it fails; throws a description of what ended it. */
 async function session(opts, targets, store, recorded, shown, counter) {
@@ -145,6 +185,7 @@ async function session(opts, targets, store, recorded, shown, counter) {
     if (rows.length) writeOdds(rows.join('\n') + '\n');
   }
 
+  const pages = [];
   for (const target of targets) {
     const page = await context.newPage();
     page.on('close', () => end(`page closed (${target.name})`));
@@ -172,6 +213,8 @@ async function session(opts, targets, store, recorded, shown, counter) {
 
     console.error(`[${target.name}] opening ${target.url} ...`);
     await page.goto(target.url, { waitUntil: 'domcontentloaded', timeout: 90000 });
+    pages.push({ page, target });
+    await loadWholeList(page, target, store, opts.scrollAttempts, opts.scrollPause);
   }
 
   try {
@@ -182,17 +225,27 @@ async function session(opts, targets, store, recorded, shown, counter) {
       return;
     }
 
+    let lastSweep = Date.now();
     for (;;) {
       const matches = store.list().filter((m) => m.resolved);
       // Arrows compare against the previous frame on screen, which is not the
       // same thing as the last price written to the CSV.
-      console.log(renderMatches(matches, shown));
+      console.log(renderMatches(matches, shown, { coverage: store.coverage() }));
       for (const m of matches) {
         for (const market of m.markets) {
           for (const odd of market.odds) shown.set(oddKey(m, market, odd), odd.price);
         }
       }
       await delay(opts.interval * 1000);
+      // Matches start through the day and land further down the list, so the
+      // pages are re-scrolled rather than loaded once at startup.
+      if (Date.now() - lastSweep >= opts.rescanSeconds * 1000) {
+        lastSweep = Date.now();
+        for (const entry of pages) {
+          await loadWholeList(entry.page, entry.target, store, opts.scrollAttempts, opts.scrollPause)
+            .catch(() => {});
+        }
+      }
       if (ended) throw new Error(ended);
       if (!browser.isConnected()) throw new Error('browser is no longer connected');
     }
