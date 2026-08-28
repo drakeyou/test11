@@ -20,7 +20,10 @@ import { renderMatches } from './render.mjs';
 import { liveUrl, resolveSports } from './sports.mjs';
 
 const DEFAULTS = {
-  sport: 'cs',
+  // Every discipline under study. The default was 'cs' from the days this only
+  // watched Counter-Strike, which meant running it without --sport silently
+  // collected one sport out of five.
+  sport: 'cs,dota,lol,valorant,tennis',
   interval: 5,
   scrollAttempts: 12,
   scrollPause: 1500,
@@ -34,7 +37,8 @@ const DEFAULTS = {
 const HELP = `
 gg.bet live monitor
 
-  --sport <list>      cs,lol,dota,valorant,tennis,table_tennis or all (default: cs)
+  --sport <list>      cs,lol,dota,valorant,tennis,table_tennis or all
+                      (default: cs,dota,lol,valorant,tennis)
                       a raw sportId also works
   --discover          capture raw API payloads to ./captures, then exit
   --url <url>         open this exact page instead of the per-sport live pages

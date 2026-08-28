@@ -53,9 +53,14 @@ HTTP-запросы к `gg.bet/graphql` — только конфиги, лок�
 `samples/0021-ws.json`. Любой другой `sportId` тоже можно передать напрямую.
 
 ```bash
-node src/monitor.mjs --sport cs,lol,dota,valorant,tennis
-node src/monitor.mjs --sport all
+npm run watch                                  # все пять дисциплин
+node src/monitor.mjs --sport cs,tennis         # только выбранные
+node src/monitor.mjs --sport all               # включая настольный теннис
 ```
+
+По умолчанию собираются **CS, Dota, LoL, Valorant и теннис** — те же дисциплины,
+что отслеживаются на Polymarket. Раньше дефолтом был один Counter-Strike, и
+запуск без `--sport` молча собирал пятую часть.
 
 ## Два файла на выходе
 
