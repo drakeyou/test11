@@ -18,14 +18,30 @@ const RETRYABLE = new Set([400, 408, 425, 429, 500, 502, 503, 504]);
  * @param {typeof fetch} [options.fetchImpl]
  * @returns {Promise<Response>}
  */
-export async function politeFetch(url, { retries = 4, backoffMs = 500, fetchImpl = fetch } = {}) {
+export async function politeFetch(url, {
+  retries = 4, backoffMs = 500, maxBackoffMs = 60000, fetchImpl = fetch,
+} = {}) {
   let last = null;
+  let thrown = null;
+
   for (let attempt = 0; attempt <= retries; attempt++) {
-    const response = await fetchImpl(url);
-    if (response.ok || !RETRYABLE.has(response.status)) return response;
-    last = response;
-    if (attempt < retries) await delay(backoffMs * 2 ** attempt);
+    try {
+      const response = await fetchImpl(url);
+      if (response.ok || !RETRYABLE.has(response.status)) return response;
+      last = response;
+      thrown = null;
+    } catch (err) {
+      // A lost network does not answer with a status: fetch rejects outright
+      // with "fetch failed". Retrying only on status codes meant a laptop
+      // going to sleep took the collector down with it.
+      last = null;
+      thrown = err;
+    }
+    if (attempt < retries) {
+      await delay(Math.min(maxBackoffMs, backoffMs * 2 ** attempt));
+    }
   }
+  if (thrown) throw thrown;
   return last;
 }
 

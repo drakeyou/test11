@@ -205,7 +205,15 @@ async function discover() {
   return tracked;
 }
 
-const tracked = await discover();
+// A network that is down at startup — a closed laptop, a dropped connection —
+// must not be fatal: the discovery interval below recovers on its own.
+let tracked = [];
+try {
+  tracked = await discover();
+} catch (err) {
+  console.error(`[discovery] first round failed: ${err.message}` +
+    ` — continuing, will retry every ${config.gamma.intervalSeconds}s`);
+}
 relink();
 await pollWallets();
 if (once) {
