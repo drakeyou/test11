@@ -179,7 +179,18 @@ def main():
         ["started_at", "ended_at", "duration_ms", "reason", "assets_resubscribed"],
         [list(r) for r in gaps])
 
-    for name in ("mapping.csv", "pm.config.json"):
+    # The wallet side of the study: outcomes, the PnL report built from them,
+    # and the positions whose history is incomplete.
+    if os.path.exists("target-fills.csv"):
+        fills_report = subprocess.run([sys.executable, "analyze_fills.py"],
+                                      stdout=subprocess.PIPE, text=True)
+        if fills_report.stdout:
+            with open(os.path.join(args.out, "fills-report.txt"), "w", encoding="utf-8") as handle:
+                handle.write(fills_report.stdout)
+            sizes["fills-report.txt"] = "written"
+
+    for name in ("target-fills.csv", "pm-resolutions.csv", "pm-position-gaps.csv",
+                 "mapping.csv", "pm.config.json"):
         if os.path.exists(name):
             shutil.copy(name, os.path.join(args.out, name))
             sizes[name] = "copied"
@@ -222,6 +233,10 @@ extract keeps what analysis needs and drops the bulk.
 | `coverage.csv` | heartbeats per asset per hour ({coverage_hours} rows) |
 | `gaps.csv` | websocket disconnects ({gaps} rows) |
 | `universe.csv` | every market considered, and why it was or was not subscribed |
+| `target-fills.csv` | fills by the wallets under study, tagged maker or taker |
+| `pm-resolutions.csv` | which outcome won each market, and its metadata |
+| `fills-report.txt` | position-level PnL: cost, revenue and exit mode per position |
+| `pm-position-gaps.csv` | positions whose trade history is incomplete |
 | `mapping.csv` | Polymarket market to gg.bet market correspondence |
 | `pm.config.json` | thresholds the collection ran with |
 
@@ -260,6 +275,12 @@ Rule counts in this extract: {rules}
   not a fixed number of cents.
 - Coverage is counted from heartbeats. Hours with fewer than expected are
   incomplete, and dividing by them overstates any rate.
+- `fills-report.txt` separates five exit modes. A position sold in part and
+  left to resolve is neither sold nor held: it carries both proceeds and a
+  payout, and pooling it with either corrupts that group's hit rate.
+- A position with no buys means its purchases happened before collection
+  started. Its size is a lower bound, and it is listed in
+  `pm-position-gaps.csv` rather than silently averaged in.
 - `universe.csv` is what separates "the bot never traded here" from "the logger
   never looked here". It only runs forward: markets seen before the journal
   existed are not in it, so a sample drawn from before that point still
