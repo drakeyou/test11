@@ -17,7 +17,8 @@
     "export": "python3 export.py",
     "resolve": "node src/pm/resolve.mjs",
     "fills": "python3 analyze_fills.py",
-    "clean": "./clean.sh"
+    "clean": "./clean.sh",
+    "check": "python3 check.py"
   },
   "dependencies": {
     "playwright": "^1.56.1"
