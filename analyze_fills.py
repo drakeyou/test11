@@ -146,7 +146,10 @@ def show(values, unit="", places=3):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--fills", default="target-fills.csv")
+    # export.py writes the fills into export/; fall back to there rather than
+    # making the caller copy the file into place first.
+    parser.add_argument("--fills", default="target-fills.csv"
+                        if os.path.exists("target-fills.csv") else "export/target-fills.csv")
     parser.add_argument("--resolutions", default="pm-resolutions.csv")
     parser.add_argument("--gaps-out", default="pm-position-gaps.csv")
     args = parser.parse_args()

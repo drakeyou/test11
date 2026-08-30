@@ -152,9 +152,14 @@ def main():
                level, kind, segment_kind, segment_no, line, team_a, team_b,
                end_date, tick_size, min_size, first_seen, last_seen FROM markets
     """)
+    # Only the markets something else in the bundle refers to. The registry as a
+    # whole is thirteen thousand rows and nothing joins against most of them.
+    referenced = {row["condition_id"] for row in sweeps}
+    referenced.update(row["condition_id"] for row in query(paths,
+        "SELECT DISTINCT condition_id FROM trades"))
+    kept = [list(r) for r in markets if r["condition_id"] in referenced]
     sizes["markets.csv"] = write_csv(os.path.join(args.out, "markets.csv"),
-        list(markets[0].keys()) if markets else ["condition_id"],
-        dedupe([list(r) for r in markets]))
+        list(markets[0].keys()) if markets else ["condition_id"], dedupe(kept))
 
     wallets = target_wallets()
     if wallets:
@@ -187,10 +192,21 @@ def main():
                reason_skipped, question, sport, level, kind
         FROM universe ORDER BY ts
     """)
-    sizes["universe.csv"] = write_csv(os.path.join(args.out, "universe.csv"),
-        ["ts", "condition_id", "discovered_via", "subscribed", "unsubscribed_at",
-         "reason_skipped", "question", "sport", "level", "kind"],
-        dedupe([list(r) for r in universe], key_index=1))
+    # The journal answers "what was considered and why was it passed over".
+    # That is a count per sport and reason, not fifty thousand rows: the full
+    # table is ten megabytes and no conversation will read it.
+    seen = {}
+    for row in universe:
+        seen[row["condition_id"]] = row
+    summary = {}
+    for row in seen.values():
+        key = (row["sport"] or "(unmapped)", int(row["subscribed"] or 0),
+               row["reason_skipped"] or "")
+        summary[key] = summary.get(key, 0) + 1
+    sizes["universe-summary.csv"] = write_csv(
+        os.path.join(args.out, "universe-summary.csv"),
+        ["sport", "subscribed", "reason_skipped", "markets"],
+        sorted(([k[0], k[1], k[2], n] for k, n in summary.items()), key=lambda r: -r[3]))
 
     gaps = query(paths, "SELECT started_at, ended_at, duration_ms, reason, assets_resubscribed FROM gaps ORDER BY started_at")
     sizes["gaps.csv"] = write_csv(os.path.join(args.out, "gaps.csv"),
@@ -231,6 +247,17 @@ def main():
             median_after=f"{statistics.median(swept):.3f}" if swept else "n/a",
         ))
 
+    # The wallet half of the bundle depends on files produced by other steps.
+    # Leaving them out quietly is how an incomplete archive gets sent.
+    fills_path = os.path.join(args.out, "target-fills.csv")
+    steps = []
+    if not os.path.exists("pm-resolutions.csv"):
+        steps.append(f"node src/pm/resolve.mjs --from {fills_path}")
+    if not os.path.exists(os.path.join(args.out, "fills-report.txt")):
+        steps.append(f"python3 analyze_fills.py --fills {fills_path}")
+    if steps:
+        steps.append(f"python3 export.py --db {args.db}")
+
     with zipfile.ZipFile(f"{args.out}.zip", "w", zipfile.ZIP_DEFLATED) as archive:
         for name in sorted(os.listdir(args.out)):
             archive.write(os.path.join(args.out, name), name)
@@ -245,6 +272,11 @@ def main():
     if archive_kb > 5000:
         print("  ! larger than a conversation will take. The biggest files above are"
               " the ones to trim or leave out.")
+    if steps:
+        print("\n  ! no PnL in this bundle — resolutions and the fills report are missing.")
+        print("    This export just wrote the fills it needs. Run, in order:")
+        for step in steps:
+            print(f"      {step}")
 
 
 DESCRIPTION = """# Polymarket / gg.bet collection extract
