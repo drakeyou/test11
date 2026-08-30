@@ -16,6 +16,7 @@
 // poison the data.
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { isEntryPoint } from '../entrypoint.mjs';
 import { classifyMarket } from './classify.mjs';
 import { loadConfig } from './config.mjs';
 import { parseCsvLine } from './ggbet-tail.mjs';
@@ -194,9 +195,17 @@ async function main() {
   const settled = store.settledCount;
   console.log(`\nwrote ${out}: ${store.size} markets, ${settled} settled`);
   console.log(`  fetched ${result.resolved}, skipped ${result.skipped} cached, ${result.failed} failed`);
+
+  // A wall of 403s writes a header and nothing else, and the analyser downstream
+  // then reports "0 outcome tokens resolved" as if the markets had no outcome.
+  // Say it here, where the status codes are.
+  if (result.attempted > 0 && result.resolved === 0) {
+    throw new Error(`every fetch failed (${result.failed}/${result.attempted})`
+      + ' — nothing was resolved; the errors above are the reason');
+  }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (isEntryPoint(import.meta.url)) {
   main().catch((err) => {
     console.error(`error: ${err.message}`);
     process.exit(1);

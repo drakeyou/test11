@@ -30,6 +30,16 @@ MODES = ("sold", "partial_won", "partial_lost", "held_won", "held_lost")
 STRATEGY_ENTRY = 0.05
 
 
+# export.py copies both files into export/; fall back to there rather than
+# making the caller copy them back out before running this.
+def _first_present(*paths):
+    return next((p for p in paths if os.path.exists(p)), paths[0])
+
+
+FILLS_DEFAULT = _first_present("target-fills.csv", "export/target-fills.csv")
+RESOLUTIONS_DEFAULT = _first_present("pm-resolutions.csv", "export/pm-resolutions.csv")
+
+
 def read_csv(path):
     if not os.path.exists(path):
         raise SystemExit(f"{path} not found")
@@ -46,6 +56,9 @@ def number(value, fallback=0.0):
 
 def load_resolutions(path):
     """token_id -> its outcome, and condition_id -> whether the market settled."""
+    if not os.path.exists(path):
+        raise SystemExit(f"{path} not found — create it first:\n"
+                         f"  node src/pm/resolve.mjs --from {FILLS_DEFAULT} --out {path}")
     by_token = {}
     settled = {}
     for row in read_csv(path):
@@ -146,11 +159,8 @@ def show(values, unit="", places=3):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    # export.py writes the fills into export/; fall back to there rather than
-    # making the caller copy the file into place first.
-    parser.add_argument("--fills", default="target-fills.csv"
-                        if os.path.exists("target-fills.csv") else "export/target-fills.csv")
-    parser.add_argument("--resolutions", default="pm-resolutions.csv")
+    parser.add_argument("--fills", default=FILLS_DEFAULT)
+    parser.add_argument("--resolutions", default=RESOLUTIONS_DEFAULT)
     parser.add_argument("--gaps-out", default="pm-position-gaps.csv")
     args = parser.parse_args()
 

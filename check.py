@@ -265,7 +265,9 @@ def main():
     parser.add_argument("--odds", default="odds-history.csv")
     parser.add_argument("--changes", default="changes.csv")
     parser.add_argument("--fills", default="export/target-fills.csv")
-    parser.add_argument("--resolutions", default="pm-resolutions.csv")
+    parser.add_argument("--resolutions",
+                        default="pm-resolutions.csv" if os.path.exists("pm-resolutions.csv")
+                        else "export/pm-resolutions.csv")
     parser.add_argument("--gaps", default="pm-position-gaps.csv")
     parser.add_argument("--bundle", default="export.zip")
     args = parser.parse_args()
