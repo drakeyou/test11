@@ -24,6 +24,10 @@ export const DEFAULTS = {
     itf: 'tennis',
     tennis: 'tennis',
     codmw: 'esports_call_of_duty',
+    // Setka Cup is table tennis and was the largest unmapped group in a real
+    // run: 3402 markets passed over for want of a prefix.
+    setka: 'table_tennis',
+    setkameua: 'table_tennis',
   },
   // Sports the wallets trade but the book logger does not subscribe to. Used
   // only to name a market after the fact: `disciplines` decides what gets

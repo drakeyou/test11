@@ -182,10 +182,33 @@ def check_sweeps(paths):
         return
     share = significant / logged
     say(OK, f"{logged} logged, {significant} significant ({share:.1%})")
+
+    # Per day, because the detector guards only apply to what was collected
+    # after them: a total mixes the two and hides whether they worked.
+    print(f"{' ' * 9}{'day':<12}{'logged':>10}{'significant':>13}{'per market-hour':>17}")
+    for path in paths:
+        day = os.path.basename(path)[3:13]
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            n = connection.execute("SELECT count(*) FROM sweeps").fetchone()[0]
+            sig = connection.execute(
+                "SELECT count(*) FROM sweeps WHERE bid_after IS NOT NULL"
+                " AND bid_before >= 0.05 AND size_consumed >= 100"
+                " AND bid_after < bid_before").fetchone()[0]
+            hours = connection.execute(
+                "SELECT count(*) FROM (SELECT DISTINCT asset_id, substr(ts,1,13)"
+                " FROM book WHERE trigger='heartbeat')").fetchone()[0]
+        except sqlite3.OperationalError:
+            connection.close()
+            continue
+        connection.close()
+        rate = f"{sig / hours:.2f}" if hours else "n/a"
+        print(f"{' ' * 9}{day:<12}{n:>10}{sig:>13}{rate:>17}")
+
     if significant > 20000:
         say(WARN, f"{significant} significant sweeps is not a count of events",
-            "most of this was collected before the detector guards; the thresholds "
-            "in pm.config.json need raising for the newer data")
+            "compare the per-day rate above: the detector guards only apply to days "
+            "collected after them, so a falling rate means they worked")
 
 
 def check_wallet(fills, resolutions, gaps_file):

@@ -12,7 +12,9 @@
     "wta": "tennis",
     "tennis": "tennis",
     "itf": "tennis",
-    "codmw": "esports_call_of_duty"
+    "codmw": "esports_call_of_duty",
+    "setka": "table_tennis",
+    "setkameua": "table_tennis"
   },
   "gamma": {
     "intervalSeconds": 45,
