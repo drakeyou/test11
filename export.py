@@ -38,6 +38,19 @@ SIGNIFICANT_SWEEPS = """
 """
 
 
+def dedupe(rows, key_index=0):
+    """Keep the newest row per key.
+
+    Registry tables live in every daily database, so reading a week of them
+    concatenates seven copies of the same market. Left alone that turned a
+    bundle meant to be tens of kilobytes into 25 MB.
+    """
+    seen = {}
+    for row in rows:
+        seen[row[key_index]] = row
+    return list(seen.values())
+
+
 def write_csv(path, header, rows):
     with open(path, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
@@ -141,7 +154,7 @@ def main():
     """)
     sizes["markets.csv"] = write_csv(os.path.join(args.out, "markets.csv"),
         list(markets[0].keys()) if markets else ["condition_id"],
-        [list(r) for r in markets])
+        dedupe([list(r) for r in markets]))
 
     wallets = target_wallets()
     if wallets:
@@ -155,13 +168,18 @@ def main():
         sizes["target-fills.csv"] = write_csv(os.path.join(args.out, "target-fills.csv"),
             list(fills[0].keys()) if fills else ["ts"], [list(r) for r in fills])
 
+    # Per asset per hour is one row per token per hour and runs to megabytes.
+    # What coverage is asked for is per sport per hour: how many tokens were
+    # watched, and how completely.
     coverage = query(paths, """
-        SELECT asset_id, substr(ts, 1, 13) AS hour, count(*) AS heartbeats,
-               min(best_bid) AS lowest_bid, max(best_bid) AS highest_bid
-        FROM book WHERE trigger = 'heartbeat' GROUP BY asset_id, hour ORDER BY hour
+        SELECT substr(b.ts, 1, 13) AS hour, coalesce(m.sport, '(unknown)') AS sport,
+               count(DISTINCT b.asset_id) AS assets, count(*) AS heartbeats,
+               min(b.best_bid) AS lowest_bid, max(b.best_bid) AS highest_bid
+        FROM book b LEFT JOIN markets m ON m.condition_id = b.condition_id
+        WHERE b.trigger = 'heartbeat' GROUP BY hour, sport ORDER BY hour
     """)
     sizes["coverage.csv"] = write_csv(os.path.join(args.out, "coverage.csv"),
-        ["asset_id", "hour", "heartbeats", "lowest_bid", "highest_bid"],
+        ["hour", "sport", "assets", "heartbeats", "lowest_bid", "highest_bid"],
         [list(r) for r in coverage])
 
     universe = query(paths, """
@@ -172,7 +190,7 @@ def main():
     sizes["universe.csv"] = write_csv(os.path.join(args.out, "universe.csv"),
         ["ts", "condition_id", "discovered_via", "subscribed", "unsubscribed_at",
          "reason_skipped", "question", "sport", "level", "kind"],
-        [list(r) for r in universe])
+        dedupe([list(r) for r in universe], key_index=1))
 
     gaps = query(paths, "SELECT started_at, ended_at, duration_ms, reason, assets_resubscribed FROM gaps ORDER BY started_at")
     sizes["gaps.csv"] = write_csv(os.path.join(args.out, "gaps.csv"),
@@ -189,11 +207,19 @@ def main():
                 handle.write(fills_report.stdout)
             sizes["fills-report.txt"] = "written"
 
-    for name in ("target-fills.csv", "pm-resolutions.csv", "pm-position-gaps.csv",
+    for name in ("pm-resolutions.csv", "pm-position-gaps.csv",
                  "mapping.csv", "pm.config.json"):
         if os.path.exists(name):
             shutil.copy(name, os.path.join(args.out, name))
             sizes[name] = "copied"
+
+    # The project root may hold an earlier, larger fills export — the one the
+    # resolutions were built from. It is not the same file as the one generated
+    # from this collection, so it travels under its own name instead of
+    # overwriting it.
+    if os.path.exists("target-fills.csv"):
+        shutil.copy("target-fills.csv", os.path.join(args.out, "target-fills-prior.csv"))
+        sizes["target-fills-prior.csv"] = "copied"
 
     rules = Counter(r["rule"] for r in sweeps)
     swept = [r["bid_after"] for r in sweeps if r["bid_after"] is not None]
@@ -211,8 +237,14 @@ def main():
 
     print(f"wrote {args.out}/ and {args.out}.zip")
     for name, count in sizes.items():
-        print(f"  {name:22} {count}")
-    print(f"  archive size          {os.path.getsize(f'{args.out}.zip') / 1024:.0f} KB")
+        path = os.path.join(args.out, name)
+        size = f"{os.path.getsize(path) / 1024:.0f} KB" if os.path.exists(path) else ""
+        print(f"  {name:22} {str(count):>8}  {size}")
+    archive_kb = os.path.getsize(f"{args.out}.zip") / 1024
+    print(f"  archive               {archive_kb:.0f} KB")
+    if archive_kb > 5000:
+        print("  ! larger than a conversation will take. The biggest files above are"
+              " the ones to trim or leave out.")
 
 
 DESCRIPTION = """# Polymarket / gg.bet collection extract
@@ -229,11 +261,13 @@ extract keeps what analysis needs and drops the bulk.
 | `report.txt` | output of `analyze.py`, the four headline questions |
 | `sweeps.csv` | every detected book collapse, with its context ({sweeps} rows) |
 | `markets.csv` | market registry: question, discipline, level, kind, segment ({markets} rows) |
-| `target-fills.csv` | fills by the wallets under study, tagged maker or taker |
+| `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
+| `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
 | `coverage.csv` | heartbeats per asset per hour ({coverage_hours} rows) |
 | `gaps.csv` | websocket disconnects ({gaps} rows) |
 | `universe.csv` | every market considered, and why it was or was not subscribed |
-| `target-fills.csv` | fills by the wallets under study, tagged maker or taker |
+| `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
+| `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
 | `pm-resolutions.csv` | which outcome won each market, and its metadata |
 | `fills-report.txt` | position-level PnL: cost, revenue and exit mode per position |
 | `pm-position-gaps.csv` | positions whose trade history is incomplete |
