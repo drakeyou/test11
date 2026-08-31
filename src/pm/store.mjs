@@ -9,7 +9,7 @@
 // opening only the files it needs.
 
 import { DatabaseSync } from 'node:sqlite';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SCHEMA = `
@@ -142,6 +142,73 @@ const COLUMN_ADDITIONS = {
 };
 
 export const utcDay = (date = new Date()) => date.toISOString().slice(0, 10);
+
+/**
+ * Markets still worth scheduling, read back from the daily files.
+ *
+ * The subscription window is held in memory, and a market is only visible to
+ * discovery for about an hour after it is created — 11 to 15 hours before its
+ * game. So a restart in between would drop every match scheduled for the rest
+ * of the day and never see it again: Gamma has moved on, and nothing would say
+ * anything was lost. The registry already holds everything needed to rebuild
+ * the record, so it is read back at startup.
+ *
+ * @param {string} dir  the daily-database directory
+ * @param {object} [options]
+ * @param {number} [options.lookbackHours]  how far back a game may have started
+ * @param {number} [options.files]  how many recent daily files to read
+ * @returns {object[]} classified-market records, as the schedule expects them
+ */
+export function restoreSchedulableMarkets(dir, { lookbackHours = 12, files = 3, now = Date.now() } = {}) {
+  let names;
+  try {
+    names = readdirSync(dir).filter((name) => /^pm-\d{4}-\d{2}-\d{2}\.sqlite$/.test(name)).sort();
+  } catch {
+    return [];
+  }
+
+  const since = new Date(now - lookbackHours * 3600 * 1000).toISOString();
+  const byCondition = new Map();
+  for (const name of names.slice(-files)) {
+    let db;
+    try {
+      db = new DatabaseSync(join(dir, name), { readOnly: true });
+      const rows = db.prepare(`
+        SELECT * FROM markets
+        WHERE game_start_time IS NOT NULL AND game_start_time > ?
+          AND unsubscribed_at IS NULL
+      `).all(since);
+      // Later files win: they carry the newest view of the same market.
+      for (const row of rows) byCondition.set(row.condition_id, row);
+    } catch {
+      // A file from before these columns existed has nothing to restore.
+    } finally {
+      db?.close();
+    }
+  }
+
+  return [...byCondition.values()].map((row) => ({
+    conditionId: row.condition_id,
+    tokens: [row.asset_id_a, row.asset_id_b].filter(Boolean),
+    question: row.question ?? '',
+    slug: row.slug,
+    eventSlug: row.event_slug,
+    eventTitle: row.event_title,
+    sport: row.sport,
+    level: row.level,
+    kind: row.kind,
+    segmentKind: row.segment_kind,
+    segmentNo: row.segment_no,
+    line: row.line,
+    teams: row.team_a || row.team_b ? [row.team_a, row.team_b] : null,
+    outcomes: [row.outcome_a, row.outcome_b].filter((value) => value !== null),
+    endDate: row.end_date,
+    gameStartTime: row.game_start_time,
+    tickSize: row.tick_size ?? 0.001,
+    minSize: row.min_size ?? 0,
+    enableOrderBook: true,
+  })).filter((record) => record.tokens.length === 2);
+}
 
 export class Store {
   #dir;

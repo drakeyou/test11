@@ -17,7 +17,7 @@ import { MarketSchedule } from './schedule.mjs';
 import { FollowupTracker, sweepIdOf } from './followups.mjs';
 import { BookState, SweepDetector } from './book.mjs';
 import { BookFeed } from './ws.mjs';
-import { Store } from './store.mjs';
+import { Store, restoreSchedulableMarkets } from './store.mjs';
 import { GgbetTail } from './ggbet-tail.mjs';
 import { MappingTable } from './mapping.mjs';
 import { buildLinks, joinedRow, quoteFor } from './link.mjs';
@@ -312,6 +312,18 @@ async function checkResolutions() {
       console.error(`[resolve] ${entry.conditionId.slice(0, 12)}: ${err.message}`);
     }
   }
+}
+
+// Pick the schedule back up before asking Gamma anything. A market is only in
+// Gamma's page for about an hour after it is created, and its game is 11 to 15
+// hours later, so without this a restart drops the rest of the day's matches
+// and never sees them again.
+const restored = restoreSchedulableMarkets(config.storage.dir, {
+  lookbackHours: Math.max(...Object.values(config.schedule?.holdHours ?? { default: 6 })) + 1,
+});
+if (restored.length) {
+  const { scheduled } = schedule.observe(restored);
+  console.error(`[schedule] restored ${scheduled.length} markets from earlier runs`);
 }
 
 // A network that is down at startup — a closed laptop, a dropped connection —

@@ -5,7 +5,7 @@ import { mkdtempSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
-import { Store, utcDay } from './store.mjs';
+import { Store, restoreSchedulableMarkets, utcDay } from './store.mjs';
 
 const dir = mkdtempSync(join(tmpdir(), 'pm-store-'));
 
@@ -164,6 +164,39 @@ try {
   assert.equal(carried.observed_during_game, 1, 'the added column is usable');
   assert.equal(carried.question, 'Map 1 Winner', 'the old rows are left alone');
   migrated.close();
+
+  // The schedule lives in memory, and a market is visible to discovery for
+  // about an hour, 11 to 15 hours before its game. A restart in between would
+  // drop the rest of the day's matches with nothing to say so, unless the
+  // registry can be read back.
+  const restoreDir = join(dir, 'restore');
+  const clock2 = new Date('2026-08-26T09:00:00Z');
+  const restoring = new Store(restoreDir, { flushMs: 1_000_000, now: () => clock2 });
+  const market = (id, gameStart, released = null) => [{
+    conditionId: id, tokens: [`${id}-a`, `${id}-b`], question: 'Map 1 Winner: A vs B',
+    slug: id, eventSlug: 'cs2-a-b', eventTitle: 'A vs B', sport: 'esports_counter_strike',
+    level: 'segment', kind: 'winner', segmentKind: 'map', segmentNo: 1, line: null,
+    teams: ['A', 'B'], outcomes: ['A', 'B'], endDate: '2026-08-26T22:00:00Z',
+    tickSize: 0.01, minSize: 5,
+  }, '2026-08-26T09:00:00Z', {
+    gameStart: Date.parse(gameStart), subscribedAt: null,
+    releasedAt: released, releaseReason: released ? 'resolved' : null,
+    observedDuringGame: false,
+  }];
+  restoring.upsertMarket(...market('later', '2026-08-26T20:00:00Z'));
+  restoring.upsertMarket(...market('done', '2026-08-26T20:00:00Z', '2026-08-26T08:00:00Z'));
+  restoring.upsertMarket(...market('yesterday', '2026-08-25T20:00:00Z'));
+  restoring.close();
+
+  const back = restoreSchedulableMarkets(restoreDir, { now: clock2.getTime() });
+  assert.deepEqual(back.map((r) => r.conditionId), ['later'],
+    'a match still to come is restored; a released one and a finished one are not');
+  assert.deepEqual(back[0].tokens, ['later-a', 'later-b'], 'both tokens come back');
+  assert.equal(back[0].gameStartTime, '2026-08-26T20:00:00.000Z');
+  assert.equal(back[0].sport, 'esports_counter_strike');
+  assert.deepEqual(back[0].teams, ['A', 'B']);
+  assert.deepEqual(restoreSchedulableMarkets(join(dir, 'nothing-here')), [],
+    'a directory with no databases restores nothing rather than throwing');
 
   console.log('all store tests passed');
 } finally {
