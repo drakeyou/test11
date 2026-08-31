@@ -215,13 +215,26 @@ def main():
 
     # The wallet side of the study: outcomes, the PnL report built from them,
     # and the positions whose history is incomplete.
-    if os.path.exists("target-fills.csv"):
-        fills_report = subprocess.run([sys.executable, "analyze_fills.py"],
-                                      stdout=subprocess.PIPE, text=True)
-        if fills_report.stdout:
+    #
+    # The fills to report on are the ones this export just wrote. A project root
+    # may also hold an earlier, larger export; that one wins, because it is what
+    # the resolutions were built from. Looking only at the root file — as this
+    # did — left the report out of every bundle on a machine that never had one.
+    fills_path = os.path.join(args.out, "target-fills.csv")
+    for_report = next((p for p in ("target-fills.csv", fills_path) if os.path.exists(p)), None)
+    report_error = None
+    if for_report:
+        fills_report = subprocess.run(
+            [sys.executable, "analyze_fills.py", "--fills", for_report],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if fills_report.returncode == 0 and fills_report.stdout:
             with open(os.path.join(args.out, "fills-report.txt"), "w", encoding="utf-8") as handle:
                 handle.write(fills_report.stdout)
             sizes["fills-report.txt"] = "written"
+        else:
+            # Its own message says what is missing; swallowing it here is how the
+            # bundle ends up short with no explanation.
+            report_error = (fills_report.stderr or fills_report.stdout).strip()
 
     for name in ("pm-resolutions.csv", "pm-position-gaps.csv",
                  "mapping.csv", "pm.config.json"):
@@ -249,12 +262,14 @@ def main():
 
     # The wallet half of the bundle depends on files produced by other steps.
     # Leaving them out quietly is how an incomplete archive gets sent.
-    fills_path = os.path.join(args.out, "target-fills.csv")
     steps = []
+    missing = []
     if not os.path.exists("pm-resolutions.csv"):
+        missing.append("the market outcomes")
         steps.append(f"node src/pm/resolve.mjs --from {fills_path}")
     if not os.path.exists(os.path.join(args.out, "fills-report.txt")):
-        steps.append(f"python3 analyze_fills.py --fills {fills_path}")
+        missing.append("the position report")
+        steps.append(f"python3 analyze_fills.py --fills {for_report or fills_path}")
     if steps:
         steps.append(f"python3 export.py --db {args.db}")
 
@@ -273,7 +288,11 @@ def main():
         print("  ! larger than a conversation will take. The biggest files above are"
               " the ones to trim or leave out.")
     if steps:
-        print("\n  ! no PnL in this bundle — resolutions and the fills report are missing.")
+        absent = " and ".join(missing)
+        print(f"\n  ! no PnL in this bundle — {absent} "
+              f"{'are' if len(missing) > 1 else 'is'} missing.")
+        if report_error:
+            print("    " + report_error.replace("\n", "\n    "))
         print("    This export just wrote the fills it needs. Run, in order:")
         for step in steps:
             print(f"      {step}")
