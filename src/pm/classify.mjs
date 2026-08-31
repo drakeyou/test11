@@ -90,6 +90,10 @@ export function classifyMarket(market, disciplines = {}) {
     eventTitle: event.title ?? null,
     endDate: market.endDate ?? null,
     startDate: market.startDate ?? null,
+    // When play actually starts. `startDate` is when the market opened for
+    // orders and `endDate` is a resolution deadline; neither dates the match,
+    // and the subscription window is built on this one.
+    gameStartTime: market.gameStartTime ?? market.game_start_time ?? null,
     prefix,
     sport: (prefix && disciplines[prefix]) ?? null,
     level: segment ? 'segment' : 'match',

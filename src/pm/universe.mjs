@@ -16,15 +16,22 @@ export class UniverseJournal {
 
   /**
    * Note every market a discovery round considered.
+   *
+   * A row is written once and never rewritten except for its release, so the
+   * reason has to be final when it is first recorded. Classification is only
+   * half of it: a market of the right discipline that cannot be dated is not
+   * watched either, and `alsoSkipped` is how the scheduler says so.
+   *
    * @param {object[]} records  classified markets, tracked or not
    * @param {string} discoveredVia  which query surfaced them
+   * @param {(record: object) => string|null} [alsoSkipped]  a further reason
    * @returns {object[]} rows for markets seen for the first time
    */
-  observe(records, discoveredVia = 'gamma:startDate') {
+  observe(records, discoveredVia = 'gamma:startDate', alsoSkipped = null) {
     const fresh = [];
     for (const record of records) {
       if (this.#seen.has(record.conditionId)) continue;
-      const reason = skipReason(record);
+      const reason = skipReason(record) ?? (alsoSkipped ? alsoSkipped(record) : null);
       const row = {
         ts: new Date().toISOString(),
         conditionId: record.conditionId,

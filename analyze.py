@@ -10,6 +10,7 @@ dependencies and neither does this.
 """
 
 import argparse
+import datetime
 import glob
 import json
 import os
@@ -57,6 +58,97 @@ def query(paths, sql, params=()):
         except sqlite3.OperationalError as error:
             print(f"  ! {os.path.basename(path)}: {error}")
     return rows
+
+
+_WITH_TABLE = {}
+
+
+def with_table(paths, table):
+    """The subset of databases that actually has this table.
+
+    Tables were added as the collector grew, so a week of daily files is not a
+    week of the same schema. Asking anyway works — query() catches it — but the
+    complaint would be printed once per sweep per file.
+    """
+    key = (tuple(paths), table)
+    if key not in _WITH_TABLE:
+        keep = []
+        for path in paths:
+            found = connect(path).execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name = ?",
+                (table,)).fetchone()
+            if found:
+                keep.append(path)
+        _WITH_TABLE[key] = keep
+    return _WITH_TABLE[key]
+
+
+def newest(rows, column="ts"):
+    """The latest of rows gathered from several daily files.
+
+    query() runs the statement against every database and concatenates the
+    results, so a "ORDER BY ts DESC LIMIT 1" comes back once per file and
+    rows[0] is the newest row of the OLDEST file. For a sweep on the last day
+    of a collection that is a snapshot from days earlier, silently.
+    """
+    best = None
+    for row in rows:
+        if row[column] is None:
+            continue
+        if best is None or row[column] > best[column]:
+            best = row
+    return best
+
+
+def highest(rows, column="high"):
+    """The maximum across per-file aggregates, for the same reason as newest()."""
+    values = [row[column] for row in rows if row[column] is not None]
+    return max(values) if values else None
+
+
+def iso_shift(ts, minutes):
+    """Move a stored timestamp by minutes, in the format it is stored in.
+
+    SQLite's datetime(ts, '+5 minutes') answers "2026-08-29 20:20:03": a space
+    where the stored value has a T, and no milliseconds and no Z. The comparison
+    is between strings, and "T" sorts above " ", so `ts <= datetime(...)` was
+    false for every row ever written. That is why high_1m, high_5m and high_15m
+    came out empty in all five thousand exported sweeps, and why the payoff
+    section of the report had nothing in it.
+    """
+    stamp = datetime.datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    moved = stamp + datetime.timedelta(minutes=minutes)
+    return moved.strftime("%Y-%m-%dT%H:%M:%S.") + f"{moved.microsecond // 1000:03d}Z"
+
+
+def highs_after(paths, asset_id, ts, horizons=(1, 5, 15), sweep_id=None):
+    """Highest best bid within each horizon after a sweep.
+
+    Prefers what the collector recorded live in sweep_followups, which knows
+    something this query cannot: a market that resolved before the horizon was
+    up is worth its payout, not a missing measurement. Falls back to the book
+    itself, so collections made before that table existed still answer.
+
+    @returns {minutes: (high, resolved_before_horizon)}
+    """
+    recorded = {}
+    if sweep_id:
+        for row in query(with_table(paths, "sweep_followups"),
+                         "SELECT horizon, high_bid, resolved_before_horizon"
+                         " FROM sweep_followups WHERE sweep_id = ?", (sweep_id,)):
+            recorded[row["horizon"]] = (row["high_bid"], row["resolved_before_horizon"])
+
+    out = {}
+    for minutes in horizons:
+        if minutes in recorded:
+            out[minutes] = recorded[minutes]
+            continue
+        best = query(paths, """
+            SELECT max(best_bid) AS high FROM book
+            WHERE asset_id = ? AND ts > ? AND ts <= ?
+        """, (asset_id, ts, iso_shift(ts, minutes)))
+        out[minutes] = (highest(best), 0)
+    return out
 
 
 def ensure_indexes(paths, quiet=False):
@@ -190,28 +282,32 @@ def payoff_matrix(paths, sweep_rows, horizons=(1, 5, 15)):
     for sweep in sweep_rows:
         if sweep["bid_after"] is None or sweep["bid_after"] > 0.05:
             continue
-        before = query(paths, """
-            SELECT ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote
-            FROM joined WHERE asset_id = ? AND ts <= ?
-            ORDER BY ts DESC LIMIT 1
-        """, (sweep["asset_id"], sweep["ts"]))
-        if not before or before[0]["ggbet_fair"] is None:
-            continue
-        fair = before[0]["ggbet_fair"]
-        ratio = before[0]["dislocation_ratio"]
+        # Priced on the sweep row itself where the collector had a quote in
+        # hand; the lookup below is for collections made before it did.
+        row = dict(sweep)
+        fair = row.get("ggbet_fair")
+        ratio = row.get("dislocation_ratio")
+        stale = row.get("seconds_since_ggbet_quote")
+        if fair is None:
+            before = newest(query(paths, """
+                SELECT ts, ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote
+                FROM joined WHERE asset_id = ? AND ts <= ?
+                ORDER BY ts DESC LIMIT 1
+            """, (sweep["asset_id"], sweep["ts"])))
+            if not before or before["ggbet_fair"] is None:
+                continue
+            fair = before["ggbet_fair"]
+            ratio = before["dislocation_ratio"]
+            stale = before["seconds_since_ggbet_quote"]
 
-        highs = {}
-        for minutes in horizons:
-            best = query(paths, """
-                SELECT max(best_bid) AS high FROM book
-                WHERE asset_id = ? AND ts > ? AND ts <= datetime(?, ?)
-            """, (sweep["asset_id"], sweep["ts"], sweep["ts"], f"+{minutes} minutes"))
-            highs[minutes] = best[0]["high"] if best else None
+        highs = {minutes: high for minutes, (high, _) in highs_after(
+            paths, sweep["asset_id"], sweep["ts"], horizons,
+            dict(sweep).get("sweep_id")).items()}
 
         rows.append({
             "asset_id": sweep["asset_id"], "ts": sweep["ts"], "fair": fair,
             "ratio": ratio, "entry": sweep["bid_after"],
-            "stale": before[0]["seconds_since_ggbet_quote"], "highs": highs,
+            "stale": stale, "highs": highs,
         })
         fair_bucket = min(int(fair * 10) / 10, 0.9)
         ratio_bucket = "<5" if (ratio or 0) < 5 else "5-15" if ratio < 15 else "15+"

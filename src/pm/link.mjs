@@ -42,6 +42,8 @@ export function buildLinks({ markets, ggbetMarkets, mapping, minConfidence = 0.7
         pmSegment: record.segmentNo ? `${record.segmentKind}${record.segmentNo}` : '',
         ggbetSegment: found.market,
         confidence,
+        pmLevel: record.level,
+        pmKind: record.kind,
       });
     }
 
@@ -64,6 +66,35 @@ export function buildLinks({ markets, ggbetMarkets, mapping, minConfidence = 0.7
 }
 
 /**
+ * The gg.bet side of one token, at one instant.
+ *
+ * Shared by the joined table and the sweep row so the two cannot drift. The
+ * sweep needs it inline: pricing a sweep from the joined table afterwards found
+ * a quote for one sweep in five thousand, because the nearest joined row for
+ * that asset is only written when the book moves and the two rarely coincide.
+ *
+ * @param {object} link  from buildLinks
+ * @param {object} ggbet  the gg.bet market it is linked to
+ * @param {number|null} mid  the Polymarket mid to compare against
+ * @param {number} now  epoch ms, for quote staleness
+ */
+export function quoteFor(link, ggbet, mid, now = Date.now()) {
+  const fair = !ggbet || ggbet.fair === null || ggbet.fair === undefined
+    ? null
+    : link.complement ? 1 - ggbet.fair : ggbet.fair;
+  return {
+    fair,
+    // The metric the study exists to measure. Undefined without both sides.
+    ratio: fair !== null && mid ? fair / mid : null,
+    // gg.bet writes only on a price change, so the age of its newest row is the
+    // age of this fair value. Without it there is no telling whether a
+    // dislocation is real or just a quote that stopped updating.
+    secondsSinceQuote: ggbet?.updatedAt ? (now - ggbet.updatedAt) / 1000 : null,
+    state: ggbet ? (ggbet.active ? 'active' : 'suspended') : null,
+  };
+}
+
+/**
  * One row for the `joined` table.
  * @param {string} ts  ISO timestamp
  * @param {object} link  from buildLinks
@@ -75,18 +106,11 @@ export function joinedRow(ts, link, book, ggbet, now = Date.now()) {
   const bid = book.bestBid;
   const ask = book.bestAsk;
   const mid = bid !== null && ask !== null ? (bid + ask) / 2 : null;
-  const fair = ggbet.fair === null || ggbet.fair === undefined
-    ? null
-    : link.complement ? 1 - ggbet.fair : ggbet.fair;
+  const quote = quoteFor(link, ggbet, mid, now);
 
   return [
     ts, link.conditionId, link.assetId, bid, ask, mid,
-    fair, ggbet.active ? 'active' : 'suspended', ggbet.score, ggbet.segmentScore,
-    // The metric the study exists to measure. Undefined without both sides.
-    fair !== null && mid ? fair / mid : null,
-    // gg.bet writes only on a price change, so the age of its newest row is the
-    // age of this fair value. Without it there is no telling whether a
-    // dislocation is real or just a quote that stopped updating.
-    ggbet.updatedAt ? (now - ggbet.updatedAt) / 1000 : null,
+    quote.fair, quote.state, ggbet.score, ggbet.segmentScore,
+    quote.ratio, quote.secondsSinceQuote,
   ];
 }

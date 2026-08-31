@@ -21,19 +21,22 @@ export const DEFAULTS = {
     r6: 'esports_rainbow_six',
     atp: 'tennis',
     wta: 'tennis',
-    itf: 'tennis',
     tennis: 'tennis',
     codmw: 'esports_call_of_duty',
-    // Setka Cup is table tennis and was the largest unmapped group in a real
-    // run: 3402 markets passed over for want of a prefix.
-    setka: 'table_tennis',
-    setkameua: 'table_tennis',
   },
   // Sports the wallets trade but the book logger does not subscribe to. Used
   // only to name a market after the fact: `disciplines` decides what gets
   // watched, `labels` decides what can be labelled, and conflating them would
   // silently widen the subscription universe.
   labels: {
+    // Watched until the subscription window moved onto the match clock. ITF and
+    // Setka Cup are created in batches of a thousand at a time and are played
+    // around the clock, so watching every one of them through its match was
+    // eight times the book volume of the whole collection so far. They stay
+    // here so a wallet trade in one still gets a name.
+    itf: 'tennis',
+    setka: 'table_tennis',
+    setkameua: 'table_tennis',
     mlb: 'baseball',
     nba: 'basketball',
     nfl: 'american_football',
@@ -51,6 +54,38 @@ export const DEFAULTS = {
     doge: 'crypto',
   },
   gamma: { intervalSeconds: 45, pageSize: 100, maxPages: 12 },
+  // The subscription window, which is the match clock and nothing else. See
+  // schedule.mjs for why end_date takes no part in it: it is a resolution
+  // deadline set six hours out for CS2 and a week out for tennis.
+  schedule: {
+    // Enough lead to have the book before the first point is played.
+    leadMinutes: 10,
+    tickSeconds: 10,
+    // How long after the start a match can still be running, per gg.bet
+    // sportId. A BO5 Dota series runs longer than a CS2 one.
+    holdHours: {
+      esports_counter_strike: 6,
+      esports_dota_2: 8,
+      esports_league_of_legends: 6,
+      esports_valorant: 6,
+      esports_rainbow_six: 6,
+      esports_call_of_duty: 6,
+      tennis: 5,
+      table_tennis: 2,
+      default: 6,
+    },
+    // Markets dated only through the resolution deadline are scheduled no
+    // further ahead than this; beyond it the deadline is not about this match.
+    maxAheadHours: 72,
+    // Resolution is what really ends a subscription; the hold above is the
+    // backstop. Asking costs one CLOB request per market, so it starts only
+    // once the match could plausibly be over.
+    resolutionCheckMinutes: 15,
+    resolutionCheckAfterMinutes: 45,
+    resolutionsPerCycle: 20,
+  },
+  // Horizons, in minutes, over which the best bid after a sweep is followed.
+  followups: { horizons: [1, 5, 15] },
   book: { heartbeatSeconds: 5, reconnectMinMs: 1000, reconnectMaxMs: 60000 },
   // The tick is per-market, not a constant: of the esports markets sampled, 58
   // run at 0.01 and 7 at 0.001. So the bid-drop rule is expressed in ticks of

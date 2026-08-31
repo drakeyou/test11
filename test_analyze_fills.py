@@ -91,4 +91,43 @@ p = summarize("tok1", [fill("BUY", 0.02, 1000, "2026-08-25T12:00:00Z"),
                        fill("SELL", 0.08, 1000.0005, "2026-08-25T12:02:00Z")], LOST)
 check("rounding tolerated", p["complete"])
 
+# --- incomplete history ----------------------------------------------------
+# The real case: a Dota position sold 3487.6 shares against 2615.7 seen bought,
+# because the buys happened before the collection started. Taking the sale at
+# face value credited it with revenue on shares it never held, and the position
+# being dropped from the report instead is what put the headline PnL $1022 below
+# a hand recount. Now the sale counts only up to what was bought.
+p = summarize("tok1", [fill("BUY", 0.02, 1000, "2026-08-25T12:00:00Z"),
+                       fill("SELL", 0.10, 800, "2026-08-25T12:05:00Z"),
+                       fill("SELL", 0.10, 700, "2026-08-25T12:06:00Z")], LOST)
+check("oversold is flagged", p["incomplete"] == 1 and not p["complete"])
+check("oversold reason", p["reason"] == "sells exceed buys")
+check("sold volume is capped at bought", abs(p["sold_size"] - 1000.0) < 1e-9)
+check("proceeds stop at the cap", abs(p["proceeds"] - 100.0) < 1e-9)
+check("nothing is left to redeem", p["remaining"] == 0.0)
+check("oversold revenue", abs(p["revenue"] - 100.0) < 1e-9)
+
+# The sells are taken in time order, not prorated: the earliest ones are the
+# ones the recorded buys could have supplied.
+p = summarize("tok1", [fill("BUY", 0.02, 100, "2026-08-25T12:00:00Z"),
+                       fill("SELL", 0.50, 60, "2026-08-25T12:05:00Z"),
+                       fill("SELL", 0.10, 90, "2026-08-25T12:06:00Z")], LOST)
+check("FIFO proceeds", abs(p["proceeds"] - (60 * 0.50 + 40 * 0.10)) < 1e-9)
+
+# A complete position is untouched by any of this.
+p = summarize("tok1", [fill("BUY", 0.02, 1000, "2026-08-25T12:00:00Z"),
+                       fill("SELL", 0.08, 400, "2026-08-25T12:02:00Z")], WON)
+check("partial is complete", p["complete"] and p["incomplete"] == 0)
+check("partial sold size", abs(p["sold_size"] - 400.0) < 1e-9)
+check("partial revenue", abs(p["revenue"] - (32.0 + 600.0)) < 1e-9)
+
+# The payout comes from the resolution rather than an assumed dollar, so a
+# market that settles at a fraction is not read as a full redemption.
+p = summarize("tok1", [fill("BUY", 0.02, 1000, "2026-08-25T12:00:00Z")],
+              {**WON, "payout_price": "0.5"})
+check("payout follows the resolution", abs(p["payout"] - 500.0) < 1e-9)
+p = summarize("tok1", [fill("BUY", 0.02, 1000, "2026-08-25T12:00:00Z")],
+              {**WON, "payout_price": ""})
+check("a missing payout price still redeems at a dollar", abs(p["payout"] - 1000.0) < 1e-9)
+
 print("all position accounting tests passed")

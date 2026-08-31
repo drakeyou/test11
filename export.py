@@ -12,15 +12,17 @@ what each market was. That comes to a fraction of a megabyte.
 
 import argparse
 import csv
+import datetime
 import os
 import shutil
 import statistics
 import subprocess
 import sys
 import zipfile
-from collections import Counter
+from collections import Counter, defaultdict
 
-from analyze import databases, query, target_wallets
+from analyze import (databases, highs_after, iso_shift, newest, query,
+                     target_wallets, with_table)
 
 CONTEXT_MINUTES = (1, 5, 15)
 
@@ -36,6 +38,52 @@ SIGNIFICANT_SWEEPS = """
       AND s.bid_after < s.bid_before
     ORDER BY s.ts
 """
+
+
+def stratify(sweeps, cap):
+    """A sample with equal quotas per day, instead of the newest N.
+
+    Taking the tail of a run ordered by time gave five thousand sweeps that were
+    all from the last day, in a bundle described as "the most recent 5000 of
+    117616". Any frequency computed from the length of that file is wrong, and
+    nothing in the file said so.
+
+    Days that hold fewer sweeps than their quota give the remainder back to the
+    others, and within a day the sample is spread evenly rather than taken from
+    one end, so the hours of the day survive too.
+
+    @returns (sample, strata) where strata is [day, significant, exported]
+    """
+    by_day = defaultdict(list)
+    for sweep in sweeps:
+        by_day[str(sweep["ts"])[:10]].append(sweep)
+    days = sorted(by_day)
+    if not days:
+        return [], []
+    if len(sweeps) <= cap:
+        return sweeps, [[day, len(by_day[day]), len(by_day[day])] for day in days]
+
+    sample = []
+    strata = []
+    left = cap
+    # Smallest days first: a day that cannot fill its quota releases the rest.
+    for index, day in enumerate(sorted(days, key=lambda d: len(by_day[d]))):
+        quota = left // (len(days) - index)
+        rows = by_day[day]
+        take = min(len(rows), quota)
+        if take >= len(rows):
+            picked = rows
+        elif take == 1:
+            picked = [rows[len(rows) // 2]]
+        else:
+            step = (len(rows) - 1) / (take - 1)
+            picked = [rows[round(i * step)] for i in range(take)]
+        sample.extend(picked)
+        strata.append([day, len(rows), len(picked)])
+        left -= len(picked)
+    sample.sort(key=lambda row: row["ts"])
+    strata.sort()
+    return sample, strata
 
 
 def dedupe(rows, key_index=0):
@@ -59,30 +107,147 @@ def write_csv(path, header, rows):
     return len(rows)
 
 
-def sweep_context(paths, sweeps):
+def gap_seconds_by_hour(gaps):
+    """Split each disconnect across the hours it covers.
+
+    A gap is recorded as one row with a start and an end, but coverage is read
+    per hour, and a gap that straddles the hour belongs to both.
+    """
+    blind = defaultdict(float)
+    for gap in gaps:
+        try:
+            started = datetime.datetime.fromisoformat(
+                str(gap["started_at"]).replace("Z", "+00:00"))
+        except (ValueError, TypeError):
+            continue
+        remaining = (gap["duration_ms"] or 0) / 1000.0
+        at = started
+        while remaining > 0:
+            hour_end = (at + datetime.timedelta(hours=1)).replace(
+                minute=0, second=0, microsecond=0)
+            slice_seconds = min(remaining, (hour_end - at).total_seconds())
+            blind[at.strftime("%Y-%m-%dT%H")] += slice_seconds
+            remaining -= slice_seconds
+            at = hour_end
+    return blind
+
+
+def has_column(paths, table, column):
+    """Databases whose table carries this column.
+
+    Columns were added as the collector grew; a week of daily files is not a
+    week of the same schema.
+    """
+    keep = []
+    for path in with_table(paths, table):
+        names = {row["name"] for row in query([path], f"PRAGMA table_info({table})")}
+        if column in names:
+            keep.append(path)
+    return keep
+
+
+def game_starts(paths, resolutions_path="pm-resolutions.csv"):
+    """condition_id -> when the match started.
+
+    Read from the registry where the collector recorded it, and from the
+    resolution file otherwise, which is what makes the field answerable for
+    collections made before the registry carried it.
+    """
+    starts = {}
+    for row in query(has_column(paths, "markets", "game_start_time"),
+                     "SELECT condition_id, game_start_time FROM markets"
+                     " WHERE game_start_time IS NOT NULL"):
+        starts[row["condition_id"]] = row["game_start_time"]
+    if os.path.exists(resolutions_path):
+        with open(resolutions_path, newline="", encoding="utf-8") as handle:
+            for row in csv.DictReader(handle):
+                start = (row.get("game_start_time") or "").strip()
+                if start and row.get("condition_id"):
+                    starts.setdefault(row["condition_id"], start)
+    return starts
+
+
+def resolution_labels(path="pm-resolutions.csv"):
+    """condition_id -> what the market was, from the resolution file.
+
+    The registry only holds markets the collector subscribed to, and the wallets
+    trade in disciplines it never watches, so joining fills against it alone
+    left level and kind empty in 2195 rows out of 2200. The resolver classifies
+    every market it fetches, which is exactly the gap.
+    """
+    labels = {}
+    if not os.path.exists(path):
+        return labels
+    with open(path, newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            key = row.get("condition_id")
+            if not key or key in labels:
+                continue
+            labels[key] = {
+                "question": row.get("question") or None,
+                "sport": row.get("sport") or None,
+                "market_level": row.get("market_level") or None,
+                "kind": row.get("kind") or None,
+                "segment_no": row.get("segment_no") or None,
+            }
+    return labels
+
+
+def minutes_from(start, ts):
+    """Minutes from the match start to an event, negative before the first point."""
+    if not start or not ts:
+        return None
+    try:
+        began = datetime.datetime.fromisoformat(
+            str(start).strip().replace(" ", "T").replace("Z", "+00:00"))
+        at = datetime.datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if began.tzinfo is None:
+        began = began.replace(tzinfo=datetime.timezone.utc)
+    if at.tzinfo is None:
+        at = at.replace(tzinfo=datetime.timezone.utc)
+    return round((at - began).total_seconds() / 60, 2)
+
+
+def sweep_context(paths, sweeps, starts=None):
     """Every sweep, with what the book and gg.bet said around it."""
+    starts = starts if starts is not None else {}
     rows = []
     for sweep in sweeps:
-        prior = query(paths, """
-            SELECT best_bid, size_at_001, size_at_002, size_at_003, size_at_005,
+        # newest() across files, not rows[0]: query() asks every daily database
+        # and returns one "latest row" per file, so the first of them is the
+        # newest row of the oldest day — days away from the sweep being priced.
+        prior = newest(query(paths, """
+            SELECT ts, best_bid, size_at_001, size_at_002, size_at_003, size_at_005,
                    depth_bid_total, n_bid_levels
             FROM book WHERE asset_id = ? AND ts < ? ORDER BY ts DESC LIMIT 1
-        """, (sweep["asset_id"], sweep["ts"]))
-        fair = query(paths, """
-            SELECT ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote, ggbet_market_state
+        """, (sweep["asset_id"], sweep["ts"])))
+        fair = newest(query(paths, """
+            SELECT ts, ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote,
+                   ggbet_market_state
             FROM joined WHERE asset_id = ? AND ts <= ? ORDER BY ts DESC LIMIT 1
-        """, (sweep["asset_id"], sweep["ts"]))
-        highs = []
-        for minutes in CONTEXT_MINUTES:
-            best = query(paths, """
-                SELECT max(best_bid) AS high FROM book
-                WHERE asset_id = ? AND ts > ? AND ts <= datetime(?, ?)
-            """, (sweep["asset_id"], sweep["ts"], sweep["ts"], f"+{minutes} minutes"))
-            highs.append(best[0]["high"] if best else None)
-
+        """, (sweep["asset_id"], sweep["ts"])))
         # sqlite3.Row indexes like a tuple and a mapping but has no .get
-        before = dict(prior[0]) if prior else {}
-        quote = dict(fair[0]) if fair else {}
+        row = dict(sweep)
+        sweep_id = row.get("sweep_id")
+        followed = highs_after(paths, sweep["asset_id"], sweep["ts"],
+                               CONTEXT_MINUTES, sweep_id)
+        highs = [followed[minutes][0] for minutes in CONTEXT_MINUTES]
+        settled = [followed[minutes][1] for minutes in CONTEXT_MINUTES]
+
+        before = dict(prior) if prior else {}
+        # The collector prices the sweep as it happens, from the resident cache
+        # of gg.bet quotes. The lookup is the fallback for rows written before
+        # it did, where it finds a quote about one time in five thousand.
+        quote = dict(fair) if fair else {}
+        if row.get("ggbet_fair") is not None:
+            quote = {
+                "ggbet_fair": row.get("ggbet_fair"),
+                "dislocation_ratio": row.get("dislocation_ratio"),
+                "seconds_since_ggbet_quote": row.get("seconds_since_ggbet_quote"),
+                "ggbet_market_state": row.get("ggbet_market_state"),
+            }
         rows.append([
             sweep["ts"], sweep["asset_id"], sweep["condition_id"], sweep["rule"],
             sweep["bid_before"], sweep["bid_after"], sweep["size_consumed"],
@@ -94,6 +259,8 @@ def sweep_context(paths, sweeps):
             quote.get("seconds_since_ggbet_quote"), quote.get("ggbet_market_state"),
             *highs,
             sweep["sport"], sweep["market_level"], sweep["kind"], sweep["question"],
+            sweep_id, *settled,
+            minutes_from(starts.get(sweep["condition_id"]), sweep["ts"]),
         ])
     return rows
 
@@ -132,9 +299,14 @@ def main():
     raw = query(paths, "SELECT count(*) AS c FROM sweeps")
     raw_count = sum(r["c"] for r in raw)
     print(f"  {raw_count} sweeps logged, {len(sweeps)} pass the significance filter", flush=True)
-    if len(sweeps) > args.max_sweeps:
-        print(f"  capping at {args.max_sweeps} most recent for the priced extract", flush=True)
-        sweeps = sweeps[-args.max_sweeps:]
+    span = (f"{sweeps[0]['ts'][:19]} .. {sweeps[-1]['ts'][:19]}" if sweeps else "none")
+    sweeps, strata = stratify(sweeps, args.max_sweeps)
+    if len(strata) > 1 and sum(row[1] for row in strata) > len(sweeps):
+        print(f"  sampling {len(sweeps)} of them, evenly across {len(strata)} days", flush=True)
+    sizes["sweeps-strata.csv"] = write_csv(
+        os.path.join(args.out, "sweeps-strata.csv"),
+        ["day", "significant", "exported"], strata)
+    starts = game_starts(paths)
     print(f"pricing {len(sweeps)} sweeps...", flush=True)
     sizes["sweeps.csv"] = write_csv(
         os.path.join(args.out, "sweeps.csv"),
@@ -143,8 +315,11 @@ def main():
          "prior_size_at_001", "prior_size_at_002", "prior_size_at_003", "prior_size_at_005",
          "prior_depth_bid_total", "prior_n_bid_levels",
          "ggbet_fair", "dislocation_ratio", "seconds_since_ggbet_quote", "ggbet_market_state",
-         "high_1m", "high_5m", "high_15m", "sport", "market_level", "kind", "question"],
-        sweep_context(paths, sweeps))
+         "high_1m", "high_5m", "high_15m", "sport", "market_level", "kind", "question",
+         # Appended, never reordered: something downstream reads these by index.
+         "sweep_id", "resolved_before_1m", "resolved_before_5m", "resolved_before_15m",
+         "minutes_from_game_start"],
+        sweep_context(paths, sweeps, starts))
 
     print("reading markets, fills, coverage...", flush=True)
     markets = query(paths, """
@@ -170,8 +345,34 @@ def main():
             FROM trades t LEFT JOIN markets m ON m.condition_id = t.condition_id
             WHERE lower(t.wallet) IN ({placeholders}) ORDER BY t.ts
         """, wallets)
+        # Three things that are cheap here and expensive to reconstruct later.
+        #
+        # fill_index is the strongest signal found in the data so far — positions
+        # filled four or more times returned 0.46x against 1.97x for those filled
+        # two or three times — and it is known at the moment of entry. It counts
+        # fills of the same side on the same token, in time order, so the fourth
+        # buy is fill_index 4 whatever the sells did.
+        labels = resolution_labels()
+        seen_fills = Counter()
+        priced_fills = []
+        for fill in fills:
+            row = dict(fill)
+            meta = labels.get(row["condition_id"], {})
+            for field in ("question", "sport", "market_level", "kind"):
+                if not row.get(field):
+                    row[field] = meta.get(field)
+            key = (row["asset_id"], row["side"])
+            seen_fills[key] += 1
+            row["fill_index"] = seen_fills[key]
+            row["minutes_from_game_start"] = minutes_from(
+                starts.get(row["condition_id"]), row["ts"])
+            priced_fills.append(row)
+        fill_columns = (list(fills[0].keys()) if fills else
+                        ["ts", "condition_id", "asset_id", "wallet", "side", "price",
+                         "size", "role", "tx_hash", "question", "sport", "market_level",
+                         "kind"]) + ["fill_index", "minutes_from_game_start"]
         sizes["target-fills.csv"] = write_csv(os.path.join(args.out, "target-fills.csv"),
-            list(fills[0].keys()) if fills else ["ts"], [list(r) for r in fills])
+            fill_columns, [[row.get(name) for name in fill_columns] for row in priced_fills])
 
     # Per asset per hour is one row per token per hour and runs to megabytes.
     # What coverage is asked for is per sport per hour: how many tokens were
@@ -183,9 +384,14 @@ def main():
         FROM book b LEFT JOIN markets m ON m.condition_id = b.condition_id
         WHERE b.trigger = 'heartbeat' GROUP BY hour, sport ORDER BY hour
     """)
+    # Seconds of that hour nobody saw. Without this the denominator counts the
+    # disconnects as watched time: 421 minutes over 174 reconnects in the last
+    # full run, silently inflating every rate computed per market-hour.
+    blind = gap_seconds_by_hour(query(paths,
+        "SELECT started_at, ended_at, duration_ms FROM gaps"))
     sizes["coverage.csv"] = write_csv(os.path.join(args.out, "coverage.csv"),
-        ["hour", "sport", "assets", "heartbeats", "lowest_bid", "highest_bid"],
-        [list(r) for r in coverage])
+        ["hour", "sport", "assets", "heartbeats", "lowest_bid", "highest_bid", "gap_seconds"],
+        [list(r) + [round(blind.get(r["hour"], 0.0), 1)] for r in coverage])
 
     universe = query(paths, """
         SELECT ts, condition_id, discovered_via, subscribed, unsubscribed_at,
@@ -258,6 +464,8 @@ def main():
             sweeps=len(sweeps), rules=dict(rules), markets=len(markets),
             coverage_hours=len(coverage), gaps=len(gaps),
             median_after=f"{statistics.median(swept):.3f}" if swept else "n/a",
+            span=span, significant=sum(row[1] for row in strata),
+            strata=", ".join(f"{row[0]}: {row[2]}/{row[1]}" for row in strata) or "none",
         ))
 
     # The wallet half of the bundle depends on files produced by other steps.
@@ -302,6 +510,9 @@ DESCRIPTION = """# Polymarket / gg.bet collection extract
 
 Collected by the repository this file came from. {days} day-file(s): {files}.
 
+Sweeps in this extract span {span}. That is the range of the *sample*; see
+`sweeps-strata.csv` for how many significant sweeps each day actually held.
+
 The raw store is a few gigabytes, almost all of it order-book snapshots. This
 extract keeps what analysis needs and drops the bulk.
 
@@ -310,11 +521,12 @@ extract keeps what analysis needs and drops the bulk.
 | File | Contents |
 |---|---|
 | `report.txt` | output of `analyze.py`, the four headline questions |
-| `sweeps.csv` | every detected book collapse, with its context ({sweeps} rows) |
+| `sweeps.csv` | detected book collapses, with context ({sweeps} rows sampled from {significant} significant) |
+| `sweeps-strata.csv` | how many significant sweeps each day held, and how many are here |
 | `markets.csv` | market registry: question, discipline, level, kind, segment ({markets} rows) |
 | `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
 | `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
-| `coverage.csv` | heartbeats per asset per hour ({coverage_hours} rows) |
+| `coverage.csv` | heartbeats per asset per hour, with the seconds nobody saw ({coverage_hours} rows) |
 | `gaps.csv` | websocket disconnects ({gaps} rows) |
 | `universe.csv` | every market considered, and why it was or was not subscribed |
 | `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
@@ -323,7 +535,7 @@ extract keeps what analysis needs and drops the bulk.
 | `fills-report.txt` | position-level PnL: cost, revenue and exit mode per position |
 | `pm-position-gaps.csv` | positions whose trade history is incomplete |
 | `mapping.csv` | Polymarket market to gg.bet market correspondence |
-| `pm.config.json` | thresholds the collection ran with |
+| `pm.config.json` | thresholds and the subscription window the collection ran with |
 
 ## How to read sweeps.csv
 
@@ -343,7 +555,15 @@ One row per detected collapse of the bid side.
   a price change, so a large number means the fair is stale and the
   dislocation may be an artefact rather than an opportunity.
 - `high_1m` / `high_5m` / `high_15m` — highest best bid after the sweep, the
-  exit side of the payoff.
+  exit side of the payoff. Recorded live by the collector where it was running,
+  and computed from the stored snapshots otherwise.
+- `resolved_before_1m` / `_5m` / `_15m` — 1 when the market resolved before that
+  horizon was up. The `high_*` beside it is then the payout, not a bid: without
+  this flag a settled market and a market nobody bid in look the same.
+- `minutes_from_game_start` — minutes from the first point of the match,
+  negative before it started.
+
+Sample per day (exported/significant): {strata}
 
 Rule counts in this extract: {rules}
 

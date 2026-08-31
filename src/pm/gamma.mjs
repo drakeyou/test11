@@ -30,8 +30,18 @@ export async function fetchActiveMarkets(gamma, fetchImpl = fetch) {
     if (!response.ok) throw new Error(`gamma ${response.status} on page ${page}`);
     const rows = await response.json();
     if (!Array.isArray(rows) || rows.length === 0) break;
+    const before = seen.size;
     for (const row of rows) if (row?.conditionId) seen.set(row.conditionId, row);
     if (rows.length < pageSize) break;
+    // Offset paging over `startDate` is unstable, because the key is not
+    // unique: markets are created in batches and a thousand of them can share
+    // one timestamp to the second. Deep pages then repeat rows already served
+    // and omit others — measured against the live API, twenty pages of a
+    // hundred returned 1119 distinct markets, with six pages contributing
+    // nothing at all. Nothing new means paging deeper is spending requests to
+    // reread the same rows; the schedule accumulates across rounds, so a market
+    // missed this round is picked up on a later one.
+    if (seen.size === before) break;
   }
   return [...seen.values()];
 }

@@ -19,7 +19,13 @@ CREATE TABLE IF NOT EXISTS markets (
   sport TEXT, level TEXT, kind TEXT, segment_kind TEXT, segment_no INTEGER,
   line REAL, team_a TEXT, team_b TEXT, outcome_a TEXT, outcome_b TEXT,
   end_date TEXT, tick_size REAL, min_size REAL,
-  first_seen TEXT, last_seen TEXT
+  first_seen TEXT, last_seen TEXT,
+  -- When play starts, and whether the book was actually seen while it was
+  -- being played. observed_during_game is the self-check for the subscription
+  -- window: it answers, without any analysis, whether the logger watched the
+  -- match or only the hours before it.
+  game_start_time TEXT, subscribed_at TEXT, unsubscribed_at TEXT,
+  release_reason TEXT, observed_during_game INTEGER
 );
 CREATE TABLE IF NOT EXISTS book (
   ts TEXT, asset_id TEXT, condition_id TEXT, trigger TEXT,
@@ -30,7 +36,20 @@ CREATE TABLE IF NOT EXISTS book (
 CREATE TABLE IF NOT EXISTS sweeps (
   ts TEXT, asset_id TEXT, condition_id TEXT, rule TEXT,
   bid_before REAL, bid_after REAL, size_consumed REAL, levels_crossed INTEGER,
-  depth_before REAL, depth_after REAL
+  depth_before REAL, depth_after REAL,
+  -- The gg.bet side is written here, at the moment of the event, from the
+  -- resident cache of last quotes. Looking it up afterwards from the joined
+  -- table found a quote for 1 sweep in 5000.
+  sweep_id TEXT, ggbet_fair REAL, dislocation_ratio REAL,
+  seconds_since_ggbet_quote REAL, ggbet_market_state TEXT
+);
+-- What the best bid reached in the minutes after a sweep: the outcome the whole
+-- study is about. Filled from the snapshots already being collected, by a
+-- running maximum per open horizon, so it costs no query and no request.
+CREATE TABLE IF NOT EXISTS sweep_followups (
+  sweep_id TEXT, asset_id TEXT, condition_id TEXT, horizon INTEGER,
+  high_bid REAL, filled_at TEXT, resolved_before_horizon INTEGER,
+  UNIQUE (sweep_id, horizon)
 );
 CREATE TABLE IF NOT EXISTS joined (
   ts TEXT, condition_id TEXT, asset_id TEXT,
@@ -65,6 +84,7 @@ CREATE INDEX IF NOT EXISTS book_asset_ts ON book (asset_id, ts);
 CREATE INDEX IF NOT EXISTS sweeps_asset_ts ON sweeps (asset_id, ts);
 CREATE INDEX IF NOT EXISTS joined_cond_ts ON joined (condition_id, ts);
 CREATE INDEX IF NOT EXISTS trades_asset_ts ON trades (asset_id, ts);
+CREATE INDEX IF NOT EXISTS followups_sweep ON sweep_followups (sweep_id);
 -- Coverage counts heartbeats and the fill rate filters on the best bid. Without
 -- these both queries scan every row and sort it in a temp b-tree, which on a
 -- day's collection is minutes per question.
@@ -74,7 +94,13 @@ CREATE INDEX IF NOT EXISTS book_bid_asset_ts ON book (best_bid, asset_id, ts);
 
 const INSERTS = {
   book: `INSERT INTO book VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-  sweeps: `INSERT INTO sweeps VALUES (?,?,?,?,?,?,?,?,?,?)`,
+  sweeps: `INSERT INTO sweeps (ts, asset_id, condition_id, rule, bid_before, bid_after,
+    size_consumed, levels_crossed, depth_before, depth_after, sweep_id, ggbet_fair,
+    dislocation_ratio, seconds_since_ggbet_quote, ggbet_market_state)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  sweep_followups: `INSERT OR IGNORE INTO sweep_followups
+    (sweep_id, asset_id, condition_id, horizon, high_bid, filled_at, resolved_before_horizon)
+    VALUES (?,?,?,?,?,?,?)`,
   joined: `INSERT INTO joined VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
   wallets: `INSERT OR IGNORE INTO wallets VALUES (?,?,?,?,?,?,?,?,?,?)`,
   trades: `INSERT OR IGNORE INTO trades VALUES (?,?,?,?,?,?,?,?,?)`,
@@ -84,10 +110,36 @@ const INSERTS = {
   gaps: `INSERT INTO gaps VALUES (?,?,?,?,?)`,
 };
 
+// Named rather than positional: the row grew, and a positional insert against a
+// table that gained a column fails on every write with nothing to point at.
+const MARKET_COLUMNS = ['condition_id', 'asset_id_a', 'asset_id_b', 'question', 'slug',
+  'event_slug', 'event_title', 'sport', 'level', 'kind', 'segment_kind', 'segment_no',
+  'line', 'team_a', 'team_b', 'outcome_a', 'outcome_b', 'end_date', 'tick_size',
+  'min_size', 'first_seen', 'last_seen', 'game_start_time', 'subscribed_at',
+  'unsubscribed_at', 'release_reason', 'observed_during_game'];
+
 const MARKET_UPSERT = `
-INSERT INTO markets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+INSERT INTO markets (${MARKET_COLUMNS.join(', ')})
+VALUES (${MARKET_COLUMNS.map(() => '?').join(',')})
 ON CONFLICT(condition_id) DO UPDATE SET last_seen = excluded.last_seen,
-  end_date = excluded.end_date, tick_size = excluded.tick_size, min_size = excluded.min_size`;
+  end_date = excluded.end_date, tick_size = excluded.tick_size, min_size = excluded.min_size,
+  game_start_time = excluded.game_start_time, subscribed_at = excluded.subscribed_at,
+  unsubscribed_at = excluded.unsubscribed_at, release_reason = excluded.release_reason,
+  -- Never let a re-registration clear the flag: it is set once, live, and the
+  -- daily rollover re-writes every tracked market into a fresh file.
+  observed_during_game = max(coalesce(markets.observed_during_game, 0),
+                             coalesce(excluded.observed_during_game, 0))`;
+
+// Columns added after the first collections. Daily files are created with
+// CREATE TABLE IF NOT EXISTS, so a database opened from before this change
+// keeps the old shape and every insert against it would fail.
+const COLUMN_ADDITIONS = {
+  markets: [['game_start_time', 'TEXT'], ['subscribed_at', 'TEXT'],
+    ['unsubscribed_at', 'TEXT'], ['release_reason', 'TEXT'],
+    ['observed_during_game', 'INTEGER']],
+  sweeps: [['sweep_id', 'TEXT'], ['ggbet_fair', 'REAL'], ['dislocation_ratio', 'REAL'],
+    ['seconds_since_ggbet_quote', 'REAL'], ['ggbet_market_state', 'TEXT']],
+};
 
 export const utcDay = (date = new Date()) => date.toISOString().slice(0, 10);
 
@@ -97,8 +149,9 @@ export class Store {
   #db = null;
   #statements = null;
   #market = null;
-  #buffers = { book: [], sweeps: [], joined: [], wallets: [], trades: [],
-    trade_scans: [], universe: [], gaps: [] };
+  #observed = null;
+  #buffers = { book: [], sweeps: [], sweep_followups: [], joined: [], wallets: [],
+    trades: [], trade_scans: [], universe: [], gaps: [] };
   #flushAt;
   #maxBuffered;
 
@@ -126,11 +179,26 @@ export class Store {
     this.#db.exec('PRAGMA journal_mode = WAL');
     this.#db.exec('PRAGMA synchronous = NORMAL');
     this.#db.exec(SCHEMA);
+    this.#migrate();
     this.#statements = Object.fromEntries(
       Object.entries(INSERTS).map(([table, sql]) => [table, this.#db.prepare(sql)]),
     );
     this.#market = this.#db.prepare(MARKET_UPSERT);
+    this.#observed = this.#db.prepare(
+      'UPDATE markets SET observed_during_game = 1 WHERE condition_id = ?');
     this.#day = day;
+  }
+
+  /** Bring a database written by an older build up to the current shape. */
+  #migrate() {
+    for (const [table, additions] of Object.entries(COLUMN_ADDITIONS)) {
+      const present = new Set(this.#db.prepare(`PRAGMA table_info(${table})`)
+        .all().map((column) => column.name));
+      for (const [name, type] of additions) {
+        if (present.has(name)) continue;
+        this.#db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${type}`);
+      }
+    }
   }
 
   /**
@@ -159,7 +227,12 @@ export class Store {
     if (this.#buffers[table].length >= this.#maxBuffered) this.flush();
   }
 
-  upsertMarket(record, seenAt = new Date().toISOString()) {
+  /**
+   * @param {object} record  a classified market
+   * @param {string} [seenAt]
+   * @param {object} [lifecycle]  the schedule entry, where there is one
+   */
+  upsertMarket(record, seenAt = new Date().toISOString(), lifecycle = null) {
     this.#rotateIfNeeded();
     const [a, b] = record.tokens;
     this.#market.run(
@@ -169,7 +242,21 @@ export class Store {
       record.teams?.[0] ?? null, record.teams?.[1] ?? null,
       record.outcomes?.[0] ?? null, record.outcomes?.[1] ?? null,
       record.endDate, record.tickSize, record.minSize, seenAt, seenAt,
+      lifecycle?.gameStart ? new Date(lifecycle.gameStart).toISOString() : null,
+      lifecycle?.subscribedAt ?? null, lifecycle?.releasedAt ?? null,
+      lifecycle?.releaseReason ?? null, lifecycle?.observedDuringGame ? 1 : 0,
     );
+  }
+
+  /**
+   * Mark that this market's book was seen while the match was being played.
+   *
+   * Written straight through rather than buffered: it happens once per market,
+   * and the flag is the one thing a person checks to know the window is right.
+   */
+  markObserved(conditionId) {
+    this.#rotateIfNeeded();
+    this.#observed.run(conditionId);
   }
 
   /** Write everything buffered in one transaction per table. */

@@ -10,6 +10,7 @@ analysis. Standard library only; reads, never writes.
 
 import argparse
 import csv
+import datetime
 import glob
 import os
 import sqlite3
@@ -211,6 +212,127 @@ def check_sweeps(paths):
             "collected after them, so a falling rate means they worked")
 
 
+def table_columns(path, table):
+    connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        return {row[1] for row in connection.execute(f"PRAGMA table_info({table})")}
+    except sqlite3.OperationalError:
+        return set()
+    finally:
+        connection.close()
+
+
+def check_window(paths, mapping_path, coverage_path):
+    """Did the logger watch the matches, or only the hours before them?
+
+    These are the readiness thresholds for the subscription window. The first
+    two are the ones that matter: until the book is recorded while the match is
+    being played, nothing downstream is measuring the thing it claims to.
+    """
+    if not paths:
+        return
+    print("\n== the subscription window ==")
+
+    # Only matches that have actually been played. A market discovered for
+    # tomorrow's game is waiting by design, and counting it as unwatched would
+    # make a working schedule look broken.
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    dated = observed = total = waiting = 0
+    for path in paths:
+        if "observed_during_game" not in table_columns(path, "markets"):
+            continue
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            row = connection.execute(
+                "SELECT count(*), sum(game_start_time IS NOT NULL),"
+                " sum(coalesce(observed_during_game, 0)) FROM markets"
+                " WHERE game_start_time IS NULL OR game_start_time < ?", (now,)).fetchone()
+            total += row[0] or 0
+            dated += row[1] or 0
+            observed += row[2] or 0
+            waiting += connection.execute(
+                "SELECT count(*) FROM markets WHERE game_start_time >= ?", (now,)).fetchone()[0]
+        except sqlite3.OperationalError:
+            pass
+        connection.close()
+
+    if waiting:
+        say(OK, f"{waiting} markets are scheduled for a match that has not started")
+    if not total:
+        say(WARN, "no market carries a subscription window yet",
+            "these databases predate it; a fresh collection is what tests it")
+    else:
+        share = observed / total
+        detail = ("the window is dated from game_start_time, so a market watched"
+                  " only before its match means the schedule is not firing")
+        say(OK if share >= 0.8 else BAD,
+            f"{observed}/{total} markets ({share:.0%}) were watched during their match",
+            "" if share >= 0.8 else detail)
+        if dated < total:
+            say(WARN, f"{total - dated} markets carry no game start time",
+                "they were scheduled off the resolution deadline, or not at all")
+
+    # Sweeps priced against gg.bet, and sweeps whose outcome is known.
+    priced = followed = swept = 0
+    for path in paths:
+        columns = table_columns(path, "sweeps")
+        if "sweep_id" not in columns:
+            continue
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            swept += connection.execute("SELECT count(*) FROM sweeps").fetchone()[0]
+            priced += connection.execute(
+                "SELECT count(*) FROM sweeps WHERE ggbet_fair IS NOT NULL").fetchone()[0]
+            followed += connection.execute(
+                "SELECT count(DISTINCT sweep_id) FROM sweep_followups"
+                " WHERE horizon = 5 AND high_bid IS NOT NULL").fetchone()[0]
+        except sqlite3.OperationalError:
+            pass
+        connection.close()
+
+    if swept:
+        share = followed / swept
+        say(OK if share >= 0.9 else WARN,
+            f"{followed}/{swept} sweeps ({share:.0%}) have a 5-minute high recorded",
+            "" if share >= 0.9 else "sweeps in the last five minutes are still open;"
+            " export.py fills the rest from the stored snapshots")
+        share = priced / swept
+        say(OK if share >= 0.2 else WARN,
+            f"{priced}/{swept} sweeps ({share:.0%}) carry a gg.bet fair value",
+            "" if share >= 0.2 else "the gg.bet collector was not running, or its"
+            " matches are not the ones Polymarket listed")
+
+    # The mapping table, by what kind of market it actually pairs.
+    if os.path.exists(mapping_path):
+        rows = read_csv(mapping_path)
+        winners = [r for r in rows if r.get("pm_level") == "segment"
+                   and r.get("pm_kind") == "winner"]
+        if not rows:
+            say(WARN, f"{mapping_path} is empty")
+        elif not any(r.get("pm_level") for r in rows):
+            say(WARN, f"{mapping_path} predates the level and kind columns",
+                "rerun the collector to see what the table actually pairs")
+        else:
+            share = len(winners) / len(rows)
+            say(OK if share >= 0.5 else WARN,
+                f"{len(winners)}/{len(rows)} mappings ({share:.0%}) are segment winners",
+                "" if share >= 0.5 else "the studied wallets trade segment winners;"
+                " a table of totals and handicaps prices the wrong markets")
+        verified = sum(1 for r in rows if r.get("verified") in ("1", "true", "yes"))
+        if rows and not verified:
+            say(WARN, f"none of the {len(rows)} mappings has been verified by hand",
+                "the join works, but its accuracy is unconfirmed")
+
+    if os.path.exists(coverage_path):
+        with open(coverage_path, newline="", encoding="utf-8") as handle:
+            header = next(csv.reader(handle), [])
+        say(OK if "gap_seconds" in header else WARN,
+            f"coverage.csv {'carries' if 'gap_seconds' in header else 'has no'}"
+            " gap_seconds column",
+            "" if "gap_seconds" in header else "disconnects are not being subtracted"
+            " from the observed time, so every per-hour rate is overstated")
+
+
 def check_wallet(fills, resolutions, gaps_file):
     print("\n== wallet study ==")
     if not os.path.exists(fills):
@@ -269,6 +391,8 @@ def main():
                         default="pm-resolutions.csv" if os.path.exists("pm-resolutions.csv")
                         else "export/pm-resolutions.csv")
     parser.add_argument("--gaps", default="pm-position-gaps.csv")
+    parser.add_argument("--mapping", default="mapping.csv")
+    parser.add_argument("--coverage", default="export/coverage.csv")
     parser.add_argument("--bundle", default="export.zip")
     args = parser.parse_args()
 
@@ -277,6 +401,7 @@ def main():
     check_coverage(paths)
     check_universe(paths)
     check_sweeps(paths)
+    check_window(paths, args.mapping, args.coverage)
     check_wallet(args.fills, args.resolutions, args.gaps)
     check_bundle(args.bundle)
 

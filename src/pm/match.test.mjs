@@ -2,7 +2,8 @@
 //   node src/pm/match.test.mjs
 import assert from 'node:assert/strict';
 import {
-  alignOutcomes, classifyGgbetMarket, devig, findMatch, normalizeTeam, sameQuestion, scoreTeams, similarity,
+  aliasesOf, alignOutcomes, classifyGgbetMarket, devig, findMatch, isPrefixAcronym,
+  nameScore, normalizeTeam, sameQuestion, scoreTeams, sharedSurname, similarity,
 } from './match.mjs';
 
 // --- normalization ----------------------------------------------------------
@@ -75,7 +76,11 @@ const start = Date.parse('2026-08-25T18:00:00Z');
 const pmRecord = {
   conditionId: '0x1', teams: ['ex-Sangal ALTERS', 'Passion Academy'],
   level: 'segment', kind: 'winner', segmentKind: 'map', segmentNo: 1,
-  endDate: '2026-08-25T18:00:00Z', outcomes: ['ex-Sangal ALTERS', 'Passion Academy'],
+  sport: 'esports_counter_strike',
+  // The match is at 18:00; the market resolves at midnight. Six hours apart,
+  // and only the first of them dates the match.
+  gameStartTime: '2026-08-25 18:00:00+00', endDate: '2026-08-26T00:00:00Z',
+  outcomes: ['ex-Sangal ALTERS', 'Passion Academy'],
 };
 const candidates = [
   { matchId: 'm1', market: 'Победитель', teams: ['ex-Sangal ALTERS', 'Passion Academy'], updatedAt: start },
@@ -91,6 +96,53 @@ assert.ok(found.confidence > 0.7);
 const stale = candidates.map((c) => ({ ...c, updatedAt: start - 9 * 3600 * 1000 }));
 assert.equal(findMatch(pmRecord, stale, { now: start, windowHours: 6 }), null,
   'a match half a day away is a different match');
+
+// The anchor is the game, not the resolution deadline. Anchored on endDate the
+// live quote below sits six hours from the "match time" and is thrown away,
+// which is what kept segment markets out of the mapping table.
+assert.ok(findMatch(pmRecord, candidates, { now: start, windowHours: 6 }),
+  'a quote taken during the match is inside the window');
+
+// --- surnames, acronyms and aliases ----------------------------------------
+// Polymarket writes surnames into the outcomes of a winner market; gg.bet
+// spells the players out. On bigrams alone this pair scores 0.67 and was
+// rejected, which is why no segment-winner market was ever mapped.
+assert.ok(scoreTeams(['Yamaguchi', 'Back'], ['Mei Yamaguchi', 'Dayeon Back']).confidence > 0.9);
+assert.ok(similarity('Back', 'Dayeon Back') < 0.7, 'and bigrams alone would not have');
+assert.ok(sharedSurname('Oh', 'Jiyun Oh'));
+assert.ok(!sharedSurname('MOUZ NXT', 'MOUZ'), 'a B team is not its first team');
+assert.ok(!sharedSurname('Naito', 'Darya Astakhova'));
+
+assert.ok(isPrefixAcronym('NAVI', 'Natus Vincere'));
+assert.ok(!isPrefixAcronym('NAVI', 'Nemiga Gaming'));
+assert.ok(!isPrefixAcronym('NA', 'Natus Vincere'), 'too short to mean anything');
+assert.ok(nameScore('NAVI', 'Natus Vincere') > 0.7);
+
+// The event title spells the competitors out and often lists them the other way
+// round. Aliases are oriented by name before they are merged, never by position.
+const aliased = aliasesOf({
+  teams: ['Astakhova', 'Naito'],
+  question: 'Set Handicap: Astakhova (-1.5) vs Naito (+1.5)',
+  eventTitle: 'W75 Tianjin: Yuki Naito vs Darya Astakhova',
+});
+assert.ok(aliased[0].includes('Darya Astakhova'), 'the title name follows its own competitor');
+assert.ok(aliased[1].includes('Yuki Naito'));
+assert.ok(!aliased[0].includes('Yuki Naito'), 'and never the other one');
+
+// A winner market whose outcomes are surnames now finds its gg.bet market.
+const surnames = {
+  conditionId: '0x2', teams: ['Yamaguchi', 'Back'],
+  question: 'Set 2 Winner: Yamaguchi vs Back',
+  eventTitle: 'W75 Tianjin: Mei Yamaguchi vs Dayeon Back',
+  level: 'segment', kind: 'winner', segmentKind: 'set', segmentNo: 2,
+  sport: 'tennis', gameStartTime: '2026-08-25 18:00:00+00',
+  outcomes: ['Yamaguchi', 'Back'],
+};
+const tennis = findMatch(surnames, [
+  { matchId: 'm9', market: '2-й Сет Победитель', teams: ['Mei Yamaguchi', 'Dayeon Back'], updatedAt: start },
+], { now: start });
+assert.ok(tennis, 'a segment winner named by surname is matched');
+assert.equal(tennis.matchId, 'm9');
 
 // --- de-vig -----------------------------------------------------------------
 assert.equal(devig(2, 2), 0.5);

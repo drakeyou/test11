@@ -11,15 +11,38 @@
     "atp": "tennis",
     "wta": "tennis",
     "tennis": "tennis",
-    "itf": "tennis",
-    "codmw": "esports_call_of_duty",
-    "setka": "table_tennis",
-    "setkameua": "table_tennis"
+    "codmw": "esports_call_of_duty"
   },
   "gamma": {
     "intervalSeconds": 45,
     "pageSize": 100,
     "maxPages": 12
+  },
+  "schedule": {
+    "leadMinutes": 10,
+    "tickSeconds": 10,
+    "holdHours": {
+      "esports_counter_strike": 6,
+      "esports_dota_2": 8,
+      "esports_league_of_legends": 6,
+      "esports_valorant": 6,
+      "esports_rainbow_six": 6,
+      "esports_call_of_duty": 6,
+      "tennis": 5,
+      "table_tennis": 2,
+      "default": 6
+    },
+    "maxAheadHours": 72,
+    "resolutionCheckMinutes": 15,
+    "resolutionCheckAfterMinutes": 45,
+    "resolutionsPerCycle": 20
+  },
+  "followups": {
+    "horizons": [
+      1,
+      5,
+      15
+    ]
   },
   "book": {
     "heartbeatSeconds": 5,
@@ -60,6 +83,9 @@
     "marketsPerCycle": 25
   },
   "labels": {
+    "itf": "tennis",
+    "setka": "table_tennis",
+    "setkameua": "table_tennis",
     "mlb": "baseball",
     "nba": "basketball",
     "nfl": "american_football",

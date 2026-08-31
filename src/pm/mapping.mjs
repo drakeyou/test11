@@ -9,8 +9,12 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { parseCsvLine } from './ggbet-tail.mjs';
 
+// Appended, never reordered: a file written by an older build still reads, and
+// a hand-verified row keeps its meaning. pm_level and pm_kind are here so the
+// question "how much of this table is segment winners" — the markets the studied
+// wallets actually trade — is answerable from the file itself.
 const COLUMNS = ['pm_condition_id', 'ggbet_match_id', 'pm_segment', 'ggbet_segment',
-  'confidence', 'verified'];
+  'confidence', 'verified', 'pm_level', 'pm_kind'];
 const cell = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
 
 export class MappingTable {
@@ -52,7 +56,8 @@ export class MappingTable {
    * keeps the better guess when it has seen this market before.
    * @returns {boolean} whether the table changed
    */
-  propose({ conditionId, ggbetMatchId, pmSegment, ggbetSegment, confidence }) {
+  propose({ conditionId, ggbetMatchId, pmSegment, ggbetSegment, confidence,
+    pmLevel = '', pmKind = '' }) {
     const existing = this.#rows.get(conditionId);
     if (existing?.verified) return false;
     if (existing && existing.confidence >= confidence && existing.ggbet_match_id === ggbetMatchId) {
@@ -65,6 +70,8 @@ export class MappingTable {
       ggbet_segment: ggbetSegment ?? '',
       confidence: Number(confidence.toFixed(4)),
       verified: false,
+      pm_level: pmLevel ?? '',
+      pm_kind: pmKind ?? '',
     });
     return true;
   }
@@ -74,7 +81,8 @@ export class MappingTable {
     const lines = [COLUMNS.join(',')];
     for (const row of this.#rows.values()) {
       lines.push([row.pm_condition_id, row.ggbet_match_id, row.pm_segment, row.ggbet_segment,
-        row.confidence, row.verified ? '1' : '0'].map(cell).join(','));
+        row.confidence, row.verified ? '1' : '0', row.pm_level ?? '', row.pm_kind ?? '']
+        .map(cell).join(','));
     }
     writeFileSync(this.path, lines.join('\n') + '\n');
   }

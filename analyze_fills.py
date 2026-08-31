@@ -84,7 +84,6 @@ def summarize(asset_id, trades, resolution):
     buy_size = sum(number(t["size"]) for t in buys)
     sell_size = sum(number(t["size"]) for t in sells)
     cost = sum(number(t["size"]) * number(t["price"]) for t in buys)
-    proceeds = sum(number(t["size"]) * number(t["price"]) for t in sells)
 
     # A position whose sells exceed its buys is missing history: the buys
     # happened before the logger was watching. Its size is a lower bound.
@@ -97,9 +96,29 @@ def summarize(asset_id, trades, resolution):
     elif sell_size > buy_size * TOLERANCE:
         reason = "sells exceed buys"
 
-    remaining = max(0.0, buy_size - sell_size)
+    # Only shares we watched being bought can be counted as sold. One Dota
+    # position sold 3487.6 against 2615.7 bought, and taking the sale at face
+    # value credited it with $1022 of revenue on shares acquired before the
+    # collection started. The sales are taken in time order and the overflow
+    # dropped, rather than prorated: the earliest sells are the ones the
+    # recorded buys could actually have supplied.
+    sold = min(sell_size, buy_size)
+    proceeds = 0.0
+    left = sold
+    for trade in sells:
+        take = min(number(trade["size"]), left)
+        if take <= 0:
+            break
+        proceeds += take * number(trade["price"])
+        left -= take
+
+    remaining = max(0.0, buy_size - sold)
     winner = resolution.get("winner") if resolution else None
     settled = bool(resolution) and resolution.get("closed") == "1" and winner in ("0", "1")
+    # What the token actually redeems at, as the resolver read it from CLOB.
+    # Assuming a dollar is right today and wrong the day Polymarket resolves
+    # something at a fraction.
+    payout_price = number(resolution.get("payout_price"), 1.0) if resolution else 1.0
 
     # Four exits, not two. A position sold in part and left to resolve is
     # neither "sold" nor "held": pooling it with either corrupts that group's
@@ -111,7 +130,7 @@ def summarize(asset_id, trades, resolution):
         fate = "sold"
         payout = 0.0
     else:
-        payout = remaining * 1.0 if winner == "1" else 0.0
+        payout = remaining * payout_price if winner == "1" else 0.0
         outcome = "won" if winner == "1" else "lost"
         fate = f"{'partial' if proceeds > 0 else 'held'}_{outcome}"
 
@@ -124,7 +143,8 @@ def summarize(asset_id, trades, resolution):
         "sport": (resolution or {}).get("sport", ""),
         "market_level": (resolution or {}).get("market_level", ""),
         "buys": len(buys), "sells": len(sells),
-        "buy_size": buy_size, "sell_size": sell_size, "remaining": remaining,
+        "buy_size": buy_size, "sell_size": sell_size, "sold_size": sold,
+        "remaining": remaining, "incomplete": 0 if complete else 1,
         "entry_price": cost / buy_size if buy_size else None,
         "cost": cost, "proceeds": proceeds, "payout": payout, "revenue": revenue,
         "multiple": (revenue / cost) if revenue is not None and cost > 0 else None,
@@ -176,10 +196,13 @@ def main():
     broken = [p for p in positions if not p["complete"]]
     with open(args.gaps_out, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["asset_id", "condition_id", "buy_size", "sell_size", "first_side", "reason"])
+        writer.writerow(["asset_id", "condition_id", "buy_size", "sell_size", "sold_size",
+                         "first_side", "reason", "incomplete", "cost", "revenue"])
         for p in broken:
             writer.writerow([p["asset_id"], p["condition_id"], p["buy_size"], p["sell_size"],
-                             "BUY" if p["buys"] and p["opened"] else "SELL", p["reason"]])
+                             p["sold_size"], "BUY" if p["buys"] and p["opened"] else "SELL",
+                             p["reason"], p["incomplete"], round(p["cost"], 4),
+                             None if p["revenue"] is None else round(p["revenue"], 4)])
     print("== history completeness ==")
     print(f"  complete positions   : {len(positions) - len(broken)}/{len(positions)}")
     print(f"  incomplete           : {len(broken)} -> {args.gaps_out}")
@@ -189,6 +212,9 @@ def main():
     usable = [p for p in positions if p["complete"]]
 
     # --- PnL by exit mode ----------------------------------------------------
+    # Incomplete positions are reported, not dropped and not pooled. Dropping
+    # them made the headline PnL differ from a hand recount by $1022 on a single
+    # Dota position, with nothing in the report to say a position was missing.
     modes = defaultdict(list)
     for p in usable:
         modes[p["fate"]].append(p)
@@ -208,6 +234,23 @@ def main():
     print(f"  {'TOTAL':<14} {len(usable) - len(modes['unresolved']):>4} {total_cost:>10.2f}"
           f" {total_revenue:>10.2f} {total_revenue - total_cost:>10.2f}"
           f" {(total_revenue / total_cost if total_cost else 0):>9.2f}x")
+
+    priced_broken = [p for p in broken if p["revenue"] is not None]
+    if priced_broken:
+        broken_cost = sum(p["cost"] for p in priced_broken)
+        broken_revenue = sum(p["revenue"] for p in priced_broken)
+        print(f"  {'incomplete':<14} {len(priced_broken):>4} {broken_cost:>10.2f}"
+              f" {broken_revenue:>10.2f} {broken_revenue - broken_cost:>10.2f}"
+              f" {(broken_revenue / broken_cost if broken_cost else 0):>9.2f}x")
+        grand_cost = total_cost + broken_cost
+        grand_revenue = total_revenue + broken_revenue
+        grand_n = len(usable) - len(modes["unresolved"]) + len(priced_broken)
+        grand_multiple = grand_revenue / grand_cost if grand_cost else 0
+        print(f"  {'WITH THOSE':<14} {grand_n:>4} {grand_cost:>10.2f}"
+              f" {grand_revenue:>10.2f} {grand_revenue - grand_cost:>10.2f}"
+              f" {grand_multiple:>9.2f}x")
+        print("    incomplete positions sell more than was seen bought; the sale is"
+              " counted only up to what was bought")
     print(f"  excluded as unresolved: {len(modes['unresolved'])} positions"
           f" (cost {sum(p['cost'] for p in modes['unresolved']):.2f})")
 

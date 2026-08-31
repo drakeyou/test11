@@ -1,7 +1,7 @@
 // Storage tests against a real database in a temporary directory.
 //   node src/pm/store.test.mjs
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -24,9 +24,27 @@ try {
 
   // Hitting maxBuffered flushes on its own, so a burst cannot grow unbounded.
   for (let i = 0; i < 5; i++) {
-    store.add('sweeps', [`t${i}`, 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100]);
+    store.add('sweeps', [`t${i}`, 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100,
+      `a1:t${i}`, 0.31, 1.55, 4.2, 'active']);
   }
   assert.equal(store.count('sweeps'), 5, 'a full buffer flushes itself');
+
+  // The gg.bet side is priced into the sweep row itself, at the moment of the
+  // event; looking it up afterwards found one quote in five thousand.
+  store.flush();
+  const priced = new DatabaseSync(store.path)
+    .prepare('SELECT * FROM sweeps WHERE sweep_id = ?').get('a1:t0');
+  assert.equal(priced.ggbet_fair, 0.31);
+  assert.equal(priced.dislocation_ratio, 1.55);
+  assert.equal(priced.seconds_since_ggbet_quote, 4.2);
+  assert.equal(priced.ggbet_market_state, 'active');
+
+  // One row per horizon, and a re-run of the same horizon cannot double it.
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.09, '2026-08-25T10:05:00Z', 0]);
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.11, '2026-08-25T10:05:01Z', 0]);
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 15, 1, '2026-08-25T10:15:00Z', 1]);
+  store.flush();
+  assert.equal(store.count('sweep_followups'), 2, 'a horizon is written once per sweep');
 
   store.upsertMarket({
     conditionId: 'c1', tokens: ['a1', 'a2'], question: 'Map 1 Winner', slug: 's',
@@ -44,6 +62,35 @@ try {
     teams: ['A', 'B'], outcomes: ['A', 'B'], endDate: '2026-08-27', tickSize: 0.001, minSize: 5,
   }, '2026-08-25T11:00:00Z');
   assert.equal(store.count('markets'), 1, 'the same market is upserted, not duplicated');
+
+  // The lifecycle of the subscription window, and the self-check flag it exists
+  // to produce. The flag is set once, live; a later re-registration — the daily
+  // rollover writes every tracked market again — must not clear it.
+  const dated = {
+    conditionId: 'c2', tokens: ['b1', 'b2'], question: 'Map 2 Winner', slug: 's2',
+    eventSlug: 'cs2-a-b', eventTitle: 'A vs B', sport: 'esports_counter_strike',
+    level: 'segment', kind: 'winner', segmentKind: 'map', segmentNo: 2, line: null,
+    teams: ['A', 'B'], outcomes: ['A', 'B'], endDate: '2026-08-26T18:00:00Z',
+    tickSize: 0.01, minSize: 5,
+  };
+  store.upsertMarket(dated, '2026-08-25T12:00:00Z', {
+    gameStart: Date.parse('2026-08-26T12:00:00Z'),
+    subscribedAt: '2026-08-26T11:50:00Z', releasedAt: null, releaseReason: null,
+    observedDuringGame: true,
+  });
+  store.markObserved('c2');
+  store.upsertMarket(dated, '2026-08-25T13:00:00Z', {
+    gameStart: Date.parse('2026-08-26T12:00:00Z'),
+    subscribedAt: '2026-08-26T11:50:00Z', releasedAt: '2026-08-26T18:00:00Z',
+    releaseReason: 'resolved', observedDuringGame: false,
+  });
+  const lifecycle = new DatabaseSync(store.path)
+    .prepare('SELECT * FROM markets WHERE condition_id = ?').get('c2');
+  assert.equal(lifecycle.game_start_time, '2026-08-26T12:00:00.000Z');
+  assert.equal(lifecycle.subscribed_at, '2026-08-26T11:50:00Z');
+  assert.equal(lifecycle.unsubscribed_at, '2026-08-26T18:00:00Z');
+  assert.equal(lifecycle.release_reason, 'resolved');
+  assert.equal(lifecycle.observed_during_game, 1, 'the flag is never cleared by a re-register');
 
   // Wallet activity is polled repeatedly and must not accumulate duplicates.
   const walletRow = ['t', '0xabc', 'act1', 'TRADE', 'BUY', 'a1', 'c1', 0.02, 100, '0xdead'];
@@ -85,6 +132,38 @@ try {
   assert.equal(row.last_seen, '2026-08-25T11:00:00Z');
   assert.equal(db.prepare('SELECT count(*) c FROM book').get().c, 1);
   db.close();
+
+  // A database written by an older build is missing the columns added since.
+  // Daily files are created with CREATE TABLE IF NOT EXISTS, so opening one of
+  // those would otherwise fail on every insert with nothing to point at.
+  const oldDir = join(dir, 'legacy');
+  mkdirSync(oldDir, { recursive: true });
+  const legacyPath = join(oldDir, `pm-${utcDay(new Date())}.sqlite`);
+  const legacy = new DatabaseSync(legacyPath);
+  legacy.exec(`CREATE TABLE markets (
+    condition_id TEXT PRIMARY KEY, asset_id_a TEXT, asset_id_b TEXT,
+    question TEXT, slug TEXT, event_slug TEXT, event_title TEXT,
+    sport TEXT, level TEXT, kind TEXT, segment_kind TEXT, segment_no INTEGER,
+    line REAL, team_a TEXT, team_b TEXT, outcome_a TEXT, outcome_b TEXT,
+    end_date TEXT, tick_size REAL, min_size REAL, first_seen TEXT, last_seen TEXT);
+    CREATE TABLE sweeps (
+    ts TEXT, asset_id TEXT, condition_id TEXT, rule TEXT,
+    bid_before REAL, bid_after REAL, size_consumed REAL, levels_crossed INTEGER,
+    depth_before REAL, depth_after REAL);
+    INSERT INTO markets (condition_id, question) VALUES ('old', 'Map 1 Winner');`);
+  legacy.close();
+
+  const migrated = new Store(oldDir, { flushMs: 1_000_000 });
+  migrated.add('sweeps', ['t', 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100,
+    'a1:t', 0.31, 1.55, 4.2, 'active']);
+  migrated.flush();
+  assert.equal(migrated.count('sweeps'), 1, 'an old database takes the new sweep row');
+  migrated.markObserved('old');
+  const carried = new DatabaseSync(migrated.path)
+    .prepare('SELECT * FROM markets WHERE condition_id = ?').get('old');
+  assert.equal(carried.observed_during_game, 1, 'the added column is usable');
+  assert.equal(carried.question, 'Map 1 Winner', 'the old rows are left alone');
+  migrated.close();
 
   console.log('all store tests passed');
 } finally {

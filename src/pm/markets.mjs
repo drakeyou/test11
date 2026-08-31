@@ -8,6 +8,7 @@
 
 import { loadConfig } from './config.mjs';
 import { fetchActiveMarkets, MarketRegistry } from './gamma.mjs';
+import { MarketSchedule } from './schedule.mjs';
 
 const flags = new Set(process.argv.slice(2));
 const config = loadConfig();
@@ -31,6 +32,19 @@ if (flags.has('--json')) {
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
   for (const [key, count] of [...counts].sort()) console.log(`  ${String(count).padStart(4)}  ${key}`);
+
+  // What discovery sees is not what gets watched: the window is the match
+  // clock, so most of a round is markets waiting for a game hours away.
+  const schedule = new MarketSchedule(config.schedule);
+  const { skipped } = schedule.observe(tracked);
+  schedule.refresh();
+  console.log(`\nof those, ${schedule.liveSize} would be watched right now,` +
+    ` ${schedule.pendingSize} are waiting for their match` +
+    `${skipped.length ? `, ${skipped.length} cannot be dated` : ''}`);
+  for (const entry of schedule.live().slice(0, 5)) {
+    console.log(`  live  ${new Date(entry.gameStart).toISOString().slice(11, 16)} start` +
+      `  ${entry.record.question.slice(0, 56)}`);
+  }
 
   const segment = tracked.filter((r) => r.level === 'segment');
   console.log(`\nin-match sub-markets (where the bot works): ${segment.length}`);

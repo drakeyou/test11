@@ -13,15 +13,19 @@
 
 import { loadConfig } from './config.mjs';
 import { fetchActiveMarkets, MarketRegistry } from './gamma.mjs';
+import { MarketSchedule } from './schedule.mjs';
+import { FollowupTracker, sweepIdOf } from './followups.mjs';
 import { BookState, SweepDetector } from './book.mjs';
 import { BookFeed } from './ws.mjs';
 import { Store } from './store.mjs';
 import { GgbetTail } from './ggbet-tail.mjs';
 import { MappingTable } from './mapping.mjs';
-import { buildLinks, joinedRow } from './link.mjs';
+import { buildLinks, joinedRow, quoteFor } from './link.mjs';
 import { fetchActivity } from './wallets.mjs';
 import { fetchTrades } from './trades.mjs';
 import { UniverseJournal, universeRow } from './universe.mjs';
+import { fetchResolution } from './resolve.mjs';
+import { politeFetch, throttle } from './http.mjs';
 
 const config = loadConfig();
 const once = process.argv.includes('--once');
@@ -31,11 +35,15 @@ const once = process.argv.includes('--once');
 // between join against nothing.
 const store = new Store(config.storage.dir, {
   onRotate: (day) => {
-    for (const record of registry.tracked()) store.upsertMarket(record);
-    console.error(`[store] rolled over to ${day}, re-registered ${registry.size} markets`);
+    for (const entry of schedule.live()) store.upsertMarket(entry.record, undefined, entry);
+    console.error(`[store] rolled over to ${day}, re-registered ${schedule.liveSize} markets`);
   },
 });
 const registry = new MarketRegistry();
+// Discovery finds markets 11-15 hours before their game; the schedule decides
+// when to watch them. Falling out of Gamma's page is not a reason to stop.
+const schedule = new MarketSchedule(config.schedule);
+const followups = new FollowupTracker(config.followups);
 const universe = new UniverseJournal();
 const detector = new SweepDetector(config.sweep);
 const books = new Map();
@@ -44,7 +52,7 @@ const mapping = new MappingTable(config.ggbet.mapping);
 let links = new Map();
 let ggbetByKey = new Map();
 const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0,
-  truncated: 0, takerFills: 0 };
+  truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0 };
 /** condition id -> when its trade log was last pulled, to keep polling bounded. */
 const tradesPolledAt = new Map();
 
@@ -53,19 +61,46 @@ const now = () => new Date().toISOString();
 /** Record the book, and whatever the update did to it. */
 function record(book, before, trigger) {
   const ts = now();
+  const at = Date.parse(ts);
+  const link = links.get(book.assetId);
+  const ggbet = link ? ggbetByKey.get(link.ggbetKey) : null;
+
   const sweep = before && detector.observe(book, before, ts);
   if (sweep) {
-    store.add('sweeps', sweep);
+    const bid = book.bestBid;
+    const ask = book.bestAsk;
+    const mid = bid !== null && ask !== null ? (bid + ask) / 2 : null;
+    // Priced here, from the resident cache, rather than looked up afterwards.
+    const quote = link ? quoteFor(link, ggbet, mid, at)
+      : { fair: null, ratio: null, secondsSinceQuote: null, state: null };
+    const sweepId = sweepIdOf(book.assetId, ts);
+    store.add('sweeps', [...sweep, sweepId, quote.fair, quote.ratio,
+      quote.secondsSinceQuote, quote.state]);
+    followups.open(sweepId, book.assetId, book.conditionId, at, sweep[5]);
     counts.sweeps++;
   }
   store.add('book', book.metrics(ts, trigger));
   counts.rows++;
+  // Every snapshot feeds the horizons still open on this asset.
+  followups.observe(book.assetId, book.bestBid);
 
-  const link = links.get(book.assetId);
-  const ggbet = link && ggbetByKey.get(link.ggbetKey);
+  // The self-check: this book was seen while the match was being played.
+  if (book.conditionId && schedule.noteObserved(book.conditionId, at)) {
+    store.markObserved(book.conditionId);
+    counts.observed++;
+  }
+
   if (ggbet) {
     store.add('joined', joinedRow(ts, link, book, ggbet));
     counts.joined++;
+  }
+}
+
+/** Write whichever follow-up horizons have come due. */
+function drainFollowups() {
+  for (const row of followups.due()) {
+    store.add('sweep_followups', row);
+    counts.followups++;
   }
 }
 
@@ -75,7 +110,7 @@ function relink() {
   const ggbetMarkets = tail.markets();
   ggbetByKey = new Map(ggbetMarkets.map((m) => [`${m.matchId}|${m.market}`, m]));
   links = buildLinks({
-    markets: registry.tracked(),
+    markets: schedule.live().map((entry) => entry.record),
     ggbetMarkets,
     mapping,
     windowHours: config.ggbet.matchWindowHours,
@@ -184,25 +219,99 @@ async function pollTrades(conditionIds) {
   }
 }
 
+/**
+ * Discovery adds to the schedule and never takes away.
+ *
+ * A market leaving Gamma's page says nothing about the match: the page is the
+ * newest 1200 markets by creation, so everything falls out of it within the
+ * hour whether or not it has been played.
+ */
 async function discover() {
   const raw = await fetchActiveMarkets(config.gamma);
-  const { added, removed, tracked, all } = registry.update(raw, config.disciplines);
-  for (const record of tracked) store.upsertMarket(record);
-  // Journal everything considered, subscribed or not.
-  for (const row of universe.observe(all)) store.add('universe', universeRow(row));
-  for (const record of removed) {
-    const released = universe.release(record.conditionId);
+  const { tracked, all } = registry.update(raw, config.disciplines);
+  const { scheduled, skipped } = schedule.observe(tracked);
+
+  // A market that classifies fine but cannot be dated is passed over for that
+  // reason, and the journal has to say so rather than claim it was subscribed.
+  const undatable = new Map(skipped.map((s) => [s.conditionId, s.reason]));
+  for (const row of universe.observe(all, 'gamma:startDate',
+    (record) => undatable.get(record.conditionId) ?? null)) {
+    store.add('universe', universeRow(row));
+  }
+  for (const entry of scheduled) store.upsertMarket(entry.record, undefined, entry);
+
+  // Logged on a change only: undatable markets recur every round and the
+  // journal already holds them, so repeating the count would be noise.
+  if (scheduled.length) {
+    console.error(`[discovery] ${tracked.length} trackable, +${scheduled.length} scheduled` +
+      `${undatable.size ? `, ${undatable.size} undatable` : ''}` +
+      ` | live ${schedule.liveSize}, waiting ${schedule.pendingSize}`);
+  }
+  return tracked;
+}
+
+/**
+ * Move the subscription window. Runs on a short timer rather than on discovery,
+ * because a match starts on its own clock, not on Gamma's.
+ */
+function tick(at = Date.now()) {
+  const { added, removed } = schedule.refresh(at);
+  for (const entry of removed) {
+    const released = universe.release(entry.conditionId);
     if (released) store.add('universe', universeRow(released));
-    for (const assetId of record.tokens) {
+    store.upsertMarket(entry.record, undefined, entry);
+    for (const assetId of entry.record.tokens) {
+      // Horizons still open are written with what was seen, not dropped.
+      for (const row of followups.forget(assetId, at)) {
+        store.add('sweep_followups', row);
+        counts.followups++;
+      }
       books.delete(assetId);
       detector.forget(assetId);
     }
   }
-  if (feed.setAssets(registry.assetIds())) {
-    console.error(`[discovery] ${tracked.length} markets, ${registry.assetIds().length} tokens` +
-      ` (+${added.length} -${removed.length})`);
+  for (const entry of added) store.upsertMarket(entry.record, undefined, entry);
+  if (added.length || removed.length) {
+    feed.setAssets(schedule.assetIds());
+    console.error(`[schedule] +${added.length} -${removed.length}` +
+      ` | live ${schedule.liveSize} markets, ${schedule.assetIds().length} tokens,` +
+      ` waiting ${schedule.pendingSize}`);
   }
-  return tracked;
+  drainFollowups();
+}
+
+const resolutionGate = throttle(350);
+
+/**
+ * Let go of markets that have resolved, before their hold window runs out.
+ *
+ * Gamma's condition_id filter is ignored and answers about other markets, so
+ * this asks CLOB, where the id is part of the path. Only markets whose match
+ * has had time to finish are asked about, and only every few minutes.
+ */
+async function checkResolutions() {
+  const naming = { ...config.labels, ...config.disciplines };
+  for (const entry of schedule.dueForResolutionCheck(Date.now(),
+    config.schedule?.resolutionsPerCycle ?? 20)) {
+    try {
+      await resolutionGate();
+      const { closed, rows } = await fetchResolution(entry.conditionId, naming,
+        (url) => politeFetch(url));
+      if (!closed) continue;
+      schedule.markResolved(entry.conditionId);
+      counts.resolved++;
+      // A horizon that outlives the market is not missing: the token is worth
+      // its payout and there is no book left for it to recover in.
+      const payout = new Map(rows.map((row) => [row[1], Number(row[4])]));
+      for (const row of followups.resolved(entry.conditionId,
+        (assetId) => (payout.has(assetId) ? payout.get(assetId) : null))) {
+        store.add('sweep_followups', row);
+        counts.followups++;
+      }
+    } catch (err) {
+      console.error(`[resolve] ${entry.conditionId.slice(0, 12)}: ${err.message}`);
+    }
+  }
 }
 
 // A network that is down at startup — a closed laptop, a dropped connection —
@@ -214,13 +323,22 @@ try {
   console.error(`[discovery] first round failed: ${err.message}` +
     ` — continuing, will retry every ${config.gamma.intervalSeconds}s`);
 }
+tick();
 relink();
 await pollWallets();
 if (once) {
   const segment = tracked.filter((r) => r.level === 'segment').length;
   console.log(`tracking ${tracked.length} markets (${segment} in-match), database ${store.path}`);
+  console.log(`schedule: ${schedule.liveSize} live now, ${schedule.pendingSize} waiting for their game`);
   console.log(`gg.bet: ${tail.rowsRead} rows, ${tail.size} markets, ${links.size} tokens linked` +
     ` (${mapping.size} mappings, ${mapping.verifiedCount} verified)`);
+  // --once exits without the shutdown handler, so anything still open is
+  // written here too rather than lost.
+  for (const entry of schedule.live()) {
+    for (const assetId of entry.record.tokens) {
+      for (const row of followups.forget(assetId)) store.add('sweep_followups', row);
+    }
+  }
   store.flush();
   console.log(`wallets: ${counts.fills} activity rows (${store.count('wallets')} stored)`);
   const roles = store.roleCounts();
@@ -236,13 +354,21 @@ if (once) {
 const timers = [
   setInterval(() => discover().catch((err) => console.error(`[discovery] ${err.message}`)),
     config.gamma.intervalSeconds * 1000),
+  // The window turns on the match clock, so it is checked far more often than
+  // markets are discovered: a ten-minute lead is worth nothing if it is only
+  // acted on every 45 seconds by luck.
+  setInterval(() => tick(), (config.schedule?.tickSeconds ?? 10) * 1000),
+  setInterval(() => checkResolutions().catch((err) => console.error(`[resolve] ${err.message}`)),
+    (config.schedule?.resolutionCheckMinutes ?? 15) * 60 * 1000),
   setInterval(heartbeat, config.book.heartbeatSeconds * 1000),
   setInterval(relink, (config.ggbet.pollSeconds ?? 5) * 1000),
   setInterval(() => pollWallets(), (config.wallets.intervalSeconds ?? 25) * 1000),
   setInterval(() => {
     console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.joined} joined` +
-      ` | ${counts.sweeps} sweeps | ${counts.gaps} gaps | ${links.size} linked` +
-      ` | ${counts.trades} trades | ${universe.subscribedCount}/${universe.size} universe` +
+      ` | ${counts.sweeps} sweeps (${counts.followups} horizons) | ${counts.gaps} gaps` +
+      ` | ${links.size} linked | ${counts.trades} trades` +
+      ` | live ${schedule.liveSize}/waiting ${schedule.pendingSize}` +
+      ` | ${counts.observed} seen in play | ${universe.subscribedCount}/${universe.size} universe` +
       `${counts.truncated ? ` | ${counts.truncated} truncated` : ''} | ${store.path}`);
   }, 60000),
 ];
@@ -252,8 +378,15 @@ function shutdown() {
   feed.stop();
   store.flush();
   mapping.save();
+  // Whatever is still open is written before the process goes away, so a
+  // restart loses the tail of a horizon rather than the whole measurement.
+  for (const entry of schedule.live()) {
+    for (const assetId of entry.record.tokens) {
+      for (const row of followups.forget(assetId)) store.add('sweep_followups', row);
+    }
+  }
   console.error(`\n[status] wrote ${counts.rows} book rows, ${counts.joined} joined,` +
-    ` ${counts.sweeps} sweeps, ${counts.gaps} gaps`);
+    ` ${counts.sweeps} sweeps, ${counts.followups} horizons, ${counts.gaps} gaps`);
   store.close();
   process.exit(0);
 }
