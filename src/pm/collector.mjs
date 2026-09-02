@@ -15,6 +15,7 @@ import { loadConfig } from './config.mjs';
 import { fetchActiveMarkets, MarketRegistry } from './gamma.mjs';
 import { MarketSchedule } from './schedule.mjs';
 import { FollowupTracker, sweepIdOf } from './followups.mjs';
+import { FillContextQueue, contextRow } from './fill-context.mjs';
 import { BookState, SweepDetector, bookSum, internalDislocation, pairedView } from './book.mjs';
 import { BookFeed } from './ws.mjs';
 import { Store, restoreSchedulableMarkets, walletDisciplineShares } from './store.mjs';
@@ -44,6 +45,8 @@ const registry = new MarketRegistry();
 // when to watch them. Falling out of Gamma's page is not a reason to stop.
 const schedule = new MarketSchedule(config.schedule);
 const followups = new FollowupTracker(config.followups);
+// Fills wait for their horizons before being written up; see fill-context.mjs.
+const fillContext = new FillContextQueue(config.fillContext);
 const universe = new UniverseJournal();
 const detector = new SweepDetector(config.sweep);
 const books = new Map();
@@ -52,7 +55,8 @@ const mapping = new MappingTable(config.ggbet.mapping);
 let links = new Map();
 let ggbetByKey = new Map();
 const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0,
-  truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0, walletMarkets: 0 };
+  truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0, walletMarkets: 0,
+  contexts: 0 };
 /** condition ids already offered to the schedule from wallet activity. */
 const walletMarkets = new Set();
 /** Discipline shares of wallet activity, refreshed daily; empty means no preference. */
@@ -118,6 +122,24 @@ function drainFollowups() {
   for (const row of followups.due()) {
     store.add('sweep_followups', row);
     counts.followups++;
+  }
+}
+
+/**
+ * Write up the fills whose horizons have passed.
+ *
+ * Reads the snapshots already stored rather than holding them in memory: at a
+ * thousand watched tokens a twenty-minute buffer is hundreds of megabytes, and
+ * it would be lost on every restart.
+ */
+function drainFillContext(now = Date.now(), jobs = null) {
+  for (const job of jobs ?? fillContext.due(now)) {
+    try {
+      store.add('fill_context', contextRow(job, store, now));
+      counts.contexts++;
+    } catch (err) {
+      console.error(`[fills] ${job.assetId.slice(0, 10)} at ${job.ts}: ${err.message}`);
+    }
   }
 }
 
@@ -273,7 +295,15 @@ async function pollTrades(conditionIds) {
     try {
       const { rows, truncated, takerShare, pages } = await fetchTrades(conditionId);
       const mine = rows.filter((row) => targets.has(row[3]));
-      for (const row of mine) store.add('trades', row);
+      for (const row of mine) {
+        store.add('trades', row);
+        // The book around this fill is what the collection is for. It cannot be
+        // read yet — the minutes after it have not happened — so it is queued.
+        fillContext.add({
+          ts: row[0], conditionId: row[1], assetId: row[2], wallet: row[3],
+          side: row[4], price: row[5], size: row[6],
+        }, Date.now());
+      }
       counts.trades += mine.length;
       counts.takerFills += mine.filter((row) => row[7] === 'taker').length;
       // Worth keeping even though the market's own trades are not.
@@ -351,6 +381,7 @@ function tick(at = Date.now()) {
       ` waiting ${schedule.pendingSize}`);
   }
   drainFollowups();
+  drainFillContext(at);
 }
 
 const resolutionGate = throttle(350);
@@ -464,7 +495,8 @@ const timers = [
       ` | ${counts.sweeps} sweeps (${counts.followups} horizons) | ${counts.gaps} gaps` +
       ` | ${links.size} linked | ${counts.trades} trades` +
       ` | live ${schedule.liveSize}/waiting ${schedule.pendingSize}` +
-      ` | ${counts.observed} seen in play | ${universe.subscribedCount}/${universe.size} universe` +
+      ` | ${counts.observed} seen in play | ${counts.contexts} fills in context` +
+      ` | ${universe.subscribedCount}/${universe.size} universe` +
       `${counts.truncated ? ` | ${counts.truncated} truncated` : ''} | ${store.path}`);
   }, 60000),
 ];
@@ -481,6 +513,8 @@ function shutdown() {
       for (const row of followups.forget(assetId)) store.add('sweep_followups', row);
     }
   }
+  // Written up with whatever the horizons managed to see, rather than dropped.
+  drainFillContext(Date.now(), fillContext.drain());
   console.error(`\n[status] wrote ${counts.rows} book rows, ${counts.joined} joined,` +
     ` ${counts.sweeps} sweeps, ${counts.followups} horizons, ${counts.gaps} gaps`);
   store.close();

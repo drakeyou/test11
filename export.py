@@ -93,10 +93,15 @@ def dedupe(rows, key_index=0):
     Registry tables live in every daily database, so reading a week of them
     concatenates seven copies of the same market. Left alone that turned a
     bundle meant to be tens of kilobytes into 25 MB.
+
+    `key_index` may be a tuple where one column is not a key on its own: two
+    fills by the same wallet land on the same second often enough, and keying
+    those on the timestamp alone silently threw one of each pair away.
     """
+    columns = key_index if isinstance(key_index, tuple) else (key_index,)
     seen = {}
     for row in rows:
-        seen[row[key_index]] = row
+        seen[tuple(row[i] for i in columns)] = row
     return list(seen.values())
 
 
@@ -428,6 +433,19 @@ def main():
         ["hour", "sport", "assets", "heartbeats", "lowest_bid", "highest_bid", "gap_seconds"],
         [list(r) + [round(blind.get(r["hour"], 0.0), 1)] for r in coverage])
 
+    # The book around each wallet fill, written up by the collector once the
+    # horizons after the fill had passed. This is the ground truth the whole
+    # collection is for, so it goes out whole rather than summarised.
+    context = query(with_table(paths, "fill_context"),
+                    "SELECT * FROM fill_context ORDER BY fill_ts")
+    if context:
+        # Keyed as the table is: two fills a second apart are one row each, and
+        # two by the same wallet in the same second are still two fills.
+        sizes["fill-context.csv"] = write_csv(
+            os.path.join(args.out, "fill-context.csv"),
+            list(context[0].keys()),
+            dedupe([list(r) for r in context], key_index=(0, 1, 3, 4, 5, 6)))
+
     universe = query(paths, """
         SELECT ts, condition_id, discovered_via, subscribed, unsubscribed_at,
                reason_skipped, question, sport, level, kind
@@ -561,6 +579,7 @@ extract keeps what analysis needs and drops the bulk.
 | `markets.csv` | market registry: question, discipline, level, kind, segment, and the subscription window ({markets} rows) |
 | `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
 | `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
+| `fill-context.csv` | the book on either side of each wallet fill — the ground truth |
 | `coverage.csv` | heartbeats per asset per hour, with the seconds nobody saw ({coverage_hours} rows) |
 | `gaps.csv` | websocket disconnects ({gaps} rows) |
 | `universe.csv` | every market considered, and why it was or was not subscribed |
@@ -599,6 +618,28 @@ One row per detected collapse of the bid side.
   negative before it started.
 
 Sample per day (exported/significant): {strata}
+
+## How to read fill-context.csv
+
+One row per fill by a studied wallet, assembled from the stored snapshots.
+
+- `bid_t_minus_60` / `_10` / `_1` — the best bid a minute, ten seconds and a
+  second before the fill. Empty when no snapshot that close exists, rather than
+  filled in from an older one.
+- `size_at_002_before`, `depth_before` — what was already resting in the queue
+  the fill joined.
+- `paired_bid_before`, `fair_lower_bound_before`, `book_sum_before` — the other
+  outcome token at that moment. The floor is `1 - paired_ask`: a fill at 0.02
+  against a floor of 0.15 is a dislocation derived from resting orders.
+- `bid_plus_60` / `_300` / `_900` — where the bid was one, five and fifteen
+  minutes later.
+- `matched_sweep_id` — a sweep on the same token within two minutes before the
+  fill, if there was one. Joins to `sweeps.csv`.
+- `fill_index` — which fill this is within the position, counting the same side
+  only, so the fourth buy is 4 whatever the sells did.
+- `snapshot_available` — **read this first.** 0 means the market was not being
+  watched, so every empty column above says nothing. 1 with empty columns means
+  the book really was empty.
 
 ## How to read markets.csv
 

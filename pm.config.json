@@ -46,6 +46,10 @@
       15
     ]
   },
+  "fillContext": {
+    "settleSeconds": 900,
+    "maxAgeHours": 24
+  },
   "book": {
     "heartbeatSeconds": 5,
     "reconnectMinMs": 1000,

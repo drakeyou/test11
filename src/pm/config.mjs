@@ -97,6 +97,11 @@ export const DEFAULTS = {
   },
   // Horizons, in minutes, over which the best bid after a sweep is followed.
   followups: { horizons: [1, 5, 15] },
+  // The book around each wallet fill. settleSeconds is how long the write-up
+  // waits for the horizons after the fill; maxAgeHours bounds how far back into
+  // the wallet's trade history a fill is worth writing up at all, since
+  // anything older than the collection has no snapshots behind it.
+  fillContext: { settleSeconds: 900, maxAgeHours: 24 },
   book: { heartbeatSeconds: 5, reconnectMinMs: 1000, reconnectMaxMs: 60000 },
   // The tick is per-market, not a constant: of the esports markets sampled, 58
   // run at 0.01 and 7 at 0.001. So the bid-drop rule is expressed in ticks of

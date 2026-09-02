@@ -9,7 +9,7 @@
 // opening only the files it needs.
 
 import { DatabaseSync } from 'node:sqlite';
-import { mkdirSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SCHEMA = `
@@ -312,6 +312,8 @@ export class Store {
   #statements = null;
   #market = null;
   #observed = null;
+  /** Yesterday's file, read-only, so a fill near midnight still has a context. */
+  #history = null;
   #buffers = { book: [], sweeps: [], sweep_followups: [], fill_context: [], joined: [],
     wallets: [], trades: [], trade_scans: [], universe: [], gaps: [] };
   #flushAt;
@@ -337,6 +339,17 @@ export class Store {
   }
 
   #open(day) {
+    this.#history?.close();
+    this.#history = null;
+    const previous = join(this.#dir, `pm-${new Date(Date.parse(`${day}T00:00:00Z`) - 86400000)
+      .toISOString().slice(0, 10)}.sqlite`);
+    if (existsSync(previous)) {
+      try {
+        this.#history = new DatabaseSync(previous, { readOnly: true });
+      } catch {
+        this.#history = null;
+      }
+    }
     this.#db = new DatabaseSync(join(this.#dir, `pm-${day}.sqlite`));
     this.#db.exec('PRAGMA journal_mode = WAL');
     this.#db.exec('PRAGMA synchronous = NORMAL');
@@ -443,6 +456,74 @@ export class Store {
     }
   }
 
+  /**
+   * Run a read against today's file and yesterday's, newest answer first.
+   *
+   * The context around a fill reaches fifteen minutes each side of it, and the
+   * daily rollover happens in the middle of the night while matches are on. A
+   * fill at 23:50 would otherwise be written up from an empty database and
+   * marked as never observed, which is the one thing the flag exists to rule
+   * out.
+   */
+  #lookback(sql, params) {
+    for (const db of [this.#db, this.#history]) {
+      if (!db) continue;
+      try {
+        const row = db.prepare(sql).get(...params);
+        if (row) return row;
+      } catch {
+        // A file from before this column existed has nothing to say.
+      }
+    }
+    return null;
+  }
+
+  /** The newest book snapshot for an asset at or before an instant. */
+  bookAt(assetId, ts) {
+    return this.#lookback(`
+      SELECT ts, best_bid, best_ask, size_at_002, depth_bid_total,
+             paired_bid, paired_ask, book_sum
+      FROM book WHERE asset_id = ? AND ts <= ? ORDER BY ts DESC LIMIT 1
+    `, [assetId, ts]);
+  }
+
+  /** The newest sweep on this asset inside a window before an instant. */
+  sweepBefore(assetId, ts, since) {
+    return this.#lookback(`
+      SELECT sweep_id FROM sweeps
+      WHERE asset_id = ? AND ts <= ? AND ts >= ? ORDER BY ts DESC LIMIT 1
+    `, [assetId, ts, since])?.sweep_id ?? null;
+  }
+
+  /** Was this asset's book being recorded anywhere in the window? */
+  sawBook(assetId, from, to) {
+    return this.#lookback(
+      'SELECT 1 AS seen FROM book WHERE asset_id = ? AND ts >= ? AND ts <= ? LIMIT 1',
+      [assetId, from, to]) !== null;
+  }
+
+  /**
+   * Which fill this is within its position, counting the same side only.
+   *
+   * Read back from what is stored rather than counted in memory: the trade log
+   * is pulled in pages and deduplicated on insert, so a running counter would
+   * be wrong after a restart or a backfill.
+   */
+  fillOrdinal(assetId, side, ts) {
+    let total = 0;
+    for (const db of [this.#history, this.#db]) {
+      if (!db) continue;
+      try {
+        total += db.prepare(
+          'SELECT count(*) AS c FROM trades WHERE asset_id = ? AND side = ? AND ts <= ?',
+        ).get(assetId, side, ts).c;
+      } catch {
+        // Same as above: an older file may not carry the table at all.
+      }
+    }
+    return total;
+  }
+
   /** Maker/taker split of what has been stored, for the status line. */
   roleCounts() {
     const rows = this.#db.prepare('SELECT role, count(*) AS c FROM trades GROUP BY role').all();
@@ -456,6 +537,7 @@ export class Store {
   close() {
     clearInterval(this.#flushAt);
     this.flush();
+    this.#history?.close();
     this.#db.close();
   }
 }

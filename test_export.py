@@ -107,6 +107,25 @@ check("and the strata say so", all(row[1] == row[2] for row in all_strata))
 check("no sweeps, no strata", stratify([], 10) == ([], []))
 
 
+# --- deduplication ----------------------------------------------------------
+# Registry rows repeat in every daily file and must collapse; fills that share
+# a timestamp are different fills and must not.
+from export import dedupe  # noqa: E402
+
+markets = [["c1", "old"], ["c2", "x"], ["c1", "new"]]
+check("the newest row per market survives", dedupe(markets) == [["c1", "new"], ["c2", "x"]])
+
+same_second = [
+    ["2026-09-02T15:24:55.000Z", "tokA", "c", "0xw", "BUY", 0.02, 500],
+    ["2026-09-02T15:24:55.000Z", "tokA", "c", "0xw", "BUY", 0.02, 279],
+    ["2026-09-02T15:24:55.000Z", "tokA", "c", "0xw", "BUY", 0.02, 500],
+]
+check("two fills in one second are two rows",
+      len(dedupe(same_second, key_index=(0, 1, 3, 4, 5, 6))) == 2)
+check("keyed on the timestamp alone they would collapse",
+      len(dedupe(same_second, key_index=0)) == 1)
+
+
 # --- blind time -------------------------------------------------------------
 # 421 minutes of disconnects over 174 reconnects were being counted as watched.
 blind = gap_seconds_by_hour([

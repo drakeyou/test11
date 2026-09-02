@@ -22,7 +22,7 @@ EXPECTED_SPORTS = {
     "esports_valorant", "tennis",
 }
 TABLES = ["markets", "book", "sweeps", "joined", "wallets", "trades",
-          "trade_scans", "universe", "gaps"]
+          "trade_scans", "universe", "gaps", "sweep_followups", "fill_context"]
 
 OK, WARN, BAD = "  ok  ", " warn ", " MISS "
 findings = []
@@ -340,6 +340,59 @@ def check_window(paths, mapping_path, coverage_path):
                       f" compare with the gg.bet counts above:")
                 for sport, count in watched.most_common(6):
                     print(f"{' ' * 9}  {count:8}  {sport}")
+
+    # The twin token: a fair value from resting orders, needing no outside feed.
+    bounded = 0
+    fresh = 0
+    if swept:
+        for path in paths:
+            if "fair_lower_bound" not in table_columns(path, "sweeps"):
+                continue
+            connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+            try:
+                bounded += connection.execute(
+                    "SELECT count(*) FROM sweeps WHERE fair_lower_bound IS NOT NULL").fetchone()[0]
+                fresh += connection.execute(
+                    "SELECT count(*) FROM sweeps WHERE paired_stale_seconds < 30").fetchone()[0]
+            except sqlite3.OperationalError:
+                pass
+            connection.close()
+        share = bounded / swept
+        say(OK if share >= 0.9 else WARN,
+            f"{bounded}/{swept} sweeps ({share:.0%}) carry a fair value from the twin token",
+            "" if share >= 0.9 else "the other outcome token had no ask at the time,"
+            " so no floor can be put under this one")
+        share = fresh / swept
+        say(OK if share >= 0.7 else WARN,
+            f"{fresh}/{swept} sweeps ({share:.0%}) have a twin quote under 30s old",
+            "" if share >= 0.7 else "a floor from a book nobody has touched in minutes"
+            " is not evidence about now")
+
+    # The book around the wallets' own fills, which is what the study is for.
+    contexts = watched_fills = 0
+    for path in paths:
+        if not table_columns(path, "fill_context"):
+            continue
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            row = connection.execute(
+                "SELECT count(*), sum(coalesce(snapshot_available, 0)) FROM fill_context"
+            ).fetchone()
+            contexts += row[0] or 0
+            watched_fills += row[1] or 0
+        except sqlite3.OperationalError:
+            pass
+        connection.close()
+    if contexts:
+        share = watched_fills / contexts
+        say(OK if share >= 0.4 else WARN,
+            f"{watched_fills}/{contexts} wallet fills ({share:.0%}) have the book around them",
+            "" if share >= 0.4 else "the rest were in markets nobody was watching;"
+            " wallet activity should be pulling those into the schedule")
+    else:
+        say(WARN, "no wallet fill has been written up with its book context yet",
+            "either no fill has happened since collection started, or it is still"
+            " inside the fifteen minutes the write-up waits for")
 
     # The mapping table, by what kind of market it actually pairs.
     if os.path.exists(mapping_path):
