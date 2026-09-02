@@ -25,6 +25,7 @@ const oneMinute = tracker.due(t0 + MINUTE);
 assert.equal(oneMinute.length, 1);
 assert.deepEqual(oneMinute[0].slice(0, 5), [id, 'asset-1', 'cond-1', 1, 0.04]);
 assert.equal(oneMinute[0][6], 0, 'not resolved before the horizon');
+assert.equal(oneMinute[0][7], null, 'with no book clock supplied there is no claim');
 assert.equal(tracker.size, 1, 'the 5 and 15 minute horizons are still open');
 
 // Later highs belong to the later horizons only.
@@ -54,5 +55,29 @@ assert.deepEqual(cut.forget('asset-2'), [], 'forgetting twice is not an error');
 const empty = new FollowupTracker({ horizons: [1] });
 empty.open('s3', 'asset-3', 'cond-3', t0, null);
 assert.equal(empty.due(t0 + MINUTE)[0][4], null);
+
+// --- the market that died at the collapse -----------------------------------
+// A total decided or a handicap closed leaves a book that never moves again.
+// It reads as a sweep nobody bid back into and drags the statistics with it,
+// so it is flagged from the book's own clock rather than from a resolution we
+// only learn about much later.
+const dead = new FollowupTracker({ horizons: [5] });
+dead.open('s4', 'asset-4', 'cond-4', t0, 0.01, t0);
+dead.observe('asset-4', 0.01, t0);            // heartbeats do not move the clock
+const frozen = dead.due(t0 + 5 * MINUTE);
+assert.equal(frozen[0][7], 1, 'no real update over the horizon is a frozen book');
+
+const alive = new FollowupTracker({ horizons: [5] });
+alive.open('s5', 'asset-5', 'cond-5', t0, 0.01, t0);
+alive.observe('asset-5', 0.03, t0 + 30_000);  // a real change
+assert.equal(alive.due(t0 + 5 * MINUTE)[0][7], 0, 'a book that moved is not frozen');
+
+// Which markets still have a horizon running, so resolution is worth asking
+// about before the general 45-minute schedule gets round to them.
+const running = new FollowupTracker({ horizons: [15] });
+running.open('s6', 'asset-6', 'cond-6', t0, 0.02, t0);
+assert.deepEqual([...running.openConditions()], ['cond-6']);
+running.due(t0 + 20 * MINUTE);
+assert.equal(running.openConditions().size, 0, 'a closed horizon stops being asked about');
 
 console.log('all follow-up tests passed');

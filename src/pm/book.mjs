@@ -68,6 +68,18 @@ export class BookState {
     return this.#bids.get(key(price)) ?? 0;
   }
 
+  /** Resting ask size at exactly this price, for weighing the twin's offer. */
+  askSizeAt(price) {
+    return this.#asks.get(key(price)) ?? 0;
+  }
+
+  /** Bid levels as they stand, price -> size, for comparing against a snapshot. */
+  bidSizes() {
+    const out = new Map();
+    for (const [at, size] of this.#bids) out.set(toPrice(at), size);
+    return out;
+  }
+
   /** Total resting bid size strictly above a price, for the depth-collapse rule. */
   bidDepthAbove(price) {
     const floor = key(price);
@@ -89,8 +101,11 @@ export class BookState {
       .sort((a, b) => b[0] - a[0]).map(([at, size]) => [toPrice(at), size]);
   }
 
-  /** One row for the `book` table. */
-  metrics(ts, trigger) {
+  /**
+   * One row for the `book` table.
+   * @param {object|null} [paired]  from pairedView(), the twin token's side
+   */
+  metrics(ts, trigger, paired = null) {
     const bid = this.bestBid;
     const ask = this.bestAsk;
     return [
@@ -99,8 +114,73 @@ export class BookState {
       this.sizeAt(0.01), this.sizeAt(0.02), this.sizeAt(0.03), this.sizeAt(0.05),
       this.#total(this.#bids), this.#total(this.#asks), this.#bids.size,
       bid !== null && ask !== null ? ask - bid : null,
+      // The twin, compactly: enough for a dislocation series and the broken-book
+      // detector. fair_lower_bound is 1 - paired_ask and is left to the reader
+      // rather than stored, because this table runs to tens of millions of rows.
+      paired?.bid ?? null, paired?.ask ?? null, paired?.mid ?? null,
+      bookSum(bid, paired?.bid ?? null), paired?.staleSeconds ?? null,
     ];
   }
+}
+
+/**
+ * What the other outcome token of the same market implies about this one.
+ *
+ * A binary market's two tokens pay out $1 between them, so P(a) + P(b) = 1. A
+ * resting offer to sell b at `ask` is somebody willing to part with it at that
+ * price, so the market is not pricing b above it — which puts a floor under a:
+ *
+ *     P(a) = 1 - P(b) >= 1 - ask_b
+ *
+ * That floor is the point. When the bid on a has been swept to a cent and the
+ * twin's ask still says a is worth at least fifteen, the dislocation is derived
+ * from resting orders rather than guessed at, and no outside price feed is
+ * involved. Both tokens are already subscribed and both books are already in
+ * memory, so this costs a map lookup.
+ *
+ * The floor is only as good as the offer behind it: a lone share offered at
+ * 0.99 implies a floor of 0.01 and means nothing, hence `askSize`. And an offer
+ * nobody has refreshed in minutes is not evidence about now, hence
+ * `staleSeconds` — measured from the book's last real change, not from the last
+ * heartbeat.
+ */
+export function pairedView(pairedBook, now = Date.now()) {
+  if (!pairedBook) return null;
+  const bid = pairedBook.bestBid;
+  const ask = pairedBook.bestAsk;
+  return {
+    assetId: pairedBook.assetId,
+    bid,
+    ask,
+    askSize: ask === null ? null : pairedBook.askSizeAt(ask),
+    lower: ask === null ? null : round(1 - ask),
+    upper: bid === null ? null : round(1 - bid),
+    mid: bid !== null && ask !== null ? round(1 - (bid + ask) / 2) : null,
+    staleSeconds: pairedBook.lastUpdate ? (now - pairedBook.lastUpdate) / 1000 : null,
+  };
+}
+
+/**
+ * The two sides' best bids together.
+ *
+ * In a working market this sits just under 1 — the pair pays out a dollar and
+ * the shortfall is the spread. A sum far below that is not a market pricing
+ * something differently, it is a book with a side missing, which is exactly the
+ * event under study and worth flagging on its own.
+ */
+export function bookSum(bid, pairedBid) {
+  return bid === null || pairedBid === null ? null : round(bid + pairedBid);
+}
+
+/** How far below the twin's floor the bid has fallen. Undefined at zero. */
+export function internalDislocation(lowerBound, bid) {
+  return lowerBound === null || !(bid > 0) ? null : round(lowerBound / bid, 4);
+}
+
+/** Prices are thousandths; keep the arithmetic from printing 0.30000000000000004. */
+function round(value, places = 6) {
+  const scale = 10 ** places;
+  return Math.round(value * scale) / scale;
 }
 
 /**
@@ -177,8 +257,25 @@ export class SweepDetector {
 
     if (!rules.length) return null;
     this.#lastFired.set(book.assetId, at);
+
+    // `levels_crossed` counts only the levels that stood ABOVE the new best
+    // bid, which in these books is usually one: a maker quote at thirty cents
+    // with nothing between it and the penny bids. That is the truth, but it
+    // carries almost no variation, so it cannot be tested as a predictor. What
+    // is missing from it is every level that was thinned rather than cleared.
+    const remaining = book.bidSizes();
+    let levelsTouched = 0;
+    let sizeEatenPartial = 0;
+    for (const [price, size] of before.levels) {
+      const left = remaining.get(price) ?? 0;
+      if (left >= size) continue;
+      levelsTouched++;
+      if (left > 0) sizeEatenPartial += size - left;
+    }
+
     return [ts, book.assetId, book.conditionId, rules.join('+'),
-      before.bestBid, after, consumed, eaten.length, before.depth, depthAfter];
+      before.bestBid, after, consumed, eaten.length, before.depth, depthAfter,
+      levelsTouched, sizeEatenPartial, before.levels.length];
   }
 
   /** State to capture before applying an update, so the two can be compared. */

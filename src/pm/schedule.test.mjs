@@ -3,6 +3,7 @@
 //   node src/pm/schedule.test.mjs
 import assert from 'node:assert/strict';
 import { MarketSchedule, gameStartOf, parseTimestamp } from './schedule.mjs';
+import { BookState, pairedView } from './book.mjs';
 
 const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
@@ -71,6 +72,14 @@ assert.equal(schedule.liveSize, 1);
 assert.deepEqual(schedule.assetIds(), ['a', 'b'], 'both tokens are subscribed');
 assert.equal(schedule.conditionOf('b'), 'c1');
 
+// Both tokens of a binary market are watched, and their prices are tied:
+// P(a) + P(b) = 1. The link between them is what lets a fair value be read off
+// the twin's book instead of an outside feed, so it is kept with the
+// subscription and dropped with it.
+assert.equal(schedule.pairOf('a'), 'b');
+assert.equal(schedule.pairOf('b'), 'a');
+assert.equal(schedule.pairOf('never-seen'), null);
+
 // Through the match, a quiet book is still a watched book.
 assert.deepEqual(schedule.refresh(game + 2 * HOUR).removed, [], 'silence does not unsubscribe');
 assert.equal(schedule.liveSize, 1);
@@ -87,6 +96,7 @@ assert.deepEqual(closed.removed.map((e) => e.conditionId), ['c1']);
 assert.equal(schedule.entry('c1').releaseReason, 'past the hold window');
 assert.equal(schedule.liveSize, 0);
 assert.deepEqual(schedule.assetIds(), []);
+assert.equal(schedule.pairOf('a'), null, 'the pair goes when the subscription goes');
 
 // A finished match is not rescheduled when Gamma serves it again.
 assert.equal(schedule.observe([cs2()], game + 7 * HOUR).scheduled.length, 0);
@@ -120,6 +130,29 @@ assert.equal(polled.dueForResolutionCheck(game + 10 * MINUTE).length, 0,
 assert.equal(polled.dueForResolutionCheck(game + 50 * MINUTE).length, 1);
 assert.equal(polled.dueForResolutionCheck(game + 55 * MINUTE).length, 0, 'and not again at once');
 assert.equal(polled.dueForResolutionCheck(game + 70 * MINUTE).length, 1);
+
+// --- the composition the collector performs on every book event -------------
+// schedule.pairOf -> books.get -> pairedView -> metrics. Pinned together
+// because each part passing on its own would not catch a mismatch between them.
+const twinned = new MarketSchedule({ leadMinutes: 10 });
+twinned.observe([cs2({ conditionId: 'c7', tokens: ['yes', 'no'] })], game - HOUR);
+twinned.refresh(game);
+const noBook = new BookState('no', { conditionId: 'c7' });
+noBook.applyBook({
+  bids: [{ price: '0.80', size: '400' }],
+  asks: [{ price: '0.84', size: '90' }],
+  timestamp: String(game),
+});
+const live = new Map([['no', noBook]]);
+const view = pairedView(live.get(twinned.pairOf('yes')), game + 2000);
+assert.equal(view.lower, 0.16, 'the twin ask puts a floor under this token');
+assert.equal(view.staleSeconds, 2);
+
+const yesBook = new BookState('yes', { conditionId: 'c7' });
+yesBook.applyBook({ bids: [{ price: '0.01', size: '900' }], asks: [], timestamp: String(game) });
+const row = yesBook.metrics('2026-09-01T12:00:02Z', 'heartbeat', view);
+assert.deepEqual(row.slice(15), [0.8, 0.84, 0.18, 0.81, 2],
+  'paired bid, ask, fair mid, book sum and staleness reach the book row');
 
 // A market whose whole window passed while the collector was down is closed
 // out rather than subscribed to a match that is long over.

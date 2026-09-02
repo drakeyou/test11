@@ -4,7 +4,7 @@
 //   node src/pm/book.test.mjs
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { BookState, SweepDetector } from './book.mjs';
+import { BookState, SweepDetector, bookSum, internalDislocation, pairedView } from './book.mjs';
 import { DEFAULTS } from './config.mjs';
 
 const sweepConfig = DEFAULTS.sweep;
@@ -181,13 +181,53 @@ for (const { msg } of frames) {
   }
 }
 const row = live.metrics('2026-08-25T12:00:00Z', 'heartbeat');
-assert.equal(row.length, 15, 'a metrics row matches the book table');
+assert.equal(row.length, 20, 'a metrics row matches the book table');
 assert.equal(row[1], frames[0].msg.asset_id);
 assert.ok(row[4] > 0 && row[5] > row[4], `bid ${row[4]} below ask ${row[5]}`);
 assert.ok(row[13] > 1, 'the replayed book has depth');
 assert.ok(row[11] > 0, 'total bid depth is positive');
 assert.equal(row[14], row[5] - row[4], 'spread is ask minus bid');
 assert.equal(live.tickSize, 0.01, 'tick size is taken from the book message');
+
+assert.deepEqual(row.slice(15), [null, null, null, null, null],
+  'with no twin in hand the paired columns are empty, not zero');
+
+// --- the twin token ---------------------------------------------------------
+// Both outcome tokens of a market are subscribed and both books are in memory,
+// so the fair value of one is readable off the other: P(a) = 1 - P(b), and a
+// resting offer to sell b at 0.85 says a is worth at least 0.15. That floor is
+// what tells a book swept below fair from an event that actually happened, and
+// it needs no outside price feed.
+const twin = new BookState('twin', { conditionId: 'c1' });
+twin.applyBook({
+  bids: [{ price: '0.80', size: '500' }],
+  asks: [{ price: '0.85', size: '120' }],
+  timestamp: String(Date.parse('2026-08-25T12:00:00Z') - 4000),
+});
+const view = pairedView(twin, Date.parse('2026-08-25T12:00:00Z'));
+assert.equal(view.lower, 0.15, 'the floor is one minus the twin ask');
+assert.equal(view.upper, 0.2);
+assert.equal(view.mid, 0.175);
+assert.equal(view.askSize, 120, 'a floor is only as good as the offer behind it');
+assert.equal(view.staleSeconds, 4, 'measured from the last real change, not the heartbeat');
+
+// The case the study is about: swept to a cent while the twin still says 0.15.
+assert.equal(internalDislocation(view.lower, 0.01), 15);
+assert.equal(bookSum(0.01, view.bid), 0.81);
+assert.equal(internalDislocation(view.lower, 0), null, 'no dislocation against nothing');
+assert.equal(internalDislocation(view.lower, null), null);
+assert.equal(bookSum(null, view.bid), null, 'an empty side sums to nothing, not zero');
+
+const empty = new BookState('empty', {});
+const blank = pairedView(empty);
+assert.equal(blank.lower, null, 'a twin with no asks implies no floor');
+assert.equal(blank.upper, null);
+assert.equal(blank.mid, null);
+assert.equal(pairedView(null), null, 'an unsubscribed twin is null, not a guess');
+
+const paired = live.metrics('2026-08-25T12:00:00Z', 'heartbeat', view);
+assert.deepEqual(paired.slice(15, 18), [0.8, 0.85, 0.175]);
+assert.equal(paired[19], 4);
 
 console.log(`replayed ${frames.length} frames: bid ${row[4]} / ask ${row[5]}, ${row[13]} bid levels`);
 console.log('all book tests passed');

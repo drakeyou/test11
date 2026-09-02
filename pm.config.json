@@ -35,6 +35,7 @@
     "maxAheadHours": 72,
     "resolutionCheckMinutes": 15,
     "resolutionCheckAfterMinutes": 45,
+    "resolutionCheckOpenHorizonSeconds": 60,
     "resolutionsPerCycle": 20
   },
   "followups": {

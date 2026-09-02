@@ -15,7 +15,7 @@ import { loadConfig } from './config.mjs';
 import { fetchActiveMarkets, MarketRegistry } from './gamma.mjs';
 import { MarketSchedule } from './schedule.mjs';
 import { FollowupTracker, sweepIdOf } from './followups.mjs';
-import { BookState, SweepDetector } from './book.mjs';
+import { BookState, SweepDetector, bookSum, internalDislocation, pairedView } from './book.mjs';
 import { BookFeed } from './ws.mjs';
 import { Store, restoreSchedulableMarkets } from './store.mjs';
 import { GgbetTail } from './ggbet-tail.mjs';
@@ -65,6 +65,12 @@ function record(book, before, trigger) {
   const link = links.get(book.assetId);
   const ggbet = link ? ggbetByKey.get(link.ggbetKey) : null;
 
+  // The other outcome token of this market. Both are subscribed and both books
+  // are in this map already, so the fair value of one is readable off the
+  // other: P(a) = 1 - P(b). No request, no outside feed, one lookup.
+  const pairedId = schedule.pairOf(book.assetId);
+  const paired = pairedId ? pairedView(books.get(pairedId), at) : null;
+
   const sweep = before && detector.observe(book, before, ts);
   if (sweep) {
     const bid = book.bestBid;
@@ -74,15 +80,22 @@ function record(book, before, trigger) {
     const quote = link ? quoteFor(link, ggbet, mid, at)
       : { fair: null, ratio: null, secondsSinceQuote: null, state: null };
     const sweepId = sweepIdOf(book.assetId, ts);
-    store.add('sweeps', [...sweep, sweepId, quote.fair, quote.ratio,
-      quote.secondsSinceQuote, quote.state]);
-    followups.open(sweepId, book.assetId, book.conditionId, at, sweep[5]);
+    store.add('sweeps', [
+      ...sweep, sweepId, quote.fair, quote.ratio, quote.secondsSinceQuote, quote.state,
+      // The dislocation is measured against the bid the sweep left behind.
+      paired?.assetId ?? pairedId, paired?.bid ?? null, paired?.ask ?? null,
+      paired?.askSize ?? null, paired?.lower ?? null, paired?.upper ?? null,
+      paired?.mid ?? null, bookSum(sweep[5], paired?.bid ?? null),
+      internalDislocation(paired?.lower ?? null, sweep[5]),
+      paired?.staleSeconds ?? null,
+    ]);
+    followups.open(sweepId, book.assetId, book.conditionId, at, sweep[5], book.lastUpdate);
     counts.sweeps++;
   }
-  store.add('book', book.metrics(ts, trigger));
+  store.add('book', book.metrics(ts, trigger, paired));
   counts.rows++;
   // Every snapshot feeds the horizons still open on this asset.
-  followups.observe(book.assetId, book.bestBid);
+  followups.observe(book.assetId, book.bestBid, book.lastUpdate);
 
   // The self-check: this book was seen while the match was being played.
   if (book.conditionId && schedule.noteObserved(book.conditionId, at)) {
@@ -292,7 +305,7 @@ const resolutionGate = throttle(350);
 async function checkResolutions() {
   const naming = { ...config.labels, ...config.disciplines };
   for (const entry of schedule.dueForResolutionCheck(Date.now(),
-    config.schedule?.resolutionsPerCycle ?? 20)) {
+    config.schedule?.resolutionsPerCycle ?? 20, followups.openConditions())) {
     try {
       await resolutionGate();
       const { closed, rows } = await fetchResolution(entry.conditionId, naming,
@@ -370,8 +383,10 @@ const timers = [
   // markets are discovered: a ten-minute lead is worth nothing if it is only
   // acted on every 45 seconds by luck.
   setInterval(() => tick(), (config.schedule?.tickSeconds ?? 10) * 1000),
+  // Runs on the short interval; dueForResolutionCheck decides which markets are
+  // actually asked about, so a sweep horizon is not outlived by the schedule.
   setInterval(() => checkResolutions().catch((err) => console.error(`[resolve] ${err.message}`)),
-    (config.schedule?.resolutionCheckMinutes ?? 15) * 60 * 1000),
+    (config.schedule?.resolutionCheckOpenHorizonSeconds ?? 60) * 1000),
   setInterval(heartbeat, config.book.heartbeatSeconds * 1000),
   setInterval(relink, (config.ggbet.pollSeconds ?? 5) * 1000),
   setInterval(() => pollWallets(), (config.wallets.intervalSeconds ?? 25) * 1000),

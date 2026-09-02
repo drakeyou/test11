@@ -82,6 +82,10 @@ export const DEFAULTS = {
     // once the match could plausibly be over.
     resolutionCheckMinutes: 15,
     resolutionCheckAfterMinutes: 45,
+    // A market with a sweep horizon still open is asked about this often
+    // instead, whatever the two settings above say: the horizons are 1, 5 and
+    // 15 minutes and would otherwise all close before the first question.
+    resolutionCheckOpenHorizonSeconds: 60,
     resolutionsPerCycle: 20,
   },
   // Horizons, in minutes, over which the best bid after a sweep is followed.

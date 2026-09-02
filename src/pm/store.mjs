@@ -31,7 +31,13 @@ CREATE TABLE IF NOT EXISTS book (
   ts TEXT, asset_id TEXT, condition_id TEXT, trigger TEXT,
   best_bid REAL, best_ask REAL, mid REAL,
   size_at_001 REAL, size_at_002 REAL, size_at_003 REAL, size_at_005 REAL,
-  depth_bid_total REAL, depth_ask_total REAL, n_bid_levels INTEGER, spread REAL
+  depth_bid_total REAL, depth_ask_total REAL, n_bid_levels INTEGER, spread REAL,
+  -- The other outcome token of the same market. Both are subscribed, so this
+  -- costs a map lookup and turns every snapshot into a fair-value estimate:
+  -- fair_lower_bound is 1 - paired_ask, left to the reader because this table
+  -- runs to tens of millions of rows. book_sum near 1 is a working market.
+  paired_bid REAL, paired_ask REAL, fair_mid REAL, book_sum REAL,
+  paired_stale_seconds REAL
 );
 CREATE TABLE IF NOT EXISTS sweeps (
   ts TEXT, asset_id TEXT, condition_id TEXT, rule TEXT,
@@ -41,7 +47,14 @@ CREATE TABLE IF NOT EXISTS sweeps (
   -- resident cache of last quotes. Looking it up afterwards from the joined
   -- table found a quote for 1 sweep in 5000.
   sweep_id TEXT, ggbet_fair REAL, dislocation_ratio REAL,
-  seconds_since_ggbet_quote REAL, ggbet_market_state TEXT
+  seconds_since_ggbet_quote REAL, ggbet_market_state TEXT,
+  -- What levels_crossed misses: levels thinned rather than cleared.
+  levels_touched INTEGER, size_eaten_partial REAL, n_bid_levels_before INTEGER,
+  -- The twin token, in full. Unlike the book table this is thousands of rows,
+  -- so the derived bounds are stored rather than left to be recomputed.
+  paired_asset_id TEXT, paired_bid REAL, paired_ask REAL, paired_ask_size REAL,
+  fair_lower_bound REAL, fair_upper_bound REAL, fair_mid REAL, book_sum REAL,
+  internal_dislocation REAL, paired_stale_seconds REAL
 );
 -- What the best bid reached in the minutes after a sweep: the outcome the whole
 -- study is about. Filled from the snapshots already being collected, by a
@@ -49,7 +62,26 @@ CREATE TABLE IF NOT EXISTS sweeps (
 CREATE TABLE IF NOT EXISTS sweep_followups (
   sweep_id TEXT, asset_id TEXT, condition_id TEXT, horizon INTEGER,
   high_bid REAL, filled_at TEXT, resolved_before_horizon INTEGER,
+  -- The book never moved at all over the horizon. A market that died at the
+  -- moment of the collapse — a total decided, a handicap closed — reads as a
+  -- sweep that never recovered, and drags the statistics with it. This says so
+  -- without needing to know when the market resolved, which is knowledge that
+  -- arrives too late to be useful.
+  book_frozen INTEGER,
   UNIQUE (sweep_id, horizon)
+);
+-- The book around a fill by a studied wallet: the ground truth the collection
+-- exists for. Filled by a deferred worker once the horizons after the fill have
+-- passed, from snapshots already stored.
+CREATE TABLE IF NOT EXISTS fill_context (
+  fill_ts TEXT, asset_id TEXT, condition_id TEXT, wallet TEXT, side TEXT,
+  price REAL, size REAL, fill_index INTEGER,
+  bid_t_minus_60 REAL, bid_t_minus_10 REAL, bid_t_minus_1 REAL, ask_t_minus_1 REAL,
+  size_at_002_before REAL, depth_before REAL,
+  paired_bid_before REAL, fair_lower_bound_before REAL, book_sum_before REAL,
+  bid_plus_60 REAL, bid_plus_300 REAL, bid_plus_900 REAL,
+  matched_sweep_id TEXT, snapshot_available INTEGER, filled_at TEXT,
+  UNIQUE (fill_ts, asset_id, wallet, side, price, size)
 );
 CREATE TABLE IF NOT EXISTS joined (
   ts TEXT, condition_id TEXT, asset_id TEXT,
@@ -85,6 +117,7 @@ CREATE INDEX IF NOT EXISTS sweeps_asset_ts ON sweeps (asset_id, ts);
 CREATE INDEX IF NOT EXISTS joined_cond_ts ON joined (condition_id, ts);
 CREATE INDEX IF NOT EXISTS trades_asset_ts ON trades (asset_id, ts);
 CREATE INDEX IF NOT EXISTS followups_sweep ON sweep_followups (sweep_id);
+CREATE INDEX IF NOT EXISTS fill_context_asset ON fill_context (asset_id, fill_ts);
 -- Coverage counts heartbeats and the fill rate filters on the best bid. Without
 -- these both queries scan every row and sort it in a temp b-tree, which on a
 -- day's collection is minutes per question.
@@ -93,14 +126,22 @@ CREATE INDEX IF NOT EXISTS book_bid_asset_ts ON book (best_bid, asset_id, ts);
 `;
 
 const INSERTS = {
-  book: `INSERT INTO book VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+  book: `INSERT INTO book VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   sweeps: `INSERT INTO sweeps (ts, asset_id, condition_id, rule, bid_before, bid_after,
-    size_consumed, levels_crossed, depth_before, depth_after, sweep_id, ggbet_fair,
-    dislocation_ratio, seconds_since_ggbet_quote, ggbet_market_state)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    size_consumed, levels_crossed, depth_before, depth_after,
+    levels_touched, size_eaten_partial, n_bid_levels_before,
+    sweep_id, ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote,
+    ggbet_market_state,
+    paired_asset_id, paired_bid, paired_ask, paired_ask_size,
+    fair_lower_bound, fair_upper_bound, fair_mid, book_sum,
+    internal_dislocation, paired_stale_seconds)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   sweep_followups: `INSERT OR IGNORE INTO sweep_followups
-    (sweep_id, asset_id, condition_id, horizon, high_bid, filled_at, resolved_before_horizon)
-    VALUES (?,?,?,?,?,?,?)`,
+    (sweep_id, asset_id, condition_id, horizon, high_bid, filled_at,
+     resolved_before_horizon, book_frozen)
+    VALUES (?,?,?,?,?,?,?,?)`,
+  fill_context: `INSERT OR IGNORE INTO fill_context VALUES
+    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
   joined: `INSERT INTO joined VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
   wallets: `INSERT OR IGNORE INTO wallets VALUES (?,?,?,?,?,?,?,?,?,?)`,
   trades: `INSERT OR IGNORE INTO trades VALUES (?,?,?,?,?,?,?,?,?)`,
@@ -138,7 +179,16 @@ const COLUMN_ADDITIONS = {
     ['unsubscribed_at', 'TEXT'], ['release_reason', 'TEXT'],
     ['observed_during_game', 'INTEGER']],
   sweeps: [['sweep_id', 'TEXT'], ['ggbet_fair', 'REAL'], ['dislocation_ratio', 'REAL'],
-    ['seconds_since_ggbet_quote', 'REAL'], ['ggbet_market_state', 'TEXT']],
+    ['seconds_since_ggbet_quote', 'REAL'], ['ggbet_market_state', 'TEXT'],
+    ['levels_touched', 'INTEGER'], ['size_eaten_partial', 'REAL'],
+    ['n_bid_levels_before', 'INTEGER'], ['paired_asset_id', 'TEXT'],
+    ['paired_bid', 'REAL'], ['paired_ask', 'REAL'], ['paired_ask_size', 'REAL'],
+    ['fair_lower_bound', 'REAL'], ['fair_upper_bound', 'REAL'], ['fair_mid', 'REAL'],
+    ['book_sum', 'REAL'], ['internal_dislocation', 'REAL'],
+    ['paired_stale_seconds', 'REAL']],
+  book: [['paired_bid', 'REAL'], ['paired_ask', 'REAL'], ['fair_mid', 'REAL'],
+    ['book_sum', 'REAL'], ['paired_stale_seconds', 'REAL']],
+  sweep_followups: [['book_frozen', 'INTEGER']],
 };
 
 export const utcDay = (date = new Date()) => date.toISOString().slice(0, 10);
@@ -217,8 +267,8 @@ export class Store {
   #statements = null;
   #market = null;
   #observed = null;
-  #buffers = { book: [], sweeps: [], sweep_followups: [], joined: [], wallets: [],
-    trades: [], trade_scans: [], universe: [], gaps: [] };
+  #buffers = { book: [], sweeps: [], sweep_followups: [], fill_context: [], joined: [],
+    wallets: [], trades: [], trade_scans: [], universe: [], gaps: [] };
   #flushAt;
   #maxBuffered;
 

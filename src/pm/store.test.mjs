@@ -22,11 +22,16 @@ try {
   store.flush();
   assert.equal(store.count('book'), 1);
 
+  // A sweep row, in the order the insert names its columns.
+  const sweepRow = (ts) => [
+    ts, 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100,     // the detector
+    7, 240, 9,                                                  // levels touched
+    `a1:${ts}`, 0.31, 1.55, 4.2, 'active',                      // id and gg.bet
+    'a2', 0.8, 0.85, 120, 0.15, 0.2, 0.175, 0.82, 7.5, 4,       // the twin
+  ];
+
   // Hitting maxBuffered flushes on its own, so a burst cannot grow unbounded.
-  for (let i = 0; i < 5; i++) {
-    store.add('sweeps', [`t${i}`, 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100,
-      `a1:t${i}`, 0.31, 1.55, 4.2, 'active']);
-  }
+  for (let i = 0; i < 5; i++) store.add('sweeps', sweepRow(`t${i}`));
   assert.equal(store.count('sweeps'), 5, 'a full buffer flushes itself');
 
   // The gg.bet side is priced into the sweep row itself, at the moment of the
@@ -38,13 +43,41 @@ try {
   assert.equal(priced.dislocation_ratio, 1.55);
   assert.equal(priced.seconds_since_ggbet_quote, 4.2);
   assert.equal(priced.ggbet_market_state, 'active');
+  // The twin token, which is what makes a fair value available without any
+  // outside feed. Pinned by name: the row grew and a shifted column would put
+  // a price in the wrong field with nothing to notice it.
+  assert.equal(priced.paired_asset_id, 'a2');
+  assert.equal(priced.paired_ask, 0.85);
+  assert.equal(priced.paired_ask_size, 120);
+  assert.equal(priced.fair_lower_bound, 0.15);
+  assert.equal(priced.internal_dislocation, 7.5);
+  assert.equal(priced.paired_stale_seconds, 4);
+  assert.equal(priced.levels_touched, 7);
+  assert.equal(priced.size_eaten_partial, 240);
+  assert.equal(priced.n_bid_levels_before, 9);
 
   // One row per horizon, and a re-run of the same horizon cannot double it.
-  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.09, '2026-08-25T10:05:00Z', 0]);
-  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.11, '2026-08-25T10:05:01Z', 0]);
-  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 15, 1, '2026-08-25T10:15:00Z', 1]);
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.09, '2026-08-25T10:05:00Z', 0, 0]);
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 5, 0.11, '2026-08-25T10:05:01Z', 0, 0]);
+  store.add('sweep_followups', ['a1:t0', 'a1', 'c1', 15, 1, '2026-08-25T10:15:00Z', 1, 1]);
   store.flush();
   assert.equal(store.count('sweep_followups'), 2, 'a horizon is written once per sweep');
+  assert.equal(new DatabaseSync(store.path).prepare(
+    'SELECT book_frozen FROM sweep_followups WHERE horizon = 15').get().book_frozen, 1,
+  'a book that never moved over the horizon is flagged');
+
+  // The context around a wallet fill, written once however often it is seen.
+  const fill = ['2026-08-25T12:00:00.000Z', 'a1', 'c1', '0xw', 'BUY', 0.02, 100, 1,
+    0.30, 0.28, 0.25, 0.27, 500, 900, 0.80, 0.15, 0.82, 0.03, 0.05, 0.09,
+    'a1:t0', 1, '2026-08-25T12:15:00.000Z'];
+  store.add('fill_context', fill);
+  store.add('fill_context', [...fill]);
+  store.flush();
+  assert.equal(store.count('fill_context'), 1, 'a fill is contextualised once');
+  const context = new DatabaseSync(store.path).prepare('SELECT * FROM fill_context').get();
+  assert.equal(context.fair_lower_bound_before, 0.15);
+  assert.equal(context.matched_sweep_id, 'a1:t0');
+  assert.equal(context.snapshot_available, 1);
 
   store.upsertMarket({
     conditionId: 'c1', tokens: ['a1', 'a2'], question: 'Map 1 Winner', slug: 's',
@@ -150,14 +183,21 @@ try {
     ts TEXT, asset_id TEXT, condition_id TEXT, rule TEXT,
     bid_before REAL, bid_after REAL, size_consumed REAL, levels_crossed INTEGER,
     depth_before REAL, depth_after REAL);
+    CREATE TABLE book (
+    ts TEXT, asset_id TEXT, condition_id TEXT, trigger TEXT,
+    best_bid REAL, best_ask REAL, mid REAL,
+    size_at_001 REAL, size_at_002 REAL, size_at_003 REAL, size_at_005 REAL,
+    depth_bid_total REAL, depth_ask_total REAL, n_bid_levels INTEGER, spread REAL);
     INSERT INTO markets (condition_id, question) VALUES ('old', 'Map 1 Winner');`);
   legacy.close();
 
   const migrated = new Store(oldDir, { flushMs: 1_000_000 });
-  migrated.add('sweeps', ['t', 'a1', 'c1', 'levels', 0.3, 0.02, 500, 6, 900, 100,
-    'a1:t', 0.31, 1.55, 4.2, 'active']);
+  migrated.add('sweeps', sweepRow('t'));
+  migrated.add('book', ['t', 'a1', 'c1', 'heartbeat', 0.02, 0.9, 0.46, 1, 2, 3, 4, 5, 6, 7,
+    0.88, 0.8, 0.85, 0.175, 0.82, 4]);
   migrated.flush();
   assert.equal(migrated.count('sweeps'), 1, 'an old database takes the new sweep row');
+  assert.equal(migrated.count('book'), 1, 'and the widened book row');
   migrated.markObserved('old');
   const carried = new DatabaseSync(migrated.path)
     .prepare('SELECT * FROM markets WHERE condition_id = ?').get('old');

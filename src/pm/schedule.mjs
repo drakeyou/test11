@@ -95,6 +95,8 @@ export class MarketSchedule {
   #entries = new Map();
   #live = new Set();
   #assets = new Map();
+  /** asset id -> the other token of the same market. */
+  #pairs = new Map();
 
   constructor(config = {}) {
     this.config = {
@@ -103,6 +105,7 @@ export class MarketSchedule {
       maxAheadHours: 72,
       resolutionCheckMinutes: 15,
       resolutionCheckAfterMinutes: 45,
+      resolutionCheckOpenHorizonSeconds: 60,
       ...config,
       holdHours: { ...DEFAULT_HOLD_HOURS, ...(config.holdHours ?? {}) },
     };
@@ -189,7 +192,15 @@ export class MarketSchedule {
       if (now >= entry.subscribeAt) {
         entry.subscribedAt = new Date(now).toISOString();
         this.#live.add(entry.conditionId);
+        const [a, b] = entry.record.tokens;
         for (const assetId of entry.record.tokens) this.#assets.set(assetId, entry.conditionId);
+        // Both tokens of a binary market are subscribed, and their prices are
+        // tied: P(a) + P(b) = 1. Knowing the twin is what turns the pair into a
+        // fair-value estimate, so the link is kept alongside the subscription.
+        if (a && b) {
+          this.#pairs.set(a, b);
+          this.#pairs.set(b, a);
+        }
         added.push(entry);
       }
     }
@@ -200,7 +211,10 @@ export class MarketSchedule {
     entry.releasedAt = new Date(now).toISOString();
     entry.releaseReason = reason;
     this.#live.delete(entry.conditionId);
-    for (const assetId of entry.record.tokens) this.#assets.delete(assetId);
+    for (const assetId of entry.record.tokens) {
+      this.#assets.delete(assetId);
+      this.#pairs.delete(assetId);
+    }
   }
 
   /** A market the resolver reports closed; it stops being watched on the next refresh. */
@@ -217,15 +231,22 @@ export class MarketSchedule {
    * Checking costs a CLOB request per market, so it only starts once the match
    * has had time to finish and repeats no more often than configured.
    */
-  dueForResolutionCheck(now = Date.now(), limit = 25) {
+  dueForResolutionCheck(now = Date.now(), limit = 25, urgent = null) {
     const after = this.config.resolutionCheckAfterMinutes * 60 * 1000;
     const every = this.config.resolutionCheckMinutes * 60 * 1000;
+    // A market with a sweep horizon still running is asked about on its own,
+    // much sooner. The general schedule starts 45 minutes after kick-off, by
+    // which time every 1, 5 and 15 minute horizon has already been written —
+    // which is why resolved_before_horizon came back zero on every row ever
+    // collected. It was not defaulting to zero; it was unreachable.
+    const pressingEvery = (this.config.resolutionCheckOpenHorizonSeconds ?? 60) * 1000;
     const due = [];
     for (const conditionId of this.#live) {
       const entry = this.#entries.get(conditionId);
       if (!entry || entry.resolved) continue;
-      if (now - entry.gameStart < after) continue;
-      if (now - entry.resolutionCheckedAt < every) continue;
+      const pressing = urgent ? urgent.has(conditionId) : false;
+      if (!pressing && now - entry.gameStart < after) continue;
+      if (now - entry.resolutionCheckedAt < (pressing ? pressingEvery : every)) continue;
       due.push(entry);
       if (due.length >= limit) break;
     }
@@ -265,6 +286,11 @@ export class MarketSchedule {
 
   conditionOf(assetId) {
     return this.#assets.get(assetId) ?? null;
+  }
+
+  /** The other outcome token of the same market, or null. */
+  pairOf(assetId) {
+    return this.#pairs.get(assetId) ?? null;
   }
 
   get liveSize() {
