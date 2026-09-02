@@ -163,6 +163,11 @@ def ensure_indexes(paths, quiet=False):
     wanted = {
         "book_trigger_asset_ts": "CREATE INDEX book_trigger_asset_ts ON book (trigger, asset_id, ts)",
         "book_bid_asset_ts": "CREATE INDEX book_bid_asset_ts ON book (best_bid, asset_id, ts)",
+        # Pricing a sweep looks up the newest gg.bet quote for its ASSET, but
+        # the only index on joined is by condition. That made one full scan of
+        # the joined table per sweep per daily file — the single slowest thing
+        # in the export, and invisible because it happens inside one long step.
+        "joined_asset_ts": "CREATE INDEX joined_asset_ts ON joined (asset_id, ts)",
     }
     for path in paths:
         connection = connect(path, writable=True)

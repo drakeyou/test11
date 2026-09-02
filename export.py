@@ -18,6 +18,7 @@ import shutil
 import statistics
 import subprocess
 import sys
+import time
 import zipfile
 from collections import Counter, defaultdict
 
@@ -210,11 +211,23 @@ def minutes_from(start, ts):
     return round((at - began).total_seconds() / 60, 2)
 
 
-def sweep_context(paths, sweeps, starts=None):
-    """Every sweep, with what the book and gg.bet said around it."""
+def sweep_context(paths, sweeps, starts=None, report_every=100):
+    """Every sweep, with what the book and gg.bet said around it.
+
+    This is the long step of the export — several queries per sweep — so it
+    says where it is. Silence for half an hour is indistinguishable from a
+    hang, and a run that looks hung gets killed.
+    """
     starts = starts if starts is not None else {}
     rows = []
-    for sweep in sweeps:
+    began = time.monotonic()
+    for index, sweep in enumerate(sweeps):
+        if report_every and index and index % report_every == 0:
+            done = time.monotonic() - began
+            rate = index / done if done else 0
+            left = (len(sweeps) - index) / rate if rate else 0
+            print(f"    {index}/{len(sweeps)} sweeps priced"
+                  f" ({rate:.0f}/s, about {left / 60:.1f} min left)", flush=True)
         # newest() across files, not rows[0]: query() asks every daily database
         # and returns one "latest row" per file, so the first of them is the
         # newest row of the oldest day — days away from the sweep being priced.
@@ -223,13 +236,16 @@ def sweep_context(paths, sweeps, starts=None):
                    depth_bid_total, n_bid_levels
             FROM book WHERE asset_id = ? AND ts < ? ORDER BY ts DESC LIMIT 1
         """, (sweep["asset_id"], sweep["ts"])))
-        fair = newest(query(paths, """
+        # Only worth asking when the collector had no quote in hand at the time.
+        # The lookup is a scan of the joined table per sweep per daily file, and
+        # on rows that already carry the quote it can only confirm them.
+        row = dict(sweep)
+        fair = None if row.get("ggbet_fair") is not None else newest(query(paths, """
             SELECT ts, ggbet_fair, dislocation_ratio, seconds_since_ggbet_quote,
                    ggbet_market_state
             FROM joined WHERE asset_id = ? AND ts <= ? ORDER BY ts DESC LIMIT 1
         """, (sweep["asset_id"], sweep["ts"])))
         # sqlite3.Row indexes like a tuple and a mapping but has no .get
-        row = dict(sweep)
         sweep_id = row.get("sweep_id")
         followed = highs_after(paths, sweep["asset_id"], sweep["ts"],
                                CONTEXT_MINUTES, sweep_id)
