@@ -33,6 +33,7 @@
       "default": 6
     },
     "maxAheadHours": 72,
+    "maxLiveMarkets": null,
     "resolutionCheckMinutes": 15,
     "resolutionCheckAfterMinutes": 45,
     "resolutionCheckOpenHorizonSeconds": 60,
@@ -64,6 +65,7 @@
   },
   "wallets": {
     "intervalSeconds": 25,
+    "followHours": 48,
     "addresses": [
       "0xd403596d8690210994e7f4bae6b9dac1b7e4a817",
       "0x8840126a43353f6cdcd77e90bf2327474a4ef51a"

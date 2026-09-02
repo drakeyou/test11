@@ -38,7 +38,13 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Read one market's resolution.
- * @returns {{closed: boolean, rows: Array}} one row per outcome token
+ *
+ * `record` comes back alongside because this is also the only way to learn
+ * about a market the discovery query never showed: the studied wallets trade
+ * baseball and basketball, which the book logger does not scan for, and the id
+ * in the path means CLOB cannot answer about a different market.
+ *
+ * @returns {{closed: boolean, rows: Array, record: object}} one row per outcome token
  */
 export async function fetchResolution(conditionId, disciplines = {}, fetchImpl = fetch) {
   const response = await fetchImpl(`${CLOB}/${conditionId}`);
@@ -67,7 +73,17 @@ export async function fetchResolution(conditionId, disciplines = {}, fetchImpl =
     classified.sport, classified.level, classified.kind, classified.segmentNo,
     fetchedAt,
   ]);
-  return { closed: market.closed === true, rows };
+  return {
+    closed: market.closed === true,
+    rows,
+    record: {
+      ...classified,
+      conditionId: market.condition_id ?? conditionId,
+      endDate: market.end_date_iso ?? null,
+      // The classifier saw a synthetic market object with no game time in it.
+      gameStartTime: market.game_start_time ?? null,
+    },
+  };
 }
 
 /** The output file is its own cache: a closed market never changes again. */

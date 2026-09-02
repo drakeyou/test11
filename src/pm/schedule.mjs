@@ -118,16 +118,32 @@ export class MarketSchedule {
    * `gameStartTime` when a match is delayed — but a released market is never
    * revived, or a finished match would be resubscribed on every round.
    *
+   * `priority` marks a market the studied wallets have actually traded in. Those
+   * are watched from the moment they are noticed until they resolve, whatever
+   * their discipline and whatever the clock says: the whole point of the
+   * collection is the book around those fills, and a market found because a
+   * wallet was already in it has no useful "before the match" to wait for.
+   *
    * @returns {{scheduled: object[], skipped: {conditionId: string, reason: string}[]}}
    */
-  observe(records, now = Date.now()) {
+  observe(records, now = Date.now(), { priority = false } = {}) {
     const scheduled = [];
     const skipped = [];
     for (const record of records) {
       const known = this.#entries.get(record.conditionId);
       if (known?.releasedAt) continue;
+      // A market already scheduled from discovery is promoted rather than
+      // scheduled twice: the wallet has traded in it, so it stops waiting.
+      if (known && priority && known.source !== 'wallet') {
+        known.source = 'wallet';
+        known.subscribeAt = Math.min(known.subscribeAt, now);
+        known.holdUntil = Infinity;
+        continue;
+      }
 
-      const start = gameStartOf(record, this.config, now);
+      const start = priority
+        ? (gameStartOf(record, this.config, now) ?? { at: now, source: 'wallet activity' })
+        : gameStartOf(record, this.config, now);
       if (!start) {
         skipped.push({
           conditionId: record.conditionId,
@@ -148,12 +164,14 @@ export class MarketSchedule {
         observedDuringGame: false,
         resolved: false,
         resolutionCheckedAt: 0,
+        source: priority ? 'wallet' : 'gamma',
       };
       entry.record = record;
       entry.gameStart = start.at;
       entry.gameStartSource = start.source;
-      entry.subscribeAt = start.at - this.config.leadMinutes * 60 * 1000;
-      entry.holdUntil = start.at + hold * HOUR;
+      entry.subscribeAt = priority ? now : start.at - this.config.leadMinutes * 60 * 1000;
+      // Only a resolution releases a market the wallet is in.
+      entry.holdUntil = priority ? Infinity : start.at + hold * HOUR;
       this.#entries.set(record.conditionId, entry);
       if (!known) scheduled.push(entry);
     }
@@ -166,9 +184,10 @@ export class MarketSchedule {
    *
    * @returns {{added: object[], removed: object[], live: object[]}}
    */
-  refresh(now = Date.now()) {
+  refresh(now = Date.now(), { maxLive = Infinity, quota = null } = {}) {
     const added = [];
     const removed = [];
+    const waiting = [];
     for (const entry of this.#entries.values()) {
       if (entry.releasedAt) continue;
 
@@ -189,7 +208,19 @@ export class MarketSchedule {
         this.#release(entry, entry.resolved ? 'resolved' : 'window passed unwatched', now);
         continue;
       }
-      if (now >= entry.subscribeAt) {
+      if (now >= entry.subscribeAt) waiting.push(entry);
+    }
+
+    // Under a cap, what gets the remaining slots is decided by where the
+    // wallets actually work, not by how many markets a discipline happens to
+    // have on Polymarket. A market a wallet is already in never waits.
+    for (const entry of this.#rank(waiting, quota)) {
+      if (this.#live.size >= maxLive && entry.source !== 'wallet') {
+        entry.deferredForCapacity = true;
+        continue;
+      }
+      entry.deferredForCapacity = false;
+      {
         entry.subscribedAt = new Date(now).toISOString();
         this.#live.add(entry.conditionId);
         const [a, b] = entry.record.tokens;
@@ -205,6 +236,35 @@ export class MarketSchedule {
       }
     }
     return { added, removed, live: this.live() };
+  }
+
+  /**
+   * Order the markets waiting to be subscribed, most wanted first.
+   *
+   * Wallet markets, then the disciplines the wallets have been working in —
+   * measured from their own fills rather than from how many markets an API
+   * page happened to hold — then in-match sub-markets, which is where the
+   * strategy under study operates.
+   */
+  #rank(waiting, quota) {
+    const live = new Map();
+    for (const conditionId of this.#live) {
+      const sport = this.#entries.get(conditionId)?.record?.sport ?? '';
+      live.set(sport, (live.get(sport) ?? 0) + 1);
+    }
+    const score = (entry) => {
+      if (entry.source === 'wallet') return Number.POSITIVE_INFINITY;
+      const sport = entry.record.sport ?? '';
+      // How far this discipline is under the share the wallets give it. Scored
+      // by size rather than by a yes/no, or two disciplines both merely "under"
+      // would tie and the order would fall back to whichever was seen first.
+      const share = quota?.get(sport) ?? 0;
+      const held = (live.get(sport) ?? 0) / Math.max(this.#live.size, 1);
+      // With no quota at all every share is zero, which still spreads the slots:
+      // whatever is already over-represented sorts last.
+      return (share - held) + (entry.record.level === 'segment' ? 0.05 : 0);
+    };
+    return [...waiting].sort((a, b) => score(b) - score(a) || a.subscribeAt - b.subscribeAt);
   }
 
   #release(entry, reason, now) {

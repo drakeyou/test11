@@ -131,6 +131,67 @@ assert.equal(polled.dueForResolutionCheck(game + 50 * MINUTE).length, 1);
 assert.equal(polled.dueForResolutionCheck(game + 55 * MINUTE).length, 0, 'and not again at once');
 assert.equal(polled.dueForResolutionCheck(game + 70 * MINUTE).length, 1);
 
+// --- markets the wallets are actually in ------------------------------------
+// Discovery scans the disciplines the study is about. The wallets also trade
+// baseball, and in one window they made 113 fills across 17 markets of which 2
+// were being watched. A market a wallet is in is watched from the moment it is
+// noticed, in any discipline, until it resolves.
+const followed = new MarketSchedule({ leadMinutes: 10 });
+const baseball = {
+  conditionId: 'mlb1', sport: 'baseball', tokens: ['m1', 'm2'], level: 'match',
+  question: 'Yankees vs Red Sox', gameStartTime: null, endDate: null,
+};
+assert.equal(followed.observe([baseball], game).skipped.length, 1,
+  'undatable and unremarkable: discovery would pass it over');
+
+const wanted = new MarketSchedule({ leadMinutes: 10 });
+const { scheduled: onWallet } = wanted.observe([baseball], game, { priority: true });
+assert.equal(onWallet.length, 1, 'the same market is taken when a wallet is in it');
+assert.deepEqual(wanted.refresh(game).added.map((e) => e.conditionId), ['mlb1'],
+  'and subscribed at once, with no match time to wait for');
+assert.equal(wanted.entry('mlb1').source, 'wallet');
+assert.deepEqual(wanted.refresh(game + 40 * HOUR).removed, [],
+  'no hold window releases it — only a resolution does');
+wanted.markResolved('mlb1');
+assert.deepEqual(wanted.refresh(game + 41 * HOUR).removed.map((e) => e.conditionId), ['mlb1']);
+
+// A market already waiting for its match is promoted when a wallet turns up in
+// it, rather than scheduled a second time.
+const promoted = new MarketSchedule({ leadMinutes: 10 });
+promoted.observe([cs2({ conditionId: 'c8' })], game - 10 * HOUR);
+assert.equal(promoted.refresh(game - 10 * HOUR).added.length, 0, 'waiting for kick-off');
+promoted.observe([cs2({ conditionId: 'c8' })], game - 10 * HOUR, { priority: true });
+assert.deepEqual(promoted.refresh(game - 10 * HOUR).added.map((e) => e.conditionId), ['c8'],
+  'the wallet stops it waiting');
+assert.equal(promoted.entry('c8').source, 'wallet');
+
+// --- slots under a cap ------------------------------------------------------
+// With a cap, what gets watched is decided by where the wallets work, not by
+// how many markets a discipline happens to have on Polymarket.
+const capped = new MarketSchedule({ leadMinutes: 10 });
+const market = (id, sport, level = 'segment') => ({
+  conditionId: id, sport, tokens: [`${id}a`, `${id}b`], level, kind: 'winner',
+  question: `${sport} ${id}`, gameStartTime: '2026-09-01 12:00:00+00',
+  endDate: '2026-09-01T18:00:00Z',
+});
+capped.observe([market('cs-1', 'esports_counter_strike'), market('cs-2', 'esports_counter_strike'),
+  market('lol-1', 'esports_league_of_legends')], game);
+capped.observe([market('w-1', 'baseball')], game, { priority: true });
+const under = capped.refresh(game, {
+  maxLive: 2,
+  quota: new Map([['esports_league_of_legends', 0.9], ['esports_counter_strike', 0.1]]),
+});
+const taken = under.added.map((e) => e.conditionId);
+assert.ok(taken.includes('w-1'), 'a wallet market is never held back by the cap');
+assert.ok(taken.includes('lol-1'), 'the discipline the wallets work in gets the slot');
+assert.ok(!taken.includes('cs-1') && !taken.includes('cs-2'), 'CS2 waits, not LoL');
+assert.equal(capped.liveSize, 2);
+
+// No cap, no rationing: everything due is taken.
+const open = new MarketSchedule({ leadMinutes: 10 });
+open.observe([market('a', 'esports_counter_strike'), market('b', 'tennis')], game);
+assert.equal(open.refresh(game).added.length, 2, 'without a cap nothing is deferred');
+
 // --- the composition the collector performs on every book event -------------
 // schedule.pairOf -> books.get -> pairedView -> metrics. Pinned together
 // because each part passing on its own would not catch a mismatch between them.

@@ -17,7 +17,7 @@ import { MarketSchedule } from './schedule.mjs';
 import { FollowupTracker, sweepIdOf } from './followups.mjs';
 import { BookState, SweepDetector, bookSum, internalDislocation, pairedView } from './book.mjs';
 import { BookFeed } from './ws.mjs';
-import { Store, restoreSchedulableMarkets } from './store.mjs';
+import { Store, restoreSchedulableMarkets, walletDisciplineShares } from './store.mjs';
 import { GgbetTail } from './ggbet-tail.mjs';
 import { MappingTable } from './mapping.mjs';
 import { buildLinks, joinedRow, quoteFor } from './link.mjs';
@@ -52,7 +52,11 @@ const mapping = new MappingTable(config.ggbet.mapping);
 let links = new Map();
 let ggbetByKey = new Map();
 const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0,
-  truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0 };
+  truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0, walletMarkets: 0 };
+/** condition ids already offered to the schedule from wallet activity. */
+const walletMarkets = new Set();
+/** Discipline shares of wallet activity, refreshed daily; empty means no preference. */
+let quota = new Map();
 /** condition id -> when its trade log was last pulled, to keep polling bounded. */
 const tradesPolledAt = new Map();
 
@@ -169,13 +173,17 @@ function heartbeat() {
 
 /** Target-wallet fills, the only labelled examples available. */
 async function pollWallets() {
-  const markets = new Set();
+  // condition id -> when the wallet last touched it, so a market it traded in
+  // months ago is not taken up as if it were live.
+  const markets = new Map();
   for (const address of config.wallets.addresses ?? []) {
     try {
       const { rows, ceiling, types } = await fetchActivity(address);
       for (const row of rows) {
         store.add('wallets', row);
-        if (row[6]) markets.add(row[6]);
+        if (!row[6]) continue;
+        const at = Date.parse(row[0]);
+        if (Number.isFinite(at)) markets.set(row[6], Math.max(markets.get(row[6]) ?? 0, at));
       }
       counts.fills += rows.length;
       if (ceiling) {
@@ -186,7 +194,56 @@ async function pollWallets() {
       console.error(`[wallets] ${address.slice(0, 10)}: ${err.message}`);
     }
   }
-  await pollTrades(markets);
+  await followWallets(markets);
+  await pollTrades(markets.keys());
+}
+
+/**
+ * Watch every market a studied wallet is in, whatever discipline it is.
+ *
+ * Discovery scans the disciplines the study is about; the wallets also trade
+ * baseball and basketball, and inside one window they made 113 fills across 17
+ * markets of which 2 were being watched. A market is looked up once, through
+ * CLOB — the id is in the path, so it cannot answer about a different market —
+ * and then held until it resolves.
+ */
+async function followWallets(lastTraded) {
+  const naming = { ...config.labels, ...config.disciplines };
+  // The activity feed reaches back thousands of records. Following every market
+  // in it would subscribe to whatever the wallet held months ago — a live run
+  // turned up "Will Bitcoin reach $1,000,000 by December 31" — and hold each
+  // one until it resolves. Only what the wallet has touched recently is live
+  // enough to be what the study is about.
+  const window = (config.wallets?.followHours ?? 48) * 3600 * 1000;
+  const now = Date.now();
+  for (const [conditionId, at] of lastTraded) {
+    if (now - at > window) continue;
+    if (walletMarkets.has(conditionId)) continue;
+    if (schedule.entry(conditionId)?.source === 'wallet') {
+      walletMarkets.add(conditionId);
+      continue;
+    }
+    try {
+      await resolutionGate();
+      const { closed, record } = await fetchResolution(conditionId, naming,
+        (url) => politeFetch(url));
+      walletMarkets.add(conditionId);
+      if (closed || record.tokens?.length !== 2) continue;
+      const { scheduled } = schedule.observe([record], Date.now(), { priority: true });
+      for (const row of universe.observe([record], 'wallet:activity')) {
+        store.add('universe', universeRow(row));
+      }
+      for (const entry of scheduled) {
+        store.upsertMarket(entry.record, undefined, entry);
+        counts.walletMarkets++;
+        console.error(`[wallet] watching ${record.sport ?? 'unlabelled'}` +
+          ` ${conditionId.slice(0, 12)} — ${String(record.question).slice(0, 48)}`);
+      }
+    } catch (err) {
+      // Left out of the seen set on purpose, so the next round tries again.
+      console.error(`[wallet] ${conditionId.slice(0, 12)}: ${err.message}`);
+    }
+  }
 }
 
 /**
@@ -268,7 +325,10 @@ async function discover() {
  * because a match starts on its own clock, not on Gamma's.
  */
 function tick(at = Date.now()) {
-  const { added, removed } = schedule.refresh(at);
+  const { added, removed } = schedule.refresh(at, {
+    maxLive: config.schedule?.maxLiveMarkets ?? Infinity,
+    quota,
+  });
   for (const entry of removed) {
     const released = universe.release(entry.conditionId);
     if (released) store.add('universe', universeRow(released));
@@ -331,6 +391,13 @@ async function checkResolutions() {
 // Gamma's page for about an hour after it is created, and its game is 11 to 15
 // hours later, so without this a restart drops the rest of the day's matches
 // and never sees them again.
+quota = walletDisciplineShares(config.storage.dir);
+if (quota.size) {
+  console.error(`[schedule] wallet activity by discipline: ${[...quota]
+    .sort((a, b) => b[1] - a[1]).slice(0, 5)
+    .map(([sport, share]) => `${sport} ${(share * 100).toFixed(0)}%`).join(', ')}`);
+}
+
 const restored = restoreSchedulableMarkets(config.storage.dir, {
   lookbackHours: Math.max(...Object.values(config.schedule?.holdHours ?? { default: 6 })) + 1,
 });
@@ -390,6 +457,8 @@ const timers = [
   setInterval(heartbeat, config.book.heartbeatSeconds * 1000),
   setInterval(relink, (config.ggbet.pollSeconds ?? 5) * 1000),
   setInterval(() => pollWallets(), (config.wallets.intervalSeconds ?? 25) * 1000),
+  // Where the wallets work shifts between days, not between minutes.
+  setInterval(() => { quota = walletDisciplineShares(config.storage.dir); }, 24 * 3600 * 1000),
   setInterval(() => {
     console.error(`[status] ${books.size} books | ${counts.rows} rows | ${counts.joined} joined` +
       ` | ${counts.sweeps} sweeps (${counts.followups} horizons) | ${counts.gaps} gaps` +

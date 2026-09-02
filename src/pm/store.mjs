@@ -209,6 +209,51 @@ export const utcDay = (date = new Date()) => date.toISOString().slice(0, 10);
  * @param {number} [options.files]  how many recent daily files to read
  * @returns {object[]} classified-market records, as the schedule expects them
  */
+/**
+ * Where the studied wallets have actually been trading, as shares by discipline.
+ *
+ * Used to hand out subscription slots under a cap. The alternative — letting
+ * whatever the discovery page happened to return decide — put 60% of the
+ * registry into CS2 during days the wallets worked in LoL and tennis, and only
+ * 2 of the 17 markets they traded in were being watched.
+ *
+ * @returns {Map<string, number>} sport -> share of wallet fills, summing to 1
+ */
+export function walletDisciplineShares(dir, { days = 7, now = Date.now() } = {}) {
+  let names;
+  try {
+    names = readdirSync(dir).filter((name) => /^pm-\d{4}-\d{2}-\d{2}\.sqlite$/.test(name)).sort();
+  } catch {
+    return new Map();
+  }
+
+  const since = new Date(now - days * 24 * 3600 * 1000).toISOString();
+  const counts = new Map();
+  let total = 0;
+  for (const name of names.slice(-days)) {
+    let db;
+    try {
+      db = new DatabaseSync(join(dir, name), { readOnly: true });
+      const rows = db.prepare(`
+        SELECT m.sport AS sport, count(*) AS fills
+        FROM trades t JOIN markets m ON m.condition_id = t.condition_id
+        WHERE t.ts >= ? AND m.sport IS NOT NULL
+        GROUP BY m.sport
+      `).all(since);
+      for (const row of rows) {
+        counts.set(row.sport, (counts.get(row.sport) ?? 0) + row.fills);
+        total += row.fills;
+      }
+    } catch {
+      // A file from before these tables existed has nothing to contribute.
+    } finally {
+      db?.close();
+    }
+  }
+  if (!total) return new Map();
+  return new Map([...counts].map(([sport, fills]) => [sport, fills / total]));
+}
+
 export function restoreSchedulableMarkets(dir, { lookbackHours = 12, files = 3, now = Date.now() } = {}) {
   let names;
   try {

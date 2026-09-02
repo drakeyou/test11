@@ -77,6 +77,13 @@ export const DEFAULTS = {
     // Markets dated only through the resolution deadline are scheduled no
     // further ahead than this; beyond it the deadline is not about this match.
     maxAheadHours: 72,
+    // A ceiling on markets watched at once. Null means no ceiling, which is the
+    // default: nothing is rationed unless a machine cannot keep up. When it is
+    // set, slots go by where the studied wallets have actually been trading
+    // over the last week rather than by how many markets a discipline happens
+    // to have on Polymarket — and a market a wallet is already in never waits,
+    // whatever the ceiling says.
+    maxLiveMarkets: null,
     // Resolution is what really ends a subscription; the hold above is the
     // backstop. Asking costs one CLOB request per market, so it starts only
     // once the match could plausibly be over.
@@ -110,7 +117,11 @@ export const DEFAULTS = {
     minDepth: 100,
     cooldownSeconds: 30,
   },
-  wallets: { intervalSeconds: 25, addresses: [] },
+  // followHours bounds which of the wallet's markets are taken up for watching:
+  // its activity history runs to thousands of records, and following all of it
+  // would subscribe to long-dated markets it held months ago and hold each
+  // until resolution. Recency is what makes a market the live one under study.
+  wallets: { intervalSeconds: 25, followHours: 48, addresses: [] },
   // Role costs two requests per market, so it is pulled only where a target
   // wallet actually traded, and no more often than this.
   trades: { intervalSeconds: 120, marketsPerCycle: 25 },
