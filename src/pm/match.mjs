@@ -137,6 +137,10 @@ const KIND = [
   [/победител|winner|исход/i, 'winner'],
 ];
 const SEGMENT_WORD = { карт: 'map', сет: 'set', гейм: 'game', map: 'map', set: 'set', game: 'game' };
+// Same axis as the Polymarket classifier: what is being counted. "Карта 1 -
+// тотал раундов" names the map and counts rounds, so the later noun wins.
+const GGBET_UNITS = [[/убийств|килл/i, 'kill'], [/раунд/i, 'round'], [/гейм/i, 'game'],
+  [/сет/i, 'set'], [/карт/i, 'map']];
 
 /**
  * Read a gg.bet market name into the same shape the Polymarket classifier
@@ -160,13 +164,29 @@ export function classifyGgbetMarket(name) {
     kind,
     segmentKind: segmentNo === null ? null : (SEGMENT_WORD[word.replace(/[аеы]$/, '')] ?? null),
     segmentNo,
+    unit: kind === 'winner' || kind === 'game_winner'
+      ? null
+      : (GGBET_UNITS.find(([pattern]) => pattern.test(text))?.[1] ?? null),
   };
 }
 
-/** Do a Polymarket record and a gg.bet market ask the same question? */
+/**
+ * Do a Polymarket record and a gg.bet market ask the same question?
+ *
+ * Level and kind are not enough. "Set Handicap: A (-1.5) vs B (+1.5)" and
+ * gg.bet's "Фора по Геймам" are both a match-level handicap, and pairing them
+ * compares a handicap in sets against one in games; the same collapse pairs a
+ * total of kills with a total of rounds. The dislocation that comes out of it
+ * is not wrong by a little, it is an answer to a different question — which is
+ * exactly the failure the segment check exists to prevent, one axis over.
+ *
+ * A unit is only demanded when both sides state one: Polymarket's "Match O/U
+ * 23.5" names no unit at all and is still the games total it pairs with.
+ */
 export function sameQuestion(pmRecord, ggbetMarket) {
   if (pmRecord.level !== ggbetMarket.level) return false;
   if (pmRecord.kind !== ggbetMarket.kind) return false;
+  if (pmRecord.unit && ggbetMarket.unit && pmRecord.unit !== ggbetMarket.unit) return false;
   return pmRecord.level === 'match' || pmRecord.segmentNo === ggbetMarket.segmentNo;
 }
 

@@ -14,6 +14,10 @@ const HANDICAP = /handicap/i;
 const TOTAL = /\btotal|\bo\/u\b|over\/under/i;
 const WINNER = /winner/i;
 const LINE = /([+-]?\d+(?:\.\d+)?)/;
+// What a total or a handicap is counted in. Order matters: "Map 3 Total Rounds"
+// names two of these and the one being counted is the later one.
+const UNITS = [[/kills?/i, 'kill'], [/rounds?/i, 'round'], [/games?/i, 'game'],
+  [/sets?/i, 'set'], [/maps?/i, 'map']];
 const VERSUS = /^(.*?)\s+vs\.?\s+(.*?)$/i;
 
 /** Gamma encodes these as JSON strings, not arrays. */
@@ -101,6 +105,10 @@ export function classifyMarket(market, disciplines = {}) {
     segmentKind: segment ? segment[1].toLowerCase() : null,
     segmentNo: segment ? Number(segment[2]) : null,
     line: lineOf(question, kind),
+    // Two totals at the same level are still different questions when one
+    // counts games and the other sets. Without this, "Total Sets O/U 2.5"
+    // pairs with gg.bet's games total and the dislocation is meaningless.
+    unit: kind === 'winner' ? null : (UNITS.find(([p]) => p.test(question))?.[1] ?? null),
     teams: teamsOf(question, event.title, outcomes),
     outcomes,
     tokens,

@@ -103,6 +103,33 @@ assert.equal(findMatch(pmRecord, stale, { now: start, windowHours: 6 }), null,
 assert.ok(findMatch(pmRecord, candidates, { now: start, windowHours: 6 }),
   'a quote taken during the match is inside the window');
 
+// --- the unit being counted -------------------------------------------------
+// Level and kind are not enough. These are all match-level handicaps and totals
+// and none of these pairs asks the same question; the one that reached the last
+// export priced a total of kills against a total of rounds.
+const unitCase = (question, ggbetName) => sameQuestion(
+  { level: /\b(map|game|set)\s*\d/i.test(question) ? 'segment' : 'match',
+    kind: /handicap/i.test(question) ? 'handicap' : 'total',
+    segmentNo: null,
+    unit: /kills?/i.test(question) ? 'kill' : /rounds?/i.test(question) ? 'round'
+      : /games?/i.test(question) ? 'game' : /sets?/i.test(question) ? 'set' : 'map' },
+  classifyGgbetMarket(ggbetName));
+
+assert.equal(unitCase('Set Handicap: A (-1.5) vs B (+1.5)', 'Фора по Геймам'), false,
+  'a handicap in sets is not a handicap in games');
+assert.equal(unitCase('Total Sets O/U 2.5', 'Тотал геймов'), false);
+assert.equal(unitCase('Map Handicap: A (-1.5) vs B (+1.5)', 'Фора по картам'), true);
+assert.equal(classifyGgbetMarket('Карта 1 - тотал раундов').unit, 'round',
+  'the map names the segment, the rounds are what is counted');
+assert.equal(classifyGgbetMarket('Карта 4 - Тотал убийств').unit, 'kill');
+assert.equal(classifyGgbetMarket('Тотал карт').unit, 'map');
+assert.equal(classifyGgbetMarket('2-й Сет Победитель').unit, null,
+  'a winner counts nothing, so it must not be filtered on units');
+// A question that names no unit still pairs: "Match O/U 23.5" is the games
+// total, and demanding a unit it never states would reject a correct pairing.
+assert.equal(sameQuestion({ level: 'match', kind: 'total', segmentNo: null, unit: null },
+  classifyGgbetMarket('Тотал геймов')), true);
+
 // --- surnames, acronyms and aliases ----------------------------------------
 // Polymarket writes surnames into the outcomes of a winner market; gg.bet
 // spells the players out. On bigrams alone this pair scores 0.67 and was
