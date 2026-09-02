@@ -8,11 +8,12 @@ every row, an aggregate read from the wrong daily file, and a sample described
 as "the most recent N" that was in fact one day of a five-day collection.
 """
 
+import datetime
 import os
 import sqlite3
 import tempfile
 
-from analyze import highest, highs_after, iso_shift, newest
+from analyze import highest, highs_after, iso_shift, newest, parse_timestamp
 from export import gap_seconds_by_hour, minutes_from, stratify
 
 
@@ -126,6 +127,35 @@ check("a gap spanning whole hours fills them", abs(long_gap["2026-08-27T13"] - 3
 check("a malformed gap is skipped, not fatal",
       gap_seconds_by_hour([{"started_at": None, "ended_at": "", "duration_ms": 1}]) == {})
 
+
+# --- timestamps -------------------------------------------------------------
+# CLOB answers game_start_time as "2026-09-01 07:30:00+00": a space where ISO
+# has a T, and a two-digit offset. datetime.fromisoformat only accepted those
+# from 3.11, so on 3.10 every field derived from a match start came out empty
+# on one machine and filled on another, with a ValueError guard hiding it.
+UTC = datetime.timezone.utc
+check("a Postgres-style offset is read",
+      parse_timestamp("2026-09-01 07:30:00+00")
+      == datetime.datetime(2026, 9, 1, 7, 30, tzinfo=UTC))
+check("so is a compact one",
+      parse_timestamp("2026-09-01T07:30:00+0000")
+      == datetime.datetime(2026, 9, 1, 7, 30, tzinfo=UTC))
+check("and a trailing Z",
+      parse_timestamp("2026-09-01T07:30:00.000Z")
+      == datetime.datetime(2026, 9, 1, 7, 30, tzinfo=UTC))
+check("a non-UTC offset keeps its sign and minutes",
+      parse_timestamp("2026-09-01 07:30:00-0730")
+      == datetime.datetime(2026, 9, 1, 7, 30,
+                           tzinfo=datetime.timezone(-datetime.timedelta(hours=7, minutes=30))))
+check("a bare timestamp is UTC",
+      parse_timestamp("2026-09-01T07:30:00") == datetime.datetime(2026, 9, 1, 7, 30, tzinfo=UTC))
+check("a bare date is not mistaken for an offset",
+      parse_timestamp("2026-09-01") == datetime.datetime(2026, 9, 1, tzinfo=UTC))
+check("odd fractional digits are tolerated",
+      parse_timestamp("2026-09-01T07:30:00.5Z")
+      == datetime.datetime(2026, 9, 1, 7, 30, 0, 500000, tzinfo=UTC))
+check("nothing is nothing", parse_timestamp(None) is None and parse_timestamp("") is None)
+check("nonsense is nothing", parse_timestamp("whenever") is None)
 
 # --- minutes from the first point -------------------------------------------
 check("after the start is positive",

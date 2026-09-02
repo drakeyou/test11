@@ -14,6 +14,7 @@ import datetime
 import glob
 import json
 import os
+import re
 import sqlite3
 import statistics
 import sys
@@ -106,6 +107,50 @@ def highest(rows, column="high"):
     return max(values) if values else None
 
 
+# "+00" and "+0000" are both legal offsets in the timestamps Polymarket returns
+# and neither is ISO. Only anchored after the time, so the "-27" of a bare date
+# is not mistaken for one.
+_OFFSET = re.compile(r"([+-])(\d{2}):?(\d{2})?$")
+_FRACTION = re.compile(r"\.(\d+)")
+
+
+def parse_timestamp(value):
+    """Read the timestamps this project has to deal with, on Python 3.10 too.
+
+    CLOB answers game_start_time as "2026-09-01 07:30:00+00": a space where ISO
+    has a T and a two-digit offset. datetime.fromisoformat only became lenient
+    about those in 3.11, and before that it raises — which, behind a ValueError
+    guard, is a field that silently comes out empty on one machine and filled on
+    another. So the string is normalised here rather than trusted to the parser.
+    """
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text:
+        return None
+    text = text.replace(" ", "T", 1)
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+
+    marker = text.find("T")
+    if marker >= 0:
+        found = _OFFSET.search(text, marker)
+        if found:
+            text = (text[:found.start()]
+                    + f"{found.group(1)}{found.group(2)}:{found.group(3) or '00'}")
+
+    # Before 3.11 the fractional part had to be exactly 3 or 6 digits.
+    found = _FRACTION.search(text)
+    if found and len(found.group(1)) not in (3, 6):
+        text = text[:found.start(1)] + found.group(1)[:6].ljust(6, "0") + text[found.end(1):]
+
+    try:
+        stamp = datetime.datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    return stamp if stamp.tzinfo else stamp.replace(tzinfo=datetime.timezone.utc)
+
+
 def iso_shift(ts, minutes):
     """Move a stored timestamp by minutes, in the format it is stored in.
 
@@ -116,7 +161,9 @@ def iso_shift(ts, minutes):
     came out empty in all five thousand exported sweeps, and why the payoff
     section of the report had nothing in it.
     """
-    stamp = datetime.datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    stamp = parse_timestamp(ts)
+    if stamp is None:
+        raise ValueError(f"not a timestamp: {ts!r}")
     moved = stamp + datetime.timedelta(minutes=minutes)
     return moved.strftime("%Y-%m-%dT%H:%M:%S.") + f"{moved.microsecond // 1000:03d}Z"
 

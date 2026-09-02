@@ -22,6 +22,9 @@ import os
 import statistics
 from collections import Counter, defaultdict
 
+# Shared so the two scripts cannot disagree about what a timestamp is.
+from analyze import parse_timestamp
+
 TOLERANCE = 1.001  # sells may exceed buys by rounding, not by a position
 MODES = ("sold", "partial_won", "partial_lost", "held_won", "held_lost")
 
@@ -157,14 +160,11 @@ def summarize(asset_id, trades, resolution):
 def hold_seconds(position):
     if not position["closed_at"]:
         return None
-    from datetime import datetime
-    fmt = "%Y-%m-%dT%H:%M:%S.%f%z" if "." in position["opened"] else "%Y-%m-%dT%H:%M:%S%z"
-    try:
-        start = datetime.fromisoformat(position["opened"].replace("Z", "+00:00"))
-        end = datetime.fromisoformat(position["closed_at"].replace("Z", "+00:00"))
-        return (end - start).total_seconds()
-    except ValueError:
+    start = parse_timestamp(position["opened"])
+    end = parse_timestamp(position["closed_at"])
+    if start is None or end is None:
         return None
+    return (end - start).total_seconds()
 
 
 def show(values, unit="", places=3):

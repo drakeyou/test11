@@ -22,8 +22,8 @@ import time
 import zipfile
 from collections import Counter, defaultdict
 
-from analyze import (databases, highs_after, iso_shift, newest, query,
-                     target_wallets, with_table)
+from analyze import (databases, highs_after, iso_shift, newest, parse_timestamp,
+                     query, target_wallets, with_table)
 
 CONTEXT_MINUTES = (1, 5, 15)
 
@@ -116,10 +116,8 @@ def gap_seconds_by_hour(gaps):
     """
     blind = defaultdict(float)
     for gap in gaps:
-        try:
-            started = datetime.datetime.fromisoformat(
-                str(gap["started_at"]).replace("Z", "+00:00"))
-        except (ValueError, TypeError):
+        started = parse_timestamp(gap["started_at"])
+        if started is None:
             continue
         remaining = (gap["duration_ms"] or 0) / 1000.0
         at = started
@@ -196,18 +194,10 @@ def resolution_labels(path="pm-resolutions.csv"):
 
 def minutes_from(start, ts):
     """Minutes from the match start to an event, negative before the first point."""
-    if not start or not ts:
+    began = parse_timestamp(start)
+    at = parse_timestamp(ts)
+    if began is None or at is None:
         return None
-    try:
-        began = datetime.datetime.fromisoformat(
-            str(start).strip().replace(" ", "T").replace("Z", "+00:00"))
-        at = datetime.datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
-    except ValueError:
-        return None
-    if began.tzinfo is None:
-        began = began.replace(tzinfo=datetime.timezone.utc)
-    if at.tzinfo is None:
-        at = at.replace(tzinfo=datetime.timezone.utc)
     return round((at - began).total_seconds() / 60, 2)
 
 
