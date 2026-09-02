@@ -237,19 +237,29 @@ def check_window(paths, mapping_path, coverage_path):
     # tomorrow's game is waiting by design, and counting it as unwatched would
     # make a working schedule look broken.
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
-    dated = observed = total = waiting = 0
+    # Only markets that were actually subscribed can have been watched. Gamma
+    # keeps listing a market for hours after its match is over, so measuring
+    # against every market whose game has passed counts matches that were
+    # already finished when they were first seen — a property of the feed, not
+    # of the schedule.
+    played = subscribed = observed = undated = waiting = 0
     for path in paths:
         if "observed_during_game" not in table_columns(path, "markets"):
             continue
         connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
         try:
-            row = connection.execute(
-                "SELECT count(*), sum(game_start_time IS NOT NULL),"
-                " sum(coalesce(observed_during_game, 0)) FROM markets"
-                " WHERE game_start_time IS NULL OR game_start_time < ?", (now,)).fetchone()
-            total += row[0] or 0
-            dated += row[1] or 0
+            row = connection.execute("""
+                SELECT count(*),
+                       sum(subscribed_at IS NOT NULL),
+                       sum(CASE WHEN subscribed_at IS NOT NULL
+                                THEN coalesce(observed_during_game, 0) ELSE 0 END),
+                       sum(game_start_time IS NULL)
+                FROM markets WHERE game_start_time IS NULL OR game_start_time < ?
+            """, (now,)).fetchone()
+            played += row[0] or 0
+            subscribed += row[1] or 0
             observed += row[2] or 0
+            undated += row[3] or 0
             waiting += connection.execute(
                 "SELECT count(*) FROM markets WHERE game_start_time >= ?", (now,)).fetchone()[0]
         except sqlite3.OperationalError:
@@ -258,18 +268,24 @@ def check_window(paths, mapping_path, coverage_path):
 
     if waiting:
         say(OK, f"{waiting} markets are scheduled for a match that has not started")
-    if not total:
-        say(WARN, "no market carries a subscription window yet",
-            "these databases predate it; a fresh collection is what tests it")
+    late = played - subscribed
+    if late:
+        say(OK, f"{late} markets were first seen after their match was over",
+            "Gamma lists a market for hours after the game; they are logged and let go")
+    if not subscribed:
+        say(WARN, "no market has been subscribed through a match yet",
+            "these databases predate the window, or nothing has been watched yet")
     else:
-        share = observed / total
-        detail = ("the window is dated from game_start_time, so a market watched"
-                  " only before its match means the schedule is not firing")
+        share = observed / subscribed
+        detail = ("the window is dated from game_start_time; a subscribed market"
+                  " with no book during its own match means the schedule fired but"
+                  " the feed did not, so check the [feed] lines for reconnects")
         say(OK if share >= 0.8 else BAD,
-            f"{observed}/{total} markets ({share:.0%}) were watched during their match",
+            f"{observed}/{subscribed} subscribed markets ({share:.0%})"
+            " were watched during their match",
             "" if share >= 0.8 else detail)
-        if dated < total:
-            say(WARN, f"{total - dated} markets carry no game start time",
+        if undated:
+            say(WARN, f"{undated} markets carry no game start time",
                 "they were scheduled off the resolution deadline, or not at all")
 
     # Sweeps priced against gg.bet, and sweeps whose outcome is known.
@@ -301,6 +317,29 @@ def check_window(paths, mapping_path, coverage_path):
             f"{priced}/{swept} sweeps ({share:.0%}) carry a gg.bet fair value",
             "" if share >= 0.2 else "the gg.bet collector was not running, or its"
             " matches are not the ones Polymarket listed")
+        if share < 0.2:
+            # The two sides can only meet on a discipline both of them carry.
+            # Printed next to the gg.bet counts above, a mismatch is obvious:
+            # one side heavy on tennis and the other on CS2 will never join,
+            # however good the matcher is.
+            watched = Counter()
+            for path in paths:
+                if "subscribed_at" not in table_columns(path, "markets"):
+                    continue
+                connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+                try:
+                    for row in connection.execute(
+                        "SELECT coalesce(sport, '(none)'), count(*) FROM markets"
+                        " WHERE subscribed_at IS NOT NULL GROUP BY 1"):
+                        watched[row[0]] += row[1]
+                except sqlite3.OperationalError:
+                    pass
+                connection.close()
+            if watched:
+                print(f"{' ' * 9}Polymarket markets watched, by discipline —"
+                      f" compare with the gg.bet counts above:")
+                for sport, count in watched.most_common(6):
+                    print(f"{' ' * 9}  {count:8}  {sport}")
 
     # The mapping table, by what kind of market it actually pairs.
     if os.path.exists(mapping_path):
