@@ -226,8 +226,11 @@ def sweep_context(paths, sweeps, starts=None, report_every=100):
             done = time.monotonic() - began
             rate = index / done if done else 0
             left = (len(sweeps) - index) / rate if rate else 0
+            # Seconds when there are seconds left: "about 0.0 min left" on a run
+            # that finishes in two is noise pretending to be information.
+            remaining = f"{left / 60:.0f} min" if left >= 90 else f"{left:.0f}s"
             print(f"    {index}/{len(sweeps)} sweeps priced"
-                  f" ({rate:.0f}/s, about {left / 60:.1f} min left)", flush=True)
+                  f" ({rate:.0f}/s, {remaining} left)", flush=True)
         # newest() across files, not rows[0]: query() asks every daily database
         # and returns one "latest row" per file, so the first of them is the
         # newest row of the oldest day — days away from the sweep being priced.
