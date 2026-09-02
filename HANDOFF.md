@@ -357,7 +357,8 @@ sport, market_level, kind, segment_no, fetched_at`.
 `analyze_fills.py`), `sweeps.csv` (32 колонки, с контекстом на момент события),
 `sweeps-strata.csv` (сколько значимых свипов было в каждом дне и сколько попало
 в выборку),
-`markets.csv`, `target-fills.csv`, `coverage.csv`, `universe-summary.csv`,
+`markets.csv`, `target-fills.csv`, `fill-context.csv`, `coverage.csv`,
+`universe-summary.csv`,
 `gaps.csv`, `pm-resolutions.csv`, `pm-position-gaps.csv`, `mapping.csv`,
 `pm.config.json`. Плюс `target-fills-prior.csv`, если в корне лежит более
 ранний экспорт.
@@ -960,6 +961,9 @@ python3 check.py
 | `N/M sweeps carry a gg.bet fair value` | ≥ 20% | сборщик gg.bet не работал или его матчи не те |
 | `N/M mappings are segment winners` | ≥ 50% | маппинг ловит тоталы, а кошельки торгуют победителей сегментов |
 | `coverage.csv carries gap_seconds` | есть | разрывы не вычитаются, все частоты на час завышены |
+| `N/M sweeps carry a fair value from the twin token` | ≥ 90% | у второго исхода не было аска, пол под цену не подставить |
+| `N/M sweeps have a twin quote under 30s old` | ≥ 70% | пол взят из книги, которую никто не трогал минутами |
+| `N/M wallet fills have the book around them` | ≥ 40% | филлы идут в рынках, за которыми не следят — приоритет по кошельку не срабатывает |
 
 Строка `N markets are scheduled for a match that has not started` — это норма,
 такие рынки в знаменатель первой строки не входят.
