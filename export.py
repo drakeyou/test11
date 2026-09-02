@@ -346,14 +346,40 @@ def main():
                level, kind, segment_kind, segment_no, line, team_a, team_b,
                end_date, tick_size, min_size, first_seen, last_seen FROM markets
     """)
+    # The subscription window, read separately because a database written before
+    # it existed has none of these columns. observed_during_game is the whole
+    # point: it says, without any analysis, whether the book was recorded while
+    # the match was being played or only in the hours before it.
+    lifecycle = {}
+    for row in query(has_column(paths, "markets", "observed_during_game"), """
+        SELECT condition_id, game_start_time, subscribed_at, unsubscribed_at,
+               release_reason, coalesce(observed_during_game, 0) AS observed_during_game
+        FROM markets
+    """):
+        # Later files win, and a market seen in play stays seen in play.
+        seen = lifecycle.get(row["condition_id"])
+        merged = dict(row)
+        if seen:
+            merged["observed_during_game"] = max(
+                seen["observed_during_game"], merged["observed_during_game"])
+        lifecycle[row["condition_id"]] = merged
+
+    extra = ["game_start_time", "subscribed_at", "unsubscribed_at",
+             "release_reason", "observed_during_game"]
     # Only the markets something else in the bundle refers to. The registry as a
     # whole is thirteen thousand rows and nothing joins against most of them.
     referenced = {row["condition_id"] for row in sweeps}
     referenced.update(row["condition_id"] for row in query(paths,
         "SELECT DISTINCT condition_id FROM trades"))
-    kept = [list(r) for r in markets if r["condition_id"] in referenced]
+    kept = []
+    for row in markets:
+        if row["condition_id"] not in referenced:
+            continue
+        window = lifecycle.get(row["condition_id"], {})
+        kept.append(list(row) + [window.get(name) for name in extra])
     sizes["markets.csv"] = write_csv(os.path.join(args.out, "markets.csv"),
-        list(markets[0].keys()) if markets else ["condition_id"], dedupe(kept))
+        (list(markets[0].keys()) if markets else ["condition_id"]) + extra,
+        dedupe(kept))
 
     wallets = target_wallets()
     if wallets:
@@ -542,7 +568,7 @@ extract keeps what analysis needs and drops the bulk.
 | `report.txt` | output of `analyze.py`, the four headline questions |
 | `sweeps.csv` | detected book collapses, with context ({sweeps} rows sampled from {significant} significant) |
 | `sweeps-strata.csv` | how many significant sweeps each day held, and how many are here |
-| `markets.csv` | market registry: question, discipline, level, kind, segment ({markets} rows) |
+| `markets.csv` | market registry: question, discipline, level, kind, segment, and the subscription window ({markets} rows) |
 | `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
 | `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
 | `coverage.csv` | heartbeats per asset per hour, with the seconds nobody saw ({coverage_hours} rows) |
@@ -583,6 +609,18 @@ One row per detected collapse of the bid side.
   negative before it started.
 
 Sample per day (exported/significant): {strata}
+
+## How to read markets.csv
+
+- `game_start_time` — when the match started. The subscription window is built
+  on it; `end_date` is a resolution deadline (game + 6h for CS2, game + a week
+  for tennis) and dates nothing.
+- `subscribed_at` / `unsubscribed_at` / `release_reason` — when the book was
+  watched, and why watching stopped: `resolved`, `past the hold window`, or
+  `window passed unwatched` (the market was first seen after its match).
+- `observed_during_game` — 1 when book snapshots exist inside the match itself.
+  This is the self-check: rows with 0 were never watched in play, and nothing
+  measured on them describes what happened during the match.
 
 Rule counts in this extract: {rules}
 
