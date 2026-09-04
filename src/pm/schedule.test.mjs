@@ -165,6 +165,31 @@ assert.deepEqual(promoted.refresh(game - 10 * HOUR).added.map((e) => e.condition
   'the wallet stops it waiting');
 assert.equal(promoted.entry('c8').source, 'wallet');
 
+// A market discovery already let go of. Most of what a round returns is games
+// that are over — 1035 of them in one collection — and the schedule drops them
+// on sight. When a wallet turns out to be trading in one, that outranks the
+// earlier decision: otherwise the fill is recorded against a book nobody is
+// watching, which is how 88% of fills came back with no context.
+const revived = new MarketSchedule({ leadMinutes: 10 });
+revived.observe([cs2({ conditionId: 'c9' })], game + 20 * HOUR);
+assert.equal(revived.refresh(game + 20 * HOUR).added.length, 0);
+assert.equal(revived.entry('c9').releaseReason, 'window passed unwatched');
+revived.observe([cs2({ conditionId: 'c9' })], game + 20 * HOUR, { priority: true });
+assert.deepEqual(revived.refresh(game + 20 * HOUR).added.map((e) => e.conditionId), ['c9'],
+  'the wallet brings it back');
+assert.equal(revived.entry('c9').releaseReason, null);
+assert.equal(revived.entry('c9').source, 'wallet');
+
+// A resolved market stays gone: there is no book left to watch.
+const settled = new MarketSchedule({ leadMinutes: 10 });
+settled.observe([cs2({ conditionId: 'c10' })], game - HOUR);
+settled.refresh(game);
+settled.markResolved('c10');
+settled.refresh(game + MINUTE);
+settled.observe([cs2({ conditionId: 'c10' })], game + 2 * MINUTE, { priority: true });
+assert.equal(settled.refresh(game + 2 * MINUTE).added.length, 0,
+  'a resolved market is not revived by a wallet trade');
+
 // --- slots under a cap ------------------------------------------------------
 // With a cap, what gets watched is decided by where the wallets work, not by
 // how many markets a discipline happens to have on Polymarket.

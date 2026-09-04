@@ -13,14 +13,18 @@ const fill = {
 // --- the queue ---------------------------------------------------------------
 // A fill is found by polling, tens of seconds after it happened, and the
 // fifteen minutes after it have not happened yet. So it waits.
+// The clock is passed in everywhere: `add` refuses fills older than a day, and
+// a fixture dated in the past would start failing the moment the calendar moved
+// past it.
 const queue = new FillContextQueue();
-assert.equal(queue.add(fill), true);
-assert.equal(queue.add({ ...fill }), false, 'the same fill is queued once');
+assert.equal(queue.add(fill, t0), true);
+assert.equal(queue.add({ ...fill }, t0), false, 'the same fill is queued once');
 assert.equal(queue.size, 1);
 assert.deepEqual(queue.due(t0 + 14 * 60_000), [], 'not before its horizons have passed');
 assert.equal(queue.due(t0 + 15 * 60_000).length, 1);
 assert.equal(queue.size, 0, 'and it leaves the queue when written');
-assert.equal(queue.add({ ...fill, ts: 'not a date' }), false, 'an undated fill is not queued');
+assert.equal(queue.add({ ...fill, ts: 'not a date' }, t0), false,
+  'an undated fill is not queued');
 
 // The trade log answers with history, not with news: a first poll returns days
 // of fills. Writing those up gives a row per fill saying nobody was watching,
@@ -31,7 +35,7 @@ assert.equal(recent.add({ ...fill, ts: iso(t0 - 3 * 3600_000) }, t0), true, 'thr
 assert.equal(recent.add({ ...fill, ts: iso(t0 - 30 * 3600_000) }, t0), false, 'thirty is history');
 
 const held = new FillContextQueue();
-held.add(fill);
+held.add(fill, t0);
 assert.equal(held.drain().length, 1, 'shutdown writes up what it can');
 assert.equal(held.size, 0);
 

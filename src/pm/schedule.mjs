@@ -131,12 +131,18 @@ export class MarketSchedule {
     const skipped = [];
     for (const record of records) {
       const known = this.#entries.get(record.conditionId);
-      if (known?.releasedAt) continue;
-      // A market already scheduled from discovery is promoted rather than
-      // scheduled twice: the wallet has traded in it, so it stops waiting.
-      if (known && priority && known.source !== 'wallet') {
+      // A wallet trading in a market outranks anything the schedule decided
+      // about it earlier. Discovery lets a market go when its match looks over
+      // — most often because Gamma listed it hours after the game, which is
+      // most of what a round returns — and without this the fill that follows
+      // is recorded against a book nobody is watching. Only a resolution is
+      // final: there is nothing left to watch after that.
+      if (known?.releasedAt && !(priority && !known.resolved)) continue;
+      if (known && priority && (known.source !== 'wallet' || known.releasedAt)) {
         known.source = 'wallet';
-        known.subscribeAt = Math.min(known.subscribeAt, now);
+        known.releasedAt = null;
+        known.releaseReason = null;
+        known.subscribeAt = Math.min(known.subscribeAt ?? now, now);
         known.holdUntil = Infinity;
         continue;
       }
