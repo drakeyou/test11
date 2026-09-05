@@ -12,6 +12,7 @@ import argparse
 import csv
 import datetime
 import glob
+import json
 import os
 import sqlite3
 import zipfile
@@ -401,6 +402,40 @@ def check_window(paths, mapping_path, coverage_path):
         for sport, n in composition.most_common(8):
             print(f"{' ' * 9}  {n:8}  {n / total:5.0%}  {sport}")
 
+    # Where the wallet trades, against where the logger looks. These are not the
+    # same list, and the gap is invisible until someone reads a fill-context
+    # column that is empty for a reason no column records: the market was never
+    # in scope, so it entered the schedule through the fill itself and has no
+    # state from before. Four rounds of analysis went past this.
+    traded = Counter()
+    for path in paths:
+        if not table_columns(path, "trades"):
+            continue
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            for row in connection.execute(
+                "SELECT coalesce(m.sport, '(unlabelled)'), count(*) FROM trades t"
+                " LEFT JOIN markets m ON m.condition_id = t.condition_id GROUP BY 1"):
+                traded[row[0]] += row[1]
+        except sqlite3.OperationalError:
+            pass
+        connection.close()
+    scanned = scanned_disciplines()
+    traded_total = sum(traded.values())
+    if traded_total and scanned:
+        outside = {s: n for s, n in traded.items()
+                   if s not in scanned and s != "(unlabelled)"}
+        share = sum(outside.values()) / traded_total
+        say(OK if share <= 0.1 else WARN,
+            f"{sum(outside.values())}/{traded_total} wallet fills ({share:.0%}) are in"
+            f" disciplines discovery does not scan",
+            "" if share <= 0.1 else "those markets can only reach the schedule through"
+            " a fill that already happened, so their entries can never have a book"
+            " from before. Either add the discipline to config.disciplines, or read"
+            " the BUY coverage above as excluding them")
+        for sport, n in sorted(outside.items(), key=lambda kv: -kv[1])[:6]:
+            print(f"{' ' * 9}  {n:8}  {sport} — in labels only, never scanned")
+
     # The book around the wallets' own fills, which is what the study is for.
     #
     # Two denominators, because they answer different questions and pooling them
@@ -426,12 +461,24 @@ def check_window(paths, mapping_path, coverage_path):
                 ).fetchone()
                 contexts += row[0] or 0
                 watched_fills += row[1] or 0
-                row = connection.execute(
-                    "SELECT count(*), count(fair_lower_bound_before) FROM fill_context"
-                    " WHERE side = 'BUY' AND coalesce(snapshot_available, 0) = 1"
-                ).fetchone()
-                buys += row[0] or 0
-                bounded_buys += row[1] or 0
+                # Only entries into markets that were already under subscription
+                # when the fill happened. Anywhere else the question is not
+                # "was the floor recorded" but "could it have been", and the
+                # answer is no: the market reached the schedule through this
+                # very fill, so there is no earlier state to read. Measured on
+                # all watched BUYs the number says 0% and reads as a bug; the
+                # bound is the collection's reach, not the lookup's.
+                if "subscribed_at" in table_columns(path, "markets"):
+                    row = connection.execute(
+                        "SELECT count(*), count(f.fair_lower_bound_before)"
+                        " FROM fill_context f JOIN markets m"
+                        "   ON m.condition_id = f.condition_id"
+                        " WHERE f.side = 'BUY' AND coalesce(f.snapshot_available, 0) = 1"
+                        "   AND m.subscribed_at IS NOT NULL"
+                        "   AND m.subscribed_at < f.fill_ts"
+                    ).fetchone()
+                    buys += row[0] or 0
+                    bounded_buys += row[1] or 0
             if table_columns(path, "trades"):
                 all_fills += connection.execute(
                     "SELECT count(*) FROM trades").fetchone()[0] or 0
@@ -452,11 +499,15 @@ def check_window(paths, mapping_path, coverage_path):
     if buys:
         share = bounded_buys / buys
         say(OK if share >= 0.8 else WARN,
-            f"{bounded_buys}/{buys} watched BUYs ({share:.0%}) know the floor the twin"
-            f" put under them at entry",
-            "" if share >= 0.8 else "the rest have no book row before the fill at all:"
-            " the market entered the schedule through that fill and has no earlier"
-            " state. Only a wider subscription can raise this, not a longer lookback")
+            f"{bounded_buys}/{buys} BUYs into already-watched markets ({share:.0%})"
+            f" know the floor the twin put under them at entry",
+            "" if share >= 0.8 else "the book was being recorded and the twin still had"
+            " no ask: check that both tokens of these markets are subscribed")
+    elif contexts:
+        say(WARN, "no wallet BUY landed in a market that was already being watched",
+            "every entry brought its own market into the schedule with it, so none of"
+            " them can have a state from before the fill. This is the collection's"
+            " reach, not a lookup fault — see the discipline coverage below")
     if all_fills:
         # Not the same number as "unwatchable": a fill inside the fifteen minutes
         # the write-up waits for is also not here yet. Both are excluded from the
@@ -497,6 +548,20 @@ def check_window(paths, mapping_path, coverage_path):
             " gap_seconds column",
             "" if "gap_seconds" in header else "disconnects are not being subtracted"
             " from the observed time, so every per-hour rate is overstated")
+
+
+def scanned_disciplines(path="pm.config.json"):
+    """The disciplines discovery actually looks for.
+
+    `disciplines` is what gets scanned and subscribed ahead of a match;
+    `labels` only lets the resolver name a market the wallet dragged in. A
+    discipline in the second list and not the first can only ever reach the
+    schedule through a fill that has already happened.
+    """
+    if not os.path.exists(path):
+        return set()
+    with open(path, encoding="utf-8") as handle:
+        return set(json.load(handle).get("disciplines", {}).values())
 
 
 def check_wallet(fills, resolutions, gaps_file):

@@ -19,7 +19,7 @@ const at = (seconds) => new Date(Date.parse(`${DAY}T12:00:00Z`) + seconds * 1000
 const market = {
   conditionId: 'cond-1', tokens: ['tok-a', 'tok-b'],
   question: 'Will Team A win map 2?', slug: 'a-b-map-2', eventSlug: 'csgo-a-b',
-  eventTitle: 'A vs B', sport: 'cs2', level: 'segment', kind: 'winner',
+  eventTitle: 'A vs B', sport: 'esports_counter_strike', level: 'segment', kind: 'winner',
   segmentKind: 'map', segmentNo: 2, line: null, teams: ['A', 'B'],
   outcomes: ['Yes', 'No'], endDate: `${DAY}T18:00:00Z`, tickSize: 0.01, minSize: 5,
 };
@@ -74,7 +74,8 @@ const context = {
 };
 store.add('fill_context', FILL_CONTEXT_COLUMNS.map((name) => context[name]));
 
-store.add('universe', [at(0), 'cond-1', 'gamma', 1, null, null, market.question, 'cs2',
+store.add('universe', [at(0), 'cond-1', 'gamma', 1, null, null, market.question,
+  'esports_counter_strike',
   'segment', 'winner']);
 store.add('gaps', [at(300), at(310), 10_000, 'socket closed', 2]);
 
