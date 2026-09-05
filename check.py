@@ -368,31 +368,105 @@ def check_window(paths, mapping_path, coverage_path):
             "" if share >= 0.7 else "a floor from a book nobody has touched in minutes"
             " is not evidence about now")
 
-    # The book around the wallets' own fills, which is what the study is for.
-    contexts = watched_fills = 0
+    # What the sample is made of. A finding measured on a collection that is
+    # three-quarters tennis does not describe one that is three-fifths CS2, and
+    # between two runs the composition swung exactly that far — which invalidated
+    # the comparison without either run looking wrong on its own. The cap is
+    # schedule.maxLivePerSport; this is where its effect shows up.
+    composition = Counter()
     for path in paths:
-        if not table_columns(path, "fill_context"):
+        if "size_consumed" not in table_columns(path, "sweeps"):
             continue
         connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
         try:
-            row = connection.execute(
-                "SELECT count(*), sum(coalesce(snapshot_available, 0)) FROM fill_context"
-            ).fetchone()
-            contexts += row[0] or 0
-            watched_fills += row[1] or 0
+            for row in connection.execute(
+                "SELECT coalesce(m.sport, '(none)'), count(*) FROM sweeps s"
+                " LEFT JOIN markets m ON m.condition_id = s.condition_id"
+                " WHERE s.bid_before >= 0.05 AND s.size_consumed >= 100"
+                "   AND s.bid_after < s.bid_before GROUP BY 1"):
+                composition[row[0]] += row[1]
+        except sqlite3.OperationalError:
+            pass
+        connection.close()
+    total = sum(composition.values())
+    if total:
+        top, count = composition.most_common(1)[0]
+        share = count / total
+        say(OK if share <= 0.4 else WARN,
+            f"the largest discipline is {share:.0%} of {total} deep sweeps ({top})",
+            "" if share <= 0.4 else "one discipline dominates the sample; anything"
+            " measured on it is a statement about that discipline, not about the"
+            " strategy. Lower schedule.maxLivePerSport, or let the thin"
+            " disciplines run longer")
+        for sport, n in composition.most_common(8):
+            print(f"{' ' * 9}  {n:8}  {n / total:5.0%}  {sport}")
+
+    # The book around the wallets' own fills, which is what the study is for.
+    #
+    # Two denominators, because they answer different questions and pooling them
+    # made the subscription look broken. Every fill the trade log carries
+    # includes the wallet's history in markets that settled before this process
+    # existed; nothing was watching those and nothing could have been. The share
+    # worth acting on is over the fills that were watchable at all.
+    contexts = watched_fills = all_fills = 0
+    # And within the watched ones, the entry side specifically. The floor under
+    # a position is only interesting at the moment it is opened, and a BUY whose
+    # fair_lower_bound_before is empty means no book row existed before the fill
+    # — the market came into the schedule through that very fill, so there is no
+    # earlier state to read. Reported apart from SELL, where the same column
+    # comes from a book that has been watched for however long the position was
+    # held and is filled almost always.
+    buys = bounded_buys = 0
+    for path in paths:
+        connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            if table_columns(path, "fill_context"):
+                row = connection.execute(
+                    "SELECT count(*), sum(coalesce(snapshot_available, 0)) FROM fill_context"
+                ).fetchone()
+                contexts += row[0] or 0
+                watched_fills += row[1] or 0
+                row = connection.execute(
+                    "SELECT count(*), count(fair_lower_bound_before) FROM fill_context"
+                    " WHERE side = 'BUY' AND coalesce(snapshot_available, 0) = 1"
+                ).fetchone()
+                buys += row[0] or 0
+                bounded_buys += row[1] or 0
+            if table_columns(path, "trades"):
+                all_fills += connection.execute(
+                    "SELECT count(*) FROM trades").fetchone()[0] or 0
         except sqlite3.OperationalError:
             pass
         connection.close()
     if contexts:
         share = watched_fills / contexts
         say(OK if share >= 0.4 else WARN,
-            f"{watched_fills}/{contexts} wallet fills ({share:.0%}) have the book around them",
+            f"{watched_fills}/{contexts} watchable wallet fills ({share:.0%})"
+            " have the book around them",
             "" if share >= 0.4 else "the rest were in markets nobody was watching;"
             " wallet activity should be pulling those into the schedule")
     else:
         say(WARN, "no wallet fill has been written up with its book context yet",
             "either no fill has happened since collection started, or it is still"
             " inside the fifteen minutes the write-up waits for")
+    if buys:
+        share = bounded_buys / buys
+        say(OK if share >= 0.8 else WARN,
+            f"{bounded_buys}/{buys} watched BUYs ({share:.0%}) know the floor the twin"
+            f" put under them at entry",
+            "" if share >= 0.8 else "the rest have no book row before the fill at all:"
+            " the market entered the schedule through that fill and has no earlier"
+            " state. Only a wider subscription can raise this, not a longer lookback")
+    if all_fills:
+        # Not the same number as "unwatchable": a fill inside the fifteen minutes
+        # the write-up waits for is also not here yet. Both are excluded from the
+        # share above, and neither is a fault.
+        print(f"{' ' * 9}{all_fills} wallet fills recorded in all, {all_fills - contexts}"
+              f" of them without a context row — in markets already closed when the"
+              f" wallet feed first reached them, or still inside the fifteen minutes"
+              f" the write-up waits for.")
+        print(f"{' ' * 9}Neither can have a book yet; both stay in trades and"
+              f" target-fills.csv.")
 
     # The mapping table, by what kind of market it actually pairs.
     if os.path.exists(mapping_path):

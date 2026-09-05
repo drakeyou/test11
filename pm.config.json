@@ -34,6 +34,7 @@
     },
     "maxAheadHours": 72,
     "maxLiveMarkets": null,
+    "maxLivePerSport": 150,
     "resolutionCheckMinutes": 15,
     "resolutionCheckAfterMinutes": 45,
     "resolutionCheckOpenHorizonSeconds": 60,

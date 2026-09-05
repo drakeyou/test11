@@ -190,7 +190,8 @@ export class MarketSchedule {
    *
    * @returns {{added: object[], removed: object[], live: object[]}}
    */
-  refresh(now = Date.now(), { maxLive = Infinity, quota = null } = {}) {
+  refresh(now = Date.now(), { maxLive = Infinity, quota = null,
+    maxLivePerSport = Infinity } = {}) {
     const added = [];
     const removed = [];
     const waiting = [];
@@ -217,16 +218,35 @@ export class MarketSchedule {
       if (now >= entry.subscribeAt) waiting.push(entry);
     }
 
+    // What a discipline already holds, counted after the releases above so a
+    // market let go this round frees its slot immediately.
+    const perSport = new Map();
+    for (const conditionId of this.#live) {
+      const sport = this.#entries.get(conditionId)?.record?.sport ?? '';
+      perSport.set(sport, (perSport.get(sport) ?? 0) + 1);
+    }
+
     // Under a cap, what gets the remaining slots is decided by where the
     // wallets actually work, not by how many markets a discipline happens to
     // have on Polymarket. A market a wallet is already in never waits.
+    //
+    // maxLivePerSport is the harder limit, and it exists because ranking alone
+    // does not bound composition. Polymarket creates tennis sub-markets at a
+    // rate no other discipline comes close to — one collection came out 73%
+    // tennis, the one before it 60% CS2 — and a finding measured on one of
+    // those does not describe the other. Ordering only decides who goes first
+    // when there is a shortage; with slots to spare the abundant discipline
+    // takes them all and the sample is whatever the API had most of.
     for (const entry of this.#rank(waiting, quota)) {
-      if (this.#live.size >= maxLive && entry.source !== 'wallet') {
+      const sport = entry.record.sport ?? '';
+      const full = (perSport.get(sport) ?? 0) >= maxLivePerSport;
+      if ((this.#live.size >= maxLive || full) && entry.source !== 'wallet') {
         entry.deferredForCapacity = true;
         continue;
       }
       entry.deferredForCapacity = false;
       {
+        perSport.set(sport, (perSport.get(sport) ?? 0) + 1);
         entry.subscribedAt = new Date(now).toISOString();
         this.#live.add(entry.conditionId);
         const [a, b] = entry.record.tokens;

@@ -217,6 +217,58 @@ const open = new MarketSchedule({ leadMinutes: 10 });
 open.observe([market('a', 'esports_counter_strike'), market('b', 'tennis')], game);
 assert.equal(open.refresh(game).added.length, 2, 'without a cap nothing is deferred');
 
+// --- the per-discipline cap -------------------------------------------------
+// Ranking decides who goes first when slots are short. It does not bound
+// composition: with slots to spare, whichever discipline Polymarket creates
+// most sub-markets for takes them all. One collection came out 73% tennis and
+// the one before it 60% CS2, and a finding measured on either does not describe
+// the other. This is the hard limit that makes the shares comparable.
+const quotas = new MarketSchedule({ leadMinutes: 10 });
+const many = [];
+for (let i = 0; i < 5; i++) many.push(market(`t-${i}`, 'tennis'));
+for (let i = 0; i < 3; i++) many.push(market(`c-${i}`, 'esports_counter_strike'));
+quotas.observe(many, game);
+const rationed = quotas.refresh(game, { maxLivePerSport: 2 });
+const bySport = new Map();
+for (const entry of rationed.added) {
+  bySport.set(entry.record.sport, (bySport.get(entry.record.sport) ?? 0) + 1);
+}
+assert.equal(bySport.get('tennis'), 2, 'the abundant discipline stops at its cap');
+assert.equal(bySport.get('esports_counter_strike'), 2, 'the scarce one gets its share');
+assert.equal(quotas.liveSize, 4, 'and nothing beyond the caps is subscribed');
+
+// The cap is a limit on other people's markets, not on the study's own. A
+// wallet fill in a discipline that is already full still gets watched.
+quotas.observe([market('w-2', 'tennis')], game + MINUTE, { priority: true });
+const priority = quotas.refresh(game + MINUTE, { maxLivePerSport: 2 });
+assert.deepEqual(priority.added.map((e) => e.conditionId), ['w-2'],
+  'a wallet market is never held back by the per-discipline cap');
+
+// A wallet market is exempt from the cap but still counts against it: it is a
+// tennis market being watched. Tennis now holds three of a budget of two, so
+// nothing else tennis is taken until two of them are let go.
+const stillFull = quotas.refresh(game + 90 * 1000, { maxLivePerSport: 2 });
+assert.equal(stillFull.added.length, 0, 'a wallet market fills the discipline budget');
+
+// Releasing frees the slot in the same round, not the next one.
+const refill = new MarketSchedule({ leadMinutes: 10 });
+refill.observe([market('r-1', 'tennis'), market('r-2', 'tennis')], game);
+refill.refresh(game, { maxLivePerSport: 1 });
+refill.markResolved('r-1');
+const refilled = refill.refresh(game + MINUTE, { maxLivePerSport: 1 });
+assert.ok(refilled.removed.some((e) => e.conditionId === 'r-1'));
+assert.ok(refilled.added.some((e) => e.conditionId === 'r-2'),
+  'a market let go this round frees its slot immediately');
+
+// Deferred, not dropped: the cap does not release anything.
+const deferred = new MarketSchedule({ leadMinutes: 10 });
+deferred.observe([market('d-1', 'tennis'), market('d-2', 'tennis')], game);
+deferred.refresh(game, { maxLivePerSport: 1 });
+assert.equal(deferred.entry('d-2').releasedAt, null, 'a capped market keeps waiting');
+assert.equal(deferred.entry('d-2').deferredForCapacity, true);
+assert.equal(deferred.refresh(game + MINUTE).added.length, 1,
+  'and is taken as soon as the cap is lifted');
+
 // --- the composition the collector performs on every book event -------------
 // schedule.pairOf -> books.get -> pairedView -> metrics. Pinned together
 // because each part passing on its own would not catch a mismatch between them.

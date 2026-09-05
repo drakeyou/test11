@@ -56,9 +56,17 @@ let links = new Map();
 let ggbetByKey = new Map();
 const counts = { rows: 0, sweeps: 0, gaps: 0, messages: 0, joined: 0, fills: 0, trades: 0,
   truncated: 0, takerFills: 0, followups: 0, observed: 0, resolved: 0, walletMarkets: 0,
-  contexts: 0 };
-/** condition ids already offered to the schedule from wallet activity. */
-const walletMarkets = new Set();
+  contexts: 0, unwatchableFills: 0 };
+/**
+ * condition ids already offered to the schedule from wallet activity, and
+ * whether there was anything left to watch when we first heard of them.
+ *
+ * The value is the honest denominator for the fill context. A wallet's history
+ * reaches back over markets that settled long before this process started, and
+ * a fill in one of those cannot have a book around it — nothing was watching,
+ * and nothing could have been.
+ */
+const walletMarkets = new Map();
 /** Discipline shares of wallet activity, refreshed daily; empty means no preference. */
 let quota = new Map();
 /** condition id -> when its trade log was last pulled, to keep polling bounded. */
@@ -242,15 +250,16 @@ async function followWallets(lastTraded) {
     if (now - at > window) continue;
     if (walletMarkets.has(conditionId)) continue;
     if (schedule.entry(conditionId)?.source === 'wallet') {
-      walletMarkets.add(conditionId);
+      walletMarkets.set(conditionId, true);
       continue;
     }
     try {
       await resolutionGate();
       const { closed, record } = await fetchResolution(conditionId, naming,
         (url) => politeFetch(url));
-      walletMarkets.add(conditionId);
-      if (closed || record.tokens?.length !== 2) continue;
+      const watchable = !closed && record.tokens?.length === 2;
+      walletMarkets.set(conditionId, watchable);
+      if (!watchable) continue;
       const { scheduled } = schedule.observe([record], Date.now(), { priority: true });
       for (const row of universe.observe([record], 'wallet:activity')) {
         store.add('universe', universeRow(row));
@@ -299,6 +308,17 @@ async function pollTrades(conditionIds) {
         store.add('trades', row);
         // The book around this fill is what the collection is for. It cannot be
         // read yet — the minutes after it have not happened — so it is queued.
+        //
+        // Unless the market was already closed when the follower first reached
+        // it. Then there is no book to queue for and never was: the row would
+        // be nulls with snapshot_available = 0, true and useless. 1873 such
+        // rows out of 1883 buried the 10 that could be answered and read as a
+        // subscription that catches half a percent of fills, when in fact it
+        // caught every one it could.
+        if (walletMarkets.get(row[1]) === false) {
+          counts.unwatchableFills++;
+          continue;
+        }
         fillContext.add({
           ts: row[0], conditionId: row[1], assetId: row[2], wallet: row[3],
           side: row[4], price: row[5], size: row[6],
@@ -357,6 +377,7 @@ async function discover() {
 function tick(at = Date.now()) {
   const { added, removed } = schedule.refresh(at, {
     maxLive: config.schedule?.maxLiveMarkets ?? Infinity,
+    maxLivePerSport: config.schedule?.maxLivePerSport ?? Infinity,
     quota,
   });
   for (const entry of removed) {
@@ -496,6 +517,8 @@ const timers = [
       ` | ${links.size} linked | ${counts.trades} trades` +
       ` | live ${schedule.liveSize}/waiting ${schedule.pendingSize}` +
       ` | ${counts.observed} seen in play | ${counts.contexts} fills in context` +
+      `${counts.unwatchableFills ? ` (${counts.unwatchableFills} fills in markets` +
+        ` already closed when found)` : ''}` +
       ` | ${universe.subscribedCount}/${universe.size} universe` +
       `${counts.truncated ? ` | ${counts.truncated} truncated` : ''} | ${store.path}`);
   }, 60000),

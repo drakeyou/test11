@@ -84,6 +84,28 @@ def with_table(paths, table):
     return _WITH_TABLE[key]
 
 
+_WITH_COLUMN = {}
+
+
+def with_column(paths, table, column):
+    """The subset of databases whose table carries this column.
+
+    Columns were added as the collector grew, and asking a file that predates
+    one for it fails the whole statement, not just that column. Cached because
+    the sweep loop asks per sweep per file.
+    """
+    key = (tuple(paths), table, column)
+    if key not in _WITH_COLUMN:
+        keep = []
+        for path in with_table(paths, table):
+            names = {row["name"] for row in
+                     connect(path).execute(f"PRAGMA table_info({table})").fetchall()}
+            if column in names:
+                keep.append(path)
+        _WITH_COLUMN[key] = keep
+    return _WITH_COLUMN[key]
+
+
 def newest(rows, column="ts"):
     """The latest of rows gathered from several daily files.
 
@@ -176,14 +198,25 @@ def highs_after(paths, asset_id, ts, horizons=(1, 5, 15), sweep_id=None):
     up is worth its payout, not a missing measurement. Falls back to the book
     itself, so collections made before that table existed still answer.
 
-    @returns {minutes: (high, resolved_before_horizon)}
+    `book_frozen` comes only from the recorded rows: it is the book's own clock
+    standing still, which the collector watches live and no later query can
+    reconstruct. Null where the horizon was computed from the book instead.
+
+    @returns {minutes: (high, resolved_before_horizon, book_frozen)}
     """
     recorded = {}
     if sweep_id:
+        frozen_files = with_column(paths, "sweep_followups", "book_frozen")
         for row in query(with_table(paths, "sweep_followups"),
                          "SELECT horizon, high_bid, resolved_before_horizon"
                          " FROM sweep_followups WHERE sweep_id = ?", (sweep_id,)):
-            recorded[row["horizon"]] = (row["high_bid"], row["resolved_before_horizon"])
+            recorded[row["horizon"]] = (row["high_bid"], row["resolved_before_horizon"], None)
+        for row in query(frozen_files,
+                         "SELECT horizon, book_frozen FROM sweep_followups"
+                         " WHERE sweep_id = ?", (sweep_id,)):
+            if row["horizon"] in recorded:
+                high, resolved, _ = recorded[row["horizon"]]
+                recorded[row["horizon"]] = (high, resolved, row["book_frozen"])
 
     out = {}
     for minutes in horizons:
@@ -194,7 +227,7 @@ def highs_after(paths, asset_id, ts, horizons=(1, 5, 15), sweep_id=None):
             SELECT max(best_bid) AS high FROM book
             WHERE asset_id = ? AND ts > ? AND ts <= ?
         """, (asset_id, ts, iso_shift(ts, minutes)))
-        out[minutes] = (highest(best), 0)
+        out[minutes] = (highest(best), 0, None)
     return out
 
 

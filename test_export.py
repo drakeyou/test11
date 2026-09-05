@@ -185,4 +185,73 @@ check("no start, no answer", minutes_from(None, "2026-08-27T12:00:00.000Z") is N
 check("no event, no answer", minutes_from("2026-08-27 12:00:00+00", None) is None)
 check("a malformed stamp is not fatal", minutes_from("whenever", "2026-08-27T12:00:00Z") is None)
 
+# --- the export schema guard ------------------------------------------------
+# The bug this exists for: the collector computed thirteen paired-token columns,
+# stored them, the query selected them, and a header written before they existed
+# dropped every one. Three bundles went out without the central quantity and
+# nothing said a word. So the check runs in both directions.
+from export import (BOOK_SERIES_COLUMNS, BOOK_SERIES_NOTES, SWEEP_COLUMNS,  # noqa: E402
+                    SWEEP_NOTES, FILL_NOTES, SchemaError, column_guide, write_csv)
+
+with tempfile.TemporaryDirectory() as tmp:
+    out = os.path.join(tmp, "out.csv")
+
+    write_csv(out, ["a", "b"], [{"a": 1, "b": 2}])
+    check("a matching row is written",
+          open(out).read().replace("\r\n", "\n") == "a,b\n1,2\n")
+
+    try:
+        write_csv(out, ["a", "b"], [{"a": 1, "b": 2, "fair_lower_bound": 0.15}])
+        check("an unexported column is refused", False)
+    except SchemaError as error:
+        check("and the message names it", "fair_lower_bound" in str(error))
+
+    try:
+        write_csv(out, ["a", "b", "book_frozen"], [{"a": 1, "b": 2}])
+        check("a column with no value is refused", False)
+    except SchemaError as error:
+        check("and that message names it too", "book_frozen" in str(error))
+
+    try:
+        write_csv(out, ["a", "a"], [{"a": 1}])
+        check("a duplicated column is refused", False)
+    except SchemaError:
+        pass
+
+    # Rows that are already lists are written as they come: several files in the
+    # bundle are straight SELECT * dumps and have no keys to check against.
+    check("list rows still work", write_csv(out, ["a"], [[1], [2]]) == 2)
+    check("no rows is not an error", write_csv(out, ["a"], []) == 0)
+
+# Every column the bundle carries has a description in it. Without this the
+# README goes stale the same way the header did — quietly, one column at a time.
+check("every sweeps column is described",
+      [c for c in SWEEP_COLUMNS if c not in SWEEP_NOTES] == [])
+# Read out of the collector rather than copied: the fill_context table is
+# declared in JavaScript, the README that explains it in Python, and a column
+# added on one side and not the other is the same drift again with a language
+# boundary hiding it.
+import re  # noqa: E402
+
+declared = re.search(r"FILL_CONTEXT_COLUMNS = \[(.*?)\];",
+                     open("src/pm/fill-context.mjs", encoding="utf-8").read(), re.S)
+fill_columns = re.findall(r"'([^']+)'", declared.group(1))
+check("the fill_context columns were found at all", len(fill_columns) > 15)
+check("every fill-context column is described",
+      [c for c in fill_columns if c not in FILL_NOTES] == [])
+check("and nothing is described that the table does not have",
+      [c for c in FILL_NOTES if c not in fill_columns] == [])
+check("every book-series column is described",
+      [c for c in BOOK_SERIES_COLUMNS if c not in BOOK_SERIES_NOTES] == [])
+check("an undescribed column says so in the README",
+      "undescribed" in column_guide(["something_new"], {}))
+check("a file the bundle does not have is not described as empty",
+      column_guide([], SWEEP_NOTES) == "_(not in this bundle)_")
+
+# The columns the last three analyses asked for and did not get.
+for column in ("fair_lower_bound", "fair_upper_bound", "paired_ask_size", "book_sum",
+               "internal_dislocation", "paired_stale_seconds", "book_frozen",
+               "levels_touched", "size_eaten_partial", "n_bid_levels_before"):
+    check(f"sweeps.csv carries {column}", column in SWEEP_COLUMNS)
+
 print("all analysis helper tests passed")

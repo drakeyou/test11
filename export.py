@@ -23,7 +23,7 @@ import zipfile
 from collections import Counter, defaultdict
 
 from analyze import (databases, highs_after, iso_shift, newest, parse_timestamp,
-                     query, target_wallets, with_table)
+                     query, target_wallets, with_column, with_table)
 
 CONTEXT_MINUTES = (1, 5, 15)
 
@@ -105,12 +105,47 @@ def dedupe(rows, key_index=0):
     return list(seen.values())
 
 
+class SchemaError(RuntimeError):
+    """A file was about to be written with a column list that does not match it."""
+
+
 def write_csv(path, header, rows):
+    """Write a CSV, checking the rows against the header first.
+
+    Rows may be lists, which are written as they come, or dicts, which are
+    projected through the header. The dict form is what makes a check possible,
+    and the check runs in BOTH directions on purpose.
+
+    A header column that no row carries is the obvious failure. The one that
+    actually happened is the reverse: the collector computed thirteen
+    paired-token columns, stored them, the query selected them, and the header
+    — written before those columns existed — dropped every one on the floor.
+    Three bundles went out with the central quantity missing and nothing said a
+    word. So a key present in the rows and absent from the header is an error
+    too, and the exporter stops rather than writing a file that looks complete.
+    """
+    materialised = list(rows)
+    if materialised and isinstance(materialised[0], dict):
+        name = os.path.basename(path)
+        declared, present = set(header), set(materialised[0])
+        if declared - present:
+            raise SchemaError(f"{name}: no value for declared column(s) "
+                              f"{', '.join(sorted(declared - present))}")
+        if present - declared:
+            raise SchemaError(
+                f"{name}: {', '.join(sorted(present - declared))} "
+                f"{'are' if len(present - declared) > 1 else 'is'} computed and would"
+                f" not be written. Add to the header, or drop from the row.")
+        if len(header) != len(set(header)):
+            duplicated = sorted({c for c in header if header.count(c) > 1})
+            raise SchemaError(f"{name}: duplicated column(s) {', '.join(duplicated)}")
+        materialised = [[row[column] for column in header] for row in materialised]
+
     with open(path, "w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle)
         writer.writerow(header)
-        writer.writerows(rows)
-    return len(rows)
+        writer.writerows(materialised)
+    return len(materialised)
 
 
 def gap_seconds_by_hour(gaps):
@@ -137,17 +172,8 @@ def gap_seconds_by_hour(gaps):
 
 
 def has_column(paths, table, column):
-    """Databases whose table carries this column.
-
-    Columns were added as the collector grew; a week of daily files is not a
-    week of the same schema.
-    """
-    keep = []
-    for path in with_table(paths, table):
-        names = {row["name"] for row in query([path], f"PRAGMA table_info({table})")}
-        if column in names:
-            keep.append(path)
-    return keep
+    """Databases whose table carries this column."""
+    return with_column(paths, table, column)
 
 
 def game_starts(paths, resolutions_path="pm-resolutions.csv"):
@@ -206,6 +232,33 @@ def minutes_from(start, ts):
     return round((at - began).total_seconds() / 60, 2)
 
 
+# The column list lives next to the code that fills it, because the two drifting
+# apart is precisely the failure this file has had three times: the paired-token
+# bounds, book_frozen and the touched-level counts were all computed, stored and
+# then dropped here. write_csv() checks the row against this list, so a column
+# added to one and not the other stops the export instead of vanishing.
+#
+# Order is append-only. Something downstream reads these by index.
+SWEEP_COLUMNS = [
+    "ts", "asset_id", "condition_id", "rule", "bid_before", "bid_after",
+    "size_consumed", "levels_crossed", "depth_before", "depth_after",
+    "prior_size_at_001", "prior_size_at_002", "prior_size_at_003", "prior_size_at_005",
+    "prior_depth_bid_total", "prior_n_bid_levels",
+    "ggbet_fair", "dislocation_ratio", "seconds_since_ggbet_quote", "ggbet_market_state",
+    "high_1m", "high_5m", "high_15m", "sport", "market_level", "kind", "question",
+    "sweep_id", "resolved_before_1m", "resolved_before_5m", "resolved_before_15m",
+    "minutes_from_game_start",
+    # The twin token, and what it bounds. fair_lower_bound is the metric the
+    # gg.bet-derived dislocation_ratio above failed to be: it needs no external
+    # feed and no name matching, only the other half of the same market.
+    "paired_asset_id", "paired_bid", "paired_ask", "paired_ask_size",
+    "fair_lower_bound", "fair_upper_bound", "fair_mid", "book_sum",
+    "internal_dislocation", "paired_stale_seconds",
+    # What levels_crossed misses, and whether the book was alive afterwards.
+    "levels_touched", "size_eaten_partial", "n_bid_levels_before", "book_frozen",
+]
+
+
 def sweep_context(paths, sweeps, starts=None, report_every=100):
     """Every sweep, with what the book and gg.bet said around it.
 
@@ -249,6 +302,7 @@ def sweep_context(paths, sweeps, starts=None, report_every=100):
                                CONTEXT_MINUTES, sweep_id)
         highs = [followed[minutes][0] for minutes in CONTEXT_MINUTES]
         settled = [followed[minutes][1] for minutes in CONTEXT_MINUTES]
+        frozen = [followed[minutes][2] for minutes in CONTEXT_MINUTES]
 
         before = dict(prior) if prior else {}
         # The collector prices the sweep as it happens, from the resident cache
@@ -262,20 +316,337 @@ def sweep_context(paths, sweeps, starts=None, report_every=100):
                 "seconds_since_ggbet_quote": row.get("seconds_since_ggbet_quote"),
                 "ggbet_market_state": row.get("ggbet_market_state"),
             }
-        rows.append([
-            sweep["ts"], sweep["asset_id"], sweep["condition_id"], sweep["rule"],
-            sweep["bid_before"], sweep["bid_after"], sweep["size_consumed"],
-            sweep["levels_crossed"], sweep["depth_before"], sweep["depth_after"],
-            before.get("size_at_001"), before.get("size_at_002"),
-            before.get("size_at_003"), before.get("size_at_005"),
-            before.get("depth_bid_total"), before.get("n_bid_levels"),
-            quote.get("ggbet_fair"), quote.get("dislocation_ratio"),
-            quote.get("seconds_since_ggbet_quote"), quote.get("ggbet_market_state"),
-            *highs,
-            sweep["sport"], sweep["market_level"], sweep["kind"], sweep["question"],
-            sweep_id, *settled,
-            minutes_from(starts.get(sweep["condition_id"]), sweep["ts"]),
-        ])
+        rows.append({
+            "ts": sweep["ts"], "asset_id": sweep["asset_id"],
+            "condition_id": sweep["condition_id"], "rule": sweep["rule"],
+            "bid_before": sweep["bid_before"], "bid_after": sweep["bid_after"],
+            "size_consumed": sweep["size_consumed"],
+            "levels_crossed": sweep["levels_crossed"],
+            "depth_before": sweep["depth_before"], "depth_after": sweep["depth_after"],
+            "prior_size_at_001": before.get("size_at_001"),
+            "prior_size_at_002": before.get("size_at_002"),
+            "prior_size_at_003": before.get("size_at_003"),
+            "prior_size_at_005": before.get("size_at_005"),
+            "prior_depth_bid_total": before.get("depth_bid_total"),
+            "prior_n_bid_levels": before.get("n_bid_levels"),
+            "ggbet_fair": quote.get("ggbet_fair"),
+            "dislocation_ratio": quote.get("dislocation_ratio"),
+            "seconds_since_ggbet_quote": quote.get("seconds_since_ggbet_quote"),
+            "ggbet_market_state": quote.get("ggbet_market_state"),
+            "high_1m": highs[0], "high_5m": highs[1], "high_15m": highs[2],
+            "sport": sweep["sport"], "market_level": sweep["market_level"],
+            "kind": sweep["kind"], "question": sweep["question"],
+            "sweep_id": sweep_id,
+            "resolved_before_1m": settled[0], "resolved_before_5m": settled[1],
+            "resolved_before_15m": settled[2],
+            "minutes_from_game_start":
+                minutes_from(starts.get(sweep["condition_id"]), sweep["ts"]),
+            # Straight out of the sweeps row: the collector computed these at the
+            # moment of the event, from the twin token's live book. .get() rather
+            # than [] because a daily file written before the columns existed
+            # answers SELECT s.* without them.
+            "paired_asset_id": row.get("paired_asset_id"),
+            "paired_bid": row.get("paired_bid"),
+            "paired_ask": row.get("paired_ask"),
+            "paired_ask_size": row.get("paired_ask_size"),
+            "fair_lower_bound": row.get("fair_lower_bound"),
+            "fair_upper_bound": row.get("fair_upper_bound"),
+            "fair_mid": row.get("fair_mid"),
+            "book_sum": row.get("book_sum"),
+            "internal_dislocation": row.get("internal_dislocation"),
+            "paired_stale_seconds": row.get("paired_stale_seconds"),
+            "levels_touched": row.get("levels_touched"),
+            "size_eaten_partial": row.get("size_eaten_partial"),
+            "n_bid_levels_before": row.get("n_bid_levels_before"),
+            # The longest horizon, because the flag is cumulative: a book that
+            # had not moved in fifteen minutes had not moved in one either.
+            "book_frozen": frozen[-1],
+        })
+    return rows
+
+
+# What each file in the bundle is. Keyed by the name actually written, so a file
+# that stops being produced stops being described, and one that starts being
+# produced shows up in the README the same run — undescribed and saying so,
+# rather than absent.
+FILE_NOTES = {
+    "report.txt": "output of `analyze.py`, the four headline questions",
+    "sweeps.csv": "detected book collapses, with the context that prices them",
+    "book-series.csv": "the book around the deepest collapses as a time series,"
+                       " one snapshot every 30s from five minutes before to fifteen"
+                       " minutes after",
+    "sweeps-strata.csv": "how many significant sweeps each day held, and how many are here",
+    "markets.csv": "market registry: question, discipline, level, kind, segment,"
+                   " and the subscription window",
+    "target-fills.csv": "fills by the wallets under study in THIS collection,"
+                        " tagged maker or taker",
+    "target-fills-prior.csv": "an earlier fills export, if one was in the project root —"
+                              " what `fills-report.txt` and the resolutions were built from",
+    "fill-context.csv": "the book on either side of each wallet fill — the ground truth",
+    "coverage.csv": "heartbeats per sport per hour, with the seconds nobody saw",
+    "gaps.csv": "websocket disconnects",
+    "universe-summary.csv": "every market considered, counted by discipline and by the"
+                            " reason it was or was not subscribed",
+    "pm-resolutions.csv": "which outcome won each market, and its metadata",
+    "fills-report.txt": "position-level PnL: cost, revenue and exit mode per position",
+    "pm-position-gaps.csv": "positions whose trade history is incomplete",
+    "mapping.csv": "Polymarket market to gg.bet market correspondence",
+    "pm.config.json": "thresholds and the subscription window the collection ran with",
+    "README.md": "this file",
+}
+
+SWEEP_NOTES = {
+    "ts": "when the collapse was detected, UTC",
+    "asset_id": "the token whose bid side collapsed",
+    "condition_id": "the market it belongs to; joins to `markets.csv`",
+    "rule": "which detector fired: `bid_drop`, `levels`, `depth_collapse`, or a"
+            " combination. Thresholds are in `pm.config.json`",
+    "bid_before": "best bid before the update",
+    "bid_after": "best bid after it",
+    "size_consumed": "size that left the bid side across the update",
+    "levels_crossed": "price levels that disappeared entirely",
+    "depth_before": "total resting bid size before",
+    "depth_after": "and after",
+    "prior_size_at_001": "resting bid size at 1c in the last snapshot BEFORE the sweep",
+    "prior_size_at_002": "the same at 2c — the capacity question: how much of someone"
+                         " else's money already stands in the queue",
+    "prior_size_at_003": "the same at 3c",
+    "prior_size_at_005": "the same at 5c",
+    "prior_depth_bid_total": "total resting bid size in that snapshot",
+    "prior_n_bid_levels": "how many price levels it had",
+    "ggbet_fair": "de-vigged probability from gg.bet for the same question. Null"
+                  " wherever the market could not be matched, which is most of them",
+    "dislocation_ratio": "`ggbet_fair / pm_mid`. Superseded — it needs an external feed"
+                         " and fuzzy name matching, and is empty in the great majority"
+                         " of rows. `fair_lower_bound` below is what replaced it",
+    "seconds_since_ggbet_quote": "age of that fair value; gg.bet writes only on a price"
+                                 " change, so a large number means it is stale",
+    "ggbet_market_state": "what gg.bet said the market was doing",
+    "high_1m": "highest best bid within a minute of the sweep — the exit side",
+    "high_5m": "the same within five minutes",
+    "high_15m": "the same within fifteen",
+    "sport": "discipline",
+    "market_level": "match-level or segment-level market",
+    "kind": "what is being bet on",
+    "question": "the market question verbatim",
+    "sweep_id": "`asset_id:ts`; joins to `matched_sweep_id` in `fill-context.csv`",
+    "resolved_before_1m": "1 when the market resolved before that horizon was up. The"
+                          " `high_*` beside it is then the payout, not a bid",
+    "resolved_before_5m": "the same at five minutes",
+    "resolved_before_15m": "the same at fifteen",
+    "minutes_from_game_start": "minutes from the first point of the match, negative"
+                               " before it started",
+    "paired_asset_id": "the other outcome token of the same market",
+    "paired_bid": "its best bid at the moment of the sweep",
+    "paired_ask": "its best ask",
+    "paired_ask_size": "size resting at that ask — how much the floor below is worth"
+                       " taking. A bound behind 40 shares is a bound behind 40 shares",
+    "fair_lower_bound": "**the metric.** `1 - paired_ask`. The two tokens pay out one"
+                        " dollar between them, so anything the twin can be bought at"
+                        " puts a floor under this one. No external feed, no name"
+                        " matching: a fill at 0.02 against a floor of 0.15 is a"
+                        " dislocation derived entirely from resting orders",
+    "fair_upper_bound": "`1 - paired_bid`, the ceiling from the same identity",
+    "fair_mid": "midpoint of the two bounds",
+    "book_sum": "`bid_after + paired_bid`. Near 1 is a working market; near 0 means"
+                " both sides are empty and no bound below is worth reading",
+    "internal_dislocation": "`fair_lower_bound / bid_after`. How far under its own"
+                            " floor the token was left",
+    "paired_stale_seconds": "age of the twin's book at the sweep. It moves only on a"
+                            " real change, never on a heartbeat, so a large number"
+                            " means the floor is an old quote",
+    "levels_touched": "price levels that lost size, whether or not they cleared."
+                      " `levels_crossed` counts only the ones that vanished",
+    "size_eaten_partial": "size taken out of levels that survived",
+    "n_bid_levels_before": "levels on the bid side before the sweep, from the live"
+                           " book rather than the previous snapshot",
+    "book_frozen": "1 when the book's own clock never moved for fifteen minutes after"
+                   " the sweep. A market that died at the collapse — a total decided,"
+                   " a handicap closed — reads as a sweep nobody bid back into, and"
+                   " drags the statistics with it. Null where the horizon was"
+                   " reconstructed from snapshots rather than watched live",
+}
+
+FILL_NOTES = {
+    "fill_ts": "when the fill happened, UTC",
+    "asset_id": "the token bought or sold",
+    "condition_id": "its market",
+    "wallet": "which studied wallet",
+    "side": "BUY or SELL",
+    "price": "fill price",
+    "size": "fill size",
+    "fill_index": "which fill this is within the position, counting the same side only,"
+                  " so the fourth buy is 4 whatever the sells did",
+    "bid_t_minus_60": "best bid a minute before. Empty when no snapshot that close"
+                      " exists, rather than filled in from an older one",
+    "bid_t_minus_10": "ten seconds before",
+    "bid_t_minus_1": "one second before",
+    "ask_t_minus_1": "best ask one second before",
+    "size_at_002_before": "what was already resting at 2c in the queue the fill joined",
+    "depth_before": "total resting bid size then",
+    "paired_bid_before": "the twin token's bid at the fill",
+    "fair_lower_bound_before": "`1 - paired_ask` at the fill: the floor the twin put"
+                               " under this token at the moment of entry",
+    "book_sum_before": "`bid + paired_bid`; near 1 is a working market",
+    "bid_plus_60": "where the bid was a minute later",
+    "bid_plus_300": "five minutes later",
+    "bid_plus_900": "fifteen minutes later",
+    "matched_sweep_id": "a sweep on the same token within two minutes before the fill,"
+                        " if there was one. Joins to `sweep_id` in `sweeps.csv`",
+    "snapshot_available": "**read this first.** 0 means the market was not being"
+                          " watched, so every empty column above says nothing. 1 with"
+                          " empty columns means the book really was empty",
+    "filled_at": "when this row was written up, which is after the horizons passed",
+}
+
+
+def header_of(out_dir, name):
+    """The header a file was actually written with, or nothing if it was not."""
+    path = os.path.join(out_dir, name)
+    if not os.path.exists(path):
+        return []
+    with open(path, newline="", encoding="utf-8") as handle:
+        return next(csv.reader(handle), [])
+
+
+def column_guide(header, notes):
+    """A markdown table of the columns a file actually has.
+
+    An undescribed column is listed and says so. Describing the schema from a
+    template instead is how the README came to explain a column that had been
+    superseded and none of the thirteen that replaced it.
+    """
+    if not header:
+        return "_(not in this bundle)_"
+    lines = ["| Column | Meaning |", "|---|---|"]
+    for column in header:
+        note = notes.get(column, "**undescribed** — add it to export.py")
+        lines.append(f"| `{column}` | {note} |")
+    return "\n".join(lines)
+
+
+def bundle_contents(out_dir):
+    """A markdown table of the files this run actually produced."""
+    lines = ["| File | Contents |", "|---|---|"]
+    for name in sorted(os.listdir(out_dir)) + ["README.md"]:
+        note = FILE_NOTES.get(name, "**undescribed** — add it to export.py")
+        size = os.path.getsize(os.path.join(out_dir, name)) / 1024 if name != "README.md" else 0
+        measure = f" ({size:.0f} KB)" if size >= 1 else ""
+        lines.append(f"| `{name}` | {note}{measure} |")
+    return "\n".join(lines)
+
+
+BOOK_SERIES_COLUMNS = [
+    "sweep_id", "ts", "seconds_from_sweep", "asset_id", "condition_id", "sport",
+    "best_bid", "best_ask", "mid", "size_at_001", "size_at_002", "size_at_003",
+    "size_at_005", "depth_bid_total", "n_bid_levels",
+    "paired_bid", "paired_ask", "fair_lower_bound", "fair_mid", "book_sum",
+    "paired_stale_seconds",
+]
+
+BOOK_SERIES_NOTES = {
+    "sweep_id": "the sweep this window is centred on; joins to `sweeps.csv`",
+    "ts": "snapshot time, UTC",
+    "seconds_from_sweep": "negative before the collapse, positive after",
+    "asset_id": "the swept token",
+    "condition_id": "its market",
+    "sport": "discipline",
+    "best_bid": "best bid in this snapshot",
+    "best_ask": "best ask",
+    "mid": "midpoint",
+    "size_at_001": "resting bid size at 1c",
+    "size_at_002": "at 2c — the price the strategy under study bids at",
+    "size_at_003": "at 3c",
+    "size_at_005": "at 5c",
+    "depth_bid_total": "total resting bid size",
+    "n_bid_levels": "how many price levels the bid side had",
+    "paired_bid": "the twin token's bid",
+    "paired_ask": "the twin token's ask",
+    "fair_lower_bound": "`1 - paired_ask`: the floor the twin puts under this token"
+                        " at this instant. Computed here rather than stored, because"
+                        " the book table runs to tens of millions of rows",
+    "fair_mid": "midpoint of the two bounds",
+    "book_sum": "`bid + paired_bid`; near 1 is a working market, near 0 voids the row",
+    "paired_stale_seconds": "age of the twin's book. It moves only on a real change,"
+                            " never on a heartbeat",
+}
+
+
+def book_series(paths, sweeps, before_minutes=5, after_minutes=15,
+                every_seconds=30, cap=300):
+    """The book around a sweep, thinned to one snapshot every half minute.
+
+    sweeps.csv is one row per collapse, and a row cannot show a recovery taking
+    shape. This is the same quantities as a time series — including the twin
+    token, which is what makes the floor readable at each instant rather than
+    only at the moment of the event.
+
+    Thinned and windowed because it has to be: the book table is heartbeated
+    every five seconds per token and runs to tens of millions of rows a day.
+    Twenty minutes at one sample per thirty seconds is forty rows a sweep, and
+    only the deepest few hundred sweeps get one.
+    """
+    if not sweeps:
+        return []
+    # The deepest collapses, since this file exists to be looked at rather than
+    # aggregated: a shallow sweep has no recovery worth plotting.
+    depth = sorted(sweeps, key=lambda s: -(s["size_consumed"] or 0))[:cap]
+    ordered = sorted(depth, key=lambda s: s["ts"])
+
+    paired = set(with_column(paths, "book", "paired_ask"))
+    rows = []
+    for sweep in ordered:
+        at = parse_timestamp(sweep["ts"])
+        if at is None:
+            continue
+        window = query(paths, """
+            SELECT ts, asset_id, condition_id, best_bid, best_ask, mid,
+                   size_at_001, size_at_002, size_at_003, size_at_005,
+                   depth_bid_total, n_bid_levels
+            FROM book WHERE asset_id = ? AND ts >= ? AND ts <= ? ORDER BY ts
+        """, (sweep["asset_id"], iso_shift(sweep["ts"], -before_minutes),
+              iso_shift(sweep["ts"], after_minutes)))
+        twin = {}
+        for row in query(list(paired), """
+            SELECT ts, paired_bid, paired_ask, fair_mid, book_sum, paired_stale_seconds
+            FROM book WHERE asset_id = ? AND ts >= ? AND ts <= ?
+        """, (sweep["asset_id"], iso_shift(sweep["ts"], -before_minutes),
+              iso_shift(sweep["ts"], after_minutes))):
+            twin[row["ts"]] = row
+
+        taken = set()
+        for row in window:
+            stamp = parse_timestamp(row["ts"])
+            if stamp is None:
+                continue
+            offset = (stamp - at).total_seconds()
+            bucket = int(offset // every_seconds)
+            if bucket in taken:
+                continue
+            taken.add(bucket)
+            other = twin.get(row["ts"])
+            ask = other["paired_ask"] if other else None
+            rows.append({
+                "sweep_id": sweep["sweep_id"] if "sweep_id" in sweep.keys() else None,
+                "ts": row["ts"], "seconds_from_sweep": round(offset, 1),
+                "asset_id": row["asset_id"], "condition_id": row["condition_id"],
+                "sport": sweep["sport"],
+                "best_bid": row["best_bid"], "best_ask": row["best_ask"],
+                "mid": row["mid"],
+                "size_at_001": row["size_at_001"], "size_at_002": row["size_at_002"],
+                "size_at_003": row["size_at_003"], "size_at_005": row["size_at_005"],
+                "depth_bid_total": row["depth_bid_total"],
+                "n_bid_levels": row["n_bid_levels"],
+                "paired_bid": other["paired_bid"] if other else None,
+                "paired_ask": ask,
+                # The one derived value in the bundle, and derived on purpose:
+                # storing it per book row would add a column to the largest
+                # table in the collection to save a subtraction.
+                "fair_lower_bound": None if ask is None else round(1 - ask, 6),
+                "fair_mid": other["fair_mid"] if other else None,
+                "book_sum": other["book_sum"] if other else None,
+                "paired_stale_seconds": other["paired_stale_seconds"] if other else None,
+            })
     return rows
 
 
@@ -290,6 +661,9 @@ def main():
                         help="ignore collapses that ate less size than this")
     parser.add_argument("--max-sweeps", type=int, default=5000,
                         help="cap on how many sweeps get the expensive context")
+    parser.add_argument("--series-sweeps", type=int, default=300,
+                        help="how many of the deepest sweeps get a book time series;"
+                             " 0 leaves book-series.csv out")
     args = parser.parse_args()
 
     paths = databases(args.db, args.since)
@@ -323,17 +697,15 @@ def main():
     starts = game_starts(paths)
     print(f"pricing {len(sweeps)} sweeps...", flush=True)
     sizes["sweeps.csv"] = write_csv(
-        os.path.join(args.out, "sweeps.csv"),
-        ["ts", "asset_id", "condition_id", "rule", "bid_before", "bid_after",
-         "size_consumed", "levels_crossed", "depth_before", "depth_after",
-         "prior_size_at_001", "prior_size_at_002", "prior_size_at_003", "prior_size_at_005",
-         "prior_depth_bid_total", "prior_n_bid_levels",
-         "ggbet_fair", "dislocation_ratio", "seconds_since_ggbet_quote", "ggbet_market_state",
-         "high_1m", "high_5m", "high_15m", "sport", "market_level", "kind", "question",
-         # Appended, never reordered: something downstream reads these by index.
-         "sweep_id", "resolved_before_1m", "resolved_before_5m", "resolved_before_15m",
-         "minutes_from_game_start"],
+        os.path.join(args.out, "sweeps.csv"), SWEEP_COLUMNS,
         sweep_context(paths, sweeps, starts))
+
+    if args.series_sweeps:
+        print(f"building the book series around the {args.series_sweeps} deepest"
+              f" sweeps...", flush=True)
+        sizes["book-series.csv"] = write_csv(
+            os.path.join(args.out, "book-series.csv"), BOOK_SERIES_COLUMNS,
+            book_series(paths, sweeps, cap=args.series_sweeps))
 
     print("reading markets, fills, coverage...", flush=True)
     markets = query(paths, """
@@ -511,6 +883,11 @@ def main():
 
     rules = Counter(r["rule"] for r in sweeps)
     swept = [r["bid_after"] for r in sweeps if r["bid_after"] is not None]
+    # Built from what is on disk and from the header that was just written, not
+    # from a list kept alongside. The old template described a bundle two
+    # schemas out of date: it named a file the export does not write, listed
+    # another twice, and called the dead gg.bet ratio "the central metric".
+    contents = bundle_contents(args.out)
     with open(os.path.join(args.out, "README.md"), "w", encoding="utf-8") as handle:
         handle.write(DESCRIPTION.format(
             days=len(paths), files=", ".join(os.path.basename(p) for p in paths),
@@ -519,6 +896,11 @@ def main():
             median_after=f"{statistics.median(swept):.3f}" if swept else "n/a",
             span=span, significant=sum(row[1] for row in strata),
             strata=", ".join(f"{row[0]}: {row[2]}/{row[1]}" for row in strata) or "none",
+            contents=contents,
+            sweep_columns=column_guide(SWEEP_COLUMNS, SWEEP_NOTES),
+            fill_columns=column_guide(header_of(args.out, "fill-context.csv"), FILL_NOTES),
+            series_columns=column_guide(header_of(args.out, "book-series.csv"),
+                                        BOOK_SERIES_NOTES),
         ))
 
     # The wallet half of the bundle depends on files produced by other steps.
@@ -565,81 +947,58 @@ Collected by the repository this file came from. {days} day-file(s): {files}.
 
 Sweeps in this extract span {span}. That is the range of the *sample*; see
 `sweeps-strata.csv` for how many significant sweeps each day actually held.
+Sample per day (exported/significant): {strata}
 
 The raw store is a few gigabytes, almost all of it order-book snapshots. This
 extract keeps what analysis needs and drops the bulk.
 
 ## What is here
 
-| File | Contents |
-|---|---|
-| `report.txt` | output of `analyze.py`, the four headline questions |
-| `sweeps.csv` | detected book collapses, with context ({sweeps} rows sampled from {significant} significant) |
-| `sweeps-strata.csv` | how many significant sweeps each day held, and how many are here |
-| `markets.csv` | market registry: question, discipline, level, kind, segment, and the subscription window ({markets} rows) |
-| `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
-| `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
-| `fill-context.csv` | the book on either side of each wallet fill — the ground truth |
-| `coverage.csv` | heartbeats per asset per hour, with the seconds nobody saw ({coverage_hours} rows) |
-| `gaps.csv` | websocket disconnects ({gaps} rows) |
-| `universe.csv` | every market considered, and why it was or was not subscribed |
-| `target-fills.csv` | fills by the wallets under study in THIS collection, tagged maker or taker |
-| `target-fills-prior.csv` | an earlier fills export, if one was in the project root — this is what `fills-report.txt` and the resolutions were built from |
-| `pm-resolutions.csv` | which outcome won each market, and its metadata |
-| `fills-report.txt` | position-level PnL: cost, revenue and exit mode per position |
-| `pm-position-gaps.csv` | positions whose trade history is incomplete |
-| `mapping.csv` | Polymarket market to gg.bet market correspondence |
-| `pm.config.json` | thresholds and the subscription window the collection ran with |
+{contents}
 
 ## How to read sweeps.csv
 
-One row per detected collapse of the bid side.
+One row per detected collapse of the bid side: {sweeps} rows, sampled from
+{significant} that passed the significance filter. Median `bid_after`:
+{median_after}. Rule counts: {rules}
 
-- `rule` — which detector fired: `bid_drop`, `levels`, `depth_collapse`, or a
-  combination. Thresholds are in `pm.config.json`.
-- `bid_before` / `bid_after` — best bid across the update. Median `bid_after`
-  in this extract: {median_after}.
-- `prior_size_at_00X` — resting bid size at 1, 2, 3 and 5 cents in the last
-  snapshot *before* the sweep. This is the capacity question: how much of
-  someone else's money already stands in the queue.
-- `ggbet_fair` — de-vigged probability from gg.bet for the same question,
-  taken from the newest quote at or before the sweep.
-- `dislocation_ratio` — `ggbet_fair / pm_mid`. The central metric.
-- `seconds_since_ggbet_quote` — age of that fair value. gg.bet writes only on
-  a price change, so a large number means the fair is stale and the
-  dislocation may be an artefact rather than an opportunity.
-- `high_1m` / `high_5m` / `high_15m` — highest best bid after the sweep, the
-  exit side of the payoff. Recorded live by the collector where it was running,
-  and computed from the stored snapshots otherwise.
-- `resolved_before_1m` / `_5m` / `_15m` — 1 when the market resolved before that
-  horizon was up. The `high_*` beside it is then the payout, not a bid: without
-  this flag a settled market and a market nobody bid in look the same.
-- `minutes_from_game_start` — minutes from the first point of the match,
-  negative before it started.
+The columns below are read off the file this run wrote, not off a description
+kept beside it. A column that exists and is not explained here says so in its
+own row.
 
-Sample per day (exported/significant): {strata}
+{sweep_columns}
+
+### The three groups that matter
+
+- **The capacity question** — `prior_size_at_00X`, `prior_depth_bid_total`.
+  How much of someone else's money already stands in the queue at the price
+  the strategy bids at.
+- **The value question** — `fair_lower_bound`, `paired_ask_size`, `book_sum`,
+  `paired_stale_seconds`. Whether the token was left below what the other half
+  of its own market says it is worth, how much size backs that claim, and
+  whether the book making it was live. `book_sum` near zero voids the rest of
+  the row: both sides were empty.
+- **The outcome question** — `high_*`, `resolved_before_*`, `book_frozen`. What
+  the bid did next, and whether there was a market left for it to do it in.
+  A frozen book and a book nobody bid into look identical without that flag.
+
+## How to read book-series.csv
+
+The same quantities as `sweeps.csv`, as a series rather than a single instant:
+one snapshot every thirty seconds from five minutes before each collapse to
+fifteen minutes after. A row of `sweeps.csv` cannot show a recovery taking
+shape; this can. Only the deepest few hundred sweeps get one, because the book
+table is heartbeated every five seconds per token and a full export of it is
+the thing this bundle exists to avoid.
+
+{series_columns}
 
 ## How to read fill-context.csv
 
-One row per fill by a studied wallet, assembled from the stored snapshots.
+One row per fill by a studied wallet, assembled from the stored snapshots after
+the horizons around it had passed.
 
-- `bid_t_minus_60` / `_10` / `_1` — the best bid a minute, ten seconds and a
-  second before the fill. Empty when no snapshot that close exists, rather than
-  filled in from an older one.
-- `size_at_002_before`, `depth_before` — what was already resting in the queue
-  the fill joined.
-- `paired_bid_before`, `fair_lower_bound_before`, `book_sum_before` — the other
-  outcome token at that moment. The floor is `1 - paired_ask`: a fill at 0.02
-  against a floor of 0.15 is a dislocation derived from resting orders.
-- `bid_plus_60` / `_300` / `_900` — where the bid was one, five and fifteen
-  minutes later.
-- `matched_sweep_id` — a sweep on the same token within two minutes before the
-  fill, if there was one. Joins to `sweeps.csv`.
-- `fill_index` — which fill this is within the position, counting the same side
-  only, so the fourth buy is 4 whatever the sells did.
-- `snapshot_available` — **read this first.** 0 means the market was not being
-  watched, so every empty column above says nothing. 1 with empty columns means
-  the book really was empty.
+{fill_columns}
 
 ## How to read markets.csv
 
@@ -653,17 +1012,21 @@ One row per fill by a studied wallet, assembled from the stored snapshots.
   This is the self-check: rows with 0 were never watched in play, and nothing
   measured on them describes what happened during the match.
 
-Rule counts in this extract: {rules}
-
 ## Caveats that matter
 
 - A book *swept* to two cents and a book *resting* at two cents are different
   events; only the first is an opportunity, and `report.txt` reports them
   separately.
-- `ggbet_fair` is null wherever the market could not be matched to gg.bet.
-  Matching is fuzzy (team names plus a time window plus the same question at
-  the same segment) and `mapping.csv` is hand-correctable; a row with
-  `verified=1` was confirmed by a person.
+- `fair_lower_bound` is a bound, not a price. It says the token cannot be worth
+  less than that if the twin's ask is real; it does not say anyone will pay it.
+  `paired_ask_size` is how seriously to take it.
+- `ggbet_fair` and `dislocation_ratio` are null wherever the market could not be
+  matched to gg.bet, which is the great majority of rows. They are kept for
+  continuity with earlier extracts; the twin-token columns answer the same
+  question without an external feed.
+- `resolved_before_*` is filled from resolutions the collector learned about,
+  and the CLOB reports those late. A market that settled during the horizon can
+  still read 0. `book_frozen` is the signal that does not depend on that.
 - Tick size is per market: mostly 0.01, sometimes 0.001. A three-tick move is
   not a fixed number of cents.
 - Coverage is counted from heartbeats. Hours with fewer than expected are
@@ -674,9 +1037,9 @@ Rule counts in this extract: {rules}
 - A position with no buys means its purchases happened before collection
   started. Its size is a lower bound, and it is listed in
   `pm-position-gaps.csv` rather than silently averaged in.
-- `universe.csv` is what separates "the bot never traded here" from "the logger
-  never looked here". It only runs forward: markets seen before the journal
-  existed are not in it, so a sample drawn from before that point still
+- `universe-summary.csv` is what separates "the bot never traded here" from "the
+  logger never looked here". It only runs forward: markets seen before the
+  journal existed are not in it, so a sample drawn from before that point still
   describes a slice of unknown origin.
 """
 
